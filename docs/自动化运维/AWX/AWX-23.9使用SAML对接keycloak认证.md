@@ -15,7 +15,6 @@ openssl req -new -x509 -days 3650 -nodes -out saml_3650.crt -keyout saml_3650.ke
 这个命令提示一路回车不用管，SSL 证书直接申请 10 年。输出如下：
 
 ```
-4895664@boc-PC:~$ openssl req -new -x509 -days 3650 -nodes -out saml_3650.crt -keyout saml_3650.key
 Generating a RSA private key
 ........+++++
 ....................................+++++
