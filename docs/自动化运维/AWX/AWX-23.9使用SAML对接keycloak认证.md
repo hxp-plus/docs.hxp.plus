@@ -122,7 +122,7 @@ sed ':a;N;$!ba;s/\n//g' saml_3650.crt
 9. SAML Security Config 、 SAML Organization Attribute Mapping 、 SAML Team Attribute Mapping 、 SAML User Flags Attribute Mapping 均为 `{}`
 10. SAML Service Provider extra configuration data 、 SAML IDP to extra_data attribute mapping 、 SAML Team Map 均为 `null`
 
-## keycloak 配置
+## Keycloak 配置
 
 接下来以 Keycloak 11 为例，Keycloak 24 不一样的地方特殊说明。首先需要在 AWX 上访问这里的 URL，获取 keycloak 配置：
 ![](images/Pasted%20image%2020240306174116.png)
