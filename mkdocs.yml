@@ -1,0 +1,8 @@
+site_name: My Docs
+site_url: "https://docs.hxp.plus"
+site_author: 胡喜平
+repo_url: https://github.com/hxp-plus/docs.hxp.plus.git
+repo_name: docs.hxp.plus
+
+theme:
+  name: material
