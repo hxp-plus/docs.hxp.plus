@@ -50,6 +50,9 @@ nav:
       - "AWX增加并使用token": 自动化运维/AWX/AWX增加并使用token.md
       - "AWX设置SAML认证用户为管理员": 自动化运维/AWX/AWX设置SAML认证用户为管理员.md
       - "Keycloak部署及负载配置": 自动化运维/AWX/Keycloak部署及负载配置.md
+  - Git使用:
+      - "Git中文乱码问题解决": Git使用/Git中文乱码问题解决.md
+      - "Git服务器搭建": Git使用/Git服务器搭建.md
   - 文档分类: tags.md
 
 plugins:
