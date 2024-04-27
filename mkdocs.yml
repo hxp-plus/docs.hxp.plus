@@ -34,9 +34,17 @@ nav:
           - "安装traefik ingress controller": 容器技术/Kubernetes/安装traefik ingress controller.md
           - "安装helm包管理器": 容器技术/Kubernetes/安装helm包管理器.md
           - "安装metrics-server": 容器技术/Kubernetes/安装metrics-server.md
+          - "配置私有镜像仓库凭证": 容器技术/Kubernetes/配置私有镜像仓库凭证.md
+          - "禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略": 容器技术/Kubernetes/禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略.md
+          - "local-path-provisioner安装": 容器技术/Kubernetes/local-path-provisioner安装.md
   - 存储技术:
       - "Ceph":
           - "银河麒麟V10安装Ceph": 存储技术/Ceph/银河麒麟V10安装Ceph.md
+  - 自动化运维:
+    - "AWX":
+      - "AWX和stolon高可用调优": 自动化运维/AWX/AWX和stolon高可用调优.md
+      - "使用stolon安装高可用PostgreSQL": 自动化运维/AWX/使用stolon安装高可用PostgreSQL.md
+      - "安装AWX-23.7": 自动化运维/AWX/安装AWX-23.7.md
   - 文档分类: tags.md
 
 plugins:
