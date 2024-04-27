@@ -5,70 +5,76 @@ repo_url: https://github.com/hxp-plus/docs.hxp.plus.git
 repo_name: docs.hxp.plus
 
 theme:
-    name: material
-    language: zh
-    font: false
-    palette:
-        primary: "indigo"
-    features:
-        - navigation.tracking
-        - navigation.tabs
-        - navigation.tabs.sticky
-        - navigation.expand
-        - navigation.top
-        - navigation.footer
-        - navigation.prune
-        - search.suggest
-        - search.highlight
-        - search.share
-        - header.autohide
-        - toc.follow
-        - content.code.copy
+  name: material
+  language: zh
+  font: false
+  palette:
+    primary: "indigo"
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - navigation.prune
+    - search.suggest
+    - search.highlight
+    - search.share
+    - header.autohide
+    - toc.follow
+    - content.code.copy
 
 nav:
-    - 首页: index.md
-    - 容器技术:
-          - "Kubernetes":
-                - "麒麟V10安装Kubernetes集群": 容器技术/Kubernetes/麒麟V10安装Kubernetes集群.md
-                - "Kubernetes对接CephFS存储": 容器技术/Kubernetes/Kubernetes对接CephFS存储.md
-                - "安装traefik ingress controller": 容器技术/Kubernetes/安装traefik ingress controller.md
-    - 文档分类: tags.md
+  - 首页: index.md
+  - 容器技术:
+      - "Kubernetes":
+          - "银河麒麟V10安装Kubernetes": 容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md
+          - "对接CephFS存储": 容器技术/Kubernetes/对接CephFS存储.md
+          - "安装traefik ingress controller": 容器技术/Kubernetes/安装traefik ingress controller.md
+          - "安装helm包管理器": 容器技术/Kubernetes/安装helm包管理器.md
+          - "安装metrics-server": 容器技术/Kubernetes/安装metrics-server.md
+  - 存储技术:
+      - "Ceph":
+          - "银河麒麟V10安装Ceph": 存储技术/Ceph/银河麒麟V10安装Ceph.md
+  - 文档分类: tags.md
 
 plugins:
-    - search:
-    - privacy:
-    - offline:
-    - git-revision-date-localized:
-          enable_creation_date: true
-    - tags:
-          tags_file: tags.md
+  - search:
+  - open-in-new-tab:
+  - privacy:
+  - offline:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - tags:
+      tags_file: tags.md
 
 markdown_extensions:
-    - attr_list:
-    - abbr:
-    - admonition:
-    - pymdownx.caret:
-    - pymdownx.critic:
-    - pymdownx.details:
-    - pymdownx.extra:
-    - pymdownx.highlight:
-          anchor_linenums: true
-          line_spans: __span
-          pygments_lang_class: true
-    - pymdownx.inlinehilite:
-    - pymdownx.keys:
-    - pymdownx.mark:
-    - pymdownx.magiclink:
-    - pymdownx.progressbar:
-    - pymdownx.smartsymbols:
-    - pymdownx.snippets:
-    - pymdownx.superfences:
-          custom_fences:
-              - name: mermaid
-                class: mermaid
-                format: !!python/name:pymdownx.superfences.fence_code_format
-    - pymdownx.tilde:
-    - pymdownx.tasklist:
-    - pymdownx.tabbed:
-    - toc:
-          permalink: true
+  - attr_list:
+  - abbr:
+  - admonition:
+  - pymdownx.caret:
+  - pymdownx.critic:
+  - pymdownx.details:
+  - pymdownx.extra:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite:
+  - pymdownx.keys:
+  - pymdownx.mark:
+  - pymdownx.magiclink:
+  - pymdownx.progressbar:
+  - pymdownx.smartsymbols:
+  - pymdownx.snippets:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tilde:
+  - pymdownx.tasklist:
+  - pymdownx.tabbed:
+  - toc:
+      permalink: true
