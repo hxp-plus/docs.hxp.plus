@@ -42,17 +42,20 @@ nav:
       - "Ceph":
           - "银河麒麟V10安装Ceph": 存储技术/Ceph/银河麒麟V10安装Ceph.md
   - 自动化运维:
-    - "AWX":
-      - "AWX和stolon高可用调优": 自动化运维/AWX/AWX和stolon高可用调优.md
-      - "使用stolon安装高可用PostgreSQL": 自动化运维/AWX/使用stolon安装高可用PostgreSQL.md
-      - "安装AWX-23.7": 自动化运维/AWX/安装AWX-23.7.md
-      - "AWX-23.9使用SAML对接keycloak认证": 自动化运维/AWX/AWX-23.9使用SAML对接keycloak认证.md
-      - "AWX增加并使用token": 自动化运维/AWX/AWX增加并使用token.md
-      - "AWX设置SAML认证用户为管理员": 自动化运维/AWX/AWX设置SAML认证用户为管理员.md
-      - "Keycloak部署及负载配置": 自动化运维/AWX/Keycloak部署及负载配置.md
+      - "AWX":
+          - "AWX和stolon高可用调优": 自动化运维/AWX/AWX和stolon高可用调优.md
+          - "使用stolon安装高可用PostgreSQL": 自动化运维/AWX/使用stolon安装高可用PostgreSQL.md
+          - "安装AWX-23.7": 自动化运维/AWX/安装AWX-23.7.md
+          - "AWX-23.9使用SAML对接keycloak认证": 自动化运维/AWX/AWX-23.9使用SAML对接keycloak认证.md
+          - "AWX增加并使用token": 自动化运维/AWX/AWX增加并使用token.md
+          - "AWX设置SAML认证用户为管理员": 自动化运维/AWX/AWX设置SAML认证用户为管理员.md
+          - "Keycloak部署及负载配置": 自动化运维/AWX/Keycloak部署及负载配置.md
   - Git使用:
       - "Git中文乱码问题解决": Git使用/Git中文乱码问题解决.md
       - "Git服务器搭建": Git使用/Git服务器搭建.md
+  - 折腾Linux:
+      - "Gentoo":
+          - "在QEMU环境安装Gentoo": 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
   - 文档分类: tags.md
 
 plugins:
@@ -85,10 +88,6 @@ markdown_extensions:
   - pymdownx.smartsymbols:
   - pymdownx.snippets:
   - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tilde:
   - pymdownx.tasklist:
   - pymdownx.tabbed:
