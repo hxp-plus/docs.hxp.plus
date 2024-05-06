@@ -461,3 +461,5 @@ reboot
 <https://wiki.gentoo.org/wiki/Handbook:AMD64>
 
 <https://wiki.gentoo.org/wiki/QEMU/Linux_guest#Kernel>
+
+<https://wiki.gentoo.org/wiki/Kernel/Configuration>
