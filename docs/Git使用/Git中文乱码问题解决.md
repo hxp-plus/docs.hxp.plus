@@ -5,7 +5,7 @@ tags:
 
 默认配置下 Git 如果有中文文件会有乱码：
 
-```bash
+```
 $ git status
 位于分支 master
 您的分支与上游分支 'origin/master' 一致。
