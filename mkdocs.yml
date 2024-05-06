@@ -53,6 +53,7 @@ nav:
   - Git使用:
       - "Git中文乱码问题解决": Git使用/Git中文乱码问题解决.md
       - "Git服务器搭建": Git使用/Git服务器搭建.md
+      - "GitHub默认头像获取": Git使用/GitHub默认头像获取.md
   - 折腾Linux:
       - "Gentoo":
           - "在QEMU环境安装Gentoo": 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
