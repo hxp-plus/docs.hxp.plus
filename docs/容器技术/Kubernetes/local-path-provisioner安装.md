@@ -4,6 +4,8 @@ tags:
   - local-path-provisioner
 ---
 
+# local-path-provisioner 安装
+
 ## 创建 kubernetes 相关资源
 
 下载 yaml 文件并应用：

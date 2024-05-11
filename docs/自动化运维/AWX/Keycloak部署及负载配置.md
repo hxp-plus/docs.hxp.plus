@@ -1,3 +1,11 @@
+---
+tags:
+  - Kubernetes
+  - Keycloak
+---
+
+# Keycloak 部署及负载配置
+
 ## 部署 MySQL 数据库
 
 新建一套 MySQL-8 数据库，新建用户 keycloak 和数据库 keycloak，然后测试其连接性：

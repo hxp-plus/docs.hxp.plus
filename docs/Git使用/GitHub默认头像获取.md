@@ -3,6 +3,8 @@ tags:
   - GitHub
 ---
 
+# GitHub 默认头像获取
+
 ## 获取 GitHub 默认初始头像
 
 获取 GitHub 默认初始头像，需要访问默认的头像地址：<https://github.com/identicons/hxp-plus.png> （将 hxp-plus 修改为 GitHub 用户名）

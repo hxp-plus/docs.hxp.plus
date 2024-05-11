@@ -4,6 +4,8 @@ tags:
   - 银河麒麟V10
 ---
 
+# 银河麒麟 V10 安装 Kubernetes
+
 ## 系统架构
 
 本次安装的 K8S 仅有 3 个 master 节点，其中 1 节点和 3 节点额外 HAProxy 和 Keepalived 做 apiserver 高可用，各个节点配置和用途如下：

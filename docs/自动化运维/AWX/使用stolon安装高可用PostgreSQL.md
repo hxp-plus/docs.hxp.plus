@@ -4,6 +4,8 @@ tags:
   - PostgreSQL
 ---
 
+# 使用 stolon 安装高可用 PostgreSQL
+
 ## 准备工作
 
 stolon 是一种安装在 kubernetes 的 PostgreSQL 数据库，因此需要一套完整的 k8s 集群，且必须有至少 1 个 StorageClass，推荐是 local-path-provisioner。

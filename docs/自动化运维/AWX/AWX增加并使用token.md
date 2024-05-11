@@ -3,6 +3,8 @@ tags:
   - AWX
 ---
 
+# AWX 增加并使用 token
+
 ## AWX 创建并使用 Token 方法
 
 访问 AWX 的 API Web 页面：<http://22.122.63.17/awx/api/v2/tokens/>，拉到最底下，点下“POST”，把返回的 token 记录下来。使用 token 的 shell 示例如下：

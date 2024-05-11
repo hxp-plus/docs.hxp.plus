@@ -6,9 +6,14 @@ hxp 的文档库
 
 参考：<https://squidfunk.github.io/mkdocs-material/reference/>
 
+## 构建容器镜像
+
+```bash
+podman build -t mkdocs .
+```
+
 ## 运行
 
 ```
-source venv/bin/activate
-mkdocs serve -a 0.0.0.0:8000
+podman run --rm -it -v ${PWD}:/docs -p8001:8000 mkdocs
 ```

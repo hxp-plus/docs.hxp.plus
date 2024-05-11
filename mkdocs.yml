@@ -6,6 +6,7 @@ repo_name: docs.hxp.plus
 
 theme:
   name: material
+  custom_dir: docs/overrides
   language: zh
   font: false
   palette:
@@ -68,7 +69,7 @@ plugins:
       enable_creation_date: true
   - tags:
       tags_file: tags.md
-
+  - print-site:
 markdown_extensions:
   - attr_list:
   - abbr:

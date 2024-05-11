@@ -4,6 +4,8 @@ tags:
   - metrics-server
 ---
 
+# 安装 metrics-server
+
 ## 准备工作
 
 ### 介质下载

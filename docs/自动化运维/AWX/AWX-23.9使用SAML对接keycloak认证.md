@@ -4,6 +4,8 @@ tags:
   - AWX
 ---
 
+# AWX-23.9 使用 SAML 对接 keycloak 认证
+
 ## 生成 SSL 证书
 
 在任意 Linux 执行以下命令生成 SSL 证书：

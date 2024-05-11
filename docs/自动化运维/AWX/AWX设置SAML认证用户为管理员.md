@@ -3,6 +3,8 @@ tags:
   - AWX
 ---
 
+# AWX 设置 SAML 认证用户为管理员
+
 ## AWX 创建 SAML 用户为管理员
 
 1. Keycloak 上，创建一个 role：awx_admin

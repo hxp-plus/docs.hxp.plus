@@ -4,6 +4,8 @@ tags:
   - traefik
 ---
 
+# 安装 traefik ingress controller
+
 ## 准备工作
 
 ### 介质下载

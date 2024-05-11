@@ -4,6 +4,8 @@ tags:
   - Linux
 ---
 
+# 在 QEMU 环境安装 Gentoo
+
 !!! note
 
     本次 Gentoo 安装将会安装在 BIOS 模式启动的 QEMU 虚拟机上，其中 init 方式选择传统的 openrc 而非 systemd 。
