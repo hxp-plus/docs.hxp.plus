@@ -15,7 +15,7 @@ tags:
 
 ## 构建容器镜像
 
-使用 ![openresty-keycloak-gateway](https://github.com/smyrgeorge/openresty-keycloak-gateway) 项目进行容器镜像的构建，其 Dockerfile 如下：
+使用 [openresty-keycloak-gateway](https://github.com/smyrgeorge/openresty-keycloak-gateway) 项目进行容器镜像的构建，其 Dockerfile 如下：
 
 ```Dockerfile
 FROM openresty/openresty:alpine-fat

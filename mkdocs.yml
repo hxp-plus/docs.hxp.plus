@@ -50,7 +50,6 @@ nav:
           - "AWX-23.9使用SAML对接keycloak认证": 运维开发/AWX/AWX-23.9使用SAML对接keycloak认证.md
           - "AWX增加并使用token": 运维开发/AWX/AWX增加并使用token.md
           - "AWX设置SAML认证用户为管理员": 运维开发/AWX/AWX设置SAML认证用户为管理员.md
-          - "Keycloak部署及负载配置": 运维开发/AWX/Keycloak部署及负载配置.md
       - "Keycloak":
           - "使用openresty容器为k8s的服务提供Keycloak认证服务": 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
           - "k8s集群Keycloak部署及负载配置": 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md

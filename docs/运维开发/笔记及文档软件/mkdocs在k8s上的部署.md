@@ -129,6 +129,10 @@ spec:
                 path: build.sh
         - name: mkdocs
           emptyDir:
+            
+            
+            
+            
             sizeLimit: 500Mi
 ```
 
