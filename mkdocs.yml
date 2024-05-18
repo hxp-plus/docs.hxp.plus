@@ -67,6 +67,8 @@ nav:
           - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
+      - RHEL6:
+          - 记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题: 折腾Linux/RHEL6/记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题.md
   - 文档分类: tags.md
 
 plugins:
