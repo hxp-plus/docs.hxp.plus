@@ -66,7 +66,7 @@ action $"Setting up Logical Volume Management:" /sbin/lvm vgchange -a ay --sysin
 action $"Setting up Logical Volume Management:" /sbin/lvm vgchange -a ay --sysinit
 ```
 
-问题的根本原因，猜测为 `yum update -y` 升级了 `/etc/rc.sysinit` 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 `/etc/rc.sysinit` 被更新加入了 `--ignoreskippedcluster` 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 `/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster` 报错信息为“参数--ignoreskippedcluster 未知”也印证了这一点。
+问题的根本原因，猜测为 `yum update -y` 升级了 `/etc/rc.sysinit` 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 `/etc/rc.sysinit` 被更新加入了 `--ignoreskippedcluster` 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 `/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster` 报错信息为“参数 --ignoreskippedcluster 未知”也印证了这一点。
 
 ## 参考文献
 
