@@ -5,6 +5,7 @@ RUN apk upgrade --update-cache -a
 RUN apk add --no-cache git
 COPY ./requirements.txt ./
 RUN pip install -r requirements.txt
+RUN git config --global --add safe.directory /docs
 
 WORKDIR /docs
 EXPOSE 8000

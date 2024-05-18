@@ -29,40 +29,43 @@ theme:
 nav:
   - 首页: index.md
   - 容器技术:
-      - "Kubernetes":
-          - "银河麒麟V10安装Kubernetes": 容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md
-          - "对接CephFS存储": 容器技术/Kubernetes/对接CephFS存储.md
-          - "安装traefik ingress controller": 容器技术/Kubernetes/安装traefik ingress controller.md
-          - "安装helm包管理器": 容器技术/Kubernetes/安装helm包管理器.md
-          - "安装metrics-server": 容器技术/Kubernetes/安装metrics-server.md
-          - "配置私有镜像仓库凭证": 容器技术/Kubernetes/配置私有镜像仓库凭证.md
-          - "禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略": 容器技术/Kubernetes/禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略.md
-          - "local-path-provisioner安装": 容器技术/Kubernetes/local-path-provisioner安装.md
-          - "扩容master节点": 容器技术/Kubernetes/扩容master节点.md
+      - Kubernetes:
+          - 银河麒麟V10安装Kubernetes: 容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md
+          - 对接CephFS存储: 容器技术/Kubernetes/对接CephFS存储.md
+          - 安装traefik ingress controller: 容器技术/Kubernetes/安装traefik ingress controller.md
+          - 安装helm包管理器: 容器技术/Kubernetes/安装helm包管理器.md
+          - 安装metrics-server: 容器技术/Kubernetes/安装metrics-server.md
+          - 配置私有镜像仓库凭证: 容器技术/Kubernetes/配置私有镜像仓库凭证.md
+          - 禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略: 容器技术/Kubernetes/禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略.md
+          - local-path-provisioner安装: 容器技术/Kubernetes/local-path-provisioner安装.md
+          - 扩容master节点: 容器技术/Kubernetes/扩容master节点.md
   - 存储技术:
-      - "Ceph":
-          - "银河麒麟V10安装Ceph": 存储技术/Ceph/银河麒麟V10安装Ceph.md
+      - Ceph:
+          - 银河麒麟V10安装Ceph: 存储技术/Ceph/银河麒麟V10安装Ceph.md
   - 运维开发:
-      - "AWX":
-          - "AWX和stolon高可用调优": 运维开发/AWX/AWX和stolon高可用调优.md
-          - "使用stolon安装高可用PostgreSQL": 运维开发/AWX/使用stolon安装高可用PostgreSQL.md
-          - "安装AWX-23.7": 运维开发/AWX/安装AWX-23.7.md
-          - "AWX-23.9使用SAML对接keycloak认证": 运维开发/AWX/AWX-23.9使用SAML对接keycloak认证.md
-          - "AWX增加并使用token": 运维开发/AWX/AWX增加并使用token.md
-          - "AWX设置SAML认证用户为管理员": 运维开发/AWX/AWX设置SAML认证用户为管理员.md
-      - "Keycloak":
-          - "使用openresty容器为k8s的服务提供Keycloak认证服务": 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
-          - "k8s集群Keycloak部署及负载配置": 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
-      - "笔记及文档软件":
-          - "思源笔记k8s部署": 运维开发/笔记及文档软件/思源笔记k8s部署.md
-          - "mkdocs在k8s上的部署": 运维开发/笔记及文档软件/mkdocs在k8s上的部署.md
-      - "Git使用":
-          - "Git中文乱码问题解决": 运维开发/Git使用/Git中文乱码问题解决.md
-          - "Git服务器搭建": 运维开发/Git使用/Git服务器搭建.md
-          - "GitHub默认头像获取": 运维开发/Git使用/GitHub默认头像获取.md
+      - AWX:
+          - AWX和stolon高可用调优: 运维开发/AWX/AWX和stolon高可用调优.md
+          - 使用stolon安装高可用PostgreSQL: 运维开发/AWX/使用stolon安装高可用PostgreSQL.md
+          - 安装AWX-23.7: 运维开发/AWX/安装AWX-23.7.md
+          - AWX-23.9使用SAML对接keycloak认证: 运维开发/AWX/AWX-23.9使用SAML对接keycloak认证.md
+          - AWX增加并使用token: 运维开发/AWX/AWX增加并使用token.md
+          - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
+      - Keycloak:
+          - 使用openresty容器为k8s的服务提供Keycloak认证服务: 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
+          - k8s集群Keycloak部署及负载配置: 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
+      - 笔记及文档软件:
+          - 思源笔记k8s部署: 运维开发/笔记及文档软件/思源笔记k8s部署.md
+          - mkdocs在k8s上的部署: 运维开发/笔记及文档软件/mkdocs在k8s上的部署.md
+      - Git使用:
+          - Git中文乱码问题解决: 运维开发/Git使用/Git中文乱码问题解决.md
+          - Git服务器搭建: 运维开发/Git使用/Git服务器搭建.md
+          - GitHub默认头像获取: 运维开发/Git使用/GitHub默认头像获取.md
+          - Git配置记住密码: 运维开发/Git使用/Git配置记住密码.md
   - 折腾Linux:
-      - "Gentoo":
-          - "在QEMU环境安装Gentoo": 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
+      - Gentoo:
+          - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
+      - Ubuntu:
+          - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
   - 文档分类: tags.md
 
 plugins:
