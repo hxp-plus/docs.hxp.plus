@@ -3885,7 +3885,46 @@ docs/
 <p>解决方法：</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#%e6%8a%98%e8%85%belinux-ubuntu-ubuntu%e5%ae%89%e8%a3%85hyper-v%e5%b7%a5%e5%85%b7-__codelineno-0-1"></a>sudo apt-get install &quot;linux-cloud-tools-$(uname -r)&quot;
 </span></code></pre></div>
-<p>这样就能安装 Hyper-V 的相关服务（需重启生效）。</p></section><h1 class='nav-section-title-end'>Ended: Ubuntu</h1><h1 class='nav-section-title-end'>Ended: 折腾Linux</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
+<p>这样就能安装 Hyper-V 的相关服务（需重启生效）。</p></section><h1 class='nav-section-title-end'>Ended: Ubuntu</h1>
+                        <h2 class='nav-section-title' id='section-rhel6'>
+                            RHEL6 <a class='headerlink' href='#section-rhel6' title='Permanent link'>↵</a>
+                        </h2>
+                        <section class="print-page" id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98"><h1 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-yum-update-jboss-vg">记某次误操作 yum update 后 jboss 应用无法启动及重启无法识别 vg 问题<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-yum-update-jboss-vg" title="Permanent link">&para;</a></h1>
+<h2 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_1">问题描述<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_1" title="Permanent link">&para;</a></h2>
+<p>在一次开启 kdump 的操作中，因为误操作导致执行了 <code>yum update -y</code> ，即使在中途被发现后按 Ctrl-C 退出，但是还是有部分软件包被升级。误操作当时，内核和 java 等组件被升级，且当晚进行了修改 grub 的操作使得重启后依旧进入旧内核。</p>
+<p>但是后续发现 jboss 在重启后，jboss 能启动但是 jboss 的应用无法启动，报错为国密证书无法加载。且在重启后报错找不到逻辑卷。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_2">问题解决过程<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_2" title="Permanent link">&para;</a></h2>
+<h3 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-jboss">jboss 应用无法启动<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-jboss" title="Permanent link">&para;</a></h3>
+<p>经过和正常节点的对比，jboss 无法启动可能是由于 java 被升级导致，进行了 java 的降级（降级需要将系统的 YUM 源修改到 RHEL6.4 的 YUM 源）：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-0-1"></a>yum install java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-0-2"></a>yum reinstall java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
+</span></code></pre></div>
+<p>经过 java 的降级后，jboss 应用无法启动问题被解决。</p>
+<h3 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-var-tmp">系统重启后报错 /var 目录和 /tmp 目录疑似损坏<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-var-tmp" title="Permanent link">&para;</a></h3>
+<p>后续又发现在重启后，由于 RHEL6 的 /etc/fstab 默认配置启动时 fsck ，fsck 报错 /var 和 /tmp 损坏。在系统进入 enmergency shell 后，输入 root 密码，首先尝试使用 <code>lvm lvs</code> 命令检查逻辑卷是否还在，发现报错：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-1-1"></a>File-based locking initialisation failed
+</span></code></pre></div>
+<p>查询文档得知，此报错是由于 <code>/var/lock/lvm</code> 目录无法写入导致。根本原因为在 emergency shell 中，根目录是以只读的方式挂载的，需要重新挂载为读写：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-2-1"></a>mount -o remount,rw /
+</span></code></pre></div>
+<p>之后发现 <code>lvs</code> 命令正常，但是所有逻辑卷都没有 activate ，且运行此命令可以 activate 所有逻辑卷：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-3-1"></a>vgchange -ay rootvg
+</span></code></pre></div>
+<p>之后排查文件系统损坏问题，尝试使用 <code>e2fsck</code> 命令修复文件系统：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-4-1"></a>e2fsck /dev/rootvg/lv_var
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-4-2"></a>e2fsck /dev/rootvg/lv_tmp
+</span></code></pre></div>
+<p>但是发现文件系统没有损坏。重启以后，故障没有恢复，依旧是找不到除了根目录和 swap 以外所有逻辑卷。经过仔细分析系统启动时挂载逻辑卷的原理为执行 <code>/etc/rc.sysinit</code> 脚本中有一句 vgchange 命令激活逻辑卷。猜测是此命令没有正确执行导致，因为进入 emergency shell 的现象就是 vg 没有激活，且根目录和 swap 被激活。仔细和正常的机器进行对比，得出解决方案如下：</p>
+<p>修改 /etc/rc.sysinit ，将：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-5-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster
+</span></code></pre></div>
+<p>修改为：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-__codelineno-6-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit
+</span></code></pre></div>
+<p>问题的根本原因，猜测为 <code>yum update -y</code> 升级了 <code>/etc/rc.sysinit</code> 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 <code>/etc/rc.sysinit</code> 被更新加入了 <code>--ignoreskippedcluster</code> 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 <code>/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster</code> 报错信息为“参数--ignoreskippedcluster 未知”也印证了这一点。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_3">参考文献<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_3" title="Permanent link">&para;</a></h2>
+<p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a>
+<a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p></section><h1 class='nav-section-title-end'>Ended: RHEL6</h1><h1 class='nav-section-title-end'>Ended: 折腾Linux</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
 <p>以下为所有文档的过滤标签:</p>
 <h2 id="tags-awx"><span class="md-tag">AWX</span><a class="headerlink" href="#tags-awx" title="Permanent link">&para;</a></h2>
 <ul>
@@ -3953,6 +3992,7 @@ docs/
 <h2 id="tags-linux"><span class="md-tag">Linux</span><a class="headerlink" href="#tags-linux" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%9c%a8qemu%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85gentoo">在QEMU环境安装Gentoo</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98">记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-ubuntu-ubuntu%e5%ae%89%e8%a3%85hyper-v%e5%b7%a5%e5%85%b7">Ubuntu安装Hyper-V工具</a></li>
 </ul>
 <h2 id="tags-nexus"><span class="md-tag">Nexus</span><a class="headerlink" href="#tags-nexus" title="Permanent link">&para;</a></h2>
@@ -3963,6 +4003,10 @@ docs/
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e5%92%8cstolon%e9%ab%98%e5%8f%af%e7%94%a8%e8%b0%83%e4%bc%98">AWX和stolon高可用调优</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e4%bd%bf%e7%94%a8stolon%e5%ae%89%e8%a3%85%e9%ab%98%e5%8f%af%e7%94%a8postgresql">使用stolon安装高可用PostgreSQL</a></li>
+</ul>
+<h2 id="tags-rhel6"><span class="md-tag">RHEL6</span><a class="headerlink" href="#tags-rhel6" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98">记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题</a></li>
 </ul>
 <h2 id="tags-ubuntu"><span class="md-tag">Ubuntu</span><a class="headerlink" href="#tags-ubuntu" title="Permanent link">&para;</a></h2>
 <ul>
