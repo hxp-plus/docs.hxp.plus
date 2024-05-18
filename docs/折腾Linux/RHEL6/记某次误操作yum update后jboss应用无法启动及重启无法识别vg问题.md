@@ -54,7 +54,7 @@ e2fsck /dev/rootvg/lv_tmp
 
 但是发现文件系统没有损坏。重启以后，故障没有恢复，依旧是找不到除了根目录和 swap 以外所有逻辑卷。经过仔细分析系统启动时挂载逻辑卷的原理为执行 `/etc/rc.sysinit` 脚本中有一句 vgchange 命令激活逻辑卷。猜测是此命令没有正确执行导致，因为进入 emergency shell 的现象就是 vg 没有激活，且根目录和 swap 被激活。仔细和正常的机器进行对比，得出解决方案如下：
 
-修改 /etc/rc.sysinit ，将：
+修改 `/etc/rc.sysinit` ，将：
 
 ```
 action $"Setting up Logical Volume Management:" /sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster
