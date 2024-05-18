@@ -71,4 +71,5 @@ action $"Setting up Logical Volume Management:" /sbin/lvm vgchange -a ay --sysin
 ## 参考文献
 
 <https://access.redhat.com/solutions/47028>
+
 <https://access.redhat.com/solutions/22545>
