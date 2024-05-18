@@ -1032,8 +1032,8 @@
 </span></code></pre></div>
 <p>问题的根本原因，猜测为 <code>yum update -y</code> 升级了 <code>/etc/rc.sysinit</code> 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 <code>/etc/rc.sysinit</code> 被更新加入了 <code>--ignoreskippedcluster</code> 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 <code>/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster</code> 报错信息为“参数--ignoreskippedcluster 未知”也印证了这一点。</p>
 <h2 id="_3">参考文献<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a>
-<a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p>
+<p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a></p>
+<p><a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p>
 
 
 

@@ -3923,8 +3923,8 @@ docs/
 </span></code></pre></div>
 <p>问题的根本原因，猜测为 <code>yum update -y</code> 升级了 <code>/etc/rc.sysinit</code> 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 <code>/etc/rc.sysinit</code> 被更新加入了 <code>--ignoreskippedcluster</code> 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 <code>/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster</code> 报错信息为“参数--ignoreskippedcluster 未知”也印证了这一点。</p>
 <h2 id="%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_3">参考文献<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98-_3" title="Permanent link">&para;</a></h2>
-<p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a>
-<a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p></section><h1 class='nav-section-title-end'>Ended: RHEL6</h1><h1 class='nav-section-title-end'>Ended: 折腾Linux</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
+<p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a></p>
+<p><a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p></section><h1 class='nav-section-title-end'>Ended: RHEL6</h1><h1 class='nav-section-title-end'>Ended: 折腾Linux</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
 <p>以下为所有文档的过滤标签:</p>
 <h2 id="tags-awx"><span class="md-tag">AWX</span><a class="headerlink" href="#tags-awx" title="Permanent link">&para;</a></h2>
 <ul>
