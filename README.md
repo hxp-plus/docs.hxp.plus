@@ -9,11 +9,11 @@ hxp 的文档库
 ## 构建容器镜像
 
 ```bash
-podman build -t mkdocs .
+docker build -t mkdocs .
 ```
 
 ## 运行
 
 ```
-podman run --rm -it -v ${PWD}:/docs -p8001:8000 mkdocs
+docker run --rm -it -v ${PWD}:/docs -p8001:8000 mkdocs
 ```

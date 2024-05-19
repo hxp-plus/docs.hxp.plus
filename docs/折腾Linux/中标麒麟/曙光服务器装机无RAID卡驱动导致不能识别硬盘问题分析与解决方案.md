@@ -46,7 +46,7 @@ unsquashfs squashfs.img
 Parallel unsquashfs: Using 8 processors
 1 inodes (16384 blocks) to write
 
-[==================================================================-] 16384/16384 100%
+[============================================================-] 16384/16384 100%
 
 created 1 files
 created 2 directories
@@ -152,7 +152,7 @@ mksquashfs squashfs-root/ squashfs.img.new -noappend -always-use-fragments
 ```
 Parallel mksquashfs: Using 8 processors
 Creating 4.0 filesystem on squashfs.img.new, block size 131072.
-[=================================================================|] 16384/16384 100%
+[============================================================|] 16384/16384 100%
 
 Exportable Squashfs 4.0 filesystem, gzip compressed, data block size 131072
     compressed data, compressed metadata, compressed fragments, compressed xattrs
