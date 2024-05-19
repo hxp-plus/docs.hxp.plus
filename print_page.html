@@ -2363,7 +2363,54 @@ docs/
 </span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-ceph-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85ceph-__codelineno-22-12"></a>    objects: 2 objects, 449 KiB
 </span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-ceph-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85ceph-__codelineno-22-13"></a>    usage:   80 MiB used, 96 GiB / 96 GiB avail
 </span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-ceph-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85ceph-__codelineno-22-14"></a>    pgs:     1 active+clean
-</span></code></pre></div></section><h1 class='nav-section-title-end'>Ended: Ceph</h1><h1 class='nav-section-title-end'>Ended: 存储技术</h1>
+</span></code></pre></div></section><h1 class='nav-section-title-end'>Ended: Ceph</h1>
+                        <h2 class='nav-section-title' id='section-zfs'>
+                            ZFS <a class='headerlink' href='#section-zfs' title='Permanent link'>↵</a>
+                        </h2>
+                        <section class="print-page" id="%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7"><h1 id="%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-truenas">TrueNAS 删除所有空快照<a class="headerlink" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-truenas" title="Permanent link">&para;</a></h1>
+<h2 id="%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-zfs">ZFS 列出所有快照<a class="headerlink" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-zfs" title="Permanent link">&para;</a></h2>
+<p>使用以下命令列出所有快照:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-0-1"></a>zfs list -t snap
+</span></code></pre></div>
+<p>该命令输出大致如下:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-1"></a>NAME                                   USED  AVAIL  REFER  MOUNTPOINT
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-2"></a>boot-pool/ROOT/24.04.0@pristine          8K      -   164M  -
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-3"></a>boot-pool/ROOT/24.04.0/conf@pristine     0B      -   140K  -
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-4"></a>boot-pool/ROOT/24.04.0/etc@pristine   1.06M      -  5.54M  -
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-5"></a>boot-pool/ROOT/24.04.0/opt@pristine      0B      -  74.1M  -
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-6"></a>boot-pool/ROOT/24.04.0/usr@pristine      0B      -  2.12G  -
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-7"></a>boot-pool/ROOT/24.04.0/var@pristine    716K      -  30.8M  -
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-8"></a>nas@auto-2023-10-28_20-00               80K      -   120K  -
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-9"></a>nas@auto-2023-10-28_21-00                0B      -   112K  -
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-10"></a>nas@auto-2023-10-28_22-00                0B      -   112K  -
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-11"></a>nas@auto-2023-10-28_23-00                0B      -   112K  -
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-12"></a>nas@auto-2023-10-29_00-00                0B      -   112K  -
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-13"></a>nas@auto-2023-10-29_01-00                0B      -   112K  -
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-14"></a>nas@auto-2023-10-29_02-00                0B      -   112K  -
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-15"></a>nas@auto-2023-10-29_03-00                0B      -   112K  -
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-16"></a>nas@auto-2023-10-29_04-00                0B      -   112K  -
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-17"></a>nas@auto-2023-10-29_05-00                0B      -   112K  -
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-18"></a>nas@auto-2023-10-29_06-00                0B      -   112K  -
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-19"></a>nas@auto-2023-10-29_07-00                0B      -   112K  -
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-1-20"></a>nas@auto-2023-10-29_08-00                0B      -   112K  -
+</span></code></pre></div>
+<h2 id="%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-0b">找出所有大小为 0B 的快照并删除<a class="headerlink" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-0b" title="Permanent link">&para;</a></h2>
+<p>使用以下脚本,用 awk 提取出大小为 0B 的快照,并输出 zfs 删除快照的命令:</p>
+<div class="admonition note">
+<p class="admonition-title">remove_empty_snapshots.sh</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-2-1"></a>#!/bin/bash
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-2-2"></a>snapshots=$(zfs list -t snap | awk &#39;$2==&quot;0B&quot;{print $1}&#39;)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-2-3"></a>while read -r line;do
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-2-4"></a>    echo zfs destroy $line
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-2-5"></a>done &lt;&lt;&lt; &quot;$snapshots&quot;
+</span></code></pre></div>
+</div>
+<p>将此脚本输出重定向到文件 <code>remove.sh</code> :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-3-1"></a>/bin/bash remove_empty_snapshots.sh &gt; remove.sh
+</span></code></pre></div>
+<p>在核对 <code>remove.sh</code> 内容后,运行 <code>remove.sh</code> :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7-__codelineno-4-1"></a>/bin/bash remove.sh
+</span></code></pre></div></section><h1 class='nav-section-title-end'>Ended: ZFS</h1><h1 class='nav-section-title-end'>Ended: 存储技术</h1>
                         <h1 class='nav-section-title' id='section-运维开发'>
                             运维开发 <a class='headerlink' href='#section-运维开发' title='Permanent link'>↵</a>
                         </h1>
@@ -4008,9 +4055,17 @@ docs/
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98">记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题</a></li>
 </ul>
+<h2 id="tags-truenas"><span class="md-tag">TrueNAS</span><a class="headerlink" href="#tags-truenas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7">TrueNAS删除所有空快照</a></li>
+</ul>
 <h2 id="tags-ubuntu"><span class="md-tag">Ubuntu</span><a class="headerlink" href="#tags-ubuntu" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-ubuntu-ubuntu%e5%ae%89%e8%a3%85hyper-v%e5%b7%a5%e5%85%b7">Ubuntu安装Hyper-V工具</a></li>
+</ul>
+<h2 id="tags-zfs"><span class="md-tag">ZFS</span><a class="headerlink" href="#tags-zfs" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7">TrueNAS删除所有空快照</a></li>
 </ul>
 <h2 id="tags-helm"><span class="md-tag">helm</span><a class="headerlink" href="#tags-helm" title="Permanent link">&para;</a></h2>
 <ul>

@@ -2,152 +2,157 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.hxp.plus/index.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.hxp.plus/%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/ZFS/TrueNAS%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E7%A9%BA%E5%BF%AB%E7%85%A7.html</loc>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/local-path-provisioner%E5%AE%89%E8%A3%85.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E5%AE%89%E8%A3%85helm%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E5%AE%89%E8%A3%85metrics-server.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E5%AE%89%E8%A3%85traefik%20ingress%20controller.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E5%AF%B9%E6%8E%A5CephFS%E5%AD%98%E5%82%A8.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E6%89%A9%E5%AE%B9master%E8%8A%82%E7%82%B9.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E7%A6%81%E7%94%A8%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%B9%B6%E9%85%8D%E7%BD%AE%E7%A3%81%E7%9B%98%E7%9B%B8%E5%85%B3%E5%AE%B9%E5%99%A8%E6%BC%82%E7%A7%BB%E7%AD%96%E7%95%A5.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%E5%87%AD%E8%AF%81.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/RHEL6/%E8%AE%B0%E6%9F%90%E6%AC%A1%E8%AF%AF%E6%93%8D%E4%BD%9Cyum%20update%E5%90%8Ejboss%E5%BA%94%E7%94%A8%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E5%8F%8A%E9%87%8D%E5%90%AF%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%ABvg%E9%97%AE%E9%A2%98.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/Ubuntu/Ubuntu%E5%AE%89%E8%A3%85Hyper-V%E5%B7%A5%E5%85%B7.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX-23.9%E4%BD%BF%E7%94%A8SAML%E5%AF%B9%E6%8E%A5keycloak%E8%AE%A4%E8%AF%81.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%A2%9E%E5%8A%A0%E5%B9%B6%E4%BD%BF%E7%94%A8token.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E8%AE%BE%E7%BD%AESAML%E8%AE%A4%E8%AF%81%E7%94%A8%E6%88%B7%E4%B8%BA%E7%AE%A1%E7%90%86%E5%91%98.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/%E4%BD%BF%E7%94%A8stolon%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8PostgreSQL.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/%E5%AE%89%E8%A3%85AWX-23.7.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/GitHub%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F%E8%8E%B7%E5%8F%96.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E9%85%8D%E7%BD%AE%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Keycloak/k8s%E9%9B%86%E7%BE%A4Keycloak%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%B4%9F%E8%BD%BD%E9%85%8D%E7%BD%AE.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Keycloak/%E4%BD%BF%E7%94%A8docker-compose%E6%90%AD%E5%BB%BAkeycloak%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Keycloak/%E4%BD%BF%E7%94%A8openresty%E5%AE%B9%E5%99%A8%E4%B8%BAk8s%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9BKeycloak%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/%E7%AC%94%E8%AE%B0%E5%8F%8A%E6%96%87%E6%A1%A3%E8%BD%AF%E4%BB%B6/mkdocs%E5%9C%A8k8s%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/%E7%AC%94%E8%AE%B0%E5%8F%8A%E6%96%87%E6%A1%A3%E8%BD%AF%E4%BB%B6/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0k8s%E9%83%A8%E7%BD%B2.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.hxp.plus/tags.html</loc>
-         <lastmod>2024-05-18</lastmod>
+         <lastmod>2024-05-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
