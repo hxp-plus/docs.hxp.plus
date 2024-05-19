@@ -14,7 +14,7 @@
 
 - 创建华中科技大学 Linux 社团，负责社团 Gentoo Linux 服务器建设。
 
-- 和校超算中心举办讲座 <https://ncc.hust.edu.cn/info/1080/2812.htm>
+- 和校超算中心举办讲座 <https://imo.hust.edu.cn/info/1353/4670.htm>
 
 ### 某大型国有银行 Ansible 堡垒机和 AWX 建设
 
