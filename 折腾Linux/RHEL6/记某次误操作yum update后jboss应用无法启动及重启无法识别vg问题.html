@@ -16,7 +16,7 @@
         <link rel="prev" href="../Ubuntu/Ubuntu%E5%AE%89%E8%A3%85Hyper-V%E5%B7%A5%E5%85%B7.html">
       
       
-        <link rel="next" href="../../tags.html">
+        <link rel="next" href="../%E4%B8%AD%E6%A0%87%E9%BA%92%E9%BA%9F/%E6%9B%99%E5%85%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A3%85%E6%9C%BA%E6%97%A0RAID%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%E7%A1%AC%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.html">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -852,6 +852,49 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../%E4%B8%AD%E6%A0%87%E9%BA%92%E9%BA%9F/%E6%9B%99%E5%85%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A3%85%E6%9C%BA%E6%97%A0RAID%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%E7%A1%AC%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.html" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    中标麒麟
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1005,31 +1048,33 @@
 <h2 id="_2">问题解决过程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="jboss">jboss 应用无法启动<a class="headerlink" href="#jboss" title="Permanent link">&para;</a></h3>
 <p>经过和正常节点的对比，jboss 无法启动可能是由于 java 被升级导致，进行了 java 的降级（降级需要将系统的 YUM 源修改到 RHEL6.4 的 YUM 源）：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>yum install java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>yum reinstall java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum install java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>yum reinstall java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
+</span></code></pre></div></td></tr></table></div>
 <p>经过 java 的降级后，jboss 应用无法启动问题被解决。</p>
 <h3 id="var-tmp">系统重启后报错 /var 目录和 /tmp 目录疑似损坏<a class="headerlink" href="#var-tmp" title="Permanent link">&para;</a></h3>
 <p>后续又发现在重启后，由于 RHEL6 的 /etc/fstab 默认配置启动时 fsck ，fsck 报错 /var 和 /tmp 损坏。在系统进入 enmergency shell 后，输入 root 密码，首先尝试使用 <code>lvm lvs</code> 命令检查逻辑卷是否还在，发现报错：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>File-based locking initialisation failed
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>File-based locking initialisation failed
+</span></code></pre></div></td></tr></table></div>
 <p>查询文档得知，此报错是由于 <code>/var/lock/lvm</code> 目录无法写入导致。根本原因为在 emergency shell 中，根目录是以只读的方式挂载的，需要重新挂载为读写：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mount -o remount,rw /
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mount -o remount,rw /
+</span></code></pre></div></td></tr></table></div>
 <p>之后发现 <code>lvs</code> 命令正常，但是所有逻辑卷都没有 activate ，且运行此命令可以 activate 所有逻辑卷：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>vgchange -ay rootvg
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>vgchange -ay rootvg
+</span></code></pre></div></td></tr></table></div>
 <p>之后排查文件系统损坏问题，尝试使用 <code>e2fsck</code> 命令修复文件系统：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>e2fsck /dev/rootvg/lv_var
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>e2fsck /dev/rootvg/lv_tmp
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>e2fsck /dev/rootvg/lv_var
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>e2fsck /dev/rootvg/lv_tmp
+</span></code></pre></div></td></tr></table></div>
 <p>但是发现文件系统没有损坏。重启以后，故障没有恢复，依旧是找不到除了根目录和 swap 以外所有逻辑卷。经过仔细分析系统启动时挂载逻辑卷的原理为执行 <code>/etc/rc.sysinit</code> 脚本中有一句 vgchange 命令激活逻辑卷。猜测是此命令没有正确执行导致，因为进入 emergency shell 的现象就是 vg 没有激活，且根目录和 swap 被激活。仔细和正常的机器进行对比，得出解决方案如下：</p>
 <p>修改 <code>/etc/rc.sysinit</code> ，将：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster
+</span></code></pre></div></td></tr></table></div>
 <p>修改为：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit
+</span></code></pre></div></td></tr></table></div>
 <p>问题的根本原因，猜测为 <code>yum update -y</code> 升级了 <code>/etc/rc.sysinit</code> 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 <code>/etc/rc.sysinit</code> 被更新加入了 <code>--ignoreskippedcluster</code> 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 <code>/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster</code> 报错信息为“参数 --ignoreskippedcluster 未知”也印证了这一点。</p>
 <h2 id="_3">参考文献<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a></p>
@@ -1119,13 +1164,13 @@
         
         
           
-          <a href="../../tags.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 文档分类">
+          <a href="../%E4%B8%AD%E6%A0%87%E9%BA%92%E9%BA%9F/%E6%9B%99%E5%85%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A3%85%E6%9C%BA%E6%97%A0RAID%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%E7%A1%AC%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                文档分类
+                曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案
               </div>
             </div>
             <div class="md-footer__button md-icon">

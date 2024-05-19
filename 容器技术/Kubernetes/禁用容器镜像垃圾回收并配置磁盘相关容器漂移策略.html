@@ -1116,51 +1116,65 @@
 <p><strong>还是不推荐不搭建一个镜像仓库，因为这种方法一旦容器的目录真的满了，必须人工上去 ctr 命令删除容器</strong></p>
 <h2 id="kubelet">修改 kubelet 配置<a class="headerlink" href="#kubelet" title="Permanent link">&para;</a></h2>
 <p>在<code>/var/lib/kubelet/config.yaml</code>中，配置 k8s 节点在容器临时文件存储低于 10% 时，赶走所有容器到其它节点，且容器镜像不使用 100 年后才清理：</p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">evictionHard</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">imagefs.available</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10%&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">nodefs.available</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5%&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">imageGCHighThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">imageGCLowThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">imageMinimumGCAge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">876000h</span>
-</span></code></pre></div>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">evictionHard</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="nt">imagefs.available</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10%&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="nt">nodefs.available</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5%&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nt">imageGCHighThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nt">imageGCLowThresholdPercent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nt">imageMinimumGCAge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">876000h</span>
+</span></code></pre></div></td></tr></table></div>
 <p>重启 kublet：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet.service
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet.service
+</span></code></pre></div></td></tr></table></div>
 <h2 id="varlibcontainerd-lv">将 /var/lib/containerd 单独挂载 lv，防止系统日志挤占容器空间<a class="headerlink" href="#varlibcontainerd-lv" title="Permanent link">&para;</a></h2>
 <h3 id="k8s_1">腾空一个 k8s 节点<a class="headerlink" href="#k8s_1" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>cordon<span class="w"> </span>z10bansk8scp02
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>kubectl<span class="w"> </span>drain<span class="w"> </span>z10bansk8scp02<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>kubectl<span class="w"> </span>cordon<span class="w"> </span>z10bansk8scp02
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>kubectl<span class="w"> </span>drain<span class="w"> </span>z10bansk8scp02<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
+</span></code></pre></div></td></tr></table></div>
 <h3 id="_2">清理数据<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>停止 kubelet：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>kubelet.service
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>kubelet.service
+</span></code></pre></div></td></tr></table></div>
 <p>删除所有容器：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>task<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>task<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>container<span class="w"> </span>delete<span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>task<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>task<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>container<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>container<span class="w"> </span>delete<span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
+</span></code></pre></div></td></tr></table></div>
 <p>删除容器镜像：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>--all
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>--all
+</span></code></pre></div></td></tr></table></div>
 <p>停止 containerd 并清理 containerd 目录：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>containerd
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/containerd/*
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>containerd
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/containerd/*
+</span></code></pre></div></td></tr></table></div>
 <p>将 containerd 镜像目录单独挂载 lv：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lvcreate<span class="w"> </span>-n<span class="w"> </span>lv_containerd<span class="w"> </span>-L<span class="w"> </span>30G<span class="w"> </span>rootvg
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>mkfs.xfs<span class="w"> </span>/dev/rootvg/lv_containerd
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/rootvg/lv_containerd /var/lib/containerd xfs defaults 0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>mount<span class="w"> </span>-a
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>lvcreate<span class="w"> </span>-n<span class="w"> </span>lv_containerd<span class="w"> </span>-L<span class="w"> </span>30G<span class="w"> </span>rootvg
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>mkfs.xfs<span class="w"> </span>/dev/rootvg/lv_containerd
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/rootvg/lv_containerd /var/lib/containerd xfs defaults 0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>mount<span class="w"> </span>-a
+</span></code></pre></div></td></tr></table></div>
 <p>启动 containerd 和 kubelet，并解除隔离状态：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet.service
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>kubectl<span class="w"> </span>uncordon<span class="w"> </span>z10bansk8scp02
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet.service
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>kubectl<span class="w"> </span>uncordon<span class="w"> </span>z10bansk8scp02
+</span></code></pre></div></td></tr></table></div>
 <h3 id="_3">重新导入容器镜像并检查：<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span><span class="nv">$i</span><span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="p">;</span><span class="k">done</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>images<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^sha256<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nl
-</span></code></pre></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>*<span class="p">;</span><span class="k">do</span><span class="w"> </span>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span><span class="nv">$i</span><span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="p">;</span><span class="k">done</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>ctr<span class="w"> </span>-n<span class="w"> </span>k8s.io<span class="w"> </span>images<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^sha256<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nl
+</span></code></pre></div></td></tr></table></div>
 <h2 id="_4">参考链接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p><a href="https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/">https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/</a></p>
 <p><a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/</a></p>

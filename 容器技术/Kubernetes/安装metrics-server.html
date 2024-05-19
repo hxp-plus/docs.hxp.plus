@@ -1048,55 +1048,81 @@
 <h2 id="_1">准备工作<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="_2">介质下载<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>需要使用以下命令下载 metrics-server 的 helm chart：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>helm pull metrics-server/metrics-server
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>helm pull metrics-server/metrics-server
+</span></code></pre></div></td></tr></table></div>
 <p>同时需要下载此 helm chart 所需的容器镜像，镜像名称用以下命令查看：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm install --dry-run metrics-server metrics-server-3.12.0.tgz | grep image:
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>helm install --dry-run metrics-server metrics-server-3.12.0.tgz | grep image:
+</span></code></pre></div></td></tr></table></div>
 <h2 id="helm-metrics-server">使用 helm 安装 metrics-server<a class="headerlink" href="#helm-metrics-server" title="Permanent link">&para;</a></h2>
 <p>在其中一个节点创建 metrics-server 的 namespace 并安装：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl create ns metrics-server
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>helm install --namespace metrics-server metrics-server metrics-server-3.11.0.tgz
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>kubectl create ns metrics-server
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>helm install --namespace metrics-server metrics-server metrics-server-3.11.0.tgz
+</span></code></pre></div></td></tr></table></div>
 <p>创建之后，修改 deployments 配置：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>kubectl -n metrics-server edit deployments.apps metrics-server
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>kubectl -n metrics-server edit deployments.apps metrics-server
+</span></code></pre></div></td></tr></table></div>
 <p>新增<code>- --kubelet-insecure-tls</code>配置，修改之后如下：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    spec:
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>      containers:
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>      - args:
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        - --secure-port=10250
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        - --cert-dir=/tmp
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        - --kubelet-use-node-status-port
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        - --metric-resolution=15s
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        - --kubelet-insecure-tls
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        image: registry.k8s.io/metrics-server/metrics-server:v0.6.4
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>    spec:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>      containers:
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>      - args:
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>        - --secure-port=10250
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>        - --cert-dir=/tmp
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a>        - --kubelet-use-node-status-port
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>        - --metric-resolution=15s
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>        - --kubelet-insecure-tls
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>        image: registry.k8s.io/metrics-server/metrics-server:v0.6.4
+</span></code></pre></div></td></tr></table></div>
 <p>修改之后轮询重启容器，并将容器修改为部署 3 个：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>kubectl -n metrics-server rollout restart deployment metrics-server
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>kubectl -n metrics-server scale --replicas 3 deployment metrics-server
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>kubectl -n metrics-server rollout restart deployment metrics-server
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>kubectl -n metrics-server scale --replicas 3 deployment metrics-server
+</span></code></pre></div></td></tr></table></div>
 <p>部署完成后检查资源状态：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>kubectl get all -n metrics-server
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>NAME                                  READY   STATUS    RESTARTS   AGE
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pod/metrics-server-55f78d9d6f-4r98q   1/1     Running   0          32s
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>pod/metrics-server-55f78d9d6f-68t2q   1/1     Running   0          32s
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>pod/metrics-server-55f78d9d6f-cktdd   1/1     Running   0          102s
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>service/metrics-server   ClusterIP   10.108.4.192   &lt;none&gt;        443/TCP   8m2s
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>deployment.apps/metrics-server   3/3     3            3           8m2s
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>NAME                                        DESIRED   CURRENT   READY   AGE
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>replicaset.apps/metrics-server-55f78d9d6f   3         3         3       102s
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>replicaset.apps/metrics-server-596d577f98   0         0         0       2m24s
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>replicaset.apps/metrics-server-5b76987ff    0         0         0       8m2s
-</span></code></pre></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>kubectl get all -n metrics-server
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>NAME                                  READY   STATUS    RESTARTS   AGE
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>pod/metrics-server-55f78d9d6f-4r98q   1/1     Running   0          32s
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>pod/metrics-server-55f78d9d6f-68t2q   1/1     Running   0          32s
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>pod/metrics-server-55f78d9d6f-cktdd   1/1     Running   0          102s
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a>service/metrics-server   ClusterIP   10.108.4.192   &lt;none&gt;        443/TCP   8m2s
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a>deployment.apps/metrics-server   3/3     3            3           8m2s
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>NAME                                        DESIRED   CURRENT   READY   AGE
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>replicaset.apps/metrics-server-55f78d9d6f   3         3         3       102s
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a>replicaset.apps/metrics-server-596d577f98   0         0         0       2m24s
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a>replicaset.apps/metrics-server-5b76987ff    0         0         0       8m2s
+</span></code></pre></div></td></tr></table></div>
 <p>之后执行<code>kubectl top pods -A</code>和<code>kubectl top nodes</code>，观察有无报错。</p>
 
 
