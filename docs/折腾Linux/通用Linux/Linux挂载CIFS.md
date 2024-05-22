@@ -23,7 +23,7 @@ chown root:root /etc/cifs-credentials
 在/etc/fstab 追加挂载项：
 
 ```
-//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,_netdev 0 0
+//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=1000,gid=1000,_netdev 0 0
 ```
 
 挂载：
