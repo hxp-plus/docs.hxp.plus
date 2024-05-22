@@ -5659,7 +5659,7 @@ integration%20with%20awx/</p>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>chown<span class="w"> </span>root:root<span class="w"> </span>/etc/cifs-credentials
 </span></code></pre></div></td></tr></table></div>
 <p>在/etc/fstab 追加挂载项：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e6%8c%82%e8%bd%bdcifs-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,_netdev 0 0
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e6%8c%82%e8%bd%bdcifs-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=1000,gid=1000,_netdev 0 0
 </span></code></pre></div></td></tr></table></div>
 <p>挂载：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e6%8c%82%e8%bd%bdcifs-__codelineno-3-1">1</a></span>
