@@ -153,15 +153,28 @@ sed ':a;N;$!ba;s/\n//g' saml_3650.crt
 ## 参考文献
 
 https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k
+
 https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings
+
 https://github.com/ansible/awx/issues/5570
+
 https://github.com/ansible/awx/issues/1016
+
 https://github.com/ansible/awx/issues/4814
+
 https://github.com/ansible/awx/issues/13226
+
 https://www.ansible.com/blog/red-hat-single-sign-on-integration-with-ansible-tower
+
 https://dev.to/iderr/connect-your-awxansible-tower-with-keycloak-using-oidc--4ekb
+
 https://josh-tracy.github.io/Ansible_Tower_RedHatSSO/
+
 https://github.com/getsentry/self-hosted/issues/1571
-https://rdeplatform.netlify.app/docs/single%20sign-on%20with%20keycloak/integration%20with%20awx/
+
+https://rdeplatform.netlify.app/docs/single%20sign-on%20with%20keycloak/
+integration%20with%20awx/
+
 https://number1.co.za/using-keycloak-as-the-identity-provider-for-awx/
+
 https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html
