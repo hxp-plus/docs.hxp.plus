@@ -1153,8 +1153,9 @@
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="s">EOF</span>
 </span></code></pre></div></td></tr></table></div>
 <p>下载到 <code>/mnt/kylin10-x86</code> ：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>dnf reposync -c kylin10-x86.repo -p /mnt/kylin10-x86 --repo ks10-adv-os,ks10-adv-updates
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>dnf reposync -c kylin10-x86.repo -p /mnt/kylin10-x86 --repo ks10-adv-os,ks10-adv-updates --arch=x86_64,noarch
 </span></code></pre></div></td></tr></table></div>
+<p>在下 x86 的 yum 源时推荐加 <code>--arch=x86_64,noarch</code> 防止下载到 32 位的包，如果是 arm 则需要加 <code>--arch=aarch64,noarch</code> 。</p>
 <h2 id="wget">使用 wget 下载<a class="headerlink" href="#wget" title="Permanent link">&para;</a></h2>
 <p>也可以使用 wget 递归下载一个 YUM 源：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>wget<span class="w"> </span>-np<span class="w"> </span>-P<span class="w"> </span>.<span class="w"> </span>-r<span class="w"> </span>-R<span class="w"> </span><span class="s2">&quot;index.html*&quot;</span><span class="w"> </span>--cut-dirs<span class="o">=</span><span class="m">6</span><span class="w"> </span>https://update.cs2c.com.cn/NS/V10/V10SP1.1/os/adv/lic/updates/
