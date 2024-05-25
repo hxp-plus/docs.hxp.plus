@@ -71,6 +71,8 @@ nav:
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
           - Linux挂载CIFS: 折腾Linux/通用Linux/Linux挂载CIFS.md
+          - Linux LVM踢PV: 折腾Linux/通用Linux/Linux LVM踢PV.md
+          - Linux将最后一个磁盘分区扩容到最大: 折腾Linux/通用Linux/Linux将最后一个磁盘分区扩容到最大.md
       - Gentoo:
           - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
       - Ubuntu:
