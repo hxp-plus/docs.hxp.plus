@@ -232,10 +232,10 @@ nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config 
 
 ```
 server.port=4000
-files.docservice.url.site=http://[Document Server IP地址]:8701/
+files.docservice.url.site=http://ubuntu.hxp.lan:8701/
 ```
 
-之后启动 Spring 后端，访问 <http://[后端服务器IP地址]:4000/> 测试 Spring 后端是否能正常运作。
+之后启动 Spring 后端，访问 <http://nuc.hxp.lan:4000/> 测试 Spring 后端是否能正常运作。（其中 ubuntu.hxp.lan 为 Document Server 的域名，而 nuc.hxp.lan 为后端 Spring 服务器域名，这两个域名可以使用 IP 地址代替）
 
 ## 参考资料
 
