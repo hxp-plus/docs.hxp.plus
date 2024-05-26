@@ -1039,6 +1039,9 @@
 </span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="k">CMD</span><span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;while true;do sleep 3600;done&#39;</span>
 </span></code></pre></div></td></tr></table></div>
 <p>即先构建一个编译镜像，然后把编译镜像里生成的有用的东西复制到第二个镜像，再构建第二个镜像。</p>
+<p>同时，编译完成以后，还需要清理 docker 的 overlay2 里的缓存等其它缓存：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>docker system prune -a
+</span></code></pre></div></td></tr></table></div>
 <h2 id="_1">参考链接<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.docker.com/build/building/multi-stage/">https://docs.docker.com/build/building/multi-stage/</a></p>
 
