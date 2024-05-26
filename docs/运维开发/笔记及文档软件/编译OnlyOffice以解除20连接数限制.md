@@ -186,8 +186,7 @@ sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO only
 数据铺底：
 
 ```
-psql -hlocalhost -Uonlyoffice -d onlyoffice -f /build/build_tools/out/linux_64/onlyoffice/documentserver/se
-rver/schema/postgresql/createdb.sql # 密码为 onlyoffice
+psql -hlocalhost -Uonlyoffice -d onlyoffice -f /build/build_tools/out/linux_64/onlyoffice/documentserver/server/schema/postgresql/createdb.sql # 密码为 onlyoffice
 ```
 
 ### 安装并启动 RabbitMQ
@@ -242,6 +241,129 @@ files.docservice.url.site=http://ubuntu.hxp.lan:8701/
 ```
 
 之后启动 Spring 后端，访问 <http://nuc.hxp.lan:4000/> 测试 Spring 后端是否能正常运作。（其中 ubuntu.hxp.lan 为 Document Server 的域名，而 nuc.hxp.lan 为后端 Spring 服务器域名，这两个域名可以使用 IP 地址代替）
+
+## 打包容器镜像
+
+将以上所有操作做成容器镜像，新建 Dockerfile ：
+
+```
+FROM ubuntu:20.04
+
+ENV TZ=Etc/UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get -y update && \
+    apt-get -y install python2 \
+                       python3 \
+                       sudo \
+                       git \
+                       postgresql \
+                       rabbitmq-server \
+                       nginx
+RUN ln -s /usr/bin/python2 /usr/bin/python
+WORKDIR /build
+
+RUN git clone https://github.com/ONLYOFFICE/build_tools.git
+RUN cd /build/build_tools/tools/linux && ./automate.py server
+RUN sed -i 's/exports.LICENSE_CONNECTIONS = 20;/exports.LICENSE_CONNECTIONS = 99999;/' /build/server/Common/sources/constants.js
+RUN sed -i 's/"--update", "1"/"--update", "0"/' /build/build_tools/tools/linux/automate.py
+RUN cd /build/build_tools/tools/linux && ./automate.py server
+
+FROM ubuntu:20.04
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+COPY --from=0 /build/build_tools/out/linux_64/onlyoffice/documentserver /var/www/html/documentserver
+RUN apt-get -y update && apt-get -y install nginx postgresql rabbitmq-server sudo ttf-wqy-zenhei fonts-wqy-microhei
+COPY onlyoffice-documentserver /etc/nginx/sites-available/onlyoffice-documentserver
+RUN sudo rm -f /etc/nginx/sites-enabled/default
+RUN ln -s /etc/nginx/sites-available/onlyoffice-documentserver /etc/nginx/sites-enabled/onlyoffice-documentserver
+RUN service postgresql restart && \
+    sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;" && \
+    sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';" && \
+    sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;" && \
+    PGPASSWORD=onlyoffice psql -hlocalhost -Uonlyoffice -d onlyoffice -f /var/www/html/documentserver/server/schema/postgresql/createdb.sql
+RUN cd /var/www/html/documentserver && \
+    mkdir fonts && \
+    LD_LIBRARY_PATH=${PWD}/server/FileConverter/bin server/tools/allfontsgen \
+      --input="${PWD}/core-fonts" \
+      --allfonts-web="${PWD}/sdkjs/common/AllFonts.js" \
+      --allfonts="${PWD}/server/FileConverter/bin/AllFonts.js" \
+      --images="${PWD}/sdkjs/common/Images" \
+      --selection="${PWD}/server/FileConverter/bin/font_selection.bin" \
+      --output-web='fonts' \
+      --use-system="true" && \
+    LD_LIBRARY_PATH=${PWD}/server/FileConverter/bin server/tools/allthemesgen \
+      --converter-dir="${PWD}/server/FileConverter/bin"\
+      --src="${PWD}/sdkjs/slide/themes"\
+      --output="${PWD}/sdkjs/common/Images"
+COPY start.sh /start.sh
+CMD /bin/bash /start.sh
+```
+
+其中 `start.sh` 如下：
+
+```
+#!/bin/bash
+
+service nginx restart
+service postgresql restart
+service rabbitmq-server restart
+
+cd /var/www/html/documentserver/server/FileConverter/
+nohup bash -c 'LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter' &
+cd /var/www/html/documentserver/server/DocService/
+nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice' &
+
+tail -f /var/www/html/documentserver/server/FileConverter/nohup.out /var/www/html/documentserver/server/DocService/nohup.out
+```
+
+nginx 配置 `onlyoffice-documentserver` 如下：
+
+```
+map $http_host $this_host {
+  "" $host;
+  default $http_host;
+}
+map $http_x_forwarded_proto $the_scheme {
+  default $http_x_forwarded_proto;
+  "" $scheme;
+}
+map $http_x_forwarded_host $the_host {
+  default $http_x_forwarded_host;
+  "" $this_host;
+}
+map $http_upgrade $proxy_connection {
+  default upgrade;
+  "" close;
+}
+proxy_set_header Host $http_host;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $proxy_connection;
+proxy_set_header X-Forwarded-Host $the_host;
+proxy_set_header X-Forwarded-Proto $the_scheme;
+server {
+  listen 0.0.0.0:80;
+  listen [::]:80 default_server;
+  server_tokens off;
+  rewrite ^\/OfficeWeb(\/apps\/.*)$ /web-apps$1 redirect;
+  location / {
+    proxy_pass http://localhost:8000;
+    proxy_http_version 1.1;
+  }
+}
+```
+
+构建容器镜像：
+
+```
+docker build --tag hxp.plus/onlyoffice/document-server:v20240526 .
+```
+
+启动容器：
+
+```
+docker run -p 8701:80 --rm -it --name document-server hxp.plus/onlyoffice/document-server:v20240526
+```
 
 ## 参考资料
 
