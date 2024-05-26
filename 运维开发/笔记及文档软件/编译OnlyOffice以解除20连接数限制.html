@@ -1623,18 +1623,22 @@
 <span class="normal"><a href="#__codelineno-25-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-25-10">10</a></span>
 <span class="normal"><a href="#__codelineno-25-11">11</a></span>
-<span class="normal"><a href="#__codelineno-25-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a>#!/bin/bash
+<span class="normal"><a href="#__codelineno-25-12">12</a></span>
+<span class="normal"><a href="#__codelineno-25-13">13</a></span>
+<span class="normal"><a href="#__codelineno-25-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a>#!/bin/bash
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2"></a>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3"></a>service nginx restart
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4"></a>service postgresql restart
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5"></a>service rabbitmq-server restart
 </span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6"></a>
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7"></a>cd /var/www/html/documentserver/server/FileConverter/
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8"></a>nohup bash -c &#39;LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter&#39; &amp;
-</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9"></a>cd /var/www/html/documentserver/server/DocService/
-</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10"></a>nohup bash -c &#39;NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice&#39; &amp;
-</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11"></a>
-</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12"></a>tail -f /var/www/html/documentserver/server/FileConverter/nohup.out /var/www/html/documentserver/server/DocService/nohup.out
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7"></a>touch /logs.txt
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8"></a>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9"></a>cd /var/www/html/documentserver/server/FileConverter/
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10"></a>nohup bash -c &#39;LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter&#39; 2&amp;&gt;1 &gt;&gt;/logs.txt &amp;
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11"></a>cd /var/www/html/documentserver/server/DocService/
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12"></a>nohup bash -c &#39;NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice&#39; 2&amp;&gt;1 &gt;&gt;/logs.txt &amp;
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13"></a>
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14"></a>tail -f /logs.txt
 </span></code></pre></div></td></tr></table></div>
 <p>nginx 配置 <code>onlyoffice-documentserver</code> 如下：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
