@@ -65,6 +65,12 @@ CMD /bin/bash -c 'while true;do sleep 3600;done'
 
 即先构建一个编译镜像，然后把编译镜像里生成的有用的东西复制到第二个镜像，再构建第二个镜像。
 
+同时，编译完成以后，还需要清理 docker 的 overlay2 里的缓存等其它缓存：
+
+```
+docker system prune -a
+```
+
 ## 参考链接
 
 https://docs.docker.com/build/building/multi-stage/
