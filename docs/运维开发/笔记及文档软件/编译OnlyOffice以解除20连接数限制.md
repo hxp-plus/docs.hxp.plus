@@ -309,12 +309,14 @@ service nginx restart
 service postgresql restart
 service rabbitmq-server restart
 
-cd /var/www/html/documentserver/server/FileConverter/
-nohup bash -c 'LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter' &
-cd /var/www/html/documentserver/server/DocService/
-nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice' &
+touch /logs.txt
 
-tail -f /var/www/html/documentserver/server/FileConverter/nohup.out /var/www/html/documentserver/server/DocService/nohup.out
+cd /var/www/html/documentserver/server/FileConverter/
+nohup bash -c 'LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter' 2&>1 >>/logs.txt &
+cd /var/www/html/documentserver/server/DocService/
+nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice' 2&>1 >>/logs.txt &
+
+tail -f /logs.txt
 ```
 
 nginx 配置 `onlyoffice-documentserver` 如下：
