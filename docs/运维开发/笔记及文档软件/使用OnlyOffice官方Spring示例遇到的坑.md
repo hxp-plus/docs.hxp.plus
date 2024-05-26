@@ -76,3 +76,35 @@ spring.servlet.multipart.max-request-size=50MB
 ```
 
 将以上三个参数修改为原来的 10 倍。
+
+## 修改为使用 MySQL 数据库
+
+默认情况下这个 Spring 示例使用在内存中的 h2 数据库，需要将其修改为使用 MySQL ，需要修改 `src/main/resources/application.properties` ，将以下几行：
+
+```ini
+spring.datasource.url=jdbc:h2:mem:usersdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+hibernate.ddl-auto
+```
+
+修改为如下所示：
+
+```ini
+spring.datasource.url=jdbc:mysql://ubuntu.hxp.lan:3306/spring
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.username=spring
+spring.datasource.password=spring
+spring.jpa.hibernate.ddl-auto=create-drop
+```
+
+同时，在 `pom.xml` 里增加 mysql-connector ：
+
+```xml
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
