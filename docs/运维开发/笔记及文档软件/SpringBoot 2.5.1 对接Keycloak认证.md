@@ -15,6 +15,10 @@ tags:
 ```xml
 <dependency>
   <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-oauth2-client</artifactId>
 </dependency>
 ```
@@ -85,8 +89,35 @@ docker 的 2 个容器启动完成之后，进入 `http://ubuntu.hxp.lan:8080/` 
 
 之后启动 Spring 后端，会自动跳转到 Keycloak 登录页面。
 
+## 在 Spring 里读取已登录的 Keycloak 用户信息
+
+在适当的地方引用如下依赖：
+
+```java
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+```
+
+获取用户信息的示例如下：
+
+```java
+Authentication authentication =
+        SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+OAuth2AuthenticationToken oauthToken =
+        (OAuth2AuthenticationToken) authentication;
+System.out.println("用户 " + oauthToken.getName() + " 已登录。");
+```
+
 ## 参考资料
 
 https://www.baeldung.com/spring-boot-security-autoconfiguration
 
 https://www.baeldung.com/spring-security-5-oauth2-login
+
+https://spring.io/guides/tutorials/spring-boot-oauth2
+
+https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
