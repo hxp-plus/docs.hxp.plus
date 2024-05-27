@@ -25,7 +25,7 @@ services:
     image: quay.io/keycloak/keycloak:24.0
     command: start-dev
     environment:
-      KC_HOSTNAME: localhost
+      KC_HOSTNAME: ubuntu.hxp.lan
       KC_HOSTNAME_PORT: 8080
       KC_HOSTNAME_STRICT_BACKCHANNEL: false
       KC_HTTP_ENABLED: true
@@ -47,7 +47,7 @@ volumes:
     driver: local
 ```
 
-启动：
+特别注意， `KC_HOSTNAME` 一定配置成服务器外部域名或 IP，不能是 `localhost` 。启动：
 
 ```
 docker-compose up
