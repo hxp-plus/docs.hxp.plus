@@ -919,6 +919,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#spring-spring-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spring 项目加入 spring security 后无法运行
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1145,6 +1163,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#spring-spring-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spring 项目加入 spring security 后无法运行
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考文献
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1287,6 +1323,45 @@
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span><span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="nt">&lt;/dependency&gt;</span>
 </span></code></pre></div></td></tr></table></div>
+<h2 id="spring-spring-security">Spring 项目加入 spring security 后无法运行<a class="headerlink" href="#spring-spring-security" title="Permanent link">&para;</a></h2>
+<p>在引入 spring security 后，即使是 permitAll() 在打开 OnlyOffice 页面还是报错， document-server 报错如下：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>document-server-1  | [2024-05-28T22:08:57.809] [ERROR] [localhost] [1383708097] [1] nodeJS - postData error: url = http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F;data = {&quot;key&quot;:&quot;1383708097&quot;,&quot;status&quot;:1,&quot;users&quot;:[&quot;1&quot;],&quot;actions&quot;:[{&quot;type&quot;:1,&quot;userid&quot;:&quot;1&quot;}]} Error: Error response: statusCode:403; headers:{&quot;set-cookie&quot;:[&quot;JSESSIONID=B667F99DC2C69C008DF263C81F2A5FCA; Path=/; HttpOnly&quot;],&quot;x-content-type-options&quot;:&quot;nosniff&quot;,&quot;x-xss-protection&quot;:&quot;1; mode=block&quot;,&quot;cache-control&quot;:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;,&quot;pragma&quot;:&quot;no-cache&quot;,&quot;expires&quot;:&quot;0&quot;,&quot;x-frame-options&quot;:&quot;DENY&quot;,&quot;content-type&quot;:&quot;application/json&quot;,&quot;transfer-encoding&quot;:&quot;chunked&quot;,&quot;date&quot;:&quot;Tue, 28 May 2024 14:08:57 GMT&quot;,&quot;connection&quot;:&quot;close&quot;}; body:
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>document-server-1  | {&quot;timestamp&quot;:1716905337808,&quot;status&quot;:403,&quot;error&quot;:&quot;Forbidden&quot;,&quot;message&quot;:&quot;Forbidden&quot;,&quot;path&quot;:&quot;/track&quot;}
+</span></code></pre></div></td></tr></table></div>
+<p>此时需要检查 Spring 的日志，在 <code>application.properties</code> 加入：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>logging.level.org.springframework.security=DEBUG
+</span></code></pre></div></td></tr></table></div>
+<p>观察到 Spring 吐出以下日志：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>2024-05-28 14:07:54.813 DEBUG 1342180 --- [nio-4000-exec-2] s.s.w.c.SecurityContextPersistenceFilter : Set SecurityContextHolder to empty SecurityContext
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.security.web.csrf.CsrfFilter         : Invalid CSRF token found for http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
+</span></code></pre></div></td></tr></table></div>
+<p>可以确定是 spring security 的 csrf 保护返回了 403 导致。解决方法为修改 SecurityChain ，在 http 后面加上 <code>.csrf.disable()</code> ，示例如下：</p>
+<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">SecurityFilterChain</span><span class="w"> </span><span class="nf">filterChain</span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">HttpSecurity</span><span class="w"> </span><span class="n">http</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">    </span><span class="n">http</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">            </span><span class="p">.</span><span class="na">csrf</span><span class="p">().</span><span class="na">disable</span><span class="p">()</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">            </span><span class="p">.</span><span class="na">authorizeRequests</span><span class="p">()</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">            </span><span class="p">.</span><span class="na">antMatchers</span><span class="p">(</span><span class="s">&quot;/track&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/download&quot;</span><span class="p">).</span><span class="na">permitAll</span><span class="p">()</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">            </span><span class="p">.</span><span class="na">anyRequest</span><span class="p">().</span><span class="na">authenticated</span><span class="p">()</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">            </span><span class="p">.</span><span class="na">and</span><span class="p">()</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">            </span><span class="p">.</span><span class="na">oauth2Login</span><span class="p">();</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">http</span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="_2">参考文献<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.baeldung.com/spring-security-enable-logging">https://www.baeldung.com/spring-security-enable-logging</a></p>
 
 
 
@@ -1309,7 +1384,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 28, 2024</span>
   </span>
 
     
