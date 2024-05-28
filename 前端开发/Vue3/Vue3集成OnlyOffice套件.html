@@ -765,8 +765,6 @@
 <p>在安装 docker 的节点 <code>ubuntu.hxp.lan</code> 上运行：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>docker run -it --rm -p 8701:80 -e ALLOW_PRIVATE_IP_ADDRESS=true -e JWT_ENABLED=false onlyoffice/documentserver
 </span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>docker run -it --rm -p 8701:80 -e ALLOW_PRIVATE_IP_ADDRESS=true -e JWT_ENABLED=false -v ${PWD}/build_tools/out/linux_64/onlyoffice:/var/www/onlyoffice onlyoffice/documentserver
-</span></code></pre></div></td></tr></table></div>
 <p>部署完成后访问 <code>http://ubuntu.hxp.lan:8701/welcome/</code> 验证。</p>
 <h2 id="_1">参考资料<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><a href="https://blog.bszhct.com/2022/08/15/onlyoffice-quick-start/">https://blog.bszhct.com/2022/08/15/onlyoffice-quick-start/</a></p>
