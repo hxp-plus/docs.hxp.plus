@@ -89,6 +89,29 @@ docker 的 2 个容器启动完成之后，进入 `http://ubuntu.hxp.lan:8080/` 
 
 之后启动 Spring 后端，会自动跳转到 Keycloak 登录页面。
 
+## 在 Spring 里 配置 SecurityConfig
+
+新建文件 `src/main/java/com/onlyoffice/integration/config/SecurityConfig.java` ：
+
+```java
+package com.onlyoffice.integration.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
+        return http.build();
+    }
+}
+
+```
+
 ## 在 Spring 里读取已登录的 Keycloak 用户信息
 
 在适当的地方引用如下依赖：
