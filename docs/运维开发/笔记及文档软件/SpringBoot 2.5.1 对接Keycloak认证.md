@@ -104,13 +104,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/track", "/download").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login();
         return http.build();
     }
 }
-
 ```
+
+注意这里我禁用了 CSRF ，并且允许 `/track` 和 `/download` 非授权访问。
 
 ## 在 Spring 里读取已登录的 Keycloak 用户信息
 
