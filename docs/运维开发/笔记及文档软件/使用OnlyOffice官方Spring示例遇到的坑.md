@@ -147,6 +147,10 @@ public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception
 }
 ```
 
+## 在内网部署时， Spring 后端调用 document-server 时，存在大约 10 秒左右的延迟，才展示文档编辑页面
+
+这个是因为 document-server 每次被调用的时候都会尝试访问外网，访问外网会进行 DNS 查询。而实际部署时，机器的 DNS 被设置成了 3 个根本就不通的外网 DNS ，导致每次开启 document-server ，都会访问外网，访问外网时先用第一个 DNS 服务器解析，第一个 DNS 服务器连接超时后，再尝试第 2 个 DNS 服务器，以此类推。解决方法为修正内网部署机器的 DNS 为正确的配置。
+
 ## 参考文献
 
 https://www.baeldung.com/spring-security-enable-logging
