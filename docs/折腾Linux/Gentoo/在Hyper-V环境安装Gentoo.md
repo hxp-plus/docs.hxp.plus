@@ -4,11 +4,11 @@ tags:
   - Linux
 ---
 
-# 在 QEMU 环境安装 Gentoo
+# 在 Hyper-V 环境安装 Gentoo
 
 !!! note
 
-    本次 Gentoo 安装将会安装在 BIOS 模式启动的 QEMU 虚拟机上，其中 init 方式选择传统的 openrc 而非 systemd 。
+    本次 Gentoo 安装将会安装在 UEFI 模式启动的 Hyper-V 虚拟机上，其中 init 方式选择传统的 openrc 而非 systemd 。
 
 ## 准备工作
 
@@ -22,105 +22,46 @@ tags:
 
 发放满足如下要求的虚拟机：
 
-- 启动方式：BIOS
+- 虚拟机代数：第 2 代 （UEFI 启动）
 - 磁盘大小：64GB
 - CD-ROM：刚刚下载的 Boot Media ISO 文件
 - Secure Boot：关闭
-- QEMU Guest Agent：开启
 
 发放完成后，从 CD-ROM 启动并引导进入系统。
 
 ### 连接网络并启动 SSH 服务
 
-使用静态 IP 地址的方式配置网络，使用 `ip a` 命令查询到当前环境网卡名称为 `enp0s18` ，之后使用命令 `net-setup enp0s18` 命令配置网络，本次 IP 地址暂时配置为 `192.168.100.200` （跟着 TUI 界面指引一步步配置即可）。
-
-!!! tip
-
-    如果配置完成后网络不通，需要用 `ip r` 命令检查路由表是否正确，如果不正确需要添加如下路由：
-    ```
-    ip route add 192.168.100.0/24 dev enp0s18
-    ip route add default via 192.168.100.1
-    ```
-    用以下命令重启网卡：
-    ```
-    ifconfig enp0s18 down
-    ifconfig enp0s18 up
-    ```
+使用静态 IP 地址的方式配置网络，使用 `ip a` 命令查询到当前环境网卡名称为 `eth0` ，之后使用命令 `net-setup eth0` 命令配置网络，一路回车即使用 DHCP 模式。之后使用 `ifconfig` 命令查看 DHCP 获得的 IP 地址。
 
 之后使用 `passwd` 命令设置临时 root 密码，使用 `rc-service sshd start` 命令启动 SSH 服务，后续通过 SSH 远程连接来继续安装。
 
 ## 磁盘分区格式化
 
-参考 [官方手册](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks) 的 "Partitioning the disk with MBR for BIOS / legacy boot" 进行分区（不创建 swap 分区）：
+使用 `fdisk` 对硬盘进行分区，分区表格式为 GPT ，此次使用的分区表如下：
+
+| 分区名称  | 分区大小         | 文件系统 | 挂载点    |
+| --------- | ---------------- | -------- | --------- |
+| /dev/sda1 | 1G               | ext4     | /boot     |
+| /dev/sda2 | 256M             | vfat     | /boot/efi |
+| /dev/sda3 | 磁盘剩余所有空间 | ext4     | /         |
+
+格式化磁盘分区：
 
 ```
-livecd ~ # fdisk /dev/vda
-
-Welcome to fdisk (util-linux 2.39.3).
-Changes will remain in memory only, until you decide to write them.
-Be careful before using the write command.
-
-Device does not contain a recognized partition table.
-Created a new DOS (MBR) disklabel with disk identifier 0x043cf7fb.
-
-Command (m for help): o
-Created a new DOS (MBR) disklabel with disk identifier 0x76a86e99.
-
-Command (m for help): n
-Partition type
-   p   primary (0 primary, 0 extended, 4 free)
-   e   extended (container for logical partitions)
-Select (default p): p
-Partition number (1-4, default 1):
-First sector (2048-134217727, default 2048):
-Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-134217727, default 134217727): +1G
-
-Created a new partition 1 of type 'Linux' and of size 1 GiB.
-
-Command (m for help): a
-Selected partition 1
-The bootable flag on partition 1 is enabled now.
-
-Command (m for help): n
-Partition type
-   p   primary (1 primary, 0 extended, 3 free)
-   e   extended (container for logical partitions)
-Select (default p):
-
-Using default response p.
-Partition number (2-4, default 2):
-First sector (2099200-134217727, default 2099200):
-Last sector, +/-sectors or +/-size{K,M,G,T,P} (2099200-134217727, default 134217727):
-
-Created a new partition 2 of type 'Linux' and of size 63 GiB.
-
-Command (m for help): p
-Disk /dev/vda: 64 GiB, 68719476736 bytes, 134217728 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0x76a86e99
-
-Device     Boot   Start       End   Sectors Size Id Type
-/dev/vda1  *       2048   2099199   2097152   1G 83 Linux
-/dev/vda2       2099200 134217727 132118528  63G 83 Linux
-
-Command (m for help): w
-The partition table has been altered.
-Calling ioctl() to re-read partition table.
-Syncing disks.
+mkfs.ext4 /dev/sda1
+mkfs.vfat /dev/sda2
+mkfs.ext4 /dev/sda3
 ```
 
-格式化并挂载文件系统：
+挂载文件系统：
 
 ```
-mkfs.xfs /dev/vda1
-mkfs.xfs /dev/vda2
 mkdir --parents /mnt/gentoo
-mount /dev/vda2 /mnt/gentoo
+mount /dev/sda3 /mnt/gentoo
 mkdir --parents /mnt/gentoo/boot
-mount /dev/vda1 /mnt/gentoo/boot
+mount /dev/sda1 /mnt/gentoo/boot
+mkdir --parents /mnt/gentoo/boot/efi
+mount /dev/sda2 /mnt/gentoo/boot/efi
 ```
 
 ## 解压 stage 文件
@@ -303,42 +244,7 @@ emerge --ask sys-kernel/genkernel
 用 genkernel 生成并自动安装内核：
 
 ```
-genkernel --mountboot --install all --menuconfig
-```
-
-注意，在弹出的界面中，需要额外配置这几项来将相关驱动编译进内核：
-
-```
-Processor type and features  --->
-    [*] Linux guest support --->
-        [*] Enable Paravirtualization code
-        [*] KVM Guest support (including kvmclock)
-Device Drivers  --->
-    [*] Virtio drivers  --->
-        <*> PCI driver for virtio devices
-    [*] Block devices  --->
-        <*> Virtio block driver
-    SCSI device support  --->
-        [*] SCSI low-level drivers  --->
-            [*] virtio-scsi support
-    [*] Network device support  --->
-        [*] Network core driver support
-            <*> Virtio network driver
-    Graphics support  --->
-        <*> Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
-        <*> Virtio GPU driver
-    Character devices --->
-       <*> Hardware Random Number Generator Core support --->
-           <*> VirtIO Random Number Generator support
-       <*> Virtio console
-```
-
-### 安装 QEMU 虚拟机相关软件
-
-```
-emerge --ask sys-power/acpid app-emulation/qemu-guest-agent
-rc-update add acpid default
-rc-update add qemu-guest-agent default
+genkernel --mountboot --install all --hyperv
 ```
 
 ## 安装后配置
@@ -348,8 +254,9 @@ rc-update add qemu-guest-agent default
 编辑 `/etc/fstab`：
 
 ```
-/dev/vda1 /boot xfs defaults  0 2
-/dev/vda2 / xfs defaults  0 0
+/dev/sda1 /boot ext4 defaults  0 2
+/dev/sda2 /boot/efi vfat defaults 0 0
+/dev/vda3 / ext4 defaults  0 0
 ```
 
 ### 配置主机名
@@ -387,28 +294,14 @@ rc-update add chronyd default
 安装 grub 软件包：
 
 ```
-echo 'GRUB_PLATFORMS="pc"' >> /etc/portage/make.conf
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
 emerge --ask --verbose sys-boot/grub
-```
-
-配置 grub ，修改 `/etc/default/grub` ：
-
-```
-GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"
-GRUB_TERMINAL=console
-```
-
-配置 `/etc/inittab` ：
-
-```
-# SERIAL CONSOLES
-s0:12345:respawn:/sbin/agetty -L 115200 ttyS0 vt100
 ```
 
 安装 grub 到硬盘头：
 
 ```
-grub-install /dev/vda
+grub-install --efi-directory=/boot/efi
 ```
 
 生成 grub 启动项配置：
@@ -423,24 +316,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### 配置网络
 
-!!! note
-
-    部分安装场景下网卡 `enp0s18` 在进入新系统后会变成 `ens18` ，需要进行相应调整。
-
-使用静态地址的方式配置网络，在 `/etc/conf.d/net` 中增加网卡配置：
+使用 DHCP 的方式配置网络，在 `/etc/conf.d/net` 中增加网卡配置：
 
 ```
-config_enp0s18="192.168.100.5 netmask 255.255.255.0 brd 192.168.100.255"
-routes_enp0s18="default via 192.168.100.1"
+config_eth0="dhcp"
 ```
 
 配置开机启动（如果是静态地址，需要禁用 dhcpcd 防止其自动获取 169.254 网关）：
 
 ```
 cd /etc/init.d
-ln -s net.lo net.enp0s18
-rc-update del dhcpcd
-rc-update add net.enp0s18 default
+ln -s net.lo net.eth0
+rc-update add net.eth0 default
 ```
 
 ### 配置 SSH 开机启动
@@ -449,10 +336,25 @@ rc-update add net.enp0s18 default
 rc-update add sshd default
 ```
 
+### 配置 SSH 允许 root 使用密码登录
+
+修改 `/etc/ssh/sshd_config` ：
+
+```
+PermitRootLogin yes
+```
+
 ## 安装完成并重启
+
+退出 chroot 环境：
 
 ```
 exit
+```
+
+卸载文件系统并重启：
+
+```
 umount -l /mnt/gentoo/dev{/shm,/pts,}
 umount -R /mnt/gentoo
 reboot
