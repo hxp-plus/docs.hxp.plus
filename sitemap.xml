@@ -131,6 +131,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.hxp.plus/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html</loc>
+         <lastmod>2024-06-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX-23.9%E4%BD%BF%E7%94%A8SAML%E5%AF%B9%E6%8E%A5keycloak%E8%AE%A4%E8%AF%81.html</loc>
          <lastmod>2024-06-02</lastmod>
          <changefreq>daily</changefreq>
