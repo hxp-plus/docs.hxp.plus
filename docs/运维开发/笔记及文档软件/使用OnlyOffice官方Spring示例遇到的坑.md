@@ -151,6 +151,29 @@ public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception
 
 这个是因为 document-server 每次被调用的时候都会尝试访问外网，访问外网会进行 DNS 查询。而实际部署时，机器的 DNS 被设置成了 3 个根本就不通的外网 DNS ，导致每次开启 document-server ，都会访问外网，访问外网时先用第一个 DNS 服务器解析，第一个 DNS 服务器连接超时后，再尝试第 2 个 DNS 服务器，以此类推。解决方法为修正内网部署机器的 DNS 为正确的配置。
 
+## 将 application.properties 不打包到 jar
+
+`pom.xml` 增加 plugin ：
+
+```xml
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jar-plugin</artifactId>
+  <version>3.2.0</version>
+  <configuration>
+    <excludes>
+      <exclude>**/application.properties</exclude>
+    </excludes>
+  </configuration>
+</plugin>
+```
+
+这样打包后的 jar 包不含 `application.properties` ，运行需要手动指定：
+
+```
+java -jar integration-1.0.jar --spring.config.location=file:///${HOME}/onlyoffice-spring-keycloak/src/main/resources/application.properties
+```
+
 ## 参考文献
 
 https://www.baeldung.com/spring-security-enable-logging
