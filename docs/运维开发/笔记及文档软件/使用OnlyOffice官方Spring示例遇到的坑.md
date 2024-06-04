@@ -177,3 +177,7 @@ java -jar integration-1.0.jar --spring.config.location=file:///${HOME}/onlyoffic
 ## 参考文献
 
 https://www.baeldung.com/spring-security-enable-logging
+
+https://www.baeldung.com/spring-properties-file-outside-jar
+
+https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html
