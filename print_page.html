@@ -4476,7 +4476,124 @@ integration%20with%20awx/</p>
    <img alt="" src="%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/images/AWX%E8%AE%BE%E7%BD%AESAML%E8%AE%A4%E8%AF%81%E7%94%A8%E6%88%B7%E4%B8%BA%E7%AE%A1%E7%90%86%E5%91%98_2.png" /></li>
 <li>AWX 上，修改 AWX 的 “SAML User Flags Attribute Mapping”
    <img alt="" src="%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/images/AWX%E8%AE%BE%E7%BD%AESAML%E8%AE%A4%E8%AF%81%E7%94%A8%E6%88%B7%E4%B8%BA%E7%AE%A1%E7%90%86%E5%91%98_3.png" /></li>
-</ol></section><h1 class='nav-section-title-end'>Ended: AWX</h1>
+</ol></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84"><h1 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-awx">AWX 新增容器组<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-awx" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_1">需要下载的文件<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>containergroup-sa.yml : <a href="https://docs.ansible.com/automation-controller/latest/html/administration/_downloads/7a0708e6c2113e9601bf252270fa6c50/containergroup-sa.yml">https://docs.ansible.com/automation-controller/latest/html/administration/_downloads/7a0708e6c2113e9601bf252270fa6c50/containergroup-sa.yml</a></li>
+</ol>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-namespace-service-account">创建 namespace 和 service account<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-namespace-service-account" title="Permanent link">&para;</a></h2>
+<p>containergroup-sa.yml 修改如下：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-0-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>---
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>apiVersion: v1
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>kind: ServiceAccount
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>metadata:
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>  name: awx-service-account
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>  namespace: awx
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>---
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>kind: Role
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>apiVersion: rbac.authorization.k8s.io/v1
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>metadata:
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>  name: role-awx-service-account
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>  namespace: awx
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>rules:
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>- apiGroups: [&quot;&quot;]
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>  resources: [&quot;pods&quot;]
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>- apiGroups: [&quot;&quot;]
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>  resources: [&quot;pods/log&quot;]
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a>  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a>- apiGroups: [&quot;&quot;]
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>  resources: [&quot;pods/attach&quot;]
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a>  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a>---
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a>kind: RoleBinding
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a>apiVersion: rbac.authorization.k8s.io/v1
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a>metadata:
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a>  name: role-awx-service-account-binding
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a>  namespace: awx
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a>subjects:
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a>- kind: ServiceAccount
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a>  name: awx-service-account
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a>  namespace: awx
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a>roleRef:
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a>  kind: Role
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a>  name: role-awx-service-account
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>  apiGroup: rbac.authorization.k8s.io
+</span></code></pre></div></td></tr></table></div>
+<p>应用资源：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>kubectl<span class="w"> </span>create<span class="w"> </span>ns<span class="w"> </span>awx
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>containergroup-sa.yml
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-service-account-token">为 service account 创建 token<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-service-account-token" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="s">apiVersion: v1</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="s">kind: Secret</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="s">metadata:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="s">  name: awx-secret</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="s">  annotations:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="s">    kubernetes.io/service-account.name: awx-service-account</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="s">type: kubernetes.io/service-account-token</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="s">EOF</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-token">获取 token 和证书<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-token" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># 获取token</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>secrets<span class="w"> </span>awx-secret<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.token}&#39;</span><span class="p">|</span>base64<span class="w"> </span>-d<span class="p">;</span><span class="nb">echo</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="c1"># 获取证书</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>secrets<span class="w"> </span>awx-secret<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.ca\.crt}&#39;</span><span class="p">|</span>base64<span class="w"> </span>-d<span class="p">;</span><span class="nb">echo</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-awx_1">在 AWX 上配置凭证<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-awx_1" title="Permanent link">&para;</a></h2>
+<p>点击 Resources -&gt; Credentials ，新增凭证，类型 “OpenShift or Kubernetes API Bearer Token”，API endpoint 为 k8s 的 apiserver endpoint，在 k3s 中为 <a href="https://IP">https://IP</a> 地址:6443，token 和 CA 证书为刚刚获取的值，Verify SSL 选 false。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_2">加入实例组<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_2" title="Permanent link">&para;</a></h2>
+<p>点击 Administration -&gt; Instance Groups ，点击 Add -&gt; Add container group，Credential 为之前配置的凭证，Cutson pod spec 中，serviceAccountName 和 namespace 按需修改为 awx-service-account 和 awx。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_3">参考链接<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-_3" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html">https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html</a></p></section><h1 class='nav-section-title-end'>Ended: AWX</h1>
                         <h2 class='nav-section-title' id='section-keycloak'>
                             Keycloak <a class='headerlink' href='#section-keycloak' title='Permanent link'>↵</a>
                         </h2>
