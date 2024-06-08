@@ -43,7 +43,7 @@ nav:
           - Dockerfile中不保留编译缓存: 容器技术/Docker/Dockerfile中不保留编译缓存.md
   - 前端开发:
       - Vue3:
-        - Geeker-Admin接入Keycloak认证: 前端开发/Vue3/Geeker-Admin接入Keycloak认证.md
+          - Geeker-Admin接入Keycloak认证: 前端开发/Vue3/Geeker-Admin接入Keycloak认证.md
   - 存储技术:
       - Ceph:
           - 银河麒麟V10安装Ceph: 存储技术/Ceph/银河麒麟V10安装Ceph.md
@@ -57,6 +57,7 @@ nav:
           - AWX-23.9使用SAML对接keycloak认证: 运维开发/AWX/AWX-23.9使用SAML对接keycloak认证.md
           - AWX增加并使用token: 运维开发/AWX/AWX增加并使用token.md
           - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
+          - AWX新增容器组: 运维开发/AWX/AWX新增容器组.md
       - Keycloak:
           - 使用openresty容器为k8s的服务提供Keycloak认证服务: 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
           - k8s集群Keycloak部署及负载配置: 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
