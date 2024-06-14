@@ -83,6 +83,7 @@ nav:
           - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
           - 在Hyper-V环境安装Gentoo: 折腾Linux/Gentoo/在Hyper-V环境安装Gentoo.md
           - emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法: 折腾Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md
+          - Gentoo启动时挂载cifs失败解决方法: 折腾Linux/Gentoo/Gentoo启动时挂载cifs失败解决方法.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
       - RHEL6:
