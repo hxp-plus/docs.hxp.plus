@@ -6746,7 +6746,66 @@ integration%20with%20awx/</p>
 <h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e9%85%8d%e7%bd%ae%e8%ae%b0%e4%bd%8f%e5%af%86%e7%a0%81-git_1">配置 Git 记住密码<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e9%85%8d%e7%bd%ae%e8%ae%b0%e4%bd%8f%e5%af%86%e7%a0%81-git_1" title="Permanent link">&para;</a></h2>
 <p>使用以下命令配置（全局生效，如果想仅对仓库生效，去掉 <code>--global</code> ）：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e9%85%8d%e7%bd%ae%e8%ae%b0%e4%bd%8f%e5%af%86%e7%a0%81-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>git config --global credential.helper store
-</span></code></pre></div></td></tr></table></div></section><h1 class='nav-section-title-end'>Ended: Git使用</h1><h1 class='nav-section-title-end'>Ended: 运维开发</h1>
+</span></code></pre></div></td></tr></table></div></section><h1 class='nav-section-title-end'>Ended: Git使用</h1>
+                        <h2 class='nav-section-title' id='section-python'>
+                            Python <a class='headerlink' href='#section-python' title='Permanent link'>↵</a>
+                        </h2>
+                        <section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3"><h1 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3">构建解压即用的 Python3<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-_1">背景<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-_1" title="Permanent link">&para;</a></h2>
+<p>在复杂的运维场景下，不同的 Linux 操作系统的 Python 版本不一，有的操作系统是 Python2，有的是 Python3 ，且即使都 Python3，各个操作系统的 Python3 的版本也不一样。如果我们要发布一个程序，譬如说监控程序，需要让不同的操作系统都能运行，则需要把所有操作系统都适配一遍，且每次更新都需要适配。不如直接单独带一个 Python 到所有的操作系统中。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3-opt">编译一份 Python3 并将其安装到 /opt 目录<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3-opt" title="Permanent link">&para;</a></h2>
+<p>由于不同版本的 Linux 的 glibc 版本不同，且高版本的 glibc 兼容低版本，反之不兼容，因此需要在你需要适配的最低版本 Linux 上编译，我这里选用的 CentOS 6 ，同时，编译不需要真的安装 CentOS 6 ，可以使用 docker 容器并在容器里编译。我的 Dockerfile 如下：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-0-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>FROM centos:6.10
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>COPY &lt;&lt;-&#39;EOF&#39; /etc/yum.repos.d/CentOS-Base.repo
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>[base]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>name=CentOS-$releasever - Base
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>baseurl=https://vault.centos.org/6.10/os/$basearch/
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>gpgcheck=0
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>EOF
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>RUN yum install -y make gcc zlib-devel
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>RUN mkdir -p /build
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>WORKDIR /build
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>RUN curl https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz -o Python-3.7.17.tgz
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>RUN tar -zxf Python-3.7.17.tgz -C /build
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>WORKDIR /build/Python-3.7.17
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>RUN ./configure --prefix=/opt/Python-3.7.17
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>RUN make install
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>WORKDIR /opt
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>VOLUME /opt
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>CMD [&quot;/bin/bash&quot;]
+</span></code></pre></div></td></tr></table></div>
+<p>使用 docker 构建一个容器并在容器里编译出 Python3，安装到容器的 /opt 目录：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>docker build -t centos6-python3.7 .
+</span></code></pre></div></td></tr></table></div>
+<p>之后将容器内编译好的 Python3 复制出来：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir -p dist
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c &#39;cd /opt &amp;&amp; /bin/tar zcpf /mnt/Python-3.7.17.tgz Python-3.7.17&#39;
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3_1">使用 Python3<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-python3_1" title="Permanent link">&para;</a></h2>
+<p>将整个 Python-3.7.17 目录复制到别的机器上，运行前设置环境变量：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3-__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>export PATH=/home/hxp/Projects/python-portable/centos6/dist/Python-3.7.17/bin:$PATH
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>export LD_LIBRATY_PATH=/home/hxp/Projects/python-portable/centos6/dist/Python-3.7.17/lib:$LD_LIBRATY_PATH
+</span></code></pre></div></td></tr></table></div>
+<p>之后使用 python3 命令执行。</p></section><h1 class='nav-section-title-end'>Ended: Python</h1><h1 class='nav-section-title-end'>Ended: 运维开发</h1>
                         <h1 class='nav-section-title' id='section-折腾linux'>
                             折腾Linux <a class='headerlink' href='#section-折腾linux' title='Permanent link'>↵</a>
                         </h1>
@@ -8247,6 +8306,10 @@ integration%20with%20awx/</p>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e5%92%8cstolon%e9%ab%98%e5%8f%af%e7%94%a8%e8%b0%83%e4%bc%98">AWX和stolon高可用调优</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e4%bd%bf%e7%94%a8stolon%e5%ae%89%e8%a3%85%e9%ab%98%e5%8f%af%e7%94%a8postgresql">使用stolon安装高可用PostgreSQL</a></li>
+</ul>
+<h2 id="tags-python"><span class="md-tag">Python</span><a class="headerlink" href="#tags-python" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3">构建解压即用的Python3</a></li>
 </ul>
 <h2 id="tags-rhel6"><span class="md-tag">RHEL6</span><a class="headerlink" href="#tags-rhel6" title="Permanent link">&para;</a></h2>
 <ul>
