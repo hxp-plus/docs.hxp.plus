@@ -52,8 +52,9 @@ docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c 'cd /opt && /bin/t
 将整个 Python-3.7.17 目录复制到别的机器上，运行前设置环境变量：
 
 ```
-export PATH=/home/hxp/Projects/python-portable/centos6/dist/Python-3.7.17/bin:$PATH
-export LD_LIBRATY_PATH=/home/hxp/Projects/python-portable/centos6/dist/Python-3.7.17/lib:$LD_LIBRATY_PATH
+export PATH=$PWD/Python-3.7.17/bin:$PATH
+export LD_LIBRATY_PATH=$PWD/Python-3.7.17/lib:$LD_LIBRATY_PATH
+echo "Current Python version is: $(python3 --version)"
 ```
 
 之后使用 python3 命令执行。

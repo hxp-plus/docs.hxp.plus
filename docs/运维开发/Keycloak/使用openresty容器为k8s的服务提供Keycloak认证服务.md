@@ -55,8 +55,8 @@ data:
         set $session_secret kjlbnbuukllkj23i;
         access_by_lua_block {
           local keycloak_base_url = "http://22.182.16.129:9003/"
-          local client_id = "BOC-IT-Automation"
-          local realm = "BOC-IT-Automation"
+          local client_id = "IT-Automation"
+          local realm = "IT-Automation"
           local opts = {
             client_id = client_id,
             discovery = keycloak_base_url .. "/realms/" .. realm .. "/.well-known/openid-configuration",
