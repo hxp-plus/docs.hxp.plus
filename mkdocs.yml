@@ -87,6 +87,8 @@ nav:
           - 在Hyper-V环境安装Gentoo: 折腾Linux/Gentoo/在Hyper-V环境安装Gentoo.md
           - emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法: 折腾Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md
           - Gentoo启动时挂载cifs失败解决方法: 折腾Linux/Gentoo/Gentoo启动时挂载cifs失败解决方法.md
+          - Hyper-V环境下sddm无法启动图形界面问题解决: 折腾Linux/Gentoo/Hyper-V环境下sddm无法启动图形界面问题解决.md
+          - 安装xfce后fcitx右上角显示但无法选择输入法问题解决: 折腾Linux/Gentoo/安装xfce后fcitx右上角显示但无法选择输入法问题解决.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
       - RHEL6:
