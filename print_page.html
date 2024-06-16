@@ -7890,7 +7890,95 @@ integration%20with%20awx/</p>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>ping_test_host=192.168.11.1
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>timeout=120
 </span></code></pre></div></td></tr></table></div>
-<p>同时将这两个服务开机自启动。</p></section><h1 class='nav-section-title-end'>Ended: Gentoo</h1>
+<p>同时将这两个服务开机自启动。</p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3"><h1 id="%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-hyper-v-sddm">Hyper-V 环境下 sddm 无法启动图形界面问题解决<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-hyper-v-sddm" title="Permanent link">&para;</a></h1>
+<h2 id="%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_1">问题描述<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_1" title="Permanent link">&para;</a></h2>
+<p>在 Hyper-V 环境下，安装 KDE 后，sddm 无法启动图形界面，即以下命令无效：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>rc-service display-manager start
+</span></code></pre></div></td></tr></table></div>
+<p>其中 <code>/etc/conf.d/display-manager</code> 中正确配置了 <code>DISPLAYMANAGER="sddm"</code> ，且使用配置 <code>~/.xinitrc</code> 后用 <code>startx</code> 命令启动 KDE ，或者使用 VNC 都正常。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_2">排查过程<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_2" title="Permanent link">&para;</a></h2>
+<p>将虚拟机迁移到 VMware ，一切正常。说明 sddm 安装和配置没有问题。 VMware 和 Hyper-V 的区别为 VMware 虚拟机里 <code>lspci</code> 有输出， Hyper-V 虚拟机里没有，因为 Hyper-V 走的是 VMBus 而不是 PCI-E 。</p>
+<p>同时，在 Hyper-V 里启动 manjaro 安装镜像，图形界面可以启动。因此不是 Hyper-V 虚拟机配置问题。于是开始排查内核模块问题，在 manjaro 上 <code>lsmod | grep hyper</code> 和 gentoo 进行对比，最终将 gentoo 内核重新编译：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>genkernel all --install --bootloader=grub2 --hyperv --mountboot --menuconfig
+</span></code></pre></div></td></tr></table></div>
+<p>其中 menuconfig 里，禁用这里的 <code>hyperv_fb</code> ：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>hyperv_fb
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>│ Symbol: FB_HYPERV [=m] │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>│ Type : tristate │
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>│ Defined at drivers/video/fbdev/Kconfig:1781 │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>│ Prompt: Microsoft Hyper-V Synthetic Video support │
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>│ Depends on: HAS_IOMEM [=y] &amp;&amp; FB [=y] &amp;&amp; HYPERV [=m] │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>│ Location: │
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>│ -&gt; Device Drivers │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>│ -&gt; Graphics support │
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>│ -&gt; Frame buffer Devices │
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>│ (2) -&gt; Microsoft Hyper-V Synthetic Video support (FB_HYPERV [=m])
+</span></code></pre></div></td></tr></table></div>
+<p>开启这里的 <code>hyperv_drm</code> ：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>hyperv_drm
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>│ Symbol: DRM_HYPERV [=n] │
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>│ Type : tristate │
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>│ Defined at drivers/gpu/drm/Kconfig:390 │
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>│ Prompt: DRM Support for Hyper-V synthetic video device │
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>│ Depends on: HAS_IOMEM [=y] &amp;&amp; DRM [=m] &amp;&amp; PCI [=y] &amp;&amp; MMU [=y] &amp;&amp; HYPERV [=m] │
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>│ Location: │
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>│ -&gt; Device Drivers │
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>│ -&gt; Graphics support │
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>│ (1) -&gt; DRM Support for Hyper-V synthetic video device (DRM_HYPERV [=n]) │
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a>│ Selects: DRM_KMS_HELPER [=m] &amp;&amp; DRM_GEM_SHMEM_HELPER [=m]
+</span></code></pre></div></td></tr></table></div>
+<p>问题没有得到解决。后来得知这个是 sddm 已知问题，更换 DM 为 lightdm 后，修改 lightdm 配置文件 <code>/etc/lightdm/lightdm.conf</code> 的这一行：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>[LightDM]
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>logind-check-graphical=false
+</span></code></pre></div></td></tr></table></div>
+<p>同时，需要移除文件 <code>/usr/share/xsessions/Xsession.desktop</code> 来防止右上角显示不能用的 Xsession 这个 DE ，修改 <code>/etc/conf.d/display-manager</code> 里 <code>DISPLAYMANAGER="lightdm"</code> ，之后问题得到解决。</p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3"><h1 id="%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-xfce-fcitx">安装 xfce 后 fcitx 右上角显示但无法选择输入法问题解决<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-xfce-fcitx" title="Permanent link">&para;</a></h1>
+<h2 id="%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_1">问题描述<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_1" title="Permanent link">&para;</a></h2>
+<p>在安装 xfce 后，安装 fcitx-rime ，之后发现输入法的键盘图标在右上角能显示，但是右键无法选择输入法。已经尝试过的方法为：</p>
+<ul>
+<li>将那三个环境变量同时配置于 <code>~/.xprofile</code> 、 <code>~/.xinitrc</code> 和 <code>/etc/profile.d/fcitx.sh</code> ，重启，问题依旧存在。</li>
+<li>使用 <code>fcitx-diagnose</code> 诊断，发现无异常。</li>
+<li>尝试使用 vnc 连接，问题依旧存在。</li>
+</ul>
+<h2 id="%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_2">解决方法<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-_2" title="Permanent link">&para;</a></h2>
+<p>安装 ibus 输入法后，问题自动解决，我也不知道为什么：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>emerge --ask app-i18n/ibus ibus-libpinyin
+</span></code></pre></div></td></tr></table></div>
+<p>表现为安装 ibus 后，我将三个环境变量清除：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>export GTK_IM_MODULE=fcitx
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>export QT_IM_MODULE=fcitx
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>export XMODIFIERS=@im=fcitx
+</span></code></pre></div></td></tr></table></div>
+<p>然后改成了 ibus 的：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>GTK_IM_MODULE=ibus
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>QT_IM_MODULE=ibus
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>XMODIFIERS=@im=ibus
+</span></code></pre></div></td></tr></table></div>
+<p>之后没有卸载 fcitx ，重启后发现 xfce 右上角键盘图标变成加粗的图标， fcitx 莫名其妙地好了。删除 ibus 环境变量，不添加 fcitx 环境变量，重启，依旧是好的。</p></section><h1 class='nav-section-title-end'>Ended: Gentoo</h1>
                         <h2 class='nav-section-title' id='section-ubuntu'>
                             Ubuntu <a class='headerlink' href='#section-ubuntu' title='Permanent link'>↵</a>
                         </h2>
@@ -8327,9 +8415,11 @@ integration%20with%20awx/</p>
 <h2 id="tags-gentoo"><span class="md-tag">Gentoo</span><a class="headerlink" href="#tags-gentoo" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-gentoo%e5%90%af%e5%8a%a8%e6%97%b6%e6%8c%82%e8%bd%bdcifs%e5%a4%b1%e8%b4%a5%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">Gentoo启动时挂载cifs失败解决方法</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-emerge%e8%a3%85%e5%8c%85ninja%e6%8a%a5%e9%94%99%e2%80%9cmanifest%20%27build.ninja%27%20still%20dirty%20after%20100%20tries%e2%80%9d%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%9c%a8hyper-v%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85gentoo">在Hyper-V环境安装Gentoo</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%9c%a8qemu%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85gentoo">在QEMU环境安装Gentoo</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">安装xfce后fcitx右上角显示但无法选择输入法问题解决</a></li>
 </ul>
 <h2 id="tags-git"><span class="md-tag">Git</span><a class="headerlink" href="#tags-git" title="Permanent link">&para;</a></h2>
 <ul>
@@ -8343,6 +8433,7 @@ integration%20with%20awx/</p>
 </ul>
 <h2 id="tags-hyper-v"><span class="md-tag">Hyper-V</span><a class="headerlink" href="#tags-hyper-v" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-ubuntu-ubuntu%e5%ae%89%e8%a3%85hyper-v%e5%b7%a5%e5%85%b7">Ubuntu安装Hyper-V工具</a></li>
 <li><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e4%bf%ae%e6%94%b9%e8%b0%83%e5%ba%a6%e5%99%a8">Hyper-V修改调度器</a></li>
 </ul>
@@ -8383,9 +8474,11 @@ integration%20with%20awx/</p>
 <h2 id="tags-linux"><span class="md-tag">Linux</span><a class="headerlink" href="#tags-linux" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-gentoo%e5%90%af%e5%8a%a8%e6%97%b6%e6%8c%82%e8%bd%bdcifs%e5%a4%b1%e8%b4%a5%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">Gentoo启动时挂载cifs失败解决方法</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-emerge%e8%a3%85%e5%8c%85ninja%e6%8a%a5%e9%94%99%e2%80%9cmanifest%20%27build.ninja%27%20still%20dirty%20after%20100%20tries%e2%80%9d%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%9c%a8hyper-v%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85gentoo">在Hyper-V环境安装Gentoo</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%9c%a8qemu%e7%8e%af%e5%a2%83%e5%ae%89%e8%a3%85gentoo">在QEMU环境安装Gentoo</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">安装xfce后fcitx右上角显示但无法选择输入法问题解决</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98">记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-ubuntu-ubuntu%e5%ae%89%e8%a3%85hyper-v%e5%b7%a5%e5%85%b7">Ubuntu安装Hyper-V工具</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9f-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88">曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案</a></li>
@@ -8451,6 +8544,10 @@ integration%20with%20awx/</p>
 <ul>
 <li><a href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-zfs-truenas%e5%88%a0%e9%99%a4%e6%89%80%e6%9c%89%e7%a9%ba%e5%bf%ab%e7%85%a7">TrueNAS删除所有空快照</a></li>
 </ul>
+<h2 id="tags-fcitx"><span class="md-tag">fcitx</span><a class="headerlink" href="#tags-fcitx" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">安装xfce后fcitx右上角显示但无法选择输入法问题解决</a></li>
+</ul>
 <h2 id="tags-helm"><span class="md-tag">helm</span><a class="headerlink" href="#tags-helm" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e5%ae%b9%e5%99%a8%e6%8a%80%e6%9c%af-kubernetes-%e5%ae%89%e8%a3%85helm%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8">安装helm包管理器</a></li>
@@ -8475,9 +8572,18 @@ integration%20with%20awx/</p>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-keycloak-%e4%bd%bf%e7%94%a8openresty%e5%ae%b9%e5%99%a8%e4%b8%bak8s%e7%9a%84%e6%9c%8d%e5%8a%a1%e6%8f%90%e4%be%9bkeycloak%e8%ae%a4%e8%af%81%e6%9c%8d%e5%8a%a1">使用openresty容器为k8s的服务提供Keycloak认证服务</a></li>
 </ul>
+<h2 id="tags-sddm"><span class="md-tag">sddm</span><a class="headerlink" href="#tags-sddm" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
+</ul>
 <h2 id="tags-traefik"><span class="md-tag">traefik</span><a class="headerlink" href="#tags-traefik" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e5%ae%b9%e5%99%a8%e6%8a%80%e6%9c%af-kubernetes-%e5%ae%89%e8%a3%85traefik%20ingress%20controller">安装traefik ingress controller</a></li>
+</ul>
+<h2 id="tags-xfce"><span class="md-tag">xfce</span><a class="headerlink" href="#tags-xfce" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">安装xfce后fcitx右上角显示但无法选择输入法问题解决</a></li>
 </ul>
 <h2 id="tags-_2"><span class="md-tag">中标麒麟</span><a class="headerlink" href="#tags-_2" title="Permanent link">&para;</a></h2>
 <ul>
