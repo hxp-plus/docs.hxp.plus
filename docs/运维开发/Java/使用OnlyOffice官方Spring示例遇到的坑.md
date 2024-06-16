@@ -3,6 +3,7 @@ tags:
   - OnlyOffice
   - SpringBoot
   - Maven
+  - Java
 ---
 
 # 使用 OnlyOffice 官方 Spring 示例遇到的坑

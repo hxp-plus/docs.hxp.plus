@@ -65,8 +65,6 @@ nav:
           - 思源笔记k8s部署: 运维开发/笔记及文档软件/思源笔记k8s部署.md
           - mkdocs在k8s上的部署: 运维开发/笔记及文档软件/mkdocs在k8s上的部署.md
           - 编译OnlyOffice以解除20连接数限制: 运维开发/笔记及文档软件/编译OnlyOffice以解除20连接数限制.md
-          - 使用OnlyOffice官方Spring示例遇到的坑: 运维开发/笔记及文档软件/使用OnlyOffice官方Spring示例遇到的坑.md
-          - SpringBoot 2.5.1 对接Keycloak认证: 运维开发/笔记及文档软件/SpringBoot 2.5.1 对接Keycloak认证.md
       - Git使用:
           - Git中文乱码问题解决: 运维开发/Git使用/Git中文乱码问题解决.md
           - Git服务器搭建: 运维开发/Git使用/Git服务器搭建.md
@@ -76,6 +74,9 @@ nav:
           - 构建解压即用的Python3: 运维开发/Python/构建解压即用的Python3.md
           - 基于Python的模块化监控工具的开发: 运维开发/Python/基于Python的模块化监控工具的开发.md
           - Python升级所有依赖: 运维开发/Python/Python升级所有依赖.md
+      - Java:
+          - SpringBoot 2.5.1 对接Keycloak认证: 运维开发/Java/SpringBoot 2.5.1 对接Keycloak认证.md
+          - 使用OnlyOffice官方Spring示例遇到的坑: 运维开发/Java/使用OnlyOffice官方Spring示例遇到的坑.md
   - 折腾Linux:
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
@@ -93,9 +94,9 @@ nav:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
       - RHEL6:
           - 记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题: 折腾Linux/RHEL6/记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题.md
-      - 中标麒麟:
-          - 曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案: 折腾Linux/中标麒麟/曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案.md
-          - 联想物理机PXE装机报错“根分区找不到”原因及解决方法: 折腾Linux/中标麒麟/联想物理机PXE装机报错“根分区找不到”原因及解决方法.md
+      - 中标麒麟V7:
+          - 曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案: 折腾Linux/中标麒麟V7/曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案.md
+          - 联想物理机PXE装机报错“根分区找不到”原因及解决方法: 折腾Linux/中标麒麟V7/联想物理机PXE装机报错“根分区找不到”原因及解决方法.md
       - 银河麒麟V10:
           - 记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路: 折腾Linux/银河麒麟V10/记某次某安全厂商应用运行一段时间后，Linux出现ping延迟高问题的解决思路.md
   - 虚拟化技术:
