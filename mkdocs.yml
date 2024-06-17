@@ -70,6 +70,7 @@ nav:
           - Git服务器搭建: 运维开发/Git使用/Git服务器搭建.md
           - GitHub默认头像获取: 运维开发/Git使用/GitHub默认头像获取.md
           - Git配置记住密码: 运维开发/Git使用/Git配置记住密码.md
+          - 使用nginx快速搭建只读Git仓库: 运维开发/Git使用/使用nginx快速搭建只读Git仓库.md
       - Python:
           - 构建解压即用的Python3: 运维开发/Python/构建解压即用的Python3.md
           - 基于Python的模块化监控工具的开发: 运维开发/Python/基于Python的模块化监控工具的开发.md
