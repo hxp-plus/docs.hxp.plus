@@ -32,7 +32,7 @@ tags:
 FROM redhat/ubi8:8.10
 RUN yum install -y nginx git
 WORKDIR /usr/share/nginx/html
-RUN git clone --bare https://github.com/hxp-plus/docs.hxp.plus.git docs.hxp.plus.git
+RUN git clone --mirror https://github.com/hxp-plus/docs.hxp.plus.git docs.hxp.plus.git
 RUN cd docs.hxp.plus.git && mv hooks/post-update.sample hooks/post-update && chmod a+x hooks/post-update && git update-server-info
 COPY <<-'EOF' /etc/nginx/nginx.conf
 daemon off;
