@@ -6380,7 +6380,7 @@ integration%20with%20awx/</p>
 <span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e4%bd%bf%e7%94%a8nginx%e5%bf%ab%e9%80%9f%e6%90%ad%e5%bb%ba%e5%8f%aa%e8%af%bbgit%e4%bb%93%e5%ba%93-__codelineno-0-42">42</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>FROM redhat/ubi8:8.10
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>RUN yum install -y nginx git
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>WORKDIR /usr/share/nginx/html
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>RUN git clone --bare https://github.com/hxp-plus/docs.hxp.plus.git docs.hxp.plus.git
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>RUN git clone --mirror https://github.com/hxp-plus/docs.hxp.plus.git docs.hxp.plus.git
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>RUN cd docs.hxp.plus.git &amp;&amp; mv hooks/post-update.sample hooks/post-update &amp;&amp; chmod a+x hooks/post-update &amp;&amp; git update-server-info
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>COPY &lt;&lt;-&#39;EOF&#39; /etc/nginx/nginx.conf
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>daemon off;
