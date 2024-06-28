@@ -5,6 +5,8 @@ tags:
 
 # Git 中文乱码问题解决
 
+## Git 中文路径乱码问题
+
 默认配置下 Git 如果有中文文件会有乱码：
 
 ```
@@ -26,7 +28,7 @@ $ git status
 修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
 ```
 
-解决方法：
+## 解决方法
 
 ```bash
 git config --global core.quotepath false
