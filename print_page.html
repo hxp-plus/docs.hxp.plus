@@ -6758,6 +6758,7 @@ integration%20with%20awx/</p>
                             Git使用 <a class='headerlink' href='#section-git使用' title='Permanent link'>↵</a>
                         </h2>
                         <section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3"><nav class='md-tags'><span class='md-tag'>Git</span></nav><h1 id="git">Git 中文乱码问题解决<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-git" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-1-git">1. Git 中文路径乱码问题<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-1-git" title="Permanent link">&para;</a></h2>
 <p>默认配置下 Git 如果有中文文件会有乱码：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-0-2"> 2</a></span>
@@ -6791,20 +6792,21 @@ integration%20with%20awx/</p>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>修改尚未加入提交（使用 &quot;git add&quot; 和/或 &quot;git commit -a&quot;）
 </span></code></pre></div></td></tr></table></div>
-<p>解决方法：</p>
+<h%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-2">2. 解决方法<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-2" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3-__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.quotepath<span class="w"> </span><span class="nb">false</span>
-</span></code></pre></div></td></tr></table></div></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba"><nav class='md-tags'><span class='md-tag'>Git</span></nav><h1 id="git">Git 服务器搭建<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-git" title="Permanent link">&para;</a></h1>
+</span></code></pre></div></td></tr></table></div></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba"><nav class='md-tags'><span class='md-tag'>Git</span></nav><h1 id="git">最简 Git 服务器搭建<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-git" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-1-git">1. 最简 Git 服务器搭建方法<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-1-git" title="Permanent link">&para;</a></h2>
 <p>只要有服务器有 SSH，就可以搭建 Git 仓库。在仓库上，先创建用户 git，并使用用户 git 来创建仓库：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cd /srv/git
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cd /srv/git
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>mkdir project.git
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>cd project.git
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>git init --bare
 </span></code></pre></div></td></tr></table></div>
 <p>之后在客户端使用 Git：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>git remote add origin git@gitserver:/srv/git/project.git
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba-__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>git remote add origin git@gitserver:/srv/git/project.git
 </span></code></pre></div></td></tr></table></div></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-github%e9%bb%98%e8%ae%a4%e5%a4%b4%e5%83%8f%e8%8e%b7%e5%8f%96"><nav class='md-tags'><span class='md-tag'>GitHub</span></nav><h1 id="github">GitHub 默认头像获取<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-github%e9%bb%98%e8%ae%a4%e5%a4%b4%e5%83%8f%e8%8e%b7%e5%8f%96-github" title="Permanent link">&para;</a></h1>
 <h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-github%e9%bb%98%e8%ae%a4%e5%a4%b4%e5%83%8f%e8%8e%b7%e5%8f%96-1-github">1. 获取 GitHub 默认初始头像<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-github%e9%bb%98%e8%ae%a4%e5%a4%b4%e5%83%8f%e8%8e%b7%e5%8f%96-1-github" title="Permanent link">&para;</a></h2>
 <p>获取 GitHub 默认初始头像，需要访问默认的头像地址：<a href="https://github.com/identicons/hxp-plus.png">https://github.com/identicons/hxp-plus.png</a> （将 hxp-plus 修改为 GitHub 用户名）</p>
@@ -6927,7 +6929,43 @@ integration%20with%20awx/</p>
 <p><a href="https://wiki.archlinux.org/title/Git_server">https://wiki.archlinux.org/title/Git_server</a></p>
 <p><a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Smart-HTTP">https://git-scm.com/book/en/v2/Git-on-the-Server-Smart-HTTP</a></p>
 <p><a href="https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols">https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols</a></p>
-<p><a href="https://cloud.tencent.com/developer/article/1921219">https://cloud.tencent.com/developer/article/1921219</a></p></section><h1 class='nav-section-title-end'>Ended: Git使用</h1>
+<p><a href="https://cloud.tencent.com/developer/article/1921219">https://cloud.tencent.com/developer/article/1921219</a></p></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81"><nav class='md-tags'><span class='md-tag'>GitLab</span></nav><h1 id="gitlab">GitLab 第二邮箱修改为已认证<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-gitlab" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-1">1. 问题背景<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-1" title="Permanent link">&para;</a></h2>
+<p>在内网环境中使用 GitLab ，如果需要添加第二个电子邮件，电子邮件需要被验证，但是验证的邮件发不出去，就无法验证并完成添加。此时需要一种方法手动修改邮箱为已认证。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-2-rails">2. 登录 Rails 控制台手动修改第二邮箱为已认证<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-2-rails" title="Permanent link">&para;</a></h2>
+<p>登录到 GitLab 服务器上，进入 Rails 控制台修改邮箱为已认证：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-__codelineno-0-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>[root@gitlab gitlab]# gitlab-rails console production
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>-------------------------------------------------------------------------------------
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a> GitLab:       11.5.1 (c90ae59)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a> GitLab Shell: 8.4.1
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a> postgresql:   9.6.8
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>-------------------------------------------------------------------------------------
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>Both Deployment and its :status machine have defined a different default for &quot;status&quot;. Use only one or the other for defining defaults to avoid unexpected behaviors.
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>Loading production environment (Rails 4.2.10)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>irb(main):003:0&gt; email = Email.find_by(email: &quot;hxp@hxp.plus&quot;)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>=&gt; #&lt;Email id: 2, user_id: 51, email: &quot;hxp@hxp.plus&quot;, created_at: &quot;2024-06-05 03:59:21&quot;, updated_at: &quot;2024-06-05 03:59:21&quot;&gt;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>irb(main):004:0&gt; email.confirmed_at = Time.zone.now
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>=&gt; Wed, 05 Jun 2024 04:37:42 UTC +00:00
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>irb(main):005:0&gt; email.save!
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>=&gt; true
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>irb(main):006:0&gt; exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-3">3. 参考资料<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81-3" title="Permanent link">&para;</a></h2>
+<p><a href="https://gist.github.com/macdja38/3d62d4f251bd7c46f0128bb6a9d35544">https://gist.github.com/macdja38/3d62d4f251bd7c46f0128bb6a9d35544</a></p></section><h1 class='nav-section-title-end'>Ended: Git使用</h1>
                         <h2 class='nav-section-title' id='section-python'>
                             Python <a class='headerlink' href='#section-python' title='Permanent link'>↵</a>
                         </h2>
@@ -8681,7 +8719,7 @@ integration%20with%20awx/</p>
                         <h2 class='nav-section-title' id='section-中标麒麟v7'>
                             中标麒麟V7 <a class='headerlink' href='#section-中标麒麟v7' title='Permanent link'>↵</a>
                         </h2>
-                        <section class="print-page" id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88"><nav class='md-tags'><span class='md-tag'>中标麒麟</span><span class='md-tag'>Linux</span></nav><h1 id="raid">曙光服务器装机无 RAID 卡驱动导致不能识别硬盘问题分析与解决方案<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-raid" title="Permanent link">&para;</a></h1>
+                        <section class="print-page" id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88"><nav class='md-tags'><span class='md-tag'>中标麒麟V7</span><span class='md-tag'>Linux</span></nav><h1 id="raid">曙光服务器装机无 RAID 卡驱动导致不能识别硬盘问题分析与解决方案<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-raid" title="Permanent link">&para;</a></h1>
 <h2 id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-1">1. 问题的初步定位<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88-1" title="Permanent link">&para;</a></h2>
 <p>2022 年曙光服务器装机时找不到硬盘，但是老的曙光服务器可以找到硬盘，之前的解决方法是挂载一个 DUD（Driver Update Disk）光盘的 ISO 镜像，DUD 盘里有 RAID 卡驱动（rpm 包形式的驱动），安装时检测到 DUD 盘现场安装驱动，并在装新系统时也安装 DUD 盘内的驱动。</p>
 <p>这是命令 modinfo megaraid_sas 在装机不挂 DUD 镜像时的输出，可以看出 magaraid_sas 驱动的版本比较低，驱动厂商为 Avago：</p>
@@ -8897,7 +8935,7 @@ integration%20with%20awx/</p>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a>mount /root/megaraid9560_v7.iso /mnt
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a>cd /mnt/rpms/x86_64 &amp;&amp; rpm -ivh kmod-megaraid_sas-07.720.04.00-1.x86_64.rpm
 </span></code></pre></div></td></tr></table></div>
-<p>来确保装机后 kickstart 会安装新版本驱动到装好后的系统。</p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95"><nav class='md-tags'><span class='md-tag'>中标麒麟</span><span class='md-tag'>Linux</span></nav><h1 id="pxe">联想物理机 PXE 装机报错“根分区找不到”原因及解决方法<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95-pxe" title="Permanent link">&para;</a></h1>
+<p>来确保装机后 kickstart 会安装新版本驱动到装好后的系统。</p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95"><nav class='md-tags'><span class='md-tag'>中标麒麟V7</span><span class='md-tag'>Linux</span></nav><h1 id="pxe">联想物理机 PXE 装机报错“根分区找不到”原因及解决方法<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95-pxe" title="Permanent link">&para;</a></h1>
 <h2 id="%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95-1-pxe">1. PXE 装机启动过程<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95-1-pxe" title="Permanent link">&para;</a></h2>
 <p>实际观察到的联想服务器装机启动过程大致如下：</p>
 <ol>
@@ -9031,7 +9069,21 @@ integration%20with%20awx/</p>
 <p>修改调度器方法为 Core scheduler 的方法为：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e4%bf%ae%e6%94%b9%e8%b0%83%e5%ba%a6%e5%99%a8-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>bcdedit /set hypervisorschedulertype core
 </span></code></pre></div></td></tr></table></div>
-<p>修改以后需要重启。</p></section><h1 class='nav-section-title-end'>Ended: Hyper-V</h1><h1 class='nav-section-title-end'>Ended: 虚拟化技术</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
+<p>修改以后需要重启。</p></section><h1 class='nav-section-title-end'>Ended: Hyper-V</h1>
+                        <h2 class='nav-section-title' id='section-qemu'>
+                            QEMU <a class='headerlink' href='#section-qemu' title='Permanent link'>↵</a>
+                        </h2>
+                        <section class="print-page" id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98"><nav class='md-tags'><span class='md-tag'>QEMU</span><span class='md-tag'>KVM</span><span class='md-tag'>银河麒麟V10</span></nav><h1 id="virt-manager-did-not-find-any-uefi-binary-path-for-arch-aarch64">virt-manager 创建虚拟机报错 “Did not find any UEFI binary path for arch 'aarch64'” 问题<a class="headerlink" href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-virt-manager-did-not-find-any-uefi-binary-path-for-arch-aarch64" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-_1">问题描述<a class="headerlink" href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-_1" title="Permanent link">&para;</a></h2>
+<p>在 ARM64 架构的华为鲲鹏架构物理机上，安装 virt-manager 后，无法创建 KVM 虚拟机，报错 “Did not find any UEFI binary path for arch 'aarch64'” ：</p>
+<p><img alt="" src="%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/QEMU/images/virt-manager%E6%8A%A5%E9%94%99.png" /></p>
+<p>操作系统为银河麒麟 V10，经过检查， <code>edk2-ovmf-201908-9.ky10.noarch.rpm</code> 软件包已安装。</p>
+<h2 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-_2">解决方法<a class="headerlink" href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-_2" title="Permanent link">&para;</a></h2>
+<p>需要安装 <code>edk2-aarch64</code> 并重启 libvirtd ：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98-__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum install edk2-aarch64
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>systemctl restart libvirtd
+</span></code></pre></div></td></tr></table></div></section><h1 class='nav-section-title-end'>Ended: QEMU</h1><h1 class='nav-section-title-end'>Ended: 虚拟化技术</h1><section class="print-page" id="tags"><h1 id="tags-_1">文档分类<a class="headerlink" href="#tags-_1" title="Permanent link">&para;</a></h1>
 <p>以下为所有文档的过滤标签:</p>
 <h2 id="tags-awx"><span class="md-tag">AWX</span><a class="headerlink" href="#tags-awx" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9072,13 +9124,17 @@ integration%20with%20awx/</p>
 <h2 id="tags-git"><span class="md-tag">Git</span><a class="headerlink" href="#tags-git" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e4%b8%ad%e6%96%87%e4%b9%b1%e7%a0%81%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Git中文乱码问题解决</a></li>
-<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba">Git服务器搭建</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-git%e9%85%8d%e7%bd%ae%e8%ae%b0%e4%bd%8f%e5%af%86%e7%a0%81">Git配置记住密码</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e4%bd%bf%e7%94%a8nginx%e5%bf%ab%e9%80%9f%e6%90%ad%e5%bb%ba%e5%8f%aa%e8%af%bbgit%e4%bb%93%e5%ba%93">使用nginx快速搭建只读Git仓库</a></li>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-%e6%9c%80%e7%ae%80git%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%90%ad%e5%bb%ba">最简Git服务器搭建.md</a></li>
 </ul>
 <h2 id="tags-github"><span class="md-tag">GitHub</span><a class="headerlink" href="#tags-github" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-github%e9%bb%98%e8%ae%a4%e5%a4%b4%e5%83%8f%e8%8e%b7%e5%8f%96">GitHub默认头像获取</a></li>
+</ul>
+<h2 id="tags-gitlab"><span class="md-tag">GitLab</span><a class="headerlink" href="#tags-gitlab" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-git%e4%bd%bf%e7%94%a8-gitlab%e7%ac%ac%e4%ba%8c%e9%82%ae%e7%ae%b1%e4%bf%ae%e6%94%b9%e4%b8%ba%e5%b7%b2%e8%ae%a4%e8%af%81">GitLab第二邮箱修改为已认证</a></li>
 </ul>
 <h2 id="tags-hyper-v"><span class="md-tag">Hyper-V</span><a class="headerlink" href="#tags-hyper-v" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9090,6 +9146,10 @@ integration%20with%20awx/</p>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-springboot%202.5.1%20%e5%af%b9%e6%8e%a5keycloak%e8%ae%a4%e8%af%81">SpringBoot 2.5.1 对接Keycloak认证</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-%e4%bd%bf%e7%94%a8onlyoffice%e5%ae%98%e6%96%b9spring%e7%a4%ba%e4%be%8b%e9%81%87%e5%88%b0%e7%9a%84%e5%9d%91">使用OnlyOffice官方Spring示例遇到的坑</a></li>
+</ul>
+<h2 id="tags-kvm"><span class="md-tag">KVM</span><a class="headerlink" href="#tags-kvm" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98">virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题</a></li>
 </ul>
 <h2 id="tags-keycloak"><span class="md-tag">Keycloak</span><a class="headerlink" href="#tags-keycloak" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9169,6 +9229,10 @@ integration%20with%20awx/</p>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-python%e5%8d%87%e7%ba%a7%e6%89%80%e6%9c%89%e4%be%9d%e8%b5%96">Python升级所有依赖</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e5%9f%ba%e4%ba%8epython%e7%9a%84%e6%a8%a1%e5%9d%97%e5%8c%96%e7%9b%91%e6%8e%a7%e5%b7%a5%e5%85%b7%e7%9a%84%e5%bc%80%e5%8f%91">基于Python的模块化监控工具的开发</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-python-%e6%9e%84%e5%bb%ba%e8%a7%a3%e5%8e%8b%e5%8d%b3%e7%94%a8%e7%9a%84python3">构建解压即用的Python3</a></li>
+</ul>
+<h2 id="tags-qemu"><span class="md-tag">QEMU</span><a class="headerlink" href="#tags-qemu" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98">virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题</a></li>
 </ul>
 <h2 id="tags-rhel6"><span class="md-tag">RHEL6</span><a class="headerlink" href="#tags-rhel6" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9252,12 +9316,12 @@ integration%20with%20awx/</p>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-hyper-v%e7%8e%af%e5%a2%83%e4%b8%8bsddm%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">Hyper-V环境下sddm无法启动图形界面问题解决</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-gentoo-%e5%ae%89%e8%a3%85xfce%e5%90%8efcitx%e5%8f%b3%e4%b8%8a%e8%a7%92%e6%98%be%e7%a4%ba%e4%bd%86%e6%97%a0%e6%b3%95%e9%80%89%e6%8b%a9%e8%be%93%e5%85%a5%e6%b3%95%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3">安装xfce后fcitx右上角显示但无法选择输入法问题解决</a></li>
 </ul>
-<h2 id="tags-_2"><span class="md-tag">中标麒麟</span><a class="headerlink" href="#tags-_2" title="Permanent link">&para;</a></h2>
+<h2 id="tags-v7"><span class="md-tag">中标麒麟V7</span><a class="headerlink" href="#tags-v7" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88">曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">联想物理机PXE装机报错“根分区找不到”原因及解决方法</a></li>
 </ul>
-<h2 id="tags-_3"><span class="md-tag">思源笔记</span><a class="headerlink" href="#tags-_3" title="Permanent link">&para;</a></h2>
+<h2 id="tags-_2"><span class="md-tag">思源笔记</span><a class="headerlink" href="#tags-_2" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%96%87%e6%a1%a3%e8%bd%af%e4%bb%b6-%e6%80%9d%e6%ba%90%e7%ac%94%e8%ae%b0k8s%e9%83%a8%e7%bd%b2">思源笔记k8s部署</a></li>
 </ul>
@@ -9266,6 +9330,7 @@ integration%20with%20awx/</p>
 <li><a href="#%e5%ad%98%e5%82%a8%e6%8a%80%e6%9c%af-ceph-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85ceph">银河麒麟V10安装Ceph</a></li>
 <li><a href="#%e5%ae%b9%e5%99%a8%e6%8a%80%e6%9c%af-kubernetes-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85kubernetes">银河麒麟V10安装Kubernetes</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10-%e8%ae%b0%e6%9f%90%e6%ac%a1%e6%9f%90%e5%ae%89%e5%85%a8%e5%8e%82%e5%95%86%e5%ba%94%e7%94%a8%e8%bf%90%e8%a1%8c%e4%b8%80%e6%ae%b5%e6%97%b6%e9%97%b4%e5%90%8e%ef%bc%8clinux%e5%87%ba%e7%8e%b0ping%e5%bb%b6%e8%bf%9f%e9%ab%98%e9%97%ae%e9%a2%98%e7%9a%84%e8%a7%a3%e5%86%b3%e6%80%9d%e8%b7%af">记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路</a></li>
+<li><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98">virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题</a></li>
 </ul></section></div>
 
 

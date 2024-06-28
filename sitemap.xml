@@ -156,6 +156,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.hxp.plus/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/QEMU/virt-manager%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%A5%E9%94%99%E2%80%9CDid%20not%20find%20any%20UEFI%20binary%20path%20for%20arch%20%27aarch64%27%E2%80%9D%E9%97%AE%E9%A2%98.html</loc>
+         <lastmod>2024-06-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX-23.9%E4%BD%BF%E7%94%A8SAML%E5%AF%B9%E6%8E%A5keycloak%E8%AE%A4%E8%AF%81.html</loc>
          <lastmod>2024-06-28</lastmod>
          <changefreq>daily</changefreq>
@@ -196,12 +201,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html</loc>
+         <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/GitLab%E7%AC%AC%E4%BA%8C%E9%82%AE%E7%AE%B1%E4%BF%AE%E6%94%B9%E4%B8%BA%E5%B7%B2%E8%AE%A4%E8%AF%81.html</loc>
          <lastmod>2024-06-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html</loc>
+         <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html</loc>
          <lastmod>2024-06-28</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -212,6 +217,11 @@
     </url>
     <url>
          <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/%E4%BD%BF%E7%94%A8nginx%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E5%8F%AA%E8%AF%BBGit%E4%BB%93%E5%BA%93.html</loc>
+         <lastmod>2024-06-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/%E6%9C%80%E7%AE%80Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html</loc>
          <lastmod>2024-06-28</lastmod>
          <changefreq>daily</changefreq>
     </url>

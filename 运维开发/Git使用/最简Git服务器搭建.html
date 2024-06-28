@@ -10,7 +10,7 @@
         <meta name="author" content="胡喜平">
       
       
-        <link rel="canonical" href="https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html">
+        <link rel="canonical" href="https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/Git%E4%BD%BF%E7%94%A8/%E6%9C%80%E7%AE%80Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html">
       
       
         <link rel="prev" href="Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Git服务器搭建 - hxp的文档库</title>
+        <title>最简Git服务器搭建.md - hxp的文档库</title>
       
     
     
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Git服务器搭建
+              最简Git服务器搭建.md
             
           </span>
         </div>
@@ -866,15 +866,54 @@
         
       
       
-      <a href="Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html" class="md-nav__link md-nav__link--active">
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    最简Git服务器搭建.md
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="%E6%9C%80%E7%AE%80Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Git服务器搭建
+    最简Git服务器搭建.md
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 最简 Git 服务器搭建方法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -935,6 +974,27 @@
   
   <span class="md-ellipsis">
     使用nginx快速搭建只读Git仓库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="GitLab%E7%AC%AC%E4%BA%8C%E9%82%AE%E7%AE%B1%E4%BF%AE%E6%94%B9%E4%B8%BA%E5%B7%B2%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitLab第二邮箱修改为已认证
   </span>
   
 
@@ -1179,6 +1239,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 最简 Git 服务器搭建方法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1213,7 +1290,8 @@
   
 
 
-<h1 id="git">Git 服务器搭建<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<h1 id="git">最简 Git 服务器搭建<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<h2 id="1-git">1. 最简 Git 服务器搭建方法<a class="headerlink" href="#1-git" title="Permanent link">&para;</a></h2>
 <p>只要有服务器有 SSH，就可以搭建 Git 仓库。在仓库上，先创建用户 git，并使用用户 git 来创建仓库：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
@@ -1248,7 +1326,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 28, 2024</span>
   </span>
 
     
