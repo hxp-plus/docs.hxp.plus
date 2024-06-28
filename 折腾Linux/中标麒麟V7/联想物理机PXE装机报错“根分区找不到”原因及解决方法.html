@@ -993,18 +993,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pxe_1" class="md-nav__link">
+  <a href="#1-pxe" class="md-nav__link">
     <span class="md-ellipsis">
-      PXE 装机启动过程
+      1. PXE 装机启动过程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      2. 解决方法
     </span>
   </a>
   
@@ -1171,18 +1171,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pxe_1" class="md-nav__link">
+  <a href="#1-pxe" class="md-nav__link">
     <span class="md-ellipsis">
-      PXE 装机启动过程
+      1. PXE 装机启动过程
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      2. 解决方法
     </span>
   </a>
   
@@ -1231,7 +1231,7 @@
 
 
 <h1 id="pxe">联想物理机 PXE 装机报错“根分区找不到”原因及解决方法<a class="headerlink" href="#pxe" title="Permanent link">&para;</a></h1>
-<h2 id="pxe_1">PXE 装机启动过程<a class="headerlink" href="#pxe_1" title="Permanent link">&para;</a></h2>
+<h2 id="1-pxe">1. PXE 装机启动过程<a class="headerlink" href="#1-pxe" title="Permanent link">&para;</a></h2>
 <p>实际观察到的联想服务器装机启动过程大致如下：</p>
 <ol>
 <li>加载位于  <a href="http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz">http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz</a> 的内核和位于 <a href="http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz%E7%9A%84%E5%86%85%E6%A0%B8%E5%92%8C%E4%BD%8D%E4%BA%8Ehttp://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img" title="http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz%E7%9A%84%E5%86%85%E6%A0%B8%E5%92%8C%E4%BD%8D%E4%BA%8Ehttp://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img">http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img</a>  的 initramfs</li>
@@ -1246,7 +1246,7 @@
 <p>装机成功的机器网卡英特尔 X710，英特尔网卡兼容性好，initramfs 有驱动：</p>
 <p><img alt="" src="images/add7835ab034488db98aa6549e32d9a0.png" /></p>
 <p>找不到 /dev/root 的原因为 initramfs 无 txgbe 网卡驱动，导致无法连接网络获取 squashfs.img ，最终导致 squashfs.img 无法挂载，安装镜像无法继续启动。</p>
-<h2 id="_1">解决方法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 解决方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>以下过程需要用 root 用户操作</p>

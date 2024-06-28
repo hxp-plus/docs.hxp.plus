@@ -816,45 +816,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#1-ssl" class="md-nav__link">
     <span class="md-ellipsis">
-      生成 SSL 证书
+      1. 生成 SSL 证书
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#awx" class="md-nav__link">
+  <a href="#2-awx" class="md-nav__link">
     <span class="md-ellipsis">
-      修改 AWX 配置
+      2. 修改 AWX 配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#awx-saml" class="md-nav__link">
+  <a href="#3-awx-saml" class="md-nav__link">
     <span class="md-ellipsis">
-      在 AWX 上配置 SAML 认证
+      3. 在 AWX 上配置 SAML 认证
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#4-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      Keycloak 配置
+      4. Keycloak 配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      参考文献
+      5. 参考文献
     </span>
   </a>
   
@@ -1303,45 +1303,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#1-ssl" class="md-nav__link">
     <span class="md-ellipsis">
-      生成 SSL 证书
+      1. 生成 SSL 证书
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#awx" class="md-nav__link">
+  <a href="#2-awx" class="md-nav__link">
     <span class="md-ellipsis">
-      修改 AWX 配置
+      2. 修改 AWX 配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#awx-saml" class="md-nav__link">
+  <a href="#3-awx-saml" class="md-nav__link">
     <span class="md-ellipsis">
-      在 AWX 上配置 SAML 认证
+      3. 在 AWX 上配置 SAML 认证
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#4-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      Keycloak 配置
+      4. Keycloak 配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      参考文献
+      5. 参考文献
     </span>
   </a>
   
@@ -1390,7 +1390,7 @@
 
 
 <h1 id="awx-239-saml-keycloak">AWX-23.9 使用 SAML 对接 keycloak 认证<a class="headerlink" href="#awx-239-saml-keycloak" title="Permanent link">&para;</a></h1>
-<h2 id="ssl">生成 SSL 证书<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<h2 id="1-ssl">1. 生成 SSL 证书<a class="headerlink" href="#1-ssl" title="Permanent link">&para;</a></h2>
 <p>在任意 Linux 执行以下命令生成 SSL 证书：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>openssl req -new -x509 -days 3650 -nodes -out saml_3650.crt -keyout saml_3650.key
 </span></code></pre></div></td></tr></table></div>
@@ -1433,10 +1433,10 @@
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>Common Name (e.g. server FQDN or YOUR name) []:
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>Email Address []:
 </span></code></pre></div></td></tr></table></div>
-<h2 id="awx">修改 AWX 配置<a class="headerlink" href="#awx" title="Permanent link">&para;</a></h2>
+<h2 id="2-awx">2. 修改 AWX 配置<a class="headerlink" href="#2-awx" title="Permanent link">&para;</a></h2>
 <p>点击 Settings -&gt; Miscellaneous System ，修改“Base URL of the service”为 AWX 的公网 URL：
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_chromium_20240306172050.png" /></p>
-<h2 id="awx-saml">在 AWX 上配置 SAML 认证<a class="headerlink" href="#awx-saml" title="Permanent link">&para;</a></h2>
+<h2 id="3-awx-saml">3. 在 AWX 上配置 SAML 认证<a class="headerlink" href="#3-awx-saml" title="Permanent link">&para;</a></h2>
 <p>点击 Settings -&gt; SAML settings ，填写 keycloak 服务器配置如下：</p>
 <ol>
 <li>SAML Service Provider Entity ID ： awx-saml</li>
@@ -1539,7 +1539,7 @@
 <li>SAML Security Config 、 SAML Organization Attribute Mapping 、 SAML Team Attribute Mapping 、 SAML User Flags Attribute Mapping 均为 <code>{}</code></li>
 <li>SAML Service Provider extra configuration data 、 SAML IDP to extra_data attribute mapping 、 SAML Team Map 均为 <code>null</code></li>
 </ol>
-<h2 id="keycloak">Keycloak 配置<a class="headerlink" href="#keycloak" title="Permanent link">&para;</a></h2>
+<h2 id="4-keycloak">4. Keycloak 配置<a class="headerlink" href="#4-keycloak" title="Permanent link">&para;</a></h2>
 <p>接下来以 Keycloak 11 为例，Keycloak 24 不一样的地方特殊说明。首先需要在 AWX 上访问这里的 URL，获取 keycloak 配置：
 <img alt="" src="images/Pasted%20image%2020240306174116.png" /></p>
 <p>下载 xml 配置，点击 keycloak 的 Clients -&gt; Create , 上传 xml 配置：
@@ -1563,7 +1563,7 @@
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_org.deepin.browser_20240306175906.png" />
 测试用户名、电子邮箱、姓名能否正常获取：
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_Navigator_20240306180102.png" /></p>
-<h2 id="_1">参考文献<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="5">5. 参考文献<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p><a href="https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k">https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k</a></p>
 <p><a href="https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings">https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings</a></p>
 <p><a href="https://github.com/ansible/awx/issues/5570">https://github.com/ansible/awx/issues/5570</a></p>

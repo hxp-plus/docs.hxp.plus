@@ -1015,27 +1015,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决思路及最终结论
+      2. 解决思路及最终结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      3. 解决方法
     </span>
   </a>
   
@@ -1159,27 +1159,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决思路及最终结论
+      2. 解决思路及最终结论
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      3. 解决方法
     </span>
   </a>
   
@@ -1234,9 +1234,9 @@
 
 
 <h1 id="linux-ping">记某次某安全厂商应用运行一段时间后，Linux 出现 ping 延迟高问题的解决思路<a class="headerlink" href="#linux-ping" title="Permanent link">&para;</a></h1>
-<h2 id="_1">问题描述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 问题描述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>在某台联想信创服务器（海光 CPU 版本）上安装银河麒麟 V10SP1 后，安装了某个安全厂商的软件。该安全厂商软件需要部分 root 的权限运行，观察到的现象为：软件运行一段时间后，这个节点到别的节点 ping 延迟变得特别高而且不稳定（同一个交换机下的两台机器之间互相 ping，有 100ms 延迟）。且观察到 CPU 软中断非常高且分布不均匀。</p>
-<h2 id="_2">解决思路及最终结论<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 解决思路及最终结论<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>该问题的排查思路如下：</p>
 <ul>
 <li>在确认了无应用和业务影响、将应用服务器隔离后，停止应用，继续测试，发现 ping 延迟依旧高，至此排除不是应用运行导致的问题。</li>
@@ -1261,7 +1261,7 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>91257
 </span></code></pre></div></td></tr></table></div>
 <p>直接问题是因为每次包进入到服务器，都要匹配这 9 万行 iptables 规则，然后才会把包放进来。</p>
-<h2 id="_3">解决方法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 解决方法<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>临时的解决方法为清空 iptables ：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>iptables -F
 </span></code></pre></div></td></tr></table></div>

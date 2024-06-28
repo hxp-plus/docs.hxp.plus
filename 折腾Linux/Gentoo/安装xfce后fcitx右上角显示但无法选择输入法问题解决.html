@@ -948,18 +948,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      2. 解决方法
     </span>
   </a>
   
@@ -1255,18 +1255,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      解决方法
+      2. 解决方法
     </span>
   </a>
   
@@ -1327,14 +1327,14 @@
 
 
 <h1 id="xfce-fcitx">安装 xfce 后 fcitx 右上角显示但无法选择输入法问题解决<a class="headerlink" href="#xfce-fcitx" title="Permanent link">&para;</a></h1>
-<h2 id="_1">问题描述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 问题描述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>在安装 xfce 后，安装 fcitx-rime ，之后发现输入法的键盘图标在右上角能显示，但是右键无法选择输入法。已经尝试过的方法为：</p>
 <ul>
 <li>将那三个环境变量同时配置于 <code>~/.xprofile</code> 、 <code>~/.xinitrc</code> 和 <code>/etc/profile.d/fcitx.sh</code> ，重启，问题依旧存在。</li>
 <li>使用 <code>fcitx-diagnose</code> 诊断，发现无异常。</li>
 <li>尝试使用 vnc 连接，问题依旧存在。</li>
 </ul>
-<h2 id="_2">解决方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 解决方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>安装 ibus 输入法后，问题自动解决，我也不知道为什么：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>emerge --ask app-i18n/ibus ibus-libpinyin
 </span></code></pre></div></td></tr></table></div>

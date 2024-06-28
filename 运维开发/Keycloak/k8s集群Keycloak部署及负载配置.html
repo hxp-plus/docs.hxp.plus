@@ -817,37 +817,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mysql" class="md-nav__link">
+  <a href="#1-mysql" class="md-nav__link">
     <span class="md-ellipsis">
-      部署 MySQL 数据库
+      1. 部署 MySQL 数据库
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#2-ssl" class="md-nav__link">
     <span class="md-ellipsis">
-      生成 SSL 证书
+      2. 生成 SSL 证书
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#3-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      部署 Keycloak
+      3. 部署 Keycloak
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="部署 Keycloak">
+    <nav class="md-nav" aria-label="3. 部署 Keycloak">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      配置负载均衡器
+      3.1 配置负载均衡器
     </span>
   </a>
   
@@ -859,9 +859,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      参考链接
+      4. 参考链接
     </span>
   </a>
   
@@ -1225,37 +1225,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mysql" class="md-nav__link">
+  <a href="#1-mysql" class="md-nav__link">
     <span class="md-ellipsis">
-      部署 MySQL 数据库
+      1. 部署 MySQL 数据库
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#2-ssl" class="md-nav__link">
     <span class="md-ellipsis">
-      生成 SSL 证书
+      2. 生成 SSL 证书
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#3-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      部署 Keycloak
+      3. 部署 Keycloak
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="部署 Keycloak">
+    <nav class="md-nav" aria-label="3. 部署 Keycloak">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#31" class="md-nav__link">
     <span class="md-ellipsis">
-      配置负载均衡器
+      3.1 配置负载均衡器
     </span>
   </a>
   
@@ -1267,9 +1267,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      参考链接
+      4. 参考链接
     </span>
   </a>
   
@@ -1318,15 +1318,15 @@
 
 
 <h1 id="k8s-keycloak">k8s 集群 Keycloak 部署及负载配置<a class="headerlink" href="#k8s-keycloak" title="Permanent link">&para;</a></h1>
-<h2 id="mysql">部署 MySQL 数据库<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
+<h2 id="1-mysql">1. 部署 MySQL 数据库<a class="headerlink" href="#1-mysql" title="Permanent link">&para;</a></h2>
 <p>新建一套 MySQL-8 数据库，新建用户 keycloak 和数据库 keycloak，然后测试其连接性：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>mysql<span class="w"> </span>-h<span class="s1">&#39;192.168.100.243&#39;</span><span class="w"> </span>-P<span class="s1">&#39;3306&#39;</span><span class="w"> </span>-ukeycloak<span class="w"> </span>-p<span class="w"> </span>keycloak
 </span></code></pre></div></td></tr></table></div>
-<h2 id="ssl">生成 SSL 证书<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<h2 id="2-ssl">2. 生成 SSL 证书<a class="headerlink" href="#2-ssl" title="Permanent link">&para;</a></h2>
 <p>即使不使用，也需要自签证书，否则 Keycloak 无法以生成模式启动：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-subj<span class="w"> </span><span class="s1">&#39;/CN=test.keycloak.org/O=Test Keycloak./C=US&#39;</span><span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>key.pem<span class="w"> </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span>-out<span class="w"> </span>certificate.pem
 </span></code></pre></div></td></tr></table></div>
-<h2 id="keycloak">部署 Keycloak<a class="headerlink" href="#keycloak" title="Permanent link">&para;</a></h2>
+<h2 id="3-keycloak">3. 部署 Keycloak<a class="headerlink" href="#3-keycloak" title="Permanent link">&para;</a></h2>
 <p>先创建 service，暴露服务端口 30081：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
@@ -1757,10 +1757,10 @@
 <span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>keycloak<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>keycloak-8659669957-jrtqr<span class="w"> </span>--<span class="w"> </span>/bin/bash
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>/opt/keycloak/bin/kcadm.sh<span class="w"> </span>update<span class="w"> </span>realms/master<span class="w"> </span>-s<span class="w"> </span><span class="nv">sslRequired</span><span class="o">=</span>NONE<span class="w"> </span>--server<span class="w"> </span>http://keycloak:8080<span class="w"> </span>--realm<span class="w"> </span>master<span class="w"> </span>--user<span class="w"> </span>admin
 </span></code></pre></div></td></tr></table></div>
-<h3 id="_1">配置负载均衡器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h3 id="31">3.1 配置负载均衡器<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
 <p>负载均衡器配置如下，需要打开“附加 HTTP 头字段：[客户端真实 IP / X-Forwarded-For]”功能：
 <img alt="" src="images/k8s%E5%AE%89%E8%A3%85keycloak_%E8%B4%9F%E8%BD%BD%E9%85%8D%E7%BD%AE.png" /></p>
-<h2 id="_2">参考链接<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 参考链接<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/keycloak/keycloak-quickstarts/blob/release/24.0/kubernetes/keycloak.yaml">https://github.com/keycloak/keycloak-quickstarts/blob/release/24.0/kubernetes/keycloak.yaml</a></p>
 <p><a href="https://www.keycloak.org/server/db#_supported_databases">https://www.keycloak.org/server/db#_supported_databases</a></p>
 <p><a href="https://www.keycloak.org/server/hostname">https://www.keycloak.org/server/hostname</a></p>

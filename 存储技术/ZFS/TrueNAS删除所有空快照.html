@@ -749,18 +749,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
+  <a href="#1-zfs" class="md-nav__link">
     <span class="md-ellipsis">
-      ZFS 列出所有快照
+      1. ZFS 列出所有快照
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#0b" class="md-nav__link">
+  <a href="#2-0b" class="md-nav__link">
     <span class="md-ellipsis">
-      找出所有大小为 0B 的快照并删除
+      2. 找出所有大小为 0B 的快照并删除
     </span>
   </a>
   
@@ -978,18 +978,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
+  <a href="#1-zfs" class="md-nav__link">
     <span class="md-ellipsis">
-      ZFS 列出所有快照
+      1. ZFS 列出所有快照
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#0b" class="md-nav__link">
+  <a href="#2-0b" class="md-nav__link">
     <span class="md-ellipsis">
-      找出所有大小为 0B 的快照并删除
+      2. 找出所有大小为 0B 的快照并删除
     </span>
   </a>
   
@@ -1038,7 +1038,7 @@
 
 
 <h1 id="truenas">TrueNAS 删除所有空快照<a class="headerlink" href="#truenas" title="Permanent link">&para;</a></h1>
-<h2 id="zfs">ZFS 列出所有快照<a class="headerlink" href="#zfs" title="Permanent link">&para;</a></h2>
+<h2 id="1-zfs">1. ZFS 列出所有快照<a class="headerlink" href="#1-zfs" title="Permanent link">&para;</a></h2>
 <p>使用以下命令列出所有快照:</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>zfs list -t snap
 </span></code></pre></div></td></tr></table></div>
@@ -1083,7 +1083,7 @@
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>nas@auto-2023-10-29_07-00                0B      -   112K  -
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a>nas@auto-2023-10-29_08-00                0B      -   112K  -
 </span></code></pre></div></td></tr></table></div>
-<h2 id="0b">找出所有大小为 0B 的快照并删除<a class="headerlink" href="#0b" title="Permanent link">&para;</a></h2>
+<h2 id="2-0b">2. 找出所有大小为 0B 的快照并删除<a class="headerlink" href="#2-0b" title="Permanent link">&para;</a></h2>
 <p>使用以下脚本,用 awk 提取出大小为 0B 的快照,并输出 zfs 删除快照的命令:</p>
 <div class="admonition note">
 <p class="admonition-title">remove_empty_snapshots.sh</p>

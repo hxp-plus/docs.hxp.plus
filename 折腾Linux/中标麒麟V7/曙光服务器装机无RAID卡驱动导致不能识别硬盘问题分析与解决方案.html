@@ -972,18 +972,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题的初步定位
+      1. 问题的初步定位
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#squashfs" class="md-nav__link">
+  <a href="#2-squashfs" class="md-nav__link">
     <span class="md-ellipsis">
-      修改装机镜像中 squashfs 并加入新版驱动
+      2. 修改装机镜像中 squashfs 并加入新版驱动
     </span>
   </a>
   
@@ -1171,18 +1171,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题的初步定位
+      1. 问题的初步定位
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#squashfs" class="md-nav__link">
+  <a href="#2-squashfs" class="md-nav__link">
     <span class="md-ellipsis">
-      修改装机镜像中 squashfs 并加入新版驱动
+      2. 修改装机镜像中 squashfs 并加入新版驱动
     </span>
   </a>
   
@@ -1231,7 +1231,7 @@
 
 
 <h1 id="raid">曙光服务器装机无 RAID 卡驱动导致不能识别硬盘问题分析与解决方案<a class="headerlink" href="#raid" title="Permanent link">&para;</a></h1>
-<h2 id="_1">问题的初步定位<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 问题的初步定位<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>2022 年曙光服务器装机时找不到硬盘，但是老的曙光服务器可以找到硬盘，之前的解决方法是挂载一个 DUD（Driver Update Disk）光盘的 ISO 镜像，DUD 盘里有 RAID 卡驱动（rpm 包形式的驱动），安装时检测到 DUD 盘现场安装驱动，并在装新系统时也安装 DUD 盘内的驱动。</p>
 <p>这是命令 modinfo megaraid_sas 在装机不挂 DUD 镜像时的输出，可以看出 magaraid_sas 驱动的版本比较低，驱动厂商为 Avago：</p>
 <p><img alt="2a0527997c7166e7e9abe9b312dfe612.png" src="images/a6fbfdb2491a46628c5594452f35b85e.png" /></p>
@@ -1239,7 +1239,7 @@
 <p><img alt="d44861c01d811f0242334555572fe97d.png" src="images/5207e9a232d9444d9d57f77fae9d791a.png" /></p>
 <p>因此，新版曙光服务器找不到驱动的原因为：新版曙光服务器升级了 RAID 卡到新的版本，但是麒麟 7.6 的安装镜像里的驱动是老版本驱动。解决方案是升级安装镜像里的 megaraid_sas 驱动程序。</p>
 <p>同时，观察没有挂载 DUD 盘时，安装光盘里的 Linux 可以正常启动，可以加载内核和 initramfs ，initramfs 可以挂载 squashfs，从而把镜像内的操作系统启动起来。但是镜像内操作系统启动完成后，megaraid_sas 驱动程序版本低，无法驱动高版本的 RAID 卡。因此需要升级的是 squashfs 内的 RAID 卡驱动。</p>
-<h2 id="squashfs">修改装机镜像中 squashfs 并加入新版驱动<a class="headerlink" href="#squashfs" title="Permanent link">&para;</a></h2>
+<h2 id="2-squashfs">2. 修改装机镜像中 squashfs 并加入新版驱动<a class="headerlink" href="#2-squashfs" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>以下过程需要用 root 用户操作</p>

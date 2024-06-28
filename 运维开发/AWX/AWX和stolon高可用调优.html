@@ -753,18 +753,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#k8s-awx-stolon" class="md-nav__link">
+  <a href="#1-k8s-awx-stolon" class="md-nav__link">
     <span class="md-ellipsis">
-      K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案
+      1. K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      参考链接
+      2. 参考链接
     </span>
   </a>
   
@@ -1276,18 +1276,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#k8s-awx-stolon" class="md-nav__link">
+  <a href="#1-k8s-awx-stolon" class="md-nav__link">
     <span class="md-ellipsis">
-      K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案
+      1. K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      参考链接
+      2. 参考链接
     </span>
   </a>
   
@@ -1342,7 +1342,7 @@
 
 
 <h1 id="awx-stolon">AWX 和 stolon 高可用调优<a class="headerlink" href="#awx-stolon" title="Permanent link">&para;</a></h1>
-<h2 id="k8s-awx-stolon">K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案<a class="headerlink" href="#k8s-awx-stolon" title="Permanent link">&para;</a></h2>
+<h2 id="1-k8s-awx-stolon">1. K8S 故障后 AWX 和 stolon 切换时间过长问题解决方案<a class="headerlink" href="#1-k8s-awx-stolon" title="Permanent link">&para;</a></h2>
 <p>在 k8s 上安装完成 AWX 后，实际测试发现在节点故障时切换时间过长，这是因为 k8s 默认设置里，当一个 k8s 节点 unreachable 或者 not-ready 时，容器会容忍这个节点 5 分钟才会自动漂移。可以修改为更短的时间，例如 10 秒。需要修改<code>awx.yaml</code>的<code>tolerations</code>。同时，为了防止容器被调度到相同的节点上，需要修改<code>task_topology_spread_constraints</code>和<code>web_topology_spread_constraints</code>：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1457,7 +1457,7 @@
 </span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">          </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoExecute&quot;</span>
 </span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">          </span><span class="nt">tolerationSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_1">参考链接<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 参考链接<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/ansible/awx-operator/blob/0d1fa239a56c55202167cb833a72f495928442fc/docs/user-guide/advanced-configuration/assigning-awx-pods-to-specific-nodes.md?plain=1#L20">https://github.com/ansible/awx-operator/blob/0d1fa239a56c55202167cb833a72f495928442fc/docs/user-guide/advanced-configuration/assigning-awx-pods-to-specific-nodes.md?plain=1#L20</a></p>
 
 

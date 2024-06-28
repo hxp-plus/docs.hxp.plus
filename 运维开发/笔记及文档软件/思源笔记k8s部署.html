@@ -839,36 +839,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      前置条件
+      1. 前置条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pvc" class="md-nav__link">
+  <a href="#2-pvc" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 pvc 来提供持久化存储
+      2. 创建 pvc 来提供持久化存储
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment-pod" class="md-nav__link">
+  <a href="#3-deployment-pod" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 deployment 来部署 pod
+      3. 创建 deployment 来部署 pod
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#service" class="md-nav__link">
+  <a href="#4-service" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 service 来暴露服务
+      4. 创建 service 来暴露服务
     </span>
   </a>
   
@@ -1210,36 +1210,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      前置条件
+      1. 前置条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pvc" class="md-nav__link">
+  <a href="#2-pvc" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 pvc 来提供持久化存储
+      2. 创建 pvc 来提供持久化存储
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment-pod" class="md-nav__link">
+  <a href="#3-deployment-pod" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 deployment 来部署 pod
+      3. 创建 deployment 来部署 pod
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#service" class="md-nav__link">
+  <a href="#4-service" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 service 来暴露服务
+      4. 创建 service 来暴露服务
     </span>
   </a>
   
@@ -1294,14 +1294,14 @@
 
 
 <h1 id="k8s">思源笔记 k8s 部署<a class="headerlink" href="#k8s" title="Permanent link">&para;</a></h1>
-<h2 id="_1">前置条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 前置条件<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>一个能运作的 k8s 集群</li>
 <li>相关容器镜像上传到镜像仓库</li>
 <li>k8s 配置好私有镜像仓库凭证</li>
 <li>k8s 上至少有一个 default storage class</li>
 </ul>
-<h2 id="pvc">创建 pvc 来提供持久化存储<a class="headerlink" href="#pvc" title="Permanent link">&para;</a></h2>
+<h2 id="2-pvc">2. 创建 pvc 来提供持久化存储<a class="headerlink" href="#2-pvc" title="Permanent link">&para;</a></h2>
 <p>首先创建 pvc 来为思源笔记提供持久化存储：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1331,7 +1331,7 @@
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="deployment-pod">创建 deployment 来部署 pod<a class="headerlink" href="#deployment-pod" title="Permanent link">&para;</a></h2>
+<h2 id="3-deployment-pod">3. 创建 deployment 来部署 pod<a class="headerlink" href="#3-deployment-pod" title="Permanent link">&para;</a></h2>
 <p>然后使用此 yaml 部署 deployment：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
@@ -1446,7 +1446,7 @@
 </span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">siyuan-pandoc-monitor</span>
 </span></code></pre></div></td></tr></table></div>
 <p>特别需要注意，思源笔记只能单 pod 运行，第一个 pod 启动后，会给笔记的目录加锁，第二个 pod 启动的时候看到目录被加锁就会启动报错，因此只能部署 1 个 pod ，而且需要将 <code>strategy.type</code> 设置为 <code>Recreate</code> ，否则 rollout restart deployment 的时候，会先创建一个新的 pod ，新 pod 会永远 CrashLoopbackOff 。修改之后 rollout restart 时会先把 pod 杀掉然后启动新的 pod 。同时， k8s 默认设置下，如果节点宕机， pod 会忍耐节点 5 分钟才会迁移，这在单 pod 部署的情况下宕机会出现 5 分钟服务不可用，需要修改 tolerations 那里来将这个 5 分钟缩短为 10 秒。</p>
-<h2 id="service">创建 service 来暴露服务<a class="headerlink" href="#service" title="Permanent link">&para;</a></h2>
+<h2 id="4-service">4. 创建 service 来暴露服务<a class="headerlink" href="#4-service" title="Permanent link">&para;</a></h2>
 <p>最后需要将思源笔记服务暴露，创建 service ：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>

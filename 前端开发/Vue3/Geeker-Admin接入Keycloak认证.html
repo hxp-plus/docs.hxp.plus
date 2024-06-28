@@ -659,36 +659,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      前置条件
+      1. 前置条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#2-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      安装 Keycloak 对接器
+      2. 安装 Keycloak 对接器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      加入环境变量
+      3. 加入环境变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#maints-keycloak" class="md-nav__link">
+  <a href="#4-maints-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      在 main.ts 中加入 keycloak 认证
+      4. 在 main.ts 中加入 keycloak 认证
     </span>
   </a>
   
@@ -953,36 +953,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      前置条件
+      1. 前置条件
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keycloak" class="md-nav__link">
+  <a href="#2-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      安装 Keycloak 对接器
+      2. 安装 Keycloak 对接器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      加入环境变量
+      3. 加入环境变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#maints-keycloak" class="md-nav__link">
+  <a href="#4-maints-keycloak" class="md-nav__link">
     <span class="md-ellipsis">
-      在 main.ts 中加入 keycloak 认证
+      4. 在 main.ts 中加入 keycloak 认证
     </span>
   </a>
   
@@ -1043,15 +1043,15 @@
 
 
 <h1 id="geeker-admin-keycloak">Geeker-Admin 接入 Keycloak 认证<a class="headerlink" href="#geeker-admin-keycloak" title="Permanent link">&para;</a></h1>
-<h2 id="_1">前置条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 前置条件<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Keycloak 服务器运行在 <a href="http://localhost:8080/">http://localhost:8080/</a> 。</li>
 <li>Keycloak 服务器创建 Realm，名称为 test ，并在其中创建 Client ID 为 test-client 、 Client type 为 OpenID Connect 、 Client authentication 关闭、 Valid redirect URIs 和 Web origins 均为 * 的 Client 。</li>
 </ol>
-<h2 id="keycloak">安装 Keycloak 对接器<a class="headerlink" href="#keycloak" title="Permanent link">&para;</a></h2>
+<h2 id="2-keycloak">2. 安装 Keycloak 对接器<a class="headerlink" href="#2-keycloak" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>npm i --save keycloak-js@24.0
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_2">加入环境变量<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 加入环境变量<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>在 <code>.env.development</code> 加入：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
@@ -1063,7 +1063,7 @@
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>VITE_APP_KEYCLOAK_OPTIONS_CLIENTID = &#39;test-client&#39;
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>VITE_APP_KEYCLOAK_OPTIONS_ONLOAD = &#39;login-required&#39;
 </span></code></pre></div></td></tr></table></div>
-<h2 id="maints-keycloak">在 main.ts 中加入 keycloak 认证<a class="headerlink" href="#maints-keycloak" title="Permanent link">&para;</a></h2>
+<h2 id="4-maints-keycloak">4. 在 main.ts 中加入 keycloak 认证<a class="headerlink" href="#4-maints-keycloak" title="Permanent link">&para;</a></h2>
 <p>在 <code>src/main.ts</code> 中加入以下代码，引入 Keycloak：</p>
 <div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>

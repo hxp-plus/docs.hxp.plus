@@ -717,27 +717,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
+  <a href="#1-docker" class="md-nav__link">
     <span class="md-ellipsis">
-      docker 配置添加
+      1. docker 配置添加
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ca" class="md-nav__link">
+  <a href="#2-ca" class="md-nav__link">
     <span class="md-ellipsis">
-      CA 证书添加
+      2. CA 证书添加
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      使用凭证拉取镜像
+      3. 使用凭证拉取镜像
     </span>
   </a>
   
@@ -1155,27 +1155,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
+  <a href="#1-docker" class="md-nav__link">
     <span class="md-ellipsis">
-      docker 配置添加
+      1. docker 配置添加
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ca" class="md-nav__link">
+  <a href="#2-ca" class="md-nav__link">
     <span class="md-ellipsis">
-      CA 证书添加
+      2. CA 证书添加
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      使用凭证拉取镜像
+      3. 使用凭证拉取镜像
     </span>
   </a>
   
@@ -1224,7 +1224,7 @@
 
 
 <h1 id="_1">配置私有镜像仓库凭证<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h2 id="docker">docker 配置添加<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<h2 id="1-docker">1. docker 配置添加<a class="headerlink" href="#1-docker" title="Permanent link">&para;</a></h2>
 <p>在 Nexus 虚拟机<code>192.168.100.12</code>上，获取 docker 配置<code>~/.docker/config.json</code>如下：</p>
 <div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1249,14 +1249,14 @@
 <p>将此配置复制到 kubernetes 的 master 节点的<code>/tmp/config.json</code>，并加入凭证到 <code>keycloak</code> 命名空间：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>keycloak<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>nexus-regcred<span class="w"> </span>--from-file<span class="o">=</span>.dockerconfigjson<span class="o">=</span>/tmp/config.json<span class="w"> </span>--type<span class="o">=</span>kubernetes.io/dockerconfigjson
 </span></code></pre></div></td></tr></table></div>
-<h2 id="ca">CA 证书添加<a class="headerlink" href="#ca" title="Permanent link">&para;</a></h2>
+<h2 id="2-ca">2. CA 证书添加<a class="headerlink" href="#2-ca" title="Permanent link">&para;</a></h2>
 <p>在 Nexus 虚拟机<code>192.168.100.12</code>上，获取 CA 证书<code>/etc/docker/certs.d/192.168.100.12:8082/ca.crt</code>，将其复制到所有 k8s 节点的<code>/etc/pki/ca-trust/source/anchors/nexus.crt</code>，并在所有节点更新证书：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>update-ca-trust
 </span></code></pre></div></td></tr></table></div>
 <p>之后还需要重启 containerd：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>containerd.service
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_2">使用凭证拉取镜像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 使用凭证拉取镜像<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>在命名空间 <code>keycloak</code> 创建一个 pod，使用凭证 <code>nexus-regcred</code> 拉取镜像，新建文件<code>test-pod.yaml</code>：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">test-pod.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-4-2"> 2</a></span>

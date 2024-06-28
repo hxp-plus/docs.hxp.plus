@@ -929,37 +929,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      问题解决过程
+      2. 问题解决过程
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="问题解决过程">
+    <nav class="md-nav" aria-label="2. 问题解决过程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#jboss" class="md-nav__link">
+  <a href="#21-jboss" class="md-nav__link">
     <span class="md-ellipsis">
-      jboss 应用无法启动
+      2.1 jboss 应用无法启动
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#var-tmp" class="md-nav__link">
+  <a href="#22-var-tmp" class="md-nav__link">
     <span class="md-ellipsis">
-      系统重启后报错 /var 目录和 /tmp 目录疑似损坏
+      2.2 系统重启后报错 /var 目录和 /tmp 目录疑似损坏
     </span>
   </a>
   
@@ -971,9 +971,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      参考文献
+      3. 参考文献
     </span>
   </a>
   
@@ -1183,37 +1183,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      问题描述
+      1. 问题描述
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      问题解决过程
+      2. 问题解决过程
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="问题解决过程">
+    <nav class="md-nav" aria-label="2. 问题解决过程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#jboss" class="md-nav__link">
+  <a href="#21-jboss" class="md-nav__link">
     <span class="md-ellipsis">
-      jboss 应用无法启动
+      2.1 jboss 应用无法启动
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#var-tmp" class="md-nav__link">
+  <a href="#22-var-tmp" class="md-nav__link">
     <span class="md-ellipsis">
-      系统重启后报错 /var 目录和 /tmp 目录疑似损坏
+      2.2 系统重启后报错 /var 目录和 /tmp 目录疑似损坏
     </span>
   </a>
   
@@ -1225,9 +1225,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      参考文献
+      3. 参考文献
     </span>
   </a>
   
@@ -1276,18 +1276,18 @@
 
 
 <h1 id="yum-update-jboss-vg">记某次误操作 yum update 后 jboss 应用无法启动及重启无法识别 vg 问题<a class="headerlink" href="#yum-update-jboss-vg" title="Permanent link">&para;</a></h1>
-<h2 id="_1">问题描述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 问题描述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>在一次开启 kdump 的操作中，因为误操作导致执行了 <code>yum update -y</code> ，即使在中途被发现后按 Ctrl-C 退出，但是还是有部分软件包被升级。误操作当时，内核和 java 等组件被升级，且当晚进行了修改 grub 的操作使得重启后依旧进入旧内核。</p>
 <p>但是后续发现 jboss 在重启后，jboss 能启动但是 jboss 的应用无法启动，报错为国密证书无法加载。且在重启后报错找不到逻辑卷。</p>
-<h2 id="_2">问题解决过程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="jboss">jboss 应用无法启动<a class="headerlink" href="#jboss" title="Permanent link">&para;</a></h3>
+<h2 id="2">2. 问题解决过程<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-jboss">2.1 jboss 应用无法启动<a class="headerlink" href="#21-jboss" title="Permanent link">&para;</a></h3>
 <p>经过和正常节点的对比，jboss 无法启动可能是由于 java 被升级导致，进行了 java 的降级（降级需要将系统的 YUM 源修改到 RHEL6.4 的 YUM 源）：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum install java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>yum reinstall java-1.7.0-openjdk-1.7.0.9-2.3.4.1.el6_3
 </span></code></pre></div></td></tr></table></div>
 <p>经过 java 的降级后，jboss 应用无法启动问题被解决。</p>
-<h3 id="var-tmp">系统重启后报错 /var 目录和 /tmp 目录疑似损坏<a class="headerlink" href="#var-tmp" title="Permanent link">&para;</a></h3>
+<h3 id="22-var-tmp">2.2 系统重启后报错 /var 目录和 /tmp 目录疑似损坏<a class="headerlink" href="#22-var-tmp" title="Permanent link">&para;</a></h3>
 <p>后续又发现在重启后，由于 RHEL6 的 /etc/fstab 默认配置启动时 fsck ，fsck 报错 /var 和 /tmp 损坏。在系统进入 enmergency shell 后，输入 root 密码，首先尝试使用 <code>lvm lvs</code> 命令检查逻辑卷是否还在，发现报错：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>File-based locking initialisation failed
 </span></code></pre></div></td></tr></table></div>
@@ -1310,7 +1310,7 @@
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>action $&quot;Setting up Logical Volume Management:&quot; /sbin/lvm vgchange -a ay --sysinit
 </span></code></pre></div></td></tr></table></div>
 <p>问题的根本原因，猜测为 <code>yum update -y</code> 升级了 <code>/etc/rc.sysinit</code> 但是没有升级 lvm ，或者升级 lvm 的过程中被终止，导致 <code>/etc/rc.sysinit</code> 被更新加入了 <code>--ignoreskippedcluster</code> 参数，但是 vgchange 命令和 lvm 没有被更新。实际在机器上实行 <code>/sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster</code> 报错信息为“参数 --ignoreskippedcluster 未知”也印证了这一点。</p>
-<h2 id="_3">参考文献<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 参考文献<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p><a href="https://access.redhat.com/solutions/47028">https://access.redhat.com/solutions/47028</a></p>
 <p><a href="https://access.redhat.com/solutions/22545">https://access.redhat.com/solutions/22545</a></p>
 

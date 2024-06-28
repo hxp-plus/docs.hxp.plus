@@ -759,36 +759,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
+  <a href="#1-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 kubernetes 相关资源
+      1. 创建 kubernetes 相关资源
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-path-provisioner_1" class="md-nav__link">
+  <a href="#2-local-path-provisioner" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 local-path-provisioner 目录
+      2. 创建 local-path-provisioner 目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-path-provisioner-storageclass" class="md-nav__link">
+  <a href="#3-local-path-provisioner-storageclass" class="md-nav__link">
     <span class="md-ellipsis">
-      将 local-path-provisioner 设置为默认 StorageClass
+      3. 将 local-path-provisioner 设置为默认 StorageClass
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      测试并验证
+      4. 测试并验证
     </span>
   </a>
   
@@ -1164,36 +1164,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
+  <a href="#1-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 kubernetes 相关资源
+      1. 创建 kubernetes 相关资源
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-path-provisioner_1" class="md-nav__link">
+  <a href="#2-local-path-provisioner" class="md-nav__link">
     <span class="md-ellipsis">
-      创建 local-path-provisioner 目录
+      2. 创建 local-path-provisioner 目录
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-path-provisioner-storageclass" class="md-nav__link">
+  <a href="#3-local-path-provisioner-storageclass" class="md-nav__link">
     <span class="md-ellipsis">
-      将 local-path-provisioner 设置为默认 StorageClass
+      3. 将 local-path-provisioner 设置为默认 StorageClass
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      测试并验证
+      4. 测试并验证
     </span>
   </a>
   
@@ -1242,18 +1242,18 @@
 
 
 <h1 id="local-path-provisioner">local-path-provisioner 安装<a class="headerlink" href="#local-path-provisioner" title="Permanent link">&para;</a></h1>
-<h2 id="kubernetes">创建 kubernetes 相关资源<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
+<h2 id="1-kubernetes">1. 创建 kubernetes 相关资源<a class="headerlink" href="#1-kubernetes" title="Permanent link">&para;</a></h2>
 <p>下载 yaml 文件并应用：</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>wget<span class="w"> </span>https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.26/deploy/local-path-storage.yaml
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>local-path-storage.yaml
 </span></code></pre></div></td></tr></table></div>
-<h2 id="local-path-provisioner_1">创建 local-path-provisioner 目录<a class="headerlink" href="#local-path-provisioner_1" title="Permanent link">&para;</a></h2>
+<h2 id="2-local-path-provisioner">2. 创建 local-path-provisioner 目录<a class="headerlink" href="#2-local-path-provisioner" title="Permanent link">&para;</a></h2>
 <p>在所有节点，创建<code>/opt/local-path-provisioner</code>目录（建议对此目录单独建立逻辑卷</p>
-<h2 id="local-path-provisioner-storageclass">将 local-path-provisioner 设置为默认 StorageClass<a class="headerlink" href="#local-path-provisioner-storageclass" title="Permanent link">&para;</a></h2>
+<h2 id="3-local-path-provisioner-storageclass">3. 将 local-path-provisioner 设置为默认 StorageClass<a class="headerlink" href="#3-local-path-provisioner-storageclass" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>kubectl<span class="w"> </span>patch<span class="w"> </span>storageclass<span class="w"> </span>local-path<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;true&quot;}}}&#39;</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_1">测试并验证<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 测试并验证<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>创建 pvc 并测试，新建文件<code>test-pvc.yaml</code>：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>

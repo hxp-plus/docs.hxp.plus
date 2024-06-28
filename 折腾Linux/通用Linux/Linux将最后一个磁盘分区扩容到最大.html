@@ -863,18 +863,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      检查路由表
+      1. 检查路由表
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
+  <a href="#2-3" class="md-nav__link">
     <span class="md-ellipsis">
-      扩容第 3 个分区到磁盘末尾
+      2. 扩容第 3 个分区到磁盘末尾
     </span>
   </a>
   
@@ -1213,18 +1213,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      检查路由表
+      1. 检查路由表
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
+  <a href="#2-3" class="md-nav__link">
     <span class="md-ellipsis">
-      扩容第 3 个分区到磁盘末尾
+      2. 扩容第 3 个分区到磁盘末尾
     </span>
   </a>
   
@@ -1257,7 +1257,7 @@
 
 <h1 id="linux">Linux 将最后一个磁盘分区扩容到最大<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
 <p>在扩容 Linux 的系统盘后， <code>/dev/sda</code> 后部有大量空闲空间没有使用，需要将其纳入最后一个磁盘分区中。</p>
-<h2 id="_1">检查路由表<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 检查路由表<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>parted -s -a opt /dev/sda &quot;print free&quot;
 </span></code></pre></div></td></tr></table></div>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
@@ -1286,7 +1286,7 @@
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a> 3      3276MB  34.4GB  31.1GB
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>        34.4GB  137GB   103GB   Free Space
 </span></code></pre></div></td></tr></table></div>
-<h2 id="3">扩容第 3 个分区到磁盘末尾<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h2 id="2-3">2. 扩容第 3 个分区到磁盘末尾<a class="headerlink" href="#2-3" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>root@ubuntu:~# growpart /dev/sda 3
 </span></code></pre></div></td></tr></table></div>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>CHANGED: partition=3 start=6397952 old: size=60708864 end=67106815 new: size=262037471 end=268435422

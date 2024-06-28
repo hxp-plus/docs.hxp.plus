@@ -676,45 +676,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      项目需求
+      1. 项目需求
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tetragon" class="md-nav__link">
+  <a href="#2-tetragon" class="md-nav__link">
     <span class="md-ellipsis">
-      云原生方案下的容器审计工具 Tetragon
+      2. 云原生方案下的容器审计工具 Tetragon
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tetragon_1" class="md-nav__link">
+  <a href="#3-tetragon" class="md-nav__link">
     <span class="md-ellipsis">
-      运行 Tetragon 容器
+      3. 运行 Tetragon 容器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      测试审计结果
+      4. 测试审计结果
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      参考资料
+      5. 参考资料
     </span>
   </a>
   
@@ -1026,45 +1026,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      项目需求
+      1. 项目需求
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tetragon" class="md-nav__link">
+  <a href="#2-tetragon" class="md-nav__link">
     <span class="md-ellipsis">
-      云原生方案下的容器审计工具 Tetragon
+      2. 云原生方案下的容器审计工具 Tetragon
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tetragon_1" class="md-nav__link">
+  <a href="#3-tetragon" class="md-nav__link">
     <span class="md-ellipsis">
-      运行 Tetragon 容器
+      3. 运行 Tetragon 容器
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      测试审计结果
+      4. 测试审计结果
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#5" class="md-nav__link">
     <span class="md-ellipsis">
-      参考资料
+      5. 参考资料
     </span>
   </a>
   
@@ -1119,14 +1119,14 @@
 
 
 <h1 id="ebpf">基于 eBPF 的容器审计技术的实现<a class="headerlink" href="#ebpf" title="Permanent link">&para;</a></h1>
-<h2 id="_1">项目需求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="1">1. 项目需求<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>某项目需要监视运行在 podman 宿主机内容器中所有文件的修改和系统调用，作为审计日志。日志中至少需要包含执行命令的容器、命令内容或修改的文件。</p>
 <p>使用 auditd 无法实现此需求，因为容器内 auditd 无法启动，audit 依赖于内核 kaudit 进程，其工作方式为内核态 kauditd 在系统调用层记录日志，把日志放入一个 netlink 套接字中，用户态 auditd 进程监听这个套接字，将日志转储到系统日志或日志文件中。且一个机器上只要有一个容器或者宿主机开启 auditd ，其它容器或宿主机都无法再次启动 auditd 。</p>
 <p>而且， auditd 不支持 namespace ，不可能知道是那个容器里执行了什么命令。因此解决这个方法需要使用 eBPF 内核探针。</p>
 <p>此方案在 RHEL8 内核版本 <code>4.18.0-553.el8_10</code> ， podman 版本 <code>4.9.4-rhel</code> 上测试通过。</p>
-<h2 id="tetragon">云原生方案下的容器审计工具 Tetragon<a class="headerlink" href="#tetragon" title="Permanent link">&para;</a></h2>
+<h2 id="2-tetragon">2. 云原生方案下的容器审计工具 Tetragon<a class="headerlink" href="#2-tetragon" title="Permanent link">&para;</a></h2>
 <p>Tetragon 是一个应用于 k8s 、 docker 等容器环境下的审计工具，它依赖于 eBPF 技术，以容器的方式运行，通过 eBPF 的 kprobe 设立 hook 的方式完成对一个容器宿主机上所有容器的命令执行与文件修改、甚至网络连接的审计。本次方案在 podman 容器宿主机上使用此方案实现。</p>
-<h2 id="tetragon_1">运行 Tetragon 容器<a class="headerlink" href="#tetragon_1" title="Permanent link">&para;</a></h2>
+<h2 id="3-tetragon">3. 运行 Tetragon 容器<a class="headerlink" href="#3-tetragon" title="Permanent link">&para;</a></h2>
 <p>首先新建文件审计配置文件 <code>file_monitoring.yaml</code> ：</p>
 <div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1343,7 +1343,7 @@
 <p>如果想查看实时审计日志：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>podman exec tetragon-container tetra getevents -o json
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_2">测试审计结果<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 测试审计结果<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>运行一个临时的 ubuntu 容器：</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>podman run -it --rm ubuntu /bin/bash
 </span></code></pre></div></td></tr></table></div>
@@ -1603,7 +1603,7 @@
 </span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42"></a><span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-06-27T06:06:07.250057584Z&quot;</span>
 </span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="5">5. 参考资料<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
 <p><a href="https://tetragon.io/docs/getting-started/file-events/">https://tetragon.io/docs/getting-started/file-events/</a></p>
 <p><a href="https://tetragon.io/docs/concepts/tracing-policy/options/">https://tetragon.io/docs/concepts/tracing-policy/options/</a></p>
 <p><a href="https://github.com/cilium/tetragon/blob/main/examples/quickstart/file_monitoring.yaml">https://github.com/cilium/tetragon/blob/main/examples/quickstart/file_monitoring.yaml</a></p>
