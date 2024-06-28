@@ -87,7 +87,7 @@ cd /usr/share/nginx/html/docs.hxp.plus.git
 git fetch --all
 ```
 
-# 参考资料
+## 参考资料
 
 https://wiki.archlinux.org/title/Git_server
 

@@ -91,6 +91,6 @@ rm currtime
 emerge -av =net-libs/nghttp2-1.61.0
 ```
 
-# 参考资料
+## 参考资料
 
 https://forums.gentoo.org/viewtopic-p-8768044.html?sid=ed3fa313c3404a3db1ef5260515270ef

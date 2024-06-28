@@ -44,6 +44,6 @@ pip install -U `pip list --outdated | awk 'NR>2 {print $1}'`
 pip freeze > requirements.txt
 ```
 
-# 参考资料
+## 参考资料
 
 https://stackoverflow.com/questions/2720014/how-to-upgrade-all-python-packages-with-pip

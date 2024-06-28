@@ -51,6 +51,6 @@ wget -np -P . -r -R "index.html*" --cut-dirs=6 https://update.cs2c.com.cn/NS/V10
 
 其中`--cut-dirs`需要根据实际的远程目录层数进行调整，下载完成后需要检查 wget 有无报错。
 
-# 参考链接
+## 参考链接
 
 <https://rakeshjain-devops.medium.com/download-files-and-directories-from-web-using-curl-and-wget-9217bc2e34c9>
