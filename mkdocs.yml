@@ -114,6 +114,11 @@ plugins:
       enable_creation_date: true
   - tags:
       tags_file: tags.md
+  - add-number:
+      strict_mode: False
+      order: 2
+      excludes:
+        - tags.md
   - print-site: null
 markdown_extensions:
   - attr_list: null
