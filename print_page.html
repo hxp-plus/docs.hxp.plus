@@ -7674,7 +7674,25 @@ integration%20with%20awx/</p>
 <h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-%e4%bd%bf%e7%94%a8onlyoffice%e5%ae%98%e6%96%b9spring%e7%a4%ba%e4%be%8b%e9%81%87%e5%88%b0%e7%9a%84%e5%9d%91-9">9. 参考文献<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-%e4%bd%bf%e7%94%a8onlyoffice%e5%ae%98%e6%96%b9spring%e7%a4%ba%e4%be%8b%e9%81%87%e5%88%b0%e7%9a%84%e5%9d%91-9" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.baeldung.com/spring-security-enable-logging">https://www.baeldung.com/spring-security-enable-logging</a></p>
 <p><a href="https://www.baeldung.com/spring-properties-file-outside-jar">https://www.baeldung.com/spring-properties-file-outside-jar</a></p>
-<p><a href="https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html">https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html</a></p></section><h1 class='nav-section-title-end'>Ended: Java</h1><h1 class='nav-section-title-end'>Ended: 运维开发</h1>
+<p><a href="https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html">https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html</a></p></section><h1 class='nav-section-title-end'>Ended: Java</h1>
+                        <h2 class='nav-section-title' id='section-shell'>
+                            Shell <a class='headerlink' href='#section-shell' title='Permanent link'>↵</a>
+                        </h2>
+                        <section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba"><nav class='md-tags'><span class='md-tag'>Shell</span></nav><h1 id="shell">Shell 设置变量未赋值或遇到错误立刻退出<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-shell" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-1">1. 问题背景<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-1" title="Permanent link">&para;</a></h2>
+<p>众所周知 Shell 是一个不安全的语言，变量不被定义也可以被访问，而且一行命令报错以后，不是像其它语言似的退出，而是接着运行下面的命令。通过修改 Shell 脚本的一些设置，可以暂时弥补下这个问题。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-2-shell">2. 每个 Shell 脚本都推荐增加的参数<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-2-shell" title="Permanent link">&para;</a></h2>
+<p>推荐在每个 Shell 脚本前都加入以下语句：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>nounset
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>pipefail
+</span></code></pre></div></td></tr></table></div>
+<p>其中 <code>set -o errexit</code> 等同于 <code>set -e</code> ,作用为有一行命令报错立刻退出。 <code>set -o nounset</code> 等同于 <code>set -u</code> ，作用为在访问未定义变量时报错。 <code>set -o pipefail</code> 作用为对于单行命令，返回值不再是最右侧命令返回值，而是在返回值不为零的命令中，取最右侧的作为返回值。</p>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-3">3. 参考资料<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba-3" title="Permanent link">&para;</a></h2>
+<p><a href="https://medium.com/factualopinions/consider-starting-all-your-bash-scripts-with-these-options-74fbec0cbb83">https://medium.com/factualopinions/consider-starting-all-your-bash-scripts-with-these-options-74fbec0cbb83</a></p>
+<p><a href="https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin">https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin</a></p></section><h1 class='nav-section-title-end'>Ended: Shell</h1><h1 class='nav-section-title-end'>Ended: 运维开发</h1>
                         <h1 class='nav-section-title' id='section-折腾linux'>
                             折腾Linux <a class='headerlink' href='#section-折腾linux' title='Permanent link'>↵</a>
                         </h1>
@@ -9315,6 +9333,10 @@ integration%20with%20awx/</p>
 <h2 id="tags-rhel6"><span class="md-tag">RHEL6</span><a class="headerlink" href="#tags-rhel6" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e6%8a%98%e8%85%belinux-rhel6-%e8%ae%b0%e6%9f%90%e6%ac%a1%e8%af%af%e6%93%8d%e4%bd%9cyum%20update%e5%90%8ejboss%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e5%90%af%e5%8a%a8%e5%8f%8a%e9%87%8d%e5%90%af%e6%97%a0%e6%b3%95%e8%af%86%e5%88%abvg%e9%97%ae%e9%a2%98">记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题</a></li>
+</ul>
+<h2 id="tags-shell"><span class="md-tag">Shell</span><a class="headerlink" href="#tags-shell" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-shell-shell%e8%ae%be%e7%bd%ae%e5%8f%98%e9%87%8f%e6%9c%aa%e8%b5%8b%e5%80%bc%e6%88%96%e9%81%87%e5%88%b0%e9%94%99%e8%af%af%e7%ab%8b%e5%88%bb%e9%80%80%e5%87%ba">Shell设置变量未赋值或遇到错误立刻退出</a></li>
 </ul>
 <h2 id="tags-spring-security"><span class="md-tag">Spring Security</span><a class="headerlink" href="#tags-spring-security" title="Permanent link">&para;</a></h2>
 <ul>
