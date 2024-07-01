@@ -75,3 +75,5 @@ tags:
 ## 参考资料
 
 https://upsangel.com/security/vpn/%E4%B8%80%E9%8D%B5%E9%80%A3%E5%9B%9E%E5%AE%B6%E9%87%8C%E5%85%A7%E7%B6%B2%EF%BC%9Aopenwrt%E4%B8%8A%E9%83%A8%E7%BD%B2wireguard-vpn%E6%9C%8D%E5%8B%99%E5%99%A8%E7%9A%84%E4%B8%89%E5%80%8B%E8%A6%81%E9%BB%9E/
+
+https://whatgui.github.io/2020/02/08/%E3%80%8C%E6%8D%AF%E9%A5%AC%E8%AE%B0%E5%BD%95%E3%80%8D%E5%9C%A8OpenWrt%E4%B8%8A%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%8Bwireguard%E6%9C%8D%E5%8A%A1%E7%AB%AF/

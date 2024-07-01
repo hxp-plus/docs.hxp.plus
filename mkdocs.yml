@@ -98,6 +98,7 @@ nav:
           - 安装xfce后fcitx右上角显示但无法选择输入法问题解决: 折腾Linux/Gentoo/安装xfce后fcitx右上角显示但无法选择输入法问题解决.md
       - OpenWrt:
           - OpenWrt安装WireGuard: 折腾Linux/OpenWrt/OpenWrt安装WireGuard.md
+          - OpenWrt安装OpenVPN: 折腾Linux/OpenWrt/OpenWrt安装OpenVPN.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
       - RHEL6:

@@ -7,3 +7,7 @@
 .md-typeset a {
     word-break: break-all;
 }
+
+.md-typeset code {
+    word-break: break-all;
+}
