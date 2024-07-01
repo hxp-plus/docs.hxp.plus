@@ -106,6 +106,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/OpenWrt/OpenWrt%20DDnS%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98.html</loc>
+         <lastmod>2024-07-01</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/OpenWrt/OpenWrt%E5%AE%89%E8%A3%85OpenVPN.html</loc>
+         <lastmod>2024-07-01</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/OpenWrt/OpenWrt%E5%AE%89%E8%A3%85WireGuard.html</loc>
          <lastmod>2024-07-01</lastmod>
          <changefreq>daily</changefreq>
