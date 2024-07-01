@@ -9120,7 +9120,7 @@ integration%20with%20awx/</p>
 <p><img alt="" src="%E6%8A%98%E8%85%BELinux/OpenWrt/images/OpenVPN_9.png" /></p>
 <p><img alt="" src="%E6%8A%98%E8%85%BELinux/OpenWrt/images/OpenVPN_10.png" /></p>
 <h2 id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%e5%ae%89%e8%a3%85openvpn-8">8. 参考资料<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%e5%ae%89%e8%a3%85openvpn-8" title="Permanent link">&para;</a></h2>
-<p><a href="https://openwrt.org/docs/guide-user/services/vpn/openvpn/server">https://openwrt.org/docs/guide-user/services/vpn/openvpn/server</a></p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98"><nav class='md-tags'><span class='md-tag'>OpenWrt</span><span class='md-tag'>DDNS</span></nav><h1 id="openwrt-ddns">OpenWrt DDnS 开机启动失败问题<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-openwrt-ddns" title="Permanent link">&para;</a></h1>
+<p><a href="https://openwrt.org/docs/guide-user/services/vpn/openvpn/server">https://openwrt.org/docs/guide-user/services/vpn/openvpn/server</a></p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98"><nav class='md-tags'><span class='md-tag'>OpenWrt</span><span class='md-tag'>DDNS</span></nav><h1 id="openwrt-ddns">OpenWrt DDNS 开机启动失败问题<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-openwrt-ddns" title="Permanent link">&para;</a></h1>
 <h2 id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-1">1. 问题描述<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-1" title="Permanent link">&para;</a></h2>
 <p>OpenWrt 在安装 <code>luci-app-ddns</code> 和 <code>ddns-scripts-dnspod</code> 后，每次开机后均不能正常启动。在 <code>System -&gt; Startup -&gt; Initscripts</code> 里显示 <code>ddns</code> 是 <code>Enabled</code> 状态，且点击 <code>Restart</code> 能正常启动。</p>
 <h%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-2 id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-2">2. 解决方法<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-2" title="Permanent link">&para;</a></h2>
@@ -9128,7 +9128,7 @@ integration%20with%20awx/</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>/bin/sleep<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>/sbin/service<span class="w"> </span>ddns<span class="w"> </span>restart<span class="w"> </span><span class="p">&amp;</span>
 </span></code></pre></div></td></tr></table></div>
 <p>添加后如图：</p>
-<p><img alt="" src="%E6%8A%98%E8%85%BELinux/OpenWrt/images/DDnS_1.png" /></p>
+<p><img alt="" src="%E6%8A%98%E8%85%BELinux/OpenWrt/images/DDNS_1.png" /></p>
 <h2 id="%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-3">3. 参考资料<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98-3" title="Permanent link">&para;</a></h2>
 <p><a href="https://forum.openwrt.org/t/ddns-do-not-start-when-reboot/98374/17">https://forum.openwrt.org/t/ddns-do-not-start-when-reboot/98374/17</a></p>
 <p><a href="https://forum.openwrt.org/t/ddns-do-not-start-when-reboot/98374/2">https://forum.openwrt.org/t/ddns-do-not-start-when-reboot/98374/2</a></p>
@@ -9573,7 +9573,7 @@ integration%20with%20awx/</p>
 </ul>
 <h2 id="tags-ddns"><span class="md-tag">DDNS</span><a class="headerlink" href="#tags-ddns" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98">OpenWrt DDnS开机启动失败问题</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98">OpenWrt DDNS开机启动失败问题</a></li>
 </ul>
 <h2 id="tags-docker"><span class="md-tag">Docker</span><a class="headerlink" href="#tags-docker" title="Permanent link">&para;</a></h2>
 <ul>
@@ -9694,7 +9694,7 @@ integration%20with%20awx/</p>
 </ul>
 <h2 id="tags-openwrt"><span class="md-tag">OpenWrt</span><a class="headerlink" href="#tags-openwrt" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98">OpenWrt DDnS开机启动失败问题</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%20ddns%e5%bc%80%e6%9c%ba%e5%90%af%e5%8a%a8%e5%a4%b1%e8%b4%a5%e9%97%ae%e9%a2%98">OpenWrt DDNS开机启动失败问题</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%e5%ae%89%e8%a3%85openvpn">OpenWrt安装OpenVPN</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-openwrt-openwrt%e5%ae%89%e8%a3%85wireguard">OpenWrt安装WireGuard</a></li>
 </ul>
