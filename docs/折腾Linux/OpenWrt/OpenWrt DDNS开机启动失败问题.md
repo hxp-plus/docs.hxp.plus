@@ -4,7 +4,7 @@ tags:
   - DDNS
 ---
 
-# OpenWrt DDnS 开机启动失败问题
+# OpenWrt DDNS 开机启动失败问题
 
 ## 问题描述
 
@@ -20,7 +20,7 @@ OpenWrt 在安装 `luci-app-ddns` 和 `ddns-scripts-dnspod` 后，每次开机�
 
 添加后如图：
 
-![](./images/DDnS_1.png)
+![](./images/DDNS_1.png)
 
 ## 参考资料
 
