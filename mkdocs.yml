@@ -122,6 +122,7 @@ plugins:
   - offline: null
   - git-revision-date-localized:
       enable_creation_date: true
+      locale: zh
   - tags:
       tags_file: tags.md
   - add-number:

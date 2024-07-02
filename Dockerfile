@@ -1,10 +1,7 @@
-FROM python:3.12.3-alpine3.19
+FROM squidfunk/mkdocs-material:9.5.27
 
 WORKDIR /tmp
-RUN apk upgrade --update-cache -a
-RUN apk add --no-cache git
-COPY ./requirements.txt ./
-RUN pip install -r requirements.txt
+RUN pip install mkdocs-add-number-plugin mkdocs-git-revision-date-localized-plugin mkdocs-open-in-new-tab mkdocs-print-site-plugin
 RUN git config --global --add safe.directory /docs
 
 WORKDIR /docs

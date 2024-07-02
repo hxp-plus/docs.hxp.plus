@@ -15,5 +15,5 @@ docker build -t mkdocs .
 ## 运行
 
 ```
-docker run --rm -it -v ${PWD}:/docs -p8001:8000 mkdocs
+docker run -p 8001:8000 -v $PWD:/docs mkdocs
 ```
