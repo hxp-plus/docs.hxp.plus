@@ -5084,7 +5084,108 @@ integration%20with%20awx/</p>
 <h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-6">6. 加入实例组<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-6" title="Permanent link">&para;</a></h2>
 <p>点击 Administration -&gt; Instance Groups ，点击 Add -&gt; Add container group，Credential 为之前配置的凭证，Cutson pod spec 中，serviceAccountName 和 namespace 按需修改为 awx-service-account 和 awx。</p>
 <h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-7">7. 参考链接<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e6%96%b0%e5%a2%9e%e5%ae%b9%e5%99%a8%e7%bb%84-7" title="Permanent link">&para;</a></h2>
-<p><a href="https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html">https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html</a></p></section><h1 class='nav-section-title-end'>Ended: AWX</h1>
+<p><a href="https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html">https://docs.ansible.com/automation-controller/latest/html/administration/containers_instance_groups.html</a></p></section><section class="print-page" id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83"><nav class='md-tags'><span class='md-tag'>Kubernetes</span><span class='md-tag'>K3S</span><span class='md-tag'>AWX</span></nav><h1 id="k3s-awx">在 k3s 上安装 awx 测试环境<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-k3s-awx" title="Permanent link">&para;</a></h1>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-1-k3s">1. 安装 k3s<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-1-k3s" title="Permanent link">&para;</a></h2>
+<p>一键安装 k3s ：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-2-awx-operator">2. 安装 AWX Operator<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-2-awx-operator" title="Permanent link">&para;</a></h2>
+<p>创建 <code>kustomization.yaml</code> ：</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-1-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nt">resources</span><span class="p">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span><span class="c1"># Find the latest tag here: https://github.com/ansible/awx-operator/releases</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.com/ansible/awx-operator/config/default?ref=2.19.1</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1"># Set the image tags to match the git version from above</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="nt">images</span><span class="p">:</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/ansible/awx-operator</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="nt">newTag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.19.1</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c1"># Specify a custom namespace in which to install AWX</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span></code></pre></div></td></tr></table></div>
+<p>生成 yaml 文件 <code>awx-operator.yaml</code> ：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-k<span class="w"> </span>.<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>&gt;<span class="w"> </span>awx-operator.yaml
+</span></code></pre></div></td></tr></table></div>
+<p>将 yaml 文件应用：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>awx
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>awx-operator.yaml
+</span></code></pre></div></td></tr></table></div>
+<h2 id="%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-3-awx-operator-awx">3. 使用 AWX Operator 安装 AWX<a class="headerlink" href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-3-awx-operator-awx" title="Permanent link">&para;</a></h2>
+<p>创建 PostgresSQL 配置 <code>awx-postgres-configuration.yaml</code> ：</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-4-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nn">---</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx-postgres-configuration</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nt">stringData</span><span class="p">:</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx-postgres-15</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5432&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">  </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">  </span><span class="nt">sslmode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prefer</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">managed</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+</span></code></pre></div></td></tr></table></div>
+<p>应用配置文件：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>awx-postgres-configuration.yaml
+</span></code></pre></div></td></tr></table></div>
+<p>创建 AWX 配置 <code>awx.yaml</code> ：</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nn">---</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx.ansible.com/v1beta1</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWX</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awx</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">  </span><span class="nt">service_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodeport</span>
+</span></code></pre></div></td></tr></table></div>
+<p>部署 AWX ：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>awx.yaml
+</span></code></pre></div></td></tr></table></div>
+<p>查看安装进度：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>deployments/awx-operator-controller-manager<span class="w"> </span>-c<span class="w"> </span>awx-manager
+</span></code></pre></div></td></tr></table></div>
+<p>获取默认 admin 密码：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83-__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>awx<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>awx-admin-password<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{.data.password}&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>--decode<span class="p">;</span><span class="nb">echo</span>
+</span></code></pre></div></td></tr></table></div></section><h1 class='nav-section-title-end'>Ended: AWX</h1>
                         <h2 class='nav-section-title' id='section-keycloak'>
                             Keycloak <a class='headerlink' href='#section-keycloak' title='Permanent link'>↵</a>
                         </h2>
@@ -9709,6 +9810,7 @@ integration%20with%20awx/</p>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e5%92%8cstolon%e9%ab%98%e5%8f%af%e7%94%a8%e8%b0%83%e4%bc%98">AWX和stolon高可用调优</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e5%a2%9e%e5%8a%a0%e5%b9%b6%e4%bd%bf%e7%94%a8token">AWX增加并使用token</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e8%ae%be%e7%bd%aesaml%e8%ae%a4%e8%af%81%e7%94%a8%e6%88%b7%e4%b8%ba%e7%ae%a1%e7%90%86%e5%91%98">AWX设置SAML认证用户为管理员</a></li>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83">在k3s上搭建awx测试环境</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%ae%89%e8%a3%85awx-23.7">安装AWX-23.7</a></li>
 </ul>
 <h2 id="tags-cifs"><span class="md-tag">CIFS</span><a class="headerlink" href="#tags-cifs" title="Permanent link">&para;</a></h2>
@@ -9769,6 +9871,10 @@ integration%20with%20awx/</p>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-springboot%202.5.1%20%e5%af%b9%e6%8e%a5keycloak%e8%ae%a4%e8%af%81">SpringBoot 2.5.1 对接Keycloak认证</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-java-%e4%bd%bf%e7%94%a8onlyoffice%e5%ae%98%e6%96%b9spring%e7%a4%ba%e4%be%8b%e9%81%87%e5%88%b0%e7%9a%84%e5%9d%91">使用OnlyOffice官方Spring示例遇到的坑</a></li>
 </ul>
+<h2 id="tags-k3s"><span class="md-tag">K3S</span><a class="headerlink" href="#tags-k3s" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83">在k3s上搭建awx测试环境</a></li>
+</ul>
 <h2 id="tags-kvm"><span class="md-tag">KVM</span><a class="headerlink" href="#tags-kvm" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-qemu-virt-manager%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9cdid%20not%20find%20any%20uefi%20binary%20path%20for%20arch%20%27aarch64%27%e2%80%9d%e9%97%ae%e9%a2%98">virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题</a></li>
@@ -9797,6 +9903,7 @@ integration%20with%20awx/</p>
 <li><a href="#%e5%ae%b9%e5%99%a8%e6%8a%80%e6%9c%af-kubernetes-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10%e5%ae%89%e8%a3%85kubernetes">银河麒麟V10安装Kubernetes</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-awx%e5%92%8cstolon%e9%ab%98%e5%8f%af%e7%94%a8%e8%b0%83%e4%bc%98">AWX和stolon高可用调优</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e4%bd%bf%e7%94%a8stolon%e5%ae%89%e8%a3%85%e9%ab%98%e5%8f%af%e7%94%a8postgresql">使用stolon安装高可用PostgreSQL</a></li>
+<li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%9c%a8k3s%e4%b8%8a%e6%90%ad%e5%bb%baawx%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83">在k3s上搭建awx测试环境</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-awx-%e5%ae%89%e8%a3%85awx-23.7">安装AWX-23.7</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-keycloak-k8s%e9%9b%86%e7%be%a4keycloak%e9%83%a8%e7%bd%b2%e5%8f%8a%e8%b4%9f%e8%bd%bd%e9%85%8d%e7%bd%ae">k8s集群Keycloak部署及负载配置</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-keycloak-%e4%bd%bf%e7%94%a8openresty%e5%ae%b9%e5%99%a8%e4%b8%bak8s%e7%9a%84%e6%9c%8d%e5%8a%a1%e6%8f%90%e4%be%9bkeycloak%e8%ae%a4%e8%af%81%e6%9c%8d%e5%8a%a1">使用openresty容器为k8s的服务提供Keycloak认证服务</a></li>
