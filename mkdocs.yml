@@ -58,6 +58,7 @@ nav:
           - AWX增加并使用token: 运维开发/AWX/AWX增加并使用token.md
           - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
           - AWX新增容器组: 运维开发/AWX/AWX新增容器组.md
+          - 在k3s上搭建awx测试环境: 运维开发/AWX/在k3s上搭建awx测试环境.md
       - Keycloak:
           - 使用openresty容器为k8s的服务提供Keycloak认证服务: 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
           - k8s集群Keycloak部署及负载配置: 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
