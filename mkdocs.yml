@@ -38,6 +38,7 @@ nav:
           - 禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略: 容器技术/Kubernetes/禁用容器镜像垃圾回收并配置磁盘相关容器漂移策略.md
           - local-path-provisioner安装: 容器技术/Kubernetes/local-path-provisioner安装.md
           - 扩容master节点: 容器技术/Kubernetes/扩容master节点.md
+          - k3s删除namespace卡死在Terminating解决方法: 容器技术/Kubernetes/k3s删除namespace卡死在Terminating解决方法.md
       - Docker&Podman:
           - Dockerfile中不保留编译缓存: 容器技术/Docker&Podman/Dockerfile中不保留编译缓存.md
           - 基于eBPF的容器审计技术的实现: 容器技术/Docker&Podman/基于eBPF的容器审计技术的实现.md
