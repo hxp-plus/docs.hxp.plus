@@ -31,6 +31,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/k3s%E5%88%A0%E9%99%A4namespace%E5%8D%A1%E6%AD%BB%E5%9C%A8Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html</loc>
+         <lastmod>2024-07-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.hxp.plus/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/local-path-provisioner%E5%AE%89%E8%A3%85.html</loc>
          <lastmod>2024-07-14</lastmod>
          <changefreq>daily</changefreq>
