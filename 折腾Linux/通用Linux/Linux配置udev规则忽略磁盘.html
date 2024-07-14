@@ -10,13 +10,13 @@
         <meta name="author" content="胡喜平">
       
       
-        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/Linux%20LVM%E8%B8%A2PV.html">
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/Linux%E9%85%8D%E7%BD%AEudev%E8%A7%84%E5%88%99%E5%BF%BD%E7%95%A5%E7%A3%81%E7%9B%98.html">
       
       
-        <link rel="prev" href="Linux%E6%8C%82%E8%BD%BDCIFS.html">
+        <link rel="prev" href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html">
       
       
-        <link rel="next" href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html">
+        <link rel="next" href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Linux LVM踢PV - hxp的文档库</title>
+        <title>Linux配置udev规则忽略磁盘 - hxp的文档库</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#linux-lvm-pv" class="md-skip">
+        <a href="#linux-udev" class="md-skip">
           跳转至
         </a>
       
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Linux LVM踢PV
+              Linux配置udev规则忽略磁盘
             
           </span>
         </div>
@@ -793,19 +793,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="Linux%20LVM%E8%B8%A2PV.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="Linux%20LVM%E8%B8%A2PV.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -814,7 +805,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -845,10 +835,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="Linux%E9%85%8D%E7%BD%AEudev%E8%A7%84%E5%88%99%E5%BF%BD%E7%95%A5%E7%A3%81%E7%9B%98.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux配置udev规则忽略磁盘
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Linux%E9%85%8D%E7%BD%AEudev%E8%A7%84%E5%88%99%E5%BF%BD%E7%95%A5%E7%A3%81%E7%9B%98.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -857,6 +867,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-udev" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 配置 udev 规则忽略磁盘
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 参考链接
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1222,6 +1270,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-udev" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 配置 udev 规则忽略磁盘
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 参考链接
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1249,6 +1323,12 @@
       <a href="../../tags.html#linux" class="md-tag">Linux</a>
     
   
+    
+    
+    
+      <a href="../../tags.html#udev" class="md-tag">udev</a>
+    
+  
 </nav>
 
 
@@ -1256,13 +1336,27 @@
   
 
 
-<h1 id="linux-lvm-pv">Linux LVM 踢 PV<a class="headerlink" href="#linux-lvm-pv" title="Permanent link">&para;</a></h1>
-<p>lv_ubuntu 由 <code>/dev/sdb</code> 和 <code>/dev/sda3</code> 两个 pv 组成，其中部分数据写在了 <code>/dev/sdb</code> ，如果想把 <code>/dev/sdb</code> 踢盘，需要先进行如下操作：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pvmove /dev/sdb /dev/sda3
+<h1 id="linux-udev">Linux 配置 udev 规则忽略磁盘<a class="headerlink" href="#linux-udev" title="Permanent link">&para;</a></h1>
+<h2 id="1-udev">1. 配置 udev 规则忽略磁盘<a class="headerlink" href="#1-udev" title="Permanent link">&para;</a></h2>
+<p>在安装 Proxmox VE 并使用 Clover 进行引导后，我不想在 PVE 里看到引导用的 U 盘/dev/sdd，需要配置 udev rule 来忽略引导 U 盘。首先抓取 udev 特征：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/sdd
 </span></code></pre></div></td></tr></table></div>
-<p>将 <code>/dev/sdb</code> 这个 PV 里的 PE 迁移到 <code>/dev/sda3</code> 上，之后踢盘：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>vgreduce ubuntu-vg /dev/sdb
+<p>重点关注 model 或者 vendor：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ATTRS{model}==&quot;CHIPFANCIER     &quot;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>ATTRS{vendor}==&quot;32G SLC &quot;
 </span></code></pre></div></td></tr></table></div>
+<p>然后新建文件 <code>/etc/udev/rules.d/99-hide-usb.rules</code> 如下：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>KERNEL==&quot;sd?&quot;, ATTRS{model}==&quot;CHIPFANCIER     &quot;, ATTRS{vendor}==&quot;32G SLC &quot;, ENV{UDISKS_IGNORE}=&quot;1&quot;, RUN+=&quot;/bin/sh -c &#39;/usr/bin/echo deleted device %k &gt;&gt; /tmp/udev.log &amp;&amp; echo 1 &gt; /sys/block/%k/device/delete&#39;&quot;
+</span></code></pre></div></td></tr></table></div>
+<p>使其生效：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>udevadm<span class="w"> </span>control<span class="w"> </span>--reload<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>udevadm<span class="w"> </span>trigger
+</span></code></pre></div></td></tr></table></div>
+<p>这个 udev rule 原理是有这个盘就删除这个盘。</p>
+<h2 id="2">2. 参考链接<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.baeldung.com/linux/shell-run-script-usb-plugged">https://www.baeldung.com/linux/shell-run-script-usb-plugged</a></p>
+<p><a href="https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co">https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co</a></p>
+<p><a href="https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot">https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot</a></p>
 
 
 
@@ -1285,7 +1379,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月14日</span>
   </span>
 
     
@@ -1295,7 +1389,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年7月14日</span>
   </span>
 
     
@@ -1331,7 +1425,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="Linux%E6%8C%82%E8%BD%BDCIFS.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux挂载CIFS">
+          <a href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux将最后一个磁盘分区扩容到最大">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1341,20 +1435,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                Linux挂载CIFS
+                Linux将最后一个磁盘分区扩容到最大
               </div>
             </div>
           </a>
         
         
           
-          <a href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux将最后一个磁盘分区扩容到最大">
+          <a href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 在QEMU环境安装Gentoo">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                Linux将最后一个磁盘分区扩容到最大
+                在QEMU环境安装Gentoo
               </div>
             </div>
             <div class="md-footer__button md-icon">

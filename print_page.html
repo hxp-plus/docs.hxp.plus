@@ -8066,7 +8066,27 @@ integration%20with%20awx/</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e5%b0%86%e6%9c%80%e5%90%8e%e4%b8%80%e4%b8%aa%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e6%89%a9%e5%ae%b9%e5%88%b0%e6%9c%80%e5%a4%a7-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>root@ubuntu:~# growpart /dev/sda 3
 </span></code></pre></div></td></tr></table></div>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e5%b0%86%e6%9c%80%e5%90%8e%e4%b8%80%e4%b8%aa%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e6%89%a9%e5%ae%b9%e5%88%b0%e6%9c%80%e5%a4%a7-__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>CHANGED: partition=3 start=6397952 old: size=60708864 end=67106815 new: size=262037471 end=268435422
-</span></code></pre></div></td></tr></table></div></section><h1 class='nav-section-title-end'>Ended: 通用Linux</h1>
+</span></code></pre></div></td></tr></table></div></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98"><nav class='md-tags'><span class='md-tag'>Linux</span><span class='md-tag'>udev</span></nav><h1 id="linux-udev">Linux 配置 udev 规则忽略磁盘<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-linux-udev" title="Permanent link">&para;</a></h1>
+<h2 id="%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-1-udev">1. 配置 udev 规则忽略磁盘<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-1-udev" title="Permanent link">&para;</a></h2>
+<p>在安装 Proxmox VE 并使用 Clover 进行引导后，我不想在 PVE 里看到引导用的 U 盘/dev/sdd，需要配置 udev rule 来忽略引导 U 盘。首先抓取 udev 特征：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/sdd
+</span></code></pre></div></td></tr></table></div>
+<p>重点关注 model 或者 vendor：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ATTRS{model}==&quot;CHIPFANCIER     &quot;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>ATTRS{vendor}==&quot;32G SLC &quot;
+</span></code></pre></div></td></tr></table></div>
+<p>然后新建文件 <code>/etc/udev/rules.d/99-hide-usb.rules</code> 如下：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>KERNEL==&quot;sd?&quot;, ATTRS{model}==&quot;CHIPFANCIER     &quot;, ATTRS{vendor}==&quot;32G SLC &quot;, ENV{UDISKS_IGNORE}=&quot;1&quot;, RUN+=&quot;/bin/sh -c &#39;/usr/bin/echo deleted device %k &gt;&gt; /tmp/udev.log &amp;&amp; echo 1 &gt; /sys/block/%k/device/delete&#39;&quot;
+</span></code></pre></div></td></tr></table></div>
+<p>使其生效：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>udevadm<span class="w"> </span>control<span class="w"> </span>--reload<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>udevadm<span class="w"> </span>trigger
+</span></code></pre></div></td></tr></table></div>
+<p>这个 udev rule 原理是有这个盘就删除这个盘。</p>
+<h%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-2 id="%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-2">2. 参考链接<a class="headerlink" href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98-2" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.baeldung.com/linux/shell-run-script-usb-plugged">https://www.baeldung.com/linux/shell-run-script-usb-plugged</a></p>
+<p><a href="https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co">https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co</a></p>
+<p><a href="https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot">https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot</a></p></section><h1 class='nav-section-title-end'>Ended: 通用Linux</h1>
                         <h2 class='nav-section-title' id='section-gentoo'>
                             Gentoo <a class='headerlink' href='#section-gentoo' title='Permanent link'>↵</a>
                         </h2>
@@ -9925,6 +9945,7 @@ integration%20with%20awx/</p>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%20lvm%e8%b8%a2pv">Linux LVM踢PV</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e4%b8%8b%e8%bd%bdyum%e6%ba%90">Linux下载yum源</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e6%8c%82%e8%bd%bdcifs">Linux挂载CIFS</a></li>
+<li><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98">Linux配置udev规则忽略磁盘</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e9%93%b6%e6%b2%b3%e9%ba%92%e9%ba%9fv10-%e8%ae%b0%e6%9f%90%e6%ac%a1%e6%9f%90%e5%ae%89%e5%85%a8%e5%8e%82%e5%95%86%e5%ba%94%e7%94%a8%e8%bf%90%e8%a1%8c%e4%b8%80%e6%ae%b5%e6%97%b6%e9%97%b4%e5%90%8e%ef%bc%8clinux%e5%87%ba%e7%8e%b0ping%e5%bb%b6%e8%bf%9f%e9%ab%98%e9%97%ae%e9%a2%98%e7%9a%84%e8%a7%a3%e5%86%b3%e6%80%9d%e8%b7%af">记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路</a></li>
 </ul>
 <h2 id="tags-maven"><span class="md-tag">Maven</span><a class="headerlink" href="#tags-maven" title="Permanent link">&para;</a></h2>
@@ -10058,6 +10079,10 @@ integration%20with%20awx/</p>
 <h2 id="tags-traefik"><span class="md-tag">traefik</span><a class="headerlink" href="#tags-traefik" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#%e5%ae%b9%e5%99%a8%e6%8a%80%e6%9c%af-kubernetes-%e5%ae%89%e8%a3%85traefik%20ingress%20controller">安装traefik ingress controller</a></li>
+</ul>
+<h2 id="tags-udev"><span class="md-tag">udev</span><a class="headerlink" href="#tags-udev" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-%e9%80%9a%e7%94%a8linux-linux%e9%85%8d%e7%bd%aeudev%e8%a7%84%e5%88%99%e5%bf%bd%e7%95%a5%e7%a3%81%e7%9b%98">Linux配置udev规则忽略磁盘</a></li>
 </ul>
 <h2 id="tags-xfce"><span class="md-tag">xfce</span><a class="headerlink" href="#tags-xfce" title="Permanent link">&para;</a></h2>
 <ul>
