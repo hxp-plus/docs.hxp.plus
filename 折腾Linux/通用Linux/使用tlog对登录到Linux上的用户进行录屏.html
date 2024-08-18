@@ -10,13 +10,13 @@
         <meta name="author" content="胡喜平">
       
       
-        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/Linux%20LVM%E8%B8%A2PV.html">
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/%E4%BD%BF%E7%94%A8tlog%E5%AF%B9%E7%99%BB%E5%BD%95%E5%88%B0Linux%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%BD%95%E5%B1%8F.html">
       
       
-        <link rel="prev" href="Linux%E6%8C%82%E8%BD%BDCIFS.html">
+        <link rel="prev" href="Linux%E9%85%8D%E7%BD%AEudev%E8%A7%84%E5%88%99%E5%BF%BD%E7%95%A5%E7%A3%81%E7%9B%98.html">
       
       
-        <link rel="next" href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html">
+        <link rel="next" href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Linux LVM踢PV - hxp的文档库</title>
+        <title>使用tlog对登录到Linux上的用户进行录屏 - hxp的文档库</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#linux-lvm-pv" class="md-skip">
+        <a href="#tlog-linux" class="md-skip">
           跳转至
         </a>
       
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Linux LVM踢PV
+              使用tlog对登录到Linux上的用户进行录屏
             
           </span>
         </div>
@@ -793,19 +793,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="Linux%20LVM%E8%B8%A2PV.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="Linux%20LVM%E8%B8%A2PV.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -814,7 +805,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -866,10 +856,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="%E4%BD%BF%E7%94%A8tlog%E5%AF%B9%E7%99%BB%E5%BD%95%E5%88%B0Linux%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%BD%95%E5%B1%8F.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    使用tlog对登录到Linux上的用户进行录屏
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="%E4%BD%BF%E7%94%A8tlog%E5%AF%B9%E7%99%BB%E5%BD%95%E5%88%B0Linux%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%BD%95%E5%B1%8F.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -878,6 +888,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 项目背景
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 安装 tlog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 为用户启用 tlog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 查看录屏
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1243,6 +1309,50 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 项目背景
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 安装 tlog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 为用户启用 tlog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 查看录屏
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1270,6 +1380,12 @@
       <a href="../../tags.html#linux" class="md-tag">Linux</a>
     
   
+    
+    
+    
+      <a href="../../tags.html#tlog" class="md-tag">tlog</a>
+    
+  
 </nav>
 
 
@@ -1277,12 +1393,40 @@
   
 
 
-<h1 id="linux-lvm-pv">Linux LVM 踢 PV<a class="headerlink" href="#linux-lvm-pv" title="Permanent link">&para;</a></h1>
-<p>lv_ubuntu 由 <code>/dev/sdb</code> 和 <code>/dev/sda3</code> 两个 pv 组成，其中部分数据写在了 <code>/dev/sdb</code> ，如果想把 <code>/dev/sdb</code> 踢盘，需要先进行如下操作：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pvmove /dev/sdb /dev/sda3
+<h1 id="tlog-linux">使用 tlog 对登录到 Linux 上的用户进行录屏<a class="headerlink" href="#tlog-linux" title="Permanent link">&para;</a></h1>
+<h2 id="1">1. 项目背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>需要对 SSH 登录到 Linux 服务器上的用户进行录屏，主要有两种需求：</p>
+<ol>
+<li>记录自己在 Linux 上的操作。</li>
+<li>如果别人做了什么蠢事，把他揪出来。</li>
+</ol>
+<h2 id="2-tlog">2. 安装 tlog<a class="headerlink" href="#2-tlog" title="Permanent link">&para;</a></h2>
+<p>从 <a href="https://github.com/Scribery/tlog">GitHub 仓库</a> 的 Releases 页面下载 tlog 源码，之后安装依赖 （以 RHEL 8 为例）：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum<span class="w"> </span>install<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>m4<span class="w"> </span>json-c-devel<span class="w"> </span>systemd-devel<span class="w"> </span>libcurl-devel
 </span></code></pre></div></td></tr></table></div>
-<p>将 <code>/dev/sdb</code> 这个 PV 里的 PE 迁移到 <code>/dev/sda3</code> 上，之后踢盘：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>vgreduce ubuntu-vg /dev/sdb
+<p>之后对源码进行编译安装：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>./configure<span class="w"> </span>--prefix<span class="o">=</span>/opt/tlog<span class="w"> </span>--sysconfdir<span class="o">=</span>/etc<span class="w"> </span>--localstatedir<span class="o">=</span>/var<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>make<span class="w"> </span>install
+</span></code></pre></div></td></tr></table></div>
+<h2 id="3-tlog">3. 为用户启用 tlog<a class="headerlink" href="#3-tlog" title="Permanent link">&para;</a></h2>
+<p>启用 tlog 需要修改用户登录 shell ：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>usermod<span class="w"> </span>-s<span class="w"> </span>/opt/tlog/bin/tlog-rec-session<span class="w"> </span>hxp
+</span></code></pre></div></td></tr></table></div>
+<p>修改 pam 配置 <code>/etc/pam.d/sshd</code> 和 <code>/etc/pam.d/system-auth</code> ，加入：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>session     required      pam_env.so readenv=1 envfile=/etc/locale.conf
+</span></code></pre></div></td></tr></table></div>
+<p>修改系统临时文件目录配置 <code>/usr/lib/tmpfiles.d/tlog.conf</code> ，加入：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>d /var/run/tlog 1777 root root 10d
+</span></code></pre></div></td></tr></table></div>
+<p>创建 <code>/var/run/tlog/</code> 目录：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/run/tlog/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>chmod<span class="w"> </span><span class="m">1777</span><span class="w"> </span>/var/run/tlog/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="4">4. 查看录屏<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>录屏会录入到 journal ，查看 journal 中用户登录记录获取 ID 后：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>tlog-play<span class="w"> </span>-r<span class="w"> </span>journal<span class="w"> </span>-M<span class="w"> </span><span class="nv">TLOG_REC</span><span class="o">=</span>12ca5b356065453fb50adfe57007658a-306a-26f2910<span class="w"> </span>-s<span class="w"> </span><span class="m">5</span>
 </span></code></pre></div></td></tr></table></div>
 
 
@@ -1306,7 +1450,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年8月18日</span>
   </span>
 
     
@@ -1316,7 +1460,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年8月18日</span>
   </span>
 
     
@@ -1352,7 +1496,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="Linux%E6%8C%82%E8%BD%BDCIFS.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux挂载CIFS">
+          <a href="Linux%E9%85%8D%E7%BD%AEudev%E8%A7%84%E5%88%99%E5%BF%BD%E7%95%A5%E7%A3%81%E7%9B%98.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux配置udev规则忽略磁盘">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1362,20 +1506,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                Linux挂载CIFS
+                Linux配置udev规则忽略磁盘
               </div>
             </div>
           </a>
         
         
           
-          <a href="Linux%E5%B0%86%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E5%88%B0%E6%9C%80%E5%A4%A7.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux将最后一个磁盘分区扩容到最大">
+          <a href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 在QEMU环境安装Gentoo">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                Linux将最后一个磁盘分区扩容到最大
+                在QEMU环境安装Gentoo
               </div>
             </div>
             <div class="md-footer__button md-icon">
