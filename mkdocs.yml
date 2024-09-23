@@ -39,6 +39,7 @@ nav:
           - local-path-provisioner安装: 容器技术/Kubernetes/local-path-provisioner安装.md
           - 扩容master节点: 容器技术/Kubernetes/扩容master节点.md
           - k3s删除namespace卡死在Terminating解决方法: 容器技术/Kubernetes/k3s删除namespace卡死在Terminating解决方法.md
+          - k8s 开启 swap 支持: 容器技术/Kubernetes/k8s开启swap支持.md
       - Docker&Podman:
           - Dockerfile中不保留编译缓存: 容器技术/Docker&Podman/Dockerfile中不保留编译缓存.md
           - 基于eBPF的容器审计技术的实现: 容器技术/Docker&Podman/基于eBPF的容器审计技术的实现.md
