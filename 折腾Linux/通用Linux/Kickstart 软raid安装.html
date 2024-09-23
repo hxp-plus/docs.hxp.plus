@@ -10,13 +10,13 @@
         <meta name="author" content="胡喜平">
       
       
-        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/Linux%E6%8C%82%E8%BD%BDCIFS.html">
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%8A%98%E8%85%BELinux/%E9%80%9A%E7%94%A8Linux/Kickstart%20%E8%BD%AFraid%E5%AE%89%E8%A3%85.html">
       
       
-        <link rel="prev" href="Linux%E4%B8%8B%E8%BD%BDyum%E6%BA%90.html">
+        <link rel="prev" href="%E4%BD%BF%E7%94%A8tlog%E5%AF%B9%E7%99%BB%E5%BD%95%E5%88%B0Linux%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%BD%95%E5%B1%8F.html">
       
       
-        <link rel="next" href="Linux%20LVM%E8%B8%A2PV.html">
+        <link rel="next" href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Linux挂载CIFS - hxp的文档库</title>
+        <title>Kickstart 软raid安装.md - hxp的文档库</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#linux-cifs" class="md-skip">
+        <a href="#kickstart-raid" class="md-skip">
           跳转至
         </a>
       
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Linux挂载CIFS
+              Kickstart 软raid安装.md
             
           </span>
         </div>
@@ -772,19 +772,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="Linux%E6%8C%82%E8%BD%BDCIFS.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="Linux%E6%8C%82%E8%BD%BDCIFS.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -793,7 +784,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -887,10 +877,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="Kickstart%20%E8%BD%AFraid%E5%AE%89%E8%A3%85.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="Kickstart%20%E8%BD%AFraid%E5%AE%89%E8%A3%85.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -899,6 +898,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1282,48 +1282,121 @@
 
 
                   
-  
-<nav class="md-tags" >
-  
-    
-    
-    
-      <a href="../../tags.html#linux" class="md-tag">Linux</a>
-    
-  
-    
-    
-    
-      <a href="../../tags.html#cifs" class="md-tag">CIFS</a>
-    
-  
-</nav>
-
 
   
   
 
 
-<h1 id="linux-cifs">Linux 挂载 CIFS<a class="headerlink" href="#linux-cifs" title="Permanent link">&para;</a></h1>
-<p>首先安装 cifs-utils，然后编辑文件<code>/etc/cifs-credentials</code>：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>username=[username]
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>password=[password]
+<h1 id="kickstart-raid">Kickstart 软 RAID 安装<a class="headerlink" href="#kickstart-raid" title="Permanent link">&para;</a></h1>
+<p>使用以下 <code>kickstart</code> 分区配置安装 软 RAID 1 到最小的两块硬盘的分盘脚本如下：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span>
+<span class="normal"><a href="#__codelineno-0-35">35</a></span>
+<span class="normal"><a href="#__codelineno-0-36">36</a></span>
+<span class="normal"><a href="#__codelineno-0-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Partition disks</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>%pre<span class="w"> </span>--interpreter<span class="o">=</span>/bin/bash
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nb">set</span><span class="w"> </span>-x
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1"># Get the sizes of all /dev/sd[a-z] devices in bytes and sort them by size</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nv">devices</span><span class="o">=</span><span class="k">$(</span>lsblk<span class="w"> </span>-dbn<span class="w"> </span>-o<span class="w"> </span>NAME,SIZE<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^sd[a-z]&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-k2<span class="w"> </span>-n<span class="k">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1"># Extract the two smallest devices</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="nv">smallest_devices</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$devices</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="k">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="c1"># Assign the smallest devices to variables</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="nv">smallest_1</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$smallest_devices</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;1p&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="nv">smallest_2</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$smallest_devices</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;2p&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="c1"># Print the results</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;The two block devices with the smallest size are:&quot;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/</span><span class="nv">$smallest_1</span><span class="s2">&quot;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/</span><span class="nv">$smallest_2</span><span class="s2">&quot;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="c1"># 装软RAID到最小的2块盘上</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>cat<span class="w"> </span>&gt;/tmp/part-include<span class="w"> </span><span class="s">&lt;&lt;-EOF</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="s">    zerombr</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="s">    ignoredisk --only-use=$smallest_1,$smallest_2</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="s">    clearpart --all --initlabel --drives=$smallest_1,$smallest_2</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="s">    part raid.1583 --fstype=&quot;mdmember&quot; --ondisk=$smallest_1 --size=2050</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="s">    part raid.1590 --fstype=&quot;mdmember&quot; --ondisk=$smallest_2 --size=2050</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="s">    part raid.1254 --fstype=&quot;mdmember&quot; --ondisk=$smallest_1 --size=2050</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="s">    part raid.1261 --fstype=&quot;mdmember&quot; --ondisk=$smallest_2 --size=2050</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="s">    part raid.2055 --fstype=&quot;mdmember&quot; --ondisk=$smallest_1 --size=1 --grow</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="s">    part raid.2048 --fstype=&quot;mdmember&quot; --ondisk=$smallest_2 --size=1 --grow</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="s">    raid /boot/efi --device=boot_efi --fstype=&quot;efi&quot; --level=RAID1 --fsoptions=&quot;umask=0077,shortname=winnt&quot; raid.1583 raid.1590</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="s">    raid /boot --device=boot --fstype=&quot;xfs&quot; --level=RAID1 raid.1254 raid.1261</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="s">    raid pv.789 --device=pv00 --fstype=&quot;lvmpv&quot; --level=RAID1 raid.2055 raid.2048</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="s">    volgroup rootvg --pesize=4096 pv.789</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="s">    logvol swap --fstype=&quot;swap&quot; --size=32768 --name=lv_swap --vgname=rootvg</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="s">    logvol /home --fstype=&quot;xfs&quot; --size=20480 --name=lv_home --vgname=rootvg</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="s">    logvol /tmp --fstype=&quot;xfs&quot; --size=51200 --name=lv_tmp --vgname=rootvg</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="s">    logvol /var --fstype=&quot;xfs&quot; --size=51200 --name=lv_var --vgname=rootvg</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="s">    logvol / --fstype=&quot;xfs&quot; --size=51200 --name=lv_root --vgname=rootvg</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="s">EOF</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>%end
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a>%include<span class="w"> </span>/tmp/part-include
 </span></code></pre></div></td></tr></table></div>
-<p>修改文件权限：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/cifs-credentials
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>chown<span class="w"> </span>root:root<span class="w"> </span>/etc/cifs-credentials
-</span></code></pre></div></td></tr></table></div>
-<p>在/etc/fstab 追加挂载项：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=1000,gid=1000,_netdev 0 0
-</span></code></pre></div></td></tr></table></div>
-<p>挂载：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/winshare
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>systemctl<span class="w"> </span>daemon-reload
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>mount<span class="w"> </span>-a
+<p>封装 ISO 镜像可参考以下代码：</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">os_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>*_ARM<span class="o">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span>sudo<span class="w"> </span>genisoimage<span class="w"> </span>-V<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$label</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASEDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">DISTDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">os_type</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">DATE</span><span class="si">}</span><span class="s2">.iso&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">        </span>-J<span class="w"> </span>-rational-rock<span class="w"> </span>-joliet-long<span class="w"> </span>-cache-inodes<span class="w"> </span>-graft-points<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">        </span>-untranslated-filenames<span class="w"> </span>-translation-table<span class="w"> </span>-m<span class="w"> </span>repoview<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">        </span>-efi-boot-part<span class="w"> </span>-efi-boot-image<span class="w"> </span>-e<span class="w"> </span>images/efiboot.img<span class="w"> </span>-no-emul-boot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">        </span>.
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="p">;;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>*_X86<span class="o">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span>sudo<span class="w"> </span>genisoimage<span class="w"> </span>-V<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$label</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASEDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">DISTDIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">os_type</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">DATE</span><span class="si">}</span><span class="s2">.iso&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">        </span>-J<span class="w"> </span>-rational-rock<span class="w"> </span>-joliet-long<span class="w"> </span>-cache-inodes<span class="w"> </span>-graft-points<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span>-untranslated-filenames<span class="w"> </span>-translation-table<span class="w"> </span>-m<span class="w"> </span>repoview<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">        </span>-eltorito-boot<span class="w"> </span>isolinux/isolinux.bin<span class="w"> </span>-eltorito-catalog<span class="w"> </span>isolinux/boot.cat<span class="w"> </span>-boot-load-size<span class="w"> </span><span class="m">4</span><span class="w"> </span>-boot-info-table<span class="w"> </span>-no-emul-boot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">        </span>-eltorito-alt-boot<span class="w"> </span>-eltorito-boot<span class="w"> </span>images/efiboot.img<span class="w"> </span>-no-emul-boot<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">        </span>.
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="p">;;</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="k">esac</span>
 </span></code></pre></div></td></tr></table></div>
 
 
@@ -1347,7 +1420,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月22日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
   </span>
 
     
@@ -1357,7 +1430,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年5月22日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月23日</span>
   </span>
 
     
@@ -1393,7 +1466,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="Linux%E4%B8%8B%E8%BD%BDyum%E6%BA%90.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux下载yum源">
+          <a href="%E4%BD%BF%E7%94%A8tlog%E5%AF%B9%E7%99%BB%E5%BD%95%E5%88%B0Linux%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%BD%95%E5%B1%8F.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 使用tlog对登录到Linux上的用户进行录屏">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1403,20 +1476,20 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                Linux下载yum源
+                使用tlog对登录到Linux上的用户进行录屏
               </div>
             </div>
           </a>
         
         
           
-          <a href="Linux%20LVM%E8%B8%A2PV.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Linux LVM踢PV">
+          <a href="../Gentoo/%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 在QEMU环境安装Gentoo">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                Linux LVM踢PV
+                在QEMU环境安装Gentoo
               </div>
             </div>
             <div class="md-footer__button md-icon">
