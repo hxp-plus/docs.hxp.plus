@@ -85,6 +85,8 @@ nav:
           - 使用OnlyOffice官方Spring示例遇到的坑: 运维开发/Java/使用OnlyOffice官方Spring示例遇到的坑.md
       - Shell:
           - Shell设置变量未赋值或遇到错误立刻退出: 运维开发/Shell/Shell设置变量未赋值或遇到错误立刻退出.md
+      - Rust:
+          - Rust离线开发环境安装: 运维开发/Rust/Rust离线开发环境安装.md
   - 折腾Linux:
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
