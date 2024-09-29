@@ -88,6 +88,7 @@ nav:
           - Shell设置变量未赋值或遇到错误立刻退出: 运维开发/Shell/Shell设置变量未赋值或遇到错误立刻退出.md
       - Rust:
           - Rust离线开发环境安装: 运维开发/Rust/Rust离线开发环境安装.md
+          - Rust交叉编译环境安装: 运维开发/Rust/Rust交叉编译环境安装.md
   - 折腾Linux:
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
