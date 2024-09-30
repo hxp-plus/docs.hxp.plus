@@ -999,6 +999,69 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E8%A7%A3%E9%94%81SSH.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000解锁SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E5%88%B7%E6%9C%BA.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000刷机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E5%8A%A0%E5%85%A5160MHz%E6%94%AF%E6%8C%81.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000加入160MHz支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1384,8 +1447,8 @@
   
 
 
-<h1 id="openwrt-wireguard">OpenWrt 安装 WireGuard<a class="headerlink" href="#openwrt-wireguard" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 前言<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="openwrt-wireguard">OpenWrt 安装 WireGuard</h1>
+<h2 id="1">1. 前言</h2>
 <p>当出门在外需要访问家里的服务时，总是需要一种异地组网方案。现行的异地组网方案大致有 ZeroTier 、 OpenVPN 和 WireGuard 三种，其中各有优劣。 OpenVPN 的优势是使用 TCP 连接，不容易像剩下两种方案似的有 UDP 连接不稳定的情况，缺点是速度慢。而 WireGuard 正好和 OpenVPN 相反，速度最快，但只能使用 UDP 直连。 ZeroTier 介于两种之间（它在连接非常不稳定时会使用 TCP 并走中转服务器）。</p>
 <p>因此本文在 OpenWrt 上搭建一个 WireGuard 服务器，其中需要准备的条件如下：</p>
 <ul>
@@ -1394,7 +1457,7 @@
 <li>公网 IPv6 高位 UDP 端口可以稳定连接。</li>
 <li>私网网段 10.8.0.0/24 没有被使用，将会被作为 WireGuard 私网网段。</li>
 </ul>
-<h2 id="2">2. 安装必要的软件包<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 安装必要的软件包</h2>
 <p>安装以下软件：</p>
 <ul>
 <li>wireguard-tools</li>
@@ -1403,7 +1466,7 @@
 <li>qrencode</li>
 </ul>
 <p>可以去 <code>System -&gt; Software</code> 界面安装，或者使用命令行安装。安装以后记得重启。</p>
-<h2 id="3-wireguard">3. 配置 WireGuard 网卡<a class="headerlink" href="#3-wireguard" title="Permanent link">&para;</a></h2>
+<h2 id="3-wireguard">3. 配置 WireGuard 网卡</h2>
 <p>在 <code>Network -&gt; Interfaces</code> 界面，点击 <code>Add new Interface</code> ，添加类型为 WireGuard 的网卡：</p>
 <p><img alt="" src="images/WireGuard_1.png" /></p>
 <p>需要点击 <code>Generate new key pair</code> 生成密钥，其中 <code>IP Address</code> 里应该填写 OpenWrt 准备使用的私网 IP 地址（10.8.0.1/32），以及整个 WireGuard 网络的地址（10.8.0.0/24）：</p>
@@ -1415,19 +1478,19 @@
 <p>同样需要点击 <code>Generate new key pair</code> 和 <code>Generate preshared key</code> 来生成 2 个密钥，勾选 <code>Route Allowed IPs</code> 并在 <code>Allowed IPs</code> 中填入客户端在 WireGuard 私网的 IP 地址（10.8.0.2/32）， <code>Persistens Keep Alive</code> 填写建议值 <code>25</code> ，之后点击 <code>Generate configuration</code> 获取客户端连接配置：</p>
 <p><img alt="" src="images/WireGuard_4.png" /></p>
 <p>之后保存所有设置，并重启 WireGuard 网卡（每次修改后都需要重启网卡生效）。</p>
-<h2 id="4-wireguard">4. 查看 WireGuard 配置<a class="headerlink" href="#4-wireguard" title="Permanent link">&para;</a></h2>
+<h2 id="4-wireguard">4. 查看 WireGuard 配置</h2>
 <p>在 <code>Status -&gt; WireGuard</code> 中可以查看 WireGuard 所有客户端的信息：</p>
 <p><img alt="" src="images/WireGuard_5.png" /></p>
-<h2 id="5">5. 配置防火墙<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h2 id="5">5. 配置防火墙</h2>
 <p>在 <code>Network -&gt; Firewall -&gt; Traffic Rules</code> 中，添加防火墙规则，放行 WireGuard 的端口：</p>
 <p><img alt="" src="images/WireGuard_7.png" /></p>
 <p>同时，在 <code>Network -&gt; Firewall -&gt; Zones</code> 中，设置 <code>vpn</code> 区域对所有区域可转发，开启 <code>Masquerading</code> ，Input 、 Output 、 Forward 全部 Accept ：</p>
 <p><img alt="" src="images/WireGuard_6.png" /></p>
-<h2 id="6">6. 使用客户端测试<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h2 id="6">6. 使用客户端测试</h2>
 <p>移动端使用二维码，桌面端直接复制配置文件导入，进行测试。</p>
-<h2 id="7">7. 参考资料<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
-<p><a href="https://upsangel.com/security/vpn/%E4%B8%80%E9%8D%B5%E9%80%A3%E5%9B%9E%E5%AE%B6%E9%87%8C%E5%85%A7%E7%B6%B2%EF%BC%9Aopenwrt%E4%B8%8A%E9%83%A8%E7%BD%B2wireguard-vpn%E6%9C%8D%E5%8B%99%E5%99%A8%E7%9A%84%E4%B8%89%E5%80%8B%E8%A6%81%E9%BB%9E/">https://upsangel.com/security/vpn/%E4%B8%80%E9%8D%B5%E9%80%A3%E5%9B%9E%E5%AE%B6%E9%87%8C%E5%85%A7%E7%B6%B2%EF%BC%9Aopenwrt%E4%B8%8A%E9%83%A8%E7%BD%B2wireguard-vpn%E6%9C%8D%E5%8B%99%E5%99%A8%E7%9A%84%E4%B8%89%E5%80%8B%E8%A6%81%E9%BB%9E/</a></p>
-<p><a href="https://whatgui.github.io/2020/02/08/%E3%80%8C%E6%8D%AF%E9%A5%AC%E8%AE%B0%E5%BD%95%E3%80%8D%E5%9C%A8OpenWrt%E4%B8%8A%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%8Bwireguard%E6%9C%8D%E5%8A%A1%E7%AB%AF/">https://whatgui.github.io/2020/02/08/%E3%80%8C%E6%8D%AF%E9%A5%AC%E8%AE%B0%E5%BD%95%E3%80%8D%E5%9C%A8OpenWrt%E4%B8%8A%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%8Bwireguard%E6%9C%8D%E5%8A%A1%E7%AB%AF/</a></p>
+<h2 id="7">7. 参考资料</h2>
+<p>https://upsangel.com/security/vpn/%E4%B8%80%E9%8D%B5%E9%80%A3%E5%9B%9E%E5%AE%B6%E9%87%8C%E5%85%A7%E7%B6%B2%EF%BC%9Aopenwrt%E4%B8%8A%E9%83%A8%E7%BD%B2wireguard-vpn%E6%9C%8D%E5%8B%99%E5%99%A8%E7%9A%84%E4%B8%89%E5%80%8B%E8%A6%81%E9%BB%9E/</p>
+<p>https://whatgui.github.io/2020/02/08/%E3%80%8C%E6%8D%AF%E9%A5%AC%E8%AE%B0%E5%BD%95%E3%80%8D%E5%9C%A8OpenWrt%E4%B8%8A%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%8Bwireguard%E6%9C%8D%E5%8A%A1%E7%AB%AF/</p>
 
 
 

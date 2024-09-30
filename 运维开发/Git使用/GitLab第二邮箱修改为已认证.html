@@ -1412,43 +1412,29 @@
   
 
 
-<h1 id="gitlab">GitLab 第二邮箱修改为已认证<a class="headerlink" href="#gitlab" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 问题背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="gitlab">GitLab 第二邮箱修改为已认证</h1>
+<h2 id="1">1. 问题背景</h2>
 <p>在内网环境中使用 GitLab ，如果需要添加第二个电子邮件，电子邮件需要被验证，但是验证的邮件发不出去，就无法验证并完成添加。此时需要一种方法手动修改邮箱为已认证。</p>
-<h2 id="2-rails">2. 登录 Rails 控制台手动修改第二邮箱为已认证<a class="headerlink" href="#2-rails" title="Permanent link">&para;</a></h2>
+<h2 id="2-rails">2. 登录 Rails 控制台手动修改第二邮箱为已认证</h2>
 <p>登录到 GitLab 服务器上，进入 Rails 控制台修改邮箱为已认证：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>[root@gitlab gitlab]# gitlab-rails console production
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>-------------------------------------------------------------------------------------
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a> GitLab:       11.5.1 (c90ae59)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a> GitLab Shell: 8.4.1
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a> postgresql:   9.6.8
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>-------------------------------------------------------------------------------------
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>Both Deployment and its :status machine have defined a different default for &quot;status&quot;. Use only one or the other for defining defaults to avoid unexpected behaviors.
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>Loading production environment (Rails 4.2.10)
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>irb(main):003:0&gt; email = Email.find_by(email: &quot;hxp@hxp.plus&quot;)
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>=&gt; #&lt;Email id: 2, user_id: 51, email: &quot;hxp@hxp.plus&quot;, created_at: &quot;2024-06-05 03:59:21&quot;, updated_at: &quot;2024-06-05 03:59:21&quot;&gt;
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>irb(main):004:0&gt; email.confirmed_at = Time.zone.now
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>=&gt; Wed, 05 Jun 2024 04:37:42 UTC +00:00
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>irb(main):005:0&gt; email.save!
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>=&gt; true
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>irb(main):006:0&gt; exit
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3">3. 参考资料<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p><a href="https://gist.github.com/macdja38/3d62d4f251bd7c46f0128bb6a9d35544">https://gist.github.com/macdja38/3d62d4f251bd7c46f0128bb6a9d35544</a></p>
+<pre><code>[root@gitlab gitlab]# gitlab-rails console production
+-------------------------------------------------------------------------------------
+ GitLab:       11.5.1 (c90ae59)
+ GitLab Shell: 8.4.1
+ postgresql:   9.6.8
+-------------------------------------------------------------------------------------
+Both Deployment and its :status machine have defined a different default for &quot;status&quot;. Use only one or the other for defining defaults to avoid unexpected behaviors.
+Loading production environment (Rails 4.2.10)
+irb(main):003:0&gt; email = Email.find_by(email: &quot;hxp@hxp.plus&quot;)
+=&gt; #&lt;Email id: 2, user_id: 51, email: &quot;hxp@hxp.plus&quot;, created_at: &quot;2024-06-05 03:59:21&quot;, updated_at: &quot;2024-06-05 03:59:21&quot;&gt;
+irb(main):004:0&gt; email.confirmed_at = Time.zone.now
+=&gt; Wed, 05 Jun 2024 04:37:42 UTC +00:00
+irb(main):005:0&gt; email.save!
+=&gt; true
+irb(main):006:0&gt; exit
+</code></pre>
+<h2 id="3">3. 参考资料</h2>
+<p>https://gist.github.com/macdja38/3d62d4f251bd7c46f0128bb6a9d35544</p>
 
 
 

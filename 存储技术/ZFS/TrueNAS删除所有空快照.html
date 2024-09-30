@@ -1037,73 +1037,50 @@
   
 
 
-<h1 id="truenas">TrueNAS 删除所有空快照<a class="headerlink" href="#truenas" title="Permanent link">&para;</a></h1>
-<h2 id="1-zfs">1. ZFS 列出所有快照<a class="headerlink" href="#1-zfs" title="Permanent link">&para;</a></h2>
+<h1 id="truenas">TrueNAS 删除所有空快照</h1>
+<h2 id="1-zfs">1. ZFS 列出所有快照</h2>
 <p>使用以下命令列出所有快照:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>zfs list -t snap
-</span></code></pre></div></td></tr></table></div>
+<pre><code>zfs list -t snap
+</code></pre>
 <p>该命令输出大致如下:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>NAME                                   USED  AVAIL  REFER  MOUNTPOINT
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>boot-pool/ROOT/24.04.0@pristine          8K      -   164M  -
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>boot-pool/ROOT/24.04.0/conf@pristine     0B      -   140K  -
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>boot-pool/ROOT/24.04.0/etc@pristine   1.06M      -  5.54M  -
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>boot-pool/ROOT/24.04.0/opt@pristine      0B      -  74.1M  -
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>boot-pool/ROOT/24.04.0/usr@pristine      0B      -  2.12G  -
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>boot-pool/ROOT/24.04.0/var@pristine    716K      -  30.8M  -
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>nas@auto-2023-10-28_20-00               80K      -   120K  -
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>nas@auto-2023-10-28_21-00                0B      -   112K  -
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>nas@auto-2023-10-28_22-00                0B      -   112K  -
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>nas@auto-2023-10-28_23-00                0B      -   112K  -
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>nas@auto-2023-10-29_00-00                0B      -   112K  -
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>nas@auto-2023-10-29_01-00                0B      -   112K  -
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>nas@auto-2023-10-29_02-00                0B      -   112K  -
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>nas@auto-2023-10-29_03-00                0B      -   112K  -
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>nas@auto-2023-10-29_04-00                0B      -   112K  -
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>nas@auto-2023-10-29_05-00                0B      -   112K  -
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>nas@auto-2023-10-29_06-00                0B      -   112K  -
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>nas@auto-2023-10-29_07-00                0B      -   112K  -
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a>nas@auto-2023-10-29_08-00                0B      -   112K  -
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2-0b">2. 找出所有大小为 0B 的快照并删除<a class="headerlink" href="#2-0b" title="Permanent link">&para;</a></h2>
+<pre><code>NAME                                   USED  AVAIL  REFER  MOUNTPOINT
+boot-pool/ROOT/24.04.0@pristine          8K      -   164M  -
+boot-pool/ROOT/24.04.0/conf@pristine     0B      -   140K  -
+boot-pool/ROOT/24.04.0/etc@pristine   1.06M      -  5.54M  -
+boot-pool/ROOT/24.04.0/opt@pristine      0B      -  74.1M  -
+boot-pool/ROOT/24.04.0/usr@pristine      0B      -  2.12G  -
+boot-pool/ROOT/24.04.0/var@pristine    716K      -  30.8M  -
+nas@auto-2023-10-28_20-00               80K      -   120K  -
+nas@auto-2023-10-28_21-00                0B      -   112K  -
+nas@auto-2023-10-28_22-00                0B      -   112K  -
+nas@auto-2023-10-28_23-00                0B      -   112K  -
+nas@auto-2023-10-29_00-00                0B      -   112K  -
+nas@auto-2023-10-29_01-00                0B      -   112K  -
+nas@auto-2023-10-29_02-00                0B      -   112K  -
+nas@auto-2023-10-29_03-00                0B      -   112K  -
+nas@auto-2023-10-29_04-00                0B      -   112K  -
+nas@auto-2023-10-29_05-00                0B      -   112K  -
+nas@auto-2023-10-29_06-00                0B      -   112K  -
+nas@auto-2023-10-29_07-00                0B      -   112K  -
+nas@auto-2023-10-29_08-00                0B      -   112K  -
+</code></pre>
+<h2 id="2-0b">2. 找出所有大小为 0B 的快照并删除</h2>
 <p>使用以下脚本,用 awk 提取出大小为 0B 的快照,并输出 zfs 删除快照的命令:</p>
-<div class="admonition note">
-<p class="admonition-title">remove_empty_snapshots.sh</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>#!/bin/bash
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>snapshots=$(zfs list -t snap | awk &#39;$2==&quot;0B&quot;{print $1}&#39;)
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>while read -r line;do
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>    echo zfs destroy $line
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>done &lt;&lt;&lt; &quot;$snapshots&quot;
-</span></code></pre></div></td></tr></table></div>
-</div>
+<p>!!! note "remove_empty_snapshots.sh"</p>
+<pre><code>```
+#!/bin/bash
+snapshots=$(zfs list -t snap | awk '$2=="0B"{print $1}')
+while read -r line;do
+    echo zfs destroy $line
+done &lt;&lt;&lt; "$snapshots"
+```
+</code></pre>
 <p>将此脚本输出重定向到文件 <code>remove.sh</code> :</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>/bin/bash remove_empty_snapshots.sh &gt; remove.sh
-</span></code></pre></div></td></tr></table></div>
+<pre><code>/bin/bash remove_empty_snapshots.sh &gt; remove.sh
+</code></pre>
 <p>在核对 <code>remove.sh</code> 内容后,运行 <code>remove.sh</code> :</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>/bin/bash remove.sh
-</span></code></pre></div></td></tr></table></div>
+<pre><code>/bin/bash remove.sh
+</code></pre>
 
 
 

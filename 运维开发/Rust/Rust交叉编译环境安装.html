@@ -1335,34 +1335,32 @@
   
 
 
-<h1 id="rust">Rust 交叉编译环境离线安装<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 安装准备<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="rust">Rust 交叉编译环境离线安装</h1>
+<h2 id="1">1. 安装准备</h2>
 <p>下载以下文件：</p>
 <ul>
 <li>aarch64-linux-musl-cross.tgz</li>
 <li>rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz</li>
 </ul>
 <p>其中 MUSL 交叉编译工具链下载地址见 <a href="https://musl.cc">https://musl.cc</a> ，Rust 相关下载地址见 <a href="https://static.rust-lang.org/dist/channel-rust-stable.toml">https://static.rust-lang.org/dist/channel-rust-stable.toml</a></p>
-<h2 id="2-musl">2. 安装 MUSL 交叉编译环境<a class="headerlink" href="#2-musl" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>tar<span class="w"> </span>-zxf<span class="w"> </span>aarch64-linux-musl-cross.tgz<span class="w"> </span>-C<span class="w"> </span>~/softwares/rust/
-</span></code></pre></div></td></tr></table></div>
+<h2 id="2-musl">2. 安装 MUSL 交叉编译环境</h2>
+<pre><code class="language-bash">tar -zxf aarch64-linux-musl-cross.tgz -C ~/softwares/rust/
+</code></pre>
 <p>修改 <code>~/.bashrc</code> ：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>~/softwares/rust/aarch64-linux-musl-cross/bin/:<span class="nv">$PATH</span>
-</span></code></pre></div></td></tr></table></div>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-rust-std">3. 安装目标版本 rust-std<a class="headerlink" href="#3-rust-std" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">export PATH=~/softwares/rust/aarch64-linux-musl-cross/bin/:$PATH
+</code></pre>
+<pre><code class="language-bash">source ~/.bashrc
+</code></pre>
+<h2 id="3-rust-std">3. 安装目标版本 rust-std</h2>
 <p>解压 <code>rust-std</code> 并安装 ：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>tar<span class="w"> </span>-xJf<span class="w"> </span>rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>./rust-std-1.80.1-aarch64-unknown-linux-musl/install.sh<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$HOME</span>/softwares/rust/
-</span></code></pre></div></td></tr></table></div>
-<h2 id="4-cargo">4. 配置 cargo<a class="headerlink" href="#4-cargo" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">tar -xJf rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
+./rust-std-1.80.1-aarch64-unknown-linux-musl/install.sh --prefix=$HOME/softwares/rust/
+</code></pre>
+<h2 id="4-cargo">4. 配置 cargo</h2>
 <p>修改 <code>~/.cargo/config.toml</code> ：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="o">[</span>target.aarch64-unknown-linux-musl<span class="o">]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">linker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;aarch64-linux-musl-ld&quot;</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">[target.aarch64-unknown-linux-musl]
+linker = &quot;aarch64-linux-musl-ld&quot;
+</code></pre>
 
 
 

@@ -1403,450 +1403,241 @@
   
 
 
-<h1 id="k8s-keycloak">k8s 集群 Keycloak 部署及负载配置<a class="headerlink" href="#k8s-keycloak" title="Permanent link">&para;</a></h1>
-<h2 id="1-mysql">1. 部署 MySQL 数据库<a class="headerlink" href="#1-mysql" title="Permanent link">&para;</a></h2>
+<h1 id="k8s-keycloak">k8s 集群 Keycloak 部署及负载配置</h1>
+<h2 id="1-mysql">1. 部署 MySQL 数据库</h2>
 <p>新建一套 MySQL-8 数据库，新建用户 keycloak 和数据库 keycloak，然后测试其连接性：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>mysql<span class="w"> </span>-h<span class="s1">&#39;192.168.100.243&#39;</span><span class="w"> </span>-P<span class="s1">&#39;3306&#39;</span><span class="w"> </span>-ukeycloak<span class="w"> </span>-p<span class="w"> </span>keycloak
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2-ssl">2. 生成 SSL 证书<a class="headerlink" href="#2-ssl" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">mysql -h'192.168.100.243' -P'3306' -ukeycloak -p keycloak
+</code></pre>
+<h2 id="2-ssl">2. 生成 SSL 证书</h2>
 <p>即使不使用，也需要自签证书，否则 Keycloak 无法以生成模式启动：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-subj<span class="w"> </span><span class="s1">&#39;/CN=test.keycloak.org/O=Test Keycloak./C=US&#39;</span><span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>key.pem<span class="w"> </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span>-out<span class="w"> </span>certificate.pem
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-keycloak">3. 部署 Keycloak<a class="headerlink" href="#3-keycloak" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">openssl req -subj '/CN=test.keycloak.org/O=Test Keycloak./C=US' -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 3650 -out certificate.pem
+</code></pre>
+<h2 id="3-keycloak">3. 部署 Keycloak</h2>
 <p>先创建 service，暴露服务端口 30081：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nn">---</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="nt">spec</span><span class="p">:</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30081</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-yaml">---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  namespace: keycloak
+  labels:
+    app: keycloak
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30081
+  selector:
+    app: keycloak
+  type: LoadBalancer
+</code></pre>
 <p>在默认情况下，keycloak 不同容器之间的互相发现是靠 IP multicast 广播实现，但是由于在 k8s 环境下，calico 和 fannel 不支持 multicast，不同 k8s 节点的 keycloak 容器广播不可达，就无法通过 multicast 发现彼此。默认的 multicast 服务发现方式在 calico 和 fannel 下不可使用，就需要自己写配置<code>cache-ispn.xml</code>替换容器里的来实现 keycloak 使用 JDBC ping 来发现彼此，这里直接把配置写 configmap 然后挂载到容器：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">  1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">  2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">  3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">  4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">  5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">  6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">  7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">  8</a></span>
-<span class="normal"><a href="#__codelineno-3-9">  9</a></span>
-<span class="normal"><a href="#__codelineno-3-10"> 10</a></span>
-<span class="normal"><a href="#__codelineno-3-11"> 11</a></span>
-<span class="normal"><a href="#__codelineno-3-12"> 12</a></span>
-<span class="normal"><a href="#__codelineno-3-13"> 13</a></span>
-<span class="normal"><a href="#__codelineno-3-14"> 14</a></span>
-<span class="normal"><a href="#__codelineno-3-15"> 15</a></span>
-<span class="normal"><a href="#__codelineno-3-16"> 16</a></span>
-<span class="normal"><a href="#__codelineno-3-17"> 17</a></span>
-<span class="normal"><a href="#__codelineno-3-18"> 18</a></span>
-<span class="normal"><a href="#__codelineno-3-19"> 19</a></span>
-<span class="normal"><a href="#__codelineno-3-20"> 20</a></span>
-<span class="normal"><a href="#__codelineno-3-21"> 21</a></span>
-<span class="normal"><a href="#__codelineno-3-22"> 22</a></span>
-<span class="normal"><a href="#__codelineno-3-23"> 23</a></span>
-<span class="normal"><a href="#__codelineno-3-24"> 24</a></span>
-<span class="normal"><a href="#__codelineno-3-25"> 25</a></span>
-<span class="normal"><a href="#__codelineno-3-26"> 26</a></span>
-<span class="normal"><a href="#__codelineno-3-27"> 27</a></span>
-<span class="normal"><a href="#__codelineno-3-28"> 28</a></span>
-<span class="normal"><a href="#__codelineno-3-29"> 29</a></span>
-<span class="normal"><a href="#__codelineno-3-30"> 30</a></span>
-<span class="normal"><a href="#__codelineno-3-31"> 31</a></span>
-<span class="normal"><a href="#__codelineno-3-32"> 32</a></span>
-<span class="normal"><a href="#__codelineno-3-33"> 33</a></span>
-<span class="normal"><a href="#__codelineno-3-34"> 34</a></span>
-<span class="normal"><a href="#__codelineno-3-35"> 35</a></span>
-<span class="normal"><a href="#__codelineno-3-36"> 36</a></span>
-<span class="normal"><a href="#__codelineno-3-37"> 37</a></span>
-<span class="normal"><a href="#__codelineno-3-38"> 38</a></span>
-<span class="normal"><a href="#__codelineno-3-39"> 39</a></span>
-<span class="normal"><a href="#__codelineno-3-40"> 40</a></span>
-<span class="normal"><a href="#__codelineno-3-41"> 41</a></span>
-<span class="normal"><a href="#__codelineno-3-42"> 42</a></span>
-<span class="normal"><a href="#__codelineno-3-43"> 43</a></span>
-<span class="normal"><a href="#__codelineno-3-44"> 44</a></span>
-<span class="normal"><a href="#__codelineno-3-45"> 45</a></span>
-<span class="normal"><a href="#__codelineno-3-46"> 46</a></span>
-<span class="normal"><a href="#__codelineno-3-47"> 47</a></span>
-<span class="normal"><a href="#__codelineno-3-48"> 48</a></span>
-<span class="normal"><a href="#__codelineno-3-49"> 49</a></span>
-<span class="normal"><a href="#__codelineno-3-50"> 50</a></span>
-<span class="normal"><a href="#__codelineno-3-51"> 51</a></span>
-<span class="normal"><a href="#__codelineno-3-52"> 52</a></span>
-<span class="normal"><a href="#__codelineno-3-53"> 53</a></span>
-<span class="normal"><a href="#__codelineno-3-54"> 54</a></span>
-<span class="normal"><a href="#__codelineno-3-55"> 55</a></span>
-<span class="normal"><a href="#__codelineno-3-56"> 56</a></span>
-<span class="normal"><a href="#__codelineno-3-57"> 57</a></span>
-<span class="normal"><a href="#__codelineno-3-58"> 58</a></span>
-<span class="normal"><a href="#__codelineno-3-59"> 59</a></span>
-<span class="normal"><a href="#__codelineno-3-60"> 60</a></span>
-<span class="normal"><a href="#__codelineno-3-61"> 61</a></span>
-<span class="normal"><a href="#__codelineno-3-62"> 62</a></span>
-<span class="normal"><a href="#__codelineno-3-63"> 63</a></span>
-<span class="normal"><a href="#__codelineno-3-64"> 64</a></span>
-<span class="normal"><a href="#__codelineno-3-65"> 65</a></span>
-<span class="normal"><a href="#__codelineno-3-66"> 66</a></span>
-<span class="normal"><a href="#__codelineno-3-67"> 67</a></span>
-<span class="normal"><a href="#__codelineno-3-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-3-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-3-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-3-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-3-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-3-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-3-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-3-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-3-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-3-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-3-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-3-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-3-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-3-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-3-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-3-83"> 83</a></span>
-<span class="normal"><a href="#__codelineno-3-84"> 84</a></span>
-<span class="normal"><a href="#__codelineno-3-85"> 85</a></span>
-<span class="normal"><a href="#__codelineno-3-86"> 86</a></span>
-<span class="normal"><a href="#__codelineno-3-87"> 87</a></span>
-<span class="normal"><a href="#__codelineno-3-88"> 88</a></span>
-<span class="normal"><a href="#__codelineno-3-89"> 89</a></span>
-<span class="normal"><a href="#__codelineno-3-90"> 90</a></span>
-<span class="normal"><a href="#__codelineno-3-91"> 91</a></span>
-<span class="normal"><a href="#__codelineno-3-92"> 92</a></span>
-<span class="normal"><a href="#__codelineno-3-93"> 93</a></span>
-<span class="normal"><a href="#__codelineno-3-94"> 94</a></span>
-<span class="normal"><a href="#__codelineno-3-95"> 95</a></span>
-<span class="normal"><a href="#__codelineno-3-96"> 96</a></span>
-<span class="normal"><a href="#__codelineno-3-97"> 97</a></span>
-<span class="normal"><a href="#__codelineno-3-98"> 98</a></span>
-<span class="normal"><a href="#__codelineno-3-99"> 99</a></span>
-<span class="normal"><a href="#__codelineno-3-100">100</a></span>
-<span class="normal"><a href="#__codelineno-3-101">101</a></span>
-<span class="normal"><a href="#__codelineno-3-102">102</a></span>
-<span class="normal"><a href="#__codelineno-3-103">103</a></span>
-<span class="normal"><a href="#__codelineno-3-104">104</a></span>
-<span class="normal"><a href="#__codelineno-3-105">105</a></span>
-<span class="normal"><a href="#__codelineno-3-106">106</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nn">---</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="nt">data</span><span class="p">:</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="nt">cache-ispn.xml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="no">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="no">&lt;!--</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">      </span><span class="no">~ Copyright 2019 Red Hat, Inc. and/or its affiliates</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">      </span><span class="no">~ and other contributors as indicated by the @author tags.</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">      </span><span class="no">~</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">      </span><span class="no">~ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">      </span><span class="no">~ you may not use this file except in compliance with the License.</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">      </span><span class="no">~ You may obtain a copy of the License at</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">      </span><span class="no">~</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">      </span><span class="no">~ http://www.apache.org/licenses/LICENSE-2.0</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">      </span><span class="no">~</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">      </span><span class="no">~ Unless required by applicable law or agreed to in writing, software</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">      </span><span class="no">~ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">      </span><span class="no">~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">      </span><span class="no">~ See the License for the specific language governing permissions and</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">      </span><span class="no">~ limitations under the License.</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">      </span><span class="no">--&gt;</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span><span class="no">&lt;infinispan</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">            </span><span class="no">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">            </span><span class="no">xsi:schemaLocation=&quot;urn:infinispan:config:14.0 http://www.infinispan.org/schemas/infinispan-config-14.0.xsd&quot;</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">            </span><span class="no">xmlns=&quot;urn:infinispan:config:14.0&quot;&gt;</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">        </span><span class="no">&lt;jgroups&gt;</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">            </span><span class="no">&lt;stack name=&quot;jdbc-ping-tcp&quot; extends=&quot;tcp&quot;&gt;</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">                </span><span class="no">&lt;JDBC_PING connection_driver=&quot;com.mysql.cj.jdbc.Driver&quot;</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">                        </span><span class="no">connection_username=&quot;${env.KC_DB_USERNAME}&quot;</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">                        </span><span class="no">connection_password=&quot;${env.KC_DB_PASSWORD}&quot;</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="w">                        </span><span class="no">connection_url=&quot;${env.KC_DB_URL}&quot;</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">                        </span><span class="no">info_writer_sleep_time=&quot;500&quot;</span>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">                        </span><span class="no">initialize_sql=&quot;CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, ping_data VARBINARY(255), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name));&quot;</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">                        </span><span class="no">remove_all_data_on_view_change=&quot;true&quot;</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">                        </span><span class="no">stack.combine=&quot;REPLACE&quot;</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="w">                        </span><span class="no">stack.position=&quot;MPING&quot; /&gt;</span>
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="w">            </span><span class="no">&lt;/stack&gt;</span>
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="w">        </span><span class="no">&lt;/jgroups&gt;</span>
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="w">        </span><span class="no">&lt;cache-container name=&quot;keycloak&quot;&gt;</span>
-</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="w">            </span><span class="no">&lt;transport lock-timeout=&quot;60000&quot; stack=&quot;jdbc-ping-tcp&quot;/&gt;</span>
-</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46"></a><span class="w">            </span><span class="no">&lt;metrics names-as-tags=&quot;true&quot; /&gt;</span>
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="w">            </span><span class="no">&lt;local-cache name=&quot;realms&quot;&gt;</span>
-</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="w">                </span><span class="no">&lt;encoding&gt;</span>
-</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49"></a><span class="w">                    </span><span class="no">&lt;key media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50"></a><span class="w">                    </span><span class="no">&lt;value media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51"></a><span class="w">                </span><span class="no">&lt;/encoding&gt;</span>
-</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52"></a><span class="w">                </span><span class="no">&lt;memory max-count=&quot;10000&quot;/&gt;</span>
-</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53"></a><span class="w">            </span><span class="no">&lt;/local-cache&gt;</span>
-</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54"></a><span class="w">            </span><span class="no">&lt;local-cache name=&quot;users&quot;&gt;</span>
-</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55"></a><span class="w">                </span><span class="no">&lt;encoding&gt;</span>
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56"></a><span class="w">                    </span><span class="no">&lt;key media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57"></a><span class="w">                    </span><span class="no">&lt;value media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58"></a><span class="w">                </span><span class="no">&lt;/encoding&gt;</span>
-</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59"></a><span class="w">                </span><span class="no">&lt;memory max-count=&quot;10000&quot;/&gt;</span>
-</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60"></a><span class="w">            </span><span class="no">&lt;/local-cache&gt;</span>
-</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;sessions&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;authenticationSessions&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;offlineSessions&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-70"><a id="__codelineno-3-70" name="__codelineno-3-70"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;clientSessions&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-71"><a id="__codelineno-3-71" name="__codelineno-3-71"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-72"><a id="__codelineno-3-72" name="__codelineno-3-72"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-73"><a id="__codelineno-3-73" name="__codelineno-3-73"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;offlineClientSessions&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-74"><a id="__codelineno-3-74" name="__codelineno-3-74"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-75"><a id="__codelineno-3-75" name="__codelineno-3-75"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-76"><a id="__codelineno-3-76" name="__codelineno-3-76"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;loginFailures&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-77"><a id="__codelineno-3-77" name="__codelineno-3-77"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-78"><a id="__codelineno-3-78" name="__codelineno-3-78"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-79"><a id="__codelineno-3-79" name="__codelineno-3-79"></a><span class="w">            </span><span class="no">&lt;local-cache name=&quot;authorization&quot;&gt;</span>
-</span><span id="__span-3-80"><a id="__codelineno-3-80" name="__codelineno-3-80"></a><span class="w">                </span><span class="no">&lt;encoding&gt;</span>
-</span><span id="__span-3-81"><a id="__codelineno-3-81" name="__codelineno-3-81"></a><span class="w">                    </span><span class="no">&lt;key media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-82"><a id="__codelineno-3-82" name="__codelineno-3-82"></a><span class="w">                    </span><span class="no">&lt;value media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-83"><a id="__codelineno-3-83" name="__codelineno-3-83"></a><span class="w">                </span><span class="no">&lt;/encoding&gt;</span>
-</span><span id="__span-3-84"><a id="__codelineno-3-84" name="__codelineno-3-84"></a><span class="w">                </span><span class="no">&lt;memory max-count=&quot;10000&quot;/&gt;</span>
-</span><span id="__span-3-85"><a id="__codelineno-3-85" name="__codelineno-3-85"></a><span class="w">            </span><span class="no">&lt;/local-cache&gt;</span>
-</span><span id="__span-3-86"><a id="__codelineno-3-86" name="__codelineno-3-86"></a><span class="w">            </span><span class="no">&lt;replicated-cache name=&quot;work&quot;&gt;</span>
-</span><span id="__span-3-87"><a id="__codelineno-3-87" name="__codelineno-3-87"></a><span class="w">                </span><span class="no">&lt;expiration lifespan=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-88"><a id="__codelineno-3-88" name="__codelineno-3-88"></a><span class="w">            </span><span class="no">&lt;/replicated-cache&gt;</span>
-</span><span id="__span-3-89"><a id="__codelineno-3-89" name="__codelineno-3-89"></a><span class="w">            </span><span class="no">&lt;local-cache name=&quot;keys&quot;&gt;</span>
-</span><span id="__span-3-90"><a id="__codelineno-3-90" name="__codelineno-3-90"></a><span class="w">                </span><span class="no">&lt;encoding&gt;</span>
-</span><span id="__span-3-91"><a id="__codelineno-3-91" name="__codelineno-3-91"></a><span class="w">                    </span><span class="no">&lt;key media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-92"><a id="__codelineno-3-92" name="__codelineno-3-92"></a><span class="w">                    </span><span class="no">&lt;value media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-93"><a id="__codelineno-3-93" name="__codelineno-3-93"></a><span class="w">                </span><span class="no">&lt;/encoding&gt;</span>
-</span><span id="__span-3-94"><a id="__codelineno-3-94" name="__codelineno-3-94"></a><span class="w">                </span><span class="no">&lt;expiration max-idle=&quot;3600000&quot;/&gt;</span>
-</span><span id="__span-3-95"><a id="__codelineno-3-95" name="__codelineno-3-95"></a><span class="w">                </span><span class="no">&lt;memory max-count=&quot;1000&quot;/&gt;</span>
-</span><span id="__span-3-96"><a id="__codelineno-3-96" name="__codelineno-3-96"></a><span class="w">            </span><span class="no">&lt;/local-cache&gt;</span>
-</span><span id="__span-3-97"><a id="__codelineno-3-97" name="__codelineno-3-97"></a><span class="w">            </span><span class="no">&lt;distributed-cache name=&quot;actionTokens&quot; owners=&quot;2&quot;&gt;</span>
-</span><span id="__span-3-98"><a id="__codelineno-3-98" name="__codelineno-3-98"></a><span class="w">                </span><span class="no">&lt;encoding&gt;</span>
-</span><span id="__span-3-99"><a id="__codelineno-3-99" name="__codelineno-3-99"></a><span class="w">                    </span><span class="no">&lt;key media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-100"><a id="__codelineno-3-100" name="__codelineno-3-100"></a><span class="w">                    </span><span class="no">&lt;value media-type=&quot;application/x-java-object&quot;/&gt;</span>
-</span><span id="__span-3-101"><a id="__codelineno-3-101" name="__codelineno-3-101"></a><span class="w">                </span><span class="no">&lt;/encoding&gt;</span>
-</span><span id="__span-3-102"><a id="__codelineno-3-102" name="__codelineno-3-102"></a><span class="w">                </span><span class="no">&lt;expiration max-idle=&quot;-1&quot; lifespan=&quot;-1&quot; interval=&quot;300000&quot;/&gt;</span>
-</span><span id="__span-3-103"><a id="__codelineno-3-103" name="__codelineno-3-103"></a><span class="w">                </span><span class="no">&lt;memory max-count=&quot;-1&quot;/&gt;</span>
-</span><span id="__span-3-104"><a id="__codelineno-3-104" name="__codelineno-3-104"></a><span class="w">            </span><span class="no">&lt;/distributed-cache&gt;</span>
-</span><span id="__span-3-105"><a id="__codelineno-3-105" name="__codelineno-3-105"></a><span class="w">        </span><span class="no">&lt;/cache-container&gt;</span>
-</span><span id="__span-3-106"><a id="__codelineno-3-106" name="__codelineno-3-106"></a><span class="w">    </span><span class="no">&lt;/infinispan&gt;</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-yaml">---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cache-ispn
+  namespace: keycloak
+data:
+  cache-ispn.xml: |
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;!--
+      ~ Copyright 2019 Red Hat, Inc. and/or its affiliates
+      ~ and other contributors as indicated by the @author tags.
+      ~
+      ~ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+      ~ you may not use this file except in compliance with the License.
+      ~ You may obtain a copy of the License at
+      ~
+      ~ http://www.apache.org/licenses/LICENSE-2.0
+      ~
+      ~ Unless required by applicable law or agreed to in writing, software
+      ~ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+      ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      ~ See the License for the specific language governing permissions and
+      ~ limitations under the License.
+      --&gt;
+
+    &lt;infinispan
+            xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+            xsi:schemaLocation=&quot;urn:infinispan:config:14.0 http://www.infinispan.org/schemas/infinispan-config-14.0.xsd&quot;
+            xmlns=&quot;urn:infinispan:config:14.0&quot;&gt;
+        &lt;jgroups&gt;
+            &lt;stack name=&quot;jdbc-ping-tcp&quot; extends=&quot;tcp&quot;&gt;
+                &lt;JDBC_PING connection_driver=&quot;com.mysql.cj.jdbc.Driver&quot;
+                        connection_username=&quot;${env.KC_DB_USERNAME}&quot;
+                        connection_password=&quot;${env.KC_DB_PASSWORD}&quot;
+                        connection_url=&quot;${env.KC_DB_URL}&quot;
+                        info_writer_sleep_time=&quot;500&quot;
+                        initialize_sql=&quot;CREATE TABLE IF NOT EXISTS JGROUPSPING (own_addr varchar(200) NOT NULL, cluster_name varchar(200) NOT NULL, ping_data VARBINARY(255), constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name));&quot;
+                        remove_all_data_on_view_change=&quot;true&quot;
+                        stack.combine=&quot;REPLACE&quot;
+                        stack.position=&quot;MPING&quot; /&gt;
+            &lt;/stack&gt;
+        &lt;/jgroups&gt;
+        &lt;cache-container name=&quot;keycloak&quot;&gt;
+            &lt;transport lock-timeout=&quot;60000&quot; stack=&quot;jdbc-ping-tcp&quot;/&gt;
+            &lt;metrics names-as-tags=&quot;true&quot; /&gt;
+            &lt;local-cache name=&quot;realms&quot;&gt;
+                &lt;encoding&gt;
+                    &lt;key media-type=&quot;application/x-java-object&quot;/&gt;
+                    &lt;value media-type=&quot;application/x-java-object&quot;/&gt;
+                &lt;/encoding&gt;
+                &lt;memory max-count=&quot;10000&quot;/&gt;
+            &lt;/local-cache&gt;
+            &lt;local-cache name=&quot;users&quot;&gt;
+                &lt;encoding&gt;
+                    &lt;key media-type=&quot;application/x-java-object&quot;/&gt;
+                    &lt;value media-type=&quot;application/x-java-object&quot;/&gt;
+                &lt;/encoding&gt;
+                &lt;memory max-count=&quot;10000&quot;/&gt;
+            &lt;/local-cache&gt;
+            &lt;distributed-cache name=&quot;sessions&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;distributed-cache name=&quot;authenticationSessions&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;distributed-cache name=&quot;offlineSessions&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;distributed-cache name=&quot;clientSessions&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;distributed-cache name=&quot;offlineClientSessions&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;distributed-cache name=&quot;loginFailures&quot; owners=&quot;2&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+            &lt;local-cache name=&quot;authorization&quot;&gt;
+                &lt;encoding&gt;
+                    &lt;key media-type=&quot;application/x-java-object&quot;/&gt;
+                    &lt;value media-type=&quot;application/x-java-object&quot;/&gt;
+                &lt;/encoding&gt;
+                &lt;memory max-count=&quot;10000&quot;/&gt;
+            &lt;/local-cache&gt;
+            &lt;replicated-cache name=&quot;work&quot;&gt;
+                &lt;expiration lifespan=&quot;-1&quot;/&gt;
+            &lt;/replicated-cache&gt;
+            &lt;local-cache name=&quot;keys&quot;&gt;
+                &lt;encoding&gt;
+                    &lt;key media-type=&quot;application/x-java-object&quot;/&gt;
+                    &lt;value media-type=&quot;application/x-java-object&quot;/&gt;
+                &lt;/encoding&gt;
+                &lt;expiration max-idle=&quot;3600000&quot;/&gt;
+                &lt;memory max-count=&quot;1000&quot;/&gt;
+            &lt;/local-cache&gt;
+            &lt;distributed-cache name=&quot;actionTokens&quot; owners=&quot;2&quot;&gt;
+                &lt;encoding&gt;
+                    &lt;key media-type=&quot;application/x-java-object&quot;/&gt;
+                    &lt;value media-type=&quot;application/x-java-object&quot;/&gt;
+                &lt;/encoding&gt;
+                &lt;expiration max-idle=&quot;-1&quot; lifespan=&quot;-1&quot; interval=&quot;300000&quot;/&gt;
+                &lt;memory max-count=&quot;-1&quot;/&gt;
+            &lt;/distributed-cache&gt;
+        &lt;/cache-container&gt;
+    &lt;/infinispan&gt;
+</code></pre>
 <p>再创建 deployment：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span>
-<span class="normal"><a href="#__codelineno-4-34">34</a></span>
-<span class="normal"><a href="#__codelineno-4-35">35</a></span>
-<span class="normal"><a href="#__codelineno-4-36">36</a></span>
-<span class="normal"><a href="#__codelineno-4-37">37</a></span>
-<span class="normal"><a href="#__codelineno-4-38">38</a></span>
-<span class="normal"><a href="#__codelineno-4-39">39</a></span>
-<span class="normal"><a href="#__codelineno-4-40">40</a></span>
-<span class="normal"><a href="#__codelineno-4-41">41</a></span>
-<span class="normal"><a href="#__codelineno-4-42">42</a></span>
-<span class="normal"><a href="#__codelineno-4-43">43</a></span>
-<span class="normal"><a href="#__codelineno-4-44">44</a></span>
-<span class="normal"><a href="#__codelineno-4-45">45</a></span>
-<span class="normal"><a href="#__codelineno-4-46">46</a></span>
-<span class="normal"><a href="#__codelineno-4-47">47</a></span>
-<span class="normal"><a href="#__codelineno-4-48">48</a></span>
-<span class="normal"><a href="#__codelineno-4-49">49</a></span>
-<span class="normal"><a href="#__codelineno-4-50">50</a></span>
-<span class="normal"><a href="#__codelineno-4-51">51</a></span>
-<span class="normal"><a href="#__codelineno-4-52">52</a></span>
-<span class="normal"><a href="#__codelineno-4-53">53</a></span>
-<span class="normal"><a href="#__codelineno-4-54">54</a></span>
-<span class="normal"><a href="#__codelineno-4-55">55</a></span>
-<span class="normal"><a href="#__codelineno-4-56">56</a></span>
-<span class="normal"><a href="#__codelineno-4-57">57</a></span>
-<span class="normal"><a href="#__codelineno-4-58">58</a></span>
-<span class="normal"><a href="#__codelineno-4-59">59</a></span>
-<span class="normal"><a href="#__codelineno-4-60">60</a></span>
-<span class="normal"><a href="#__codelineno-4-61">61</a></span>
-<span class="normal"><a href="#__codelineno-4-62">62</a></span>
-<span class="normal"><a href="#__codelineno-4-63">63</a></span>
-<span class="normal"><a href="#__codelineno-4-64">64</a></span>
-<span class="normal"><a href="#__codelineno-4-65">65</a></span>
-<span class="normal"><a href="#__codelineno-4-66">66</a></span>
-<span class="normal"><a href="#__codelineno-4-67">67</a></span>
-<span class="normal"><a href="#__codelineno-4-68">68</a></span>
-<span class="normal"><a href="#__codelineno-4-69">69</a></span>
-<span class="normal"><a href="#__codelineno-4-70">70</a></span>
-<span class="normal"><a href="#__codelineno-4-71">71</a></span>
-<span class="normal"><a href="#__codelineno-4-72">72</a></span>
-<span class="normal"><a href="#__codelineno-4-73">73</a></span>
-<span class="normal"><a href="#__codelineno-4-74">74</a></span>
-<span class="normal"><a href="#__codelineno-4-75">75</a></span>
-<span class="normal"><a href="#__codelineno-4-76">76</a></span>
-<span class="normal"><a href="#__codelineno-4-77">77</a></span>
-<span class="normal"><a href="#__codelineno-4-78">78</a></span>
-<span class="normal"><a href="#__codelineno-4-79">79</a></span>
-<span class="normal"><a href="#__codelineno-4-80">80</a></span>
-<span class="normal"><a href="#__codelineno-4-81">81</a></span>
-<span class="normal"><a href="#__codelineno-4-82">82</a></span>
-<span class="normal"><a href="#__codelineno-4-83">83</a></span>
-<span class="normal"><a href="#__codelineno-4-84">84</a></span>
-<span class="normal"><a href="#__codelineno-4-85">85</a></span>
-<span class="normal"><a href="#__codelineno-4-86">86</a></span>
-<span class="normal"><a href="#__codelineno-4-87">87</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nn">---</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="nt">spec</span><span class="p">:</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.100.12:8082/keycloak/keycloak:24.0</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;start&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--hostname-strict-https=false&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">          </span><span class="nt">env</span><span class="p">:</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KEYCLOAK_ADMIN</span>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KEYCLOAK_ADMIN_PASSWORD</span>
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;**************&quot;</span>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_PROXY</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;edge&quot;</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HTTP_ENABLED</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HTTPS_CERTIFICATE_FILE</span>
-</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/keycloak/ssl/tls.crt&quot;</span>
-</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HTTPS_CERTIFICATE_KEY_FILE</span>
-</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/keycloak/ssl/tls.key&quot;</span>
-</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HOSTNAME_STRICT</span>
-</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
-</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HOSTNAME</span>
-</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;108.96.27.44&quot;</span>
-</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_HOSTNAME_PORT</span>
-</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;9003&quot;</span>
-</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB</span>
-</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql</span>
-</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_USERNAME</span>
-</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_PASSWORD</span>
-</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;********&#39;</span>
-</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_URL_HOST</span>
-</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.100.243</span>
-</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_URL_PORT</span>
-</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3306&quot;</span>
-</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_URL_DATABASE</span>
-</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
-</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_DB_URL</span>
-</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jdbc:mysql://192.168.100.243:3306/keycloak&quot;</span>
-</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KC_CACHE_CONFIG_FILE</span>
-</span><span id="__span-4-57"><a id="__codelineno-4-57" name="__codelineno-4-57"></a><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn.xml</span>
-</span><span id="__span-4-58"><a id="__codelineno-4-58" name="__codelineno-4-58"></a><span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
-</span><span id="__span-4-59"><a id="__codelineno-4-59" name="__codelineno-4-59"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-</span><span id="__span-4-60"><a id="__codelineno-4-60" name="__codelineno-4-60"></a><span class="w">              </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-</span><span id="__span-4-61"><a id="__codelineno-4-61" name="__codelineno-4-61"></a><span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
-</span><span id="__span-4-62"><a id="__codelineno-4-62" name="__codelineno-4-62"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">discovery</span>
-</span><span id="__span-4-63"><a id="__codelineno-4-63" name="__codelineno-4-63"></a><span class="w">              </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7600</span>
-</span><span id="__span-4-64"><a id="__codelineno-4-64" name="__codelineno-4-64"></a><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
-</span><span id="__span-4-65"><a id="__codelineno-4-65" name="__codelineno-4-65"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/keycloak/ssl/&quot;</span>
-</span><span id="__span-4-66"><a id="__codelineno-4-66" name="__codelineno-4-66"></a><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak-ssl</span>
-</span><span id="__span-4-67"><a id="__codelineno-4-67" name="__codelineno-4-67"></a><span class="w">              </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span><span id="__span-4-68"><a id="__codelineno-4-68" name="__codelineno-4-68"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn</span>
-</span><span id="__span-4-69"><a id="__codelineno-4-69" name="__codelineno-4-69"></a><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/keycloak/conf/cache-ispn.xml</span>
-</span><span id="__span-4-70"><a id="__codelineno-4-70" name="__codelineno-4-70"></a><span class="w">              </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn.xml</span>
-</span><span id="__span-4-71"><a id="__codelineno-4-71" name="__codelineno-4-71"></a><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
-</span><span id="__span-4-72"><a id="__codelineno-4-72" name="__codelineno-4-72"></a><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
-</span><span id="__span-4-73"><a id="__codelineno-4-73" name="__codelineno-4-73"></a><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/realms/master</span>
-</span><span id="__span-4-74"><a id="__codelineno-4-74" name="__codelineno-4-74"></a><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-</span><span id="__span-4-75"><a id="__codelineno-4-75" name="__codelineno-4-75"></a><span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
-</span><span id="__span-4-76"><a id="__codelineno-4-76" name="__codelineno-4-76"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nexus-regcred</span>
-</span><span id="__span-4-77"><a id="__codelineno-4-77" name="__codelineno-4-77"></a><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
-</span><span id="__span-4-78"><a id="__codelineno-4-78" name="__codelineno-4-78"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak-ssl</span>
-</span><span id="__span-4-79"><a id="__codelineno-4-79" name="__codelineno-4-79"></a><span class="w">          </span><span class="nt">secret</span><span class="p">:</span>
-</span><span id="__span-4-80"><a id="__codelineno-4-80" name="__codelineno-4-80"></a><span class="w">            </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak-tls-secret</span>
-</span><span id="__span-4-81"><a id="__codelineno-4-81" name="__codelineno-4-81"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn</span>
-</span><span id="__span-4-82"><a id="__codelineno-4-82" name="__codelineno-4-82"></a><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span>
-</span><span id="__span-4-83"><a id="__codelineno-4-83" name="__codelineno-4-83"></a><span class="w">            </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0755</span>
-</span><span id="__span-4-84"><a id="__codelineno-4-84" name="__codelineno-4-84"></a><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn</span>
-</span><span id="__span-4-85"><a id="__codelineno-4-85" name="__codelineno-4-85"></a><span class="w">            </span><span class="nt">items</span><span class="p">:</span>
-</span><span id="__span-4-86"><a id="__codelineno-4-86" name="__codelineno-4-86"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn.xml</span>
-</span><span id="__span-4-87"><a id="__codelineno-4-87" name="__codelineno-4-87"></a><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-ispn.xml</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-yaml">---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: 192.168.100.12:8082/keycloak/keycloak:24.0
+          args: [&quot;start&quot;, &quot;--hostname-strict-https=false&quot;]
+          env:
+            - name: KEYCLOAK_ADMIN
+              value: &quot;admin&quot;
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: &quot;**************&quot;
+            - name: KC_PROXY
+              value: &quot;edge&quot;
+            - name: KC_HTTP_ENABLED
+              value: &quot;true&quot;
+            - name: KC_HTTPS_CERTIFICATE_FILE
+              value: &quot;/etc/keycloak/ssl/tls.crt&quot;
+            - name: KC_HTTPS_CERTIFICATE_KEY_FILE
+              value: &quot;/etc/keycloak/ssl/tls.key&quot;
+            - name: KC_HOSTNAME_STRICT
+              value: &quot;false&quot;
+            - name: KC_HOSTNAME
+              value: &quot;108.96.27.44&quot;
+            - name: KC_HOSTNAME_PORT
+              value: &quot;9003&quot;
+            - name: KC_DB
+              value: mysql
+            - name: KC_DB_USERNAME
+              value: keycloak
+            - name: KC_DB_PASSWORD
+              value: '********'
+            - name: KC_DB_URL_HOST
+              value: 192.168.100.243
+            - name: KC_DB_URL_PORT
+              value: &quot;3306&quot;
+            - name: KC_DB_URL_DATABASE
+              value: keycloak
+            - name: KC_DB_URL
+              value: &quot;jdbc:mysql://192.168.100.243:3306/keycloak&quot;
+            - name: KC_CACHE_CONFIG_FILE
+              value: cache-ispn.xml
+          ports:
+            - name: http
+              containerPort: 8080
+          ports:
+            - name: discovery
+              containerPort: 7600
+          volumeMounts:
+            - mountPath: &quot;/etc/keycloak/ssl/&quot;
+              name: keycloak-ssl
+              readOnly: true
+            - name: cache-ispn
+              mountPath: /opt/keycloak/conf/cache-ispn.xml
+              subPath: cache-ispn.xml
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
+      imagePullSecrets:
+        - name: nexus-regcred
+      volumes:
+        - name: keycloak-ssl
+          secret:
+            secretName: keycloak-tls-secret
+        - name: cache-ispn
+          configMap:
+            defaultMode: 0755
+            name: cache-ispn
+            items:
+            - key: cache-ispn.xml
+              path: cache-ispn.xml
+</code></pre>
 <p>JDBC ping 的原理是每个 keycloak 都往数据库里的 JGROUPSPING 表写上自己的信息，通过读数据库来发现别的节点。在创建完成以后，需要进入到容器里，修改 admin realm 的 sslRequired 参数：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>kubectl<span class="w"> </span>-n<span class="w"> </span>keycloak<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>keycloak-8659669957-jrtqr<span class="w"> </span>--<span class="w"> </span>/bin/bash
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>/opt/keycloak/bin/kcadm.sh<span class="w"> </span>update<span class="w"> </span>realms/master<span class="w"> </span>-s<span class="w"> </span><span class="nv">sslRequired</span><span class="o">=</span>NONE<span class="w"> </span>--server<span class="w"> </span>http://keycloak:8080<span class="w"> </span>--realm<span class="w"> </span>master<span class="w"> </span>--user<span class="w"> </span>admin
-</span></code></pre></div></td></tr></table></div>
-<h3 id="31">3.1 配置负载均衡器<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">kubectl -n keycloak exec -it keycloak-8659669957-jrtqr -- /bin/bash
+/opt/keycloak/bin/kcadm.sh update realms/master -s sslRequired=NONE --server http://keycloak:8080 --realm master --user admin
+</code></pre>
+<h3 id="31">3.1 配置负载均衡器</h3>
 <p>负载均衡器配置如下，需要打开“附加 HTTP 头字段：[客户端真实 IP / X-Forwarded-For]”功能：
 <img alt="" src="images/k8s%E5%AE%89%E8%A3%85keycloak_%E8%B4%9F%E8%BD%BD%E9%85%8D%E7%BD%AE.png" /></p>
-<h2 id="4">4. 参考链接<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h2 id="4">4. 参考链接</h2>
 <p><a href="https://github.com/keycloak/keycloak-quickstarts/blob/release/24.0/kubernetes/keycloak.yaml">https://github.com/keycloak/keycloak-quickstarts/blob/release/24.0/kubernetes/keycloak.yaml</a></p>
 <p><a href="https://www.keycloak.org/server/db#_supported_databases">https://www.keycloak.org/server/db#_supported_databases</a></p>
 <p><a href="https://www.keycloak.org/server/hostname">https://www.keycloak.org/server/hostname</a></p>

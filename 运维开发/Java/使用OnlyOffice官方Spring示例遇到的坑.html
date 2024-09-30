@@ -1454,168 +1454,119 @@
   
 
 
-<h1 id="onlyoffice-spring">使用 OnlyOffice 官方 Spring 示例遇到的坑<a class="headerlink" href="#onlyoffice-spring" title="Permanent link">&para;</a></h1>
-<h2 id="1-github-resources">1. GitHub 下载下来的代码中 resources 目录缺失<a class="headerlink" href="#1-github-resources" title="Permanent link">&para;</a></h2>
+<h1 id="onlyoffice-spring">使用 OnlyOffice 官方 Spring 示例遇到的坑</h1>
+<h2 id="1-github-resources">1. GitHub 下载下来的代码中 resources 目录缺失</h2>
 <p>这是由于 <code>web/documentserver-example/java-spring/src/main/resources</code> 下的两个目录不属于这个 GitHub 仓库，是 submodule ：</p>
 <p><img alt="" src="images/onlyoffice_1.png" /></p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>git clone --recurse-submodules https://github.com/ONLYOFFICE/document-server-integration.git
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2-idea-jar">2. 如何用 IDEA 将项目编译成 jar 包<a class="headerlink" href="#2-idea-jar" title="Permanent link">&para;</a></h2>
+<pre><code>git clone --recurse-submodules https://github.com/ONLYOFFICE/document-server-integration.git
+</code></pre>
+<h2 id="2-idea-jar">2. 如何用 IDEA 将项目编译成 jar 包</h2>
 <p>项目加载到 IDEA 后，点开 maven 的标签页，鼠标双击这个 <code>package</code> ：</p>
 <p><img alt="" src="images/onlyoffice_2.png" /></p>
 <p>jar 包会生成在 <code>target/integration-1.0.jar</code> ，将其复制即可使用。</p>
-<h2 id="3-jar">3. 项目打包成 jar 后单独运行报错<a class="headerlink" href="#3-jar" title="Permanent link">&para;</a></h2>
+<h2 id="3-jar">3. 项目打包成 jar 后单独运行报错</h2>
 <p>项目打包成 jar 包单独运行会报错 FileNotFoundException ，原因有 2 个，首先是 resources 目录没有被打包进入 jar 包，解决方法为修改 <code>pom.xml</code> ，在 <code>build</code> 中加入：</p>
-<div class="language-xml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nt">&lt;resources&gt;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span><span class="nt">&lt;resource&gt;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;directory&gt;</span>${basedir}/src/main/resources<span class="nt">&lt;/directory&gt;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span><span class="nt">&lt;/resource&gt;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="nt">&lt;/resources&gt;</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-xml">&lt;resources&gt;
+  &lt;resource&gt;
+    &lt;directory&gt;${basedir}/src/main/resources&lt;/directory&gt;
+  &lt;/resource&gt;
+&lt;/resources&gt;
+</code></pre>
 <p>其次是 <code>src/main/java/com/onlyoffice/integration/documentserver/util/service/DefaultFormatService.java</code> 中这一行使用的 <code>getFile()</code> 方法在 jar 包中不适用：</p>
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">File</span><span class="w"> </span><span class="n">targetFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resourceFile</span><span class="p">.</span><span class="na">getFile</span><span class="p">();</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-java">File targetFile = resourceFile.getFile();
+</code></pre>
 <p>需要将这一行修改为以下几行：</p>
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resourceFile</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">File</span><span class="w"> </span><span class="n">targetFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="na">createTempFile</span><span class="p">(</span><span class="s">&quot;onlyoffice-docs-formats&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.json&quot;</span><span class="p">);</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">FileOutputStream</span><span class="w"> </span><span class="n">outputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="n">targetFile</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">bufferLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="n">bufferLength</span><span class="o">]</span><span class="p">;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bytesRead</span><span class="p">;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">bytesRead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputStream</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="n">outputStream</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">bytesRead</span><span class="p">);</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="p">}</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-java">InputStream inputStream = resourceFile.getInputStream();
+File targetFile = File.createTempFile(&quot;onlyoffice-docs-formats&quot;, &quot;.json&quot;);
+try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+    final int bufferLength = 1024;
+    byte[] buffer = new byte[bufferLength];
+    int bytesRead;
+    while ((bytesRead = inputStream.read(buffer)) != -1) {
+        outputStream.write(buffer, 0, bytesRead);
+    }
+}
+</code></pre>
 <p>同时需要导入额外的以下两个包：</p>
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.FileOutputStream</span><span class="p">;</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.InputStream</span><span class="p">;</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="4">4. 文档上传大小限制修改<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-java">import java.io.FileOutputStream;
+import java.io.InputStream;
+</code></pre>
+<h2 id="4">4. 文档上传大小限制修改</h2>
 <p>默认的文档上传限制过小，有些大文档上传会报错，需要修改 <code>src/main/resources/application.properties</code> ：</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="na">filesize-max</span><span class="o">=</span><span class="s">5242880</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="na">spring.servlet.multipart.max-file-size</span><span class="o">=</span><span class="s">50MB</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="na">spring.servlet.multipart.max-request-size</span><span class="o">=</span><span class="s">50MB</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-ini">filesize-max=5242880
+spring.servlet.multipart.max-file-size=50MB
+spring.servlet.multipart.max-request-size=50MB
+</code></pre>
 <p>将以上三个参数修改为原来的 10 倍。</p>
-<h2 id="5-mysql">5. 修改为使用 MySQL 数据库<a class="headerlink" href="#5-mysql" title="Permanent link">&para;</a></h2>
+<h2 id="5-mysql">5. 修改为使用 MySQL 数据库</h2>
 <p>默认情况下这个 Spring 示例使用在内存中的 h2 数据库，需要将其修改为使用 MySQL ，需要修改 <code>src/main/resources/application.properties</code> ，将以下几行：</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="na">spring.datasource.url</span><span class="o">=</span><span class="s">jdbc:h2:mem:usersdb</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="na">spring.datasource.driverClassName</span><span class="o">=</span><span class="s">org.h2.Driver</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="na">spring.datasource.username</span><span class="o">=</span><span class="s">sa</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="na">spring.datasource.password</span><span class="o">=</span><span class="s">password</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="na">spring.jpa.database-platform</span><span class="o">=</span><span class="s">org.hibernate.dialect.H2Dialect</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="na">hibernate.ddl-auto</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-ini">spring.datasource.url=jdbc:h2:mem:usersdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+hibernate.ddl-auto
+</code></pre>
 <p>修改为如下所示：</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="na">spring.datasource.url</span><span class="o">=</span><span class="s">jdbc:mysql://ubuntu.hxp.lan:3306/spring</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="na">spring.datasource.driverClassName</span><span class="o">=</span><span class="s">com.mysql.cj.jdbc.Driver</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="na">spring.datasource.username</span><span class="o">=</span><span class="s">spring</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="na">spring.datasource.password</span><span class="o">=</span><span class="s">spring</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="na">spring.jpa.hibernate.ddl-auto</span><span class="o">=</span><span class="s">create-drop</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-ini">spring.datasource.url=jdbc:mysql://ubuntu.hxp.lan:3306/spring
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.username=spring
+spring.datasource.password=spring
+spring.jpa.hibernate.ddl-auto=create-drop
+</code></pre>
 <p>同时，在 <code>pom.xml</code> 里增加 mysql-connector ：</p>
-<div class="language-xml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nt">&lt;dependency&gt;</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span><span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span><span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="nt">&lt;/dependency&gt;</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="6-spring-spring-security">6. Spring 项目加入 spring security 后无法运行<a class="headerlink" href="#6-spring-spring-security" title="Permanent link">&para;</a></h2>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h2 id="6-spring-spring-security">6. Spring 项目加入 spring security 后无法运行</h2>
 <p>在引入 spring security 后，即使是 permitAll() 在打开 OnlyOffice 页面还是报错， document-server 报错如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>document-server-1  | [2024-05-28T22:08:57.809] [ERROR] [localhost] [1383708097] [1] nodeJS - postData error: url = http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F;data = {&quot;key&quot;:&quot;1383708097&quot;,&quot;status&quot;:1,&quot;users&quot;:[&quot;1&quot;],&quot;actions&quot;:[{&quot;type&quot;:1,&quot;userid&quot;:&quot;1&quot;}]} Error: Error response: statusCode:403; headers:{&quot;set-cookie&quot;:[&quot;JSESSIONID=B667F99DC2C69C008DF263C81F2A5FCA; Path=/; HttpOnly&quot;],&quot;x-content-type-options&quot;:&quot;nosniff&quot;,&quot;x-xss-protection&quot;:&quot;1; mode=block&quot;,&quot;cache-control&quot;:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;,&quot;pragma&quot;:&quot;no-cache&quot;,&quot;expires&quot;:&quot;0&quot;,&quot;x-frame-options&quot;:&quot;DENY&quot;,&quot;content-type&quot;:&quot;application/json&quot;,&quot;transfer-encoding&quot;:&quot;chunked&quot;,&quot;date&quot;:&quot;Tue, 28 May 2024 14:08:57 GMT&quot;,&quot;connection&quot;:&quot;close&quot;}; body:
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>document-server-1  | {&quot;timestamp&quot;:1716905337808,&quot;status&quot;:403,&quot;error&quot;:&quot;Forbidden&quot;,&quot;message&quot;:&quot;Forbidden&quot;,&quot;path&quot;:&quot;/track&quot;}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>document-server-1  | [2024-05-28T22:08:57.809] [ERROR] [localhost] [1383708097] [1] nodeJS - postData error: url = http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F;data = {&quot;key&quot;:&quot;1383708097&quot;,&quot;status&quot;:1,&quot;users&quot;:[&quot;1&quot;],&quot;actions&quot;:[{&quot;type&quot;:1,&quot;userid&quot;:&quot;1&quot;}]} Error: Error response: statusCode:403; headers:{&quot;set-cookie&quot;:[&quot;JSESSIONID=B667F99DC2C69C008DF263C81F2A5FCA; Path=/; HttpOnly&quot;],&quot;x-content-type-options&quot;:&quot;nosniff&quot;,&quot;x-xss-protection&quot;:&quot;1; mode=block&quot;,&quot;cache-control&quot;:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;,&quot;pragma&quot;:&quot;no-cache&quot;,&quot;expires&quot;:&quot;0&quot;,&quot;x-frame-options&quot;:&quot;DENY&quot;,&quot;content-type&quot;:&quot;application/json&quot;,&quot;transfer-encoding&quot;:&quot;chunked&quot;,&quot;date&quot;:&quot;Tue, 28 May 2024 14:08:57 GMT&quot;,&quot;connection&quot;:&quot;close&quot;}; body:
+document-server-1  | {&quot;timestamp&quot;:1716905337808,&quot;status&quot;:403,&quot;error&quot;:&quot;Forbidden&quot;,&quot;message&quot;:&quot;Forbidden&quot;,&quot;path&quot;:&quot;/track&quot;}
+</code></pre>
 <p>此时需要检查 Spring 的日志，在 <code>application.properties</code> 加入：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>logging.level.org.springframework.security=DEBUG
-</span></code></pre></div></td></tr></table></div>
+<pre><code>logging.level.org.springframework.security=DEBUG
+</code></pre>
 <p>观察到 Spring 吐出以下日志：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>2024-05-28 14:07:54.813 DEBUG 1342180 --- [nio-4000-exec-2] s.s.w.c.SecurityContextPersistenceFilter : Set SecurityContextHolder to empty SecurityContext
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.security.web.csrf.CsrfFilter         : Invalid CSRF token found for http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
-</span></code></pre></div></td></tr></table></div>
+<pre><code>2024-05-28 14:07:54.813 DEBUG 1342180 --- [nio-4000-exec-2] s.s.w.c.SecurityContextPersistenceFilter : Set SecurityContextHolder to empty SecurityContext
+2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.security.web.csrf.CsrfFilter         : Invalid CSRF token found for http://ubuntu.hxp.lan:4000/track?fileName=new.docx&amp;userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F
+2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
+</code></pre>
 <p>可以确定是 spring security 的 csrf 保护返回了 403 导致。解决方法为修改 SecurityChain ，在 http 后面加上 <code>.csrf.disable()</code> ，示例如下：</p>
-<div class="language-java highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">SecurityFilterChain</span><span class="w"> </span><span class="nf">filterChain</span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">HttpSecurity</span><span class="w"> </span><span class="n">http</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">    </span><span class="n">http</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">            </span><span class="p">.</span><span class="na">csrf</span><span class="p">().</span><span class="na">disable</span><span class="p">()</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">            </span><span class="p">.</span><span class="na">authorizeRequests</span><span class="p">()</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">            </span><span class="p">.</span><span class="na">antMatchers</span><span class="p">(</span><span class="s">&quot;/track&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/download&quot;</span><span class="p">).</span><span class="na">permitAll</span><span class="p">()</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">            </span><span class="p">.</span><span class="na">anyRequest</span><span class="p">().</span><span class="na">authenticated</span><span class="p">()</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">            </span><span class="p">.</span><span class="na">and</span><span class="p">()</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">            </span><span class="p">.</span><span class="na">oauth2Login</span><span class="p">();</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">http</span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="p">}</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="7-spring-document-server-10">7. 在内网部署时， Spring 后端调用 document-server 时，存在大约 10 秒左右的延迟，才展示文档编辑页面<a class="headerlink" href="#7-spring-document-server-10" title="Permanent link">&para;</a></h2>
+<pre><code class="language-java">public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+    http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers(&quot;/track&quot;, &quot;/download&quot;).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2Login();
+    return http.build();
+}
+</code></pre>
+<h2 id="7-spring-document-server-10">7. 在内网部署时， Spring 后端调用 document-server 时，存在大约 10 秒左右的延迟，才展示文档编辑页面</h2>
 <p>这个是因为 document-server 每次被调用的时候都会尝试访问外网，访问外网会进行 DNS 查询。而实际部署时，机器的 DNS 被设置成了 3 个根本就不通的外网 DNS ，导致每次开启 document-server ，都会访问外网，访问外网时先用第一个 DNS 服务器解析，第一个 DNS 服务器连接超时后，再尝试第 2 个 DNS 服务器，以此类推。解决方法为修正内网部署机器的 DNS 为正确的配置。</p>
-<h2 id="8-applicationproperties-jar">8. 将 application.properties 不打包到 jar<a class="headerlink" href="#8-applicationproperties-jar" title="Permanent link">&para;</a></h2>
+<h2 id="8-applicationproperties-jar">8. 将 application.properties 不打包到 jar</h2>
 <p><code>pom.xml</code> 增加 plugin ：</p>
-<div class="language-xml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-13-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nt">&lt;plugin&gt;</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">  </span><span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span><span class="nt">&lt;artifactId&gt;</span>maven-jar-plugin<span class="nt">&lt;/artifactId&gt;</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span><span class="nt">&lt;version&gt;</span>3.2.0<span class="nt">&lt;/version&gt;</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span><span class="nt">&lt;configuration&gt;</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">    </span><span class="nt">&lt;excludes&gt;</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">      </span><span class="nt">&lt;exclude&gt;</span>**/application.properties<span class="nt">&lt;/exclude&gt;</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">    </span><span class="nt">&lt;/excludes&gt;</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">  </span><span class="nt">&lt;/configuration&gt;</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="nt">&lt;/plugin&gt;</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+  &lt;version&gt;3.2.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;excludes&gt;
+      &lt;exclude&gt;**/application.properties&lt;/exclude&gt;
+    &lt;/excludes&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
 <p>这样打包后的 jar 包不含 <code>application.properties</code> ，运行需要手动指定：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>java -jar integration-1.0.jar --spring.config.location=file:///${HOME}/onlyoffice-spring-keycloak/src/main/resources/application.properties
-</span></code></pre></div></td></tr></table></div>
-<h2 id="9">9. 参考文献<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
-<p><a href="https://www.baeldung.com/spring-security-enable-logging">https://www.baeldung.com/spring-security-enable-logging</a></p>
-<p><a href="https://www.baeldung.com/spring-properties-file-outside-jar">https://www.baeldung.com/spring-properties-file-outside-jar</a></p>
-<p><a href="https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html">https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html</a></p>
+<pre><code>java -jar integration-1.0.jar --spring.config.location=file:///${HOME}/onlyoffice-spring-keycloak/src/main/resources/application.properties
+</code></pre>
+<h2 id="9">9. 参考文献</h2>
+<p>https://www.baeldung.com/spring-security-enable-logging</p>
+<p>https://www.baeldung.com/spring-properties-file-outside-jar</p>
+<p>https://www.waheedtechblog.com/2014/07/how-to-exclude-properties-file-from-jar.html</p>
 
 
 

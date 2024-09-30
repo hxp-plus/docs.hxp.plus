@@ -1425,8 +1425,8 @@
   
 
 
-<h1 id="rust">Rust 离线开发环境安装<a class="headerlink" href="#rust" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 安装准备<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="rust">Rust 离线开发环境安装</h1>
+<h2 id="1">1. 安装准备</h2>
 <p>下载以下文件：</p>
 <ul>
 <li>rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz</li>
@@ -1435,61 +1435,49 @@
 <li>rustup-init</li>
 </ul>
 <p>安装地址详见 <a href="https://static.rust-lang.org/dist/channel-rust-stable.toml">https://static.rust-lang.org/dist/channel-rust-stable.toml</a></p>
-<h2 id="2">2. 配置安装路径<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 配置安装路径</h2>
 <p>使用环境变量配置安装路径：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RUST_INSTALL_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/softwares/rust
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$RUST_INSTALL_DIR</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">export RUST_INSTALL_DIR=${HOME}/softwares/rust
+mkdir -p $RUST_INSTALL_DIR
+</code></pre>
 <p>如果中途退出安装，下次继续安装时需要重新设置这些环境变量。</p>
-<h2 id="3-rust">3. 安装 Rust<a class="headerlink" href="#3-rust" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>tar<span class="w"> </span>-xJf<span class="w"> </span>rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>./rust-1.80.1-aarch64-unknown-linux-gnu/install.sh<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$RUST_INSTALL_DIR</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="4-rustup">4. 安装 rustup<a class="headerlink" href="#4-rustup" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>./rustup-init
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>./rustup-init<span class="w"> </span>--default-toolchain<span class="w"> </span>none<span class="w"> </span>-y
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
-</span></code></pre></div></td></tr></table></div>
-<h2 id="5-toolchain">5. 安装 toolchain<a class="headerlink" href="#5-toolchain" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>rustup<span class="w"> </span>toolchain<span class="w"> </span>link<span class="w"> </span>rust-1.80.1-aarch64-unknown-linux-gnu<span class="w"> </span><span class="nv">$RUST_INSTALL_DIR</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>rustup<span class="w"> </span>default<span class="w"> </span>rust-1.80.1-aarch64-unknown-linux-gnu
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>rustc<span class="w"> </span>--version
-</span></code></pre></div></td></tr></table></div>
-<h2 id="6-target">6. 安装交叉编译 target<a class="headerlink" href="#6-target" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>tar<span class="w"> </span>-xJf<span class="w"> </span>rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>./rust-std-1.80.1-aarch64-unknown-linux-musl/install.sh<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$RUST_INSTALL_DIR</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="7-rust-src">7. 安装 rust-src<a class="headerlink" href="#7-rust-src" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>tar<span class="w"> </span>-xJf<span class="w"> </span>rust-src-1.80.1.tar.xz
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>./rust-src-1.80.1/install.sh<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$RUST_INSTALL_DIR</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="8-configtoml">8. 配置 config.toml<a class="headerlink" href="#8-configtoml" title="Permanent link">&para;</a></h2>
+<h2 id="3-rust">3. 安装 Rust</h2>
+<pre><code class="language-bash">tar -xJf rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz
+./rust-1.80.1-aarch64-unknown-linux-gnu/install.sh --prefix=$RUST_INSTALL_DIR
+</code></pre>
+<h2 id="4-rustup">4. 安装 rustup</h2>
+<pre><code class="language-bash">chmod +x ./rustup-init
+./rustup-init --default-toolchain none -y
+source ~/.bashrc
+</code></pre>
+<h2 id="5-toolchain">5. 安装 toolchain</h2>
+<pre><code class="language-bash">rustup toolchain link rust-1.80.1-aarch64-unknown-linux-gnu $RUST_INSTALL_DIR
+rustup default rust-1.80.1-aarch64-unknown-linux-gnu
+rustc --version
+</code></pre>
+<h2 id="6-target">6. 安装交叉编译 target</h2>
+<pre><code class="language-bash">tar -xJf rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
+./rust-std-1.80.1-aarch64-unknown-linux-musl/install.sh --prefix=$RUST_INSTALL_DIR
+</code></pre>
+<h2 id="7-rust-src">7. 安装 rust-src</h2>
+<pre><code class="language-bash">tar -xJf rust-src-1.80.1.tar.xz
+./rust-src-1.80.1/install.sh --prefix=$RUST_INSTALL_DIR
+</code></pre>
+<h2 id="8-configtoml">8. 配置 config.toml</h2>
 <p>新建文件 <code>~/.cargo/config.toml</code> :</p>
-<div class="language-toml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">[source.crates-io]</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">replace-with</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;vendored-sources&quot;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="k">[source.vendored-sources]</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;vendor&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="9">9. 交叉编译<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<pre><code class="language-toml">[source.crates-io]
+replace-with = &quot;vendored-sources&quot;
+
+[source.vendored-sources]
+directory = &quot;vendor&quot;
+</code></pre>
+<h2 id="9">9. 交叉编译</h2>
 <p>查看可用的 target ：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>rustc<span class="w"> </span>--print<span class="w"> </span>target-list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>musl<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>linux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>aarch64
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">rustc --print target-list | grep musl | grep linux | grep aarch64
+</code></pre>
 <p>编译：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>cargo<span class="w"> </span>build<span class="w"> </span>--target<span class="o">=</span>aarch64-unknown-linux-musl<span class="w"> </span>--release
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">cargo build --target=aarch64-unknown-linux-musl --release
+</code></pre>
 <p>如果需要使用 crate 包，在线机器上运行 <code>cargo vendor</code> ，之后把 <code>vendor</code> 目录复制到用户的家目录下。</p>
 
 

@@ -1390,61 +1390,41 @@
   
 
 
-<h1 id="linux-yum">Linux 下载 yum 源<a class="headerlink" href="#linux-yum" title="Permanent link">&para;</a></h1>
-<h2 id="1-reposync">1. 使用 reposync 下载<a class="headerlink" href="#1-reposync" title="Permanent link">&para;</a></h2>
+<h1 id="linux-yum">Linux 下载 yum 源</h1>
+<h2 id="1-reposync">1. 使用 reposync 下载</h2>
 <p>先创建 yum 源配置文件：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>kylin10-x86.repo<span class="w"> </span><span class="s">&lt;&lt;-&#39;EOF&#39;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="s">###Kylin Linux Advanced Server 10 - os repo###</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="s">[ks10-adv-os]</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="s">name = Kylin Linux Advanced Server 10 - Os</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="s">baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/base/$basearch/</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="s">gpgcheck = 0</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="s">enabled = 1</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="s">[ks10-adv-updates]</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="s">name = Kylin Linux Advanced Server 10 - Updates</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="s">baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/updates/$basearch/</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="s">gpgcheck = 0</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="s">enabled = 1</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="s">[ks10-adv-addons]</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="s">name = Kylin Linux Advanced Server 10 - Addons</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="s">baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/addons/$basearch/</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="s">gpgcheck = 0</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="s">enabled = 0</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="s">EOF</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">cat &gt; kylin10-x86.repo &lt;&lt;-'EOF'
+###Kylin Linux Advanced Server 10 - os repo###
+
+[ks10-adv-os]
+name = Kylin Linux Advanced Server 10 - Os
+baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/base/$basearch/
+gpgcheck = 0
+enabled = 1
+
+[ks10-adv-updates]
+name = Kylin Linux Advanced Server 10 - Updates
+baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/updates/$basearch/
+gpgcheck = 0
+enabled = 1
+
+[ks10-adv-addons]
+name = Kylin Linux Advanced Server 10 - Addons
+baseurl = http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/addons/$basearch/
+gpgcheck = 0
+enabled = 0
+EOF
+</code></pre>
 <p>下载到 <code>/mnt/kylin10-x86</code> ：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>dnf reposync -c kylin10-x86.repo -p /mnt/kylin10-x86 --repo ks10-adv-os,ks10-adv-updates --arch=x86_64,noarch
-</span></code></pre></div></td></tr></table></div>
+<pre><code>dnf reposync -c kylin10-x86.repo -p /mnt/kylin10-x86 --repo ks10-adv-os,ks10-adv-updates --arch=x86_64,noarch
+</code></pre>
 <p>在下 x86 的 yum 源时推荐加 <code>--arch=x86_64,noarch</code> 防止下载到 32 位的包，如果是 arm 则需要加 <code>--arch=aarch64,noarch</code> 。</p>
-<h2 id="2-wget">2. 使用 wget 下载<a class="headerlink" href="#2-wget" title="Permanent link">&para;</a></h2>
+<h2 id="2-wget">2. 使用 wget 下载</h2>
 <p>也可以使用 wget 递归下载一个 YUM 源：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>wget<span class="w"> </span>-np<span class="w"> </span>-P<span class="w"> </span>.<span class="w"> </span>-r<span class="w"> </span>-R<span class="w"> </span><span class="s2">&quot;index.html*&quot;</span><span class="w"> </span>--cut-dirs<span class="o">=</span><span class="m">6</span><span class="w"> </span>https://update.cs2c.com.cn/NS/V10/V10SP1.1/os/adv/lic/updates/
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">wget -np -P . -r -R &quot;index.html*&quot; --cut-dirs=6 https://update.cs2c.com.cn/NS/V10/V10SP1.1/os/adv/lic/updates/
+</code></pre>
 <p>其中<code>--cut-dirs</code>需要根据实际的远程目录层数进行调整，下载完成后需要检查 wget 有无报错。</p>
-<h2 id="3">3. 参考链接<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h2 id="3">3. 参考链接</h2>
 <p><a href="https://rakeshjain-devops.medium.com/download-files-and-directories-from-web-using-curl-and-wget-9217bc2e34c9">https://rakeshjain-devops.medium.com/download-files-and-directories-from-web-using-curl-and-wget-9217bc2e34c9</a></p>
 
 

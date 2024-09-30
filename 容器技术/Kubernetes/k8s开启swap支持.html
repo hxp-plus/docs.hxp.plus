@@ -1248,32 +1248,26 @@
   
 
 
-<h1 id="k8s-swap">k8s 开启 swap 支持<a class="headerlink" href="#k8s-swap" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 隔离并驱逐所有容器<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>kubectl<span class="w"> </span>cordon<span class="w"> </span>awx-k8s-01
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>kubectl<span class="w"> </span>drain<span class="w"> </span>awx-k8s-01<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2-kubelet">2. 修改 kubelet 配置<a class="headerlink" href="#2-kubelet" title="Permanent link">&para;</a></h2>
+<h1 id="k8s-swap">k8s 开启 swap 支持</h1>
+<h2 id="1">1. 隔离并驱逐所有容器</h2>
+<pre><code class="language-bash">kubectl cordon awx-k8s-01
+kubectl drain awx-k8s-01 --ignore-daemonsets --delete-emptydir-data
+</code></pre>
+<h2 id="2-kubelet">2. 修改 kubelet 配置</h2>
 <p>修改 <code>/var/lib/kubelet/config.yaml</code> ：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nt">memorySwap</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-yaml">memorySwap: {}
+</code></pre>
 <p>修改为：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nt">failSwapOn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nt">featureGates</span><span class="p">:</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="nt">NodeSwap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="nt">memorySwap</span><span class="p">:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nt">swapBehavior</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UnlimitedSwap</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-kubelet">3. 重启 kubelet<a class="headerlink" href="#3-kubelet" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-yaml">failSwapOn: false
+featureGates:
+  NodeSwap: true
+memorySwap:
+  swapBehavior: UnlimitedSwap
+</code></pre>
+<h2 id="3-kubelet">3. 重启 kubelet</h2>
+<pre><code class="language-bash">systemctl restart kubelet
+systemctl status kubelet
+</code></pre>
 
 
 

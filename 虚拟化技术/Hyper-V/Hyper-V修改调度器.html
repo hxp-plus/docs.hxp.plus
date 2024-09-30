@@ -957,25 +957,20 @@
   
 
 
-<h1 id="hyper-v">Hyper-V 修改调度器<a class="headerlink" href="#hyper-v" title="Permanent link">&para;</a></h1>
+<h1 id="hyper-v">Hyper-V 修改调度器</h1>
 <p>在尝试给 Hyper-V 虚拟机设置 CPU 使用限制时，发现这样的告警：</p>
 <p><img alt="" src="images/hyper-v_1.png" /></p>
 <p>需要修改调度器。查看当前调度器的 PowerShell 命令为：</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">Get-WinEvent</span> <span class="n">-FilterHashTable</span> <span class="p">@{</span><span class="n">ProviderName</span><span class="p">=</span><span class="s2">&quot;Microsoft-Windows-Hyper-V-Hypervisor&quot;</span><span class="p">;</span> <span class="n">ID</span><span class="p">=</span><span class="n">2</span><span class="p">}</span> <span class="n">-MaxEvents</span> <span class="n">1</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-powershell">Get-WinEvent -FilterHashTable @{ProviderName=&quot;Microsoft-Windows-Hyper-V-Hypervisor&quot;; ID=2} -MaxEvents 1
+</code></pre>
 <p>命令返回如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>   ProviderName: Microsoft-Windows-Hyper-V-Hypervisor
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>TimeCreated                      Id LevelDisplayName Message
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>-----------                      -- ---------------- -------
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>6/1/2024 9:31:43 PM               2 Information      Hypervisor scheduler type is 0x4.
-</span></code></pre></div></td></tr></table></div>
+<pre><code>   ProviderName: Microsoft-Windows-Hyper-V-Hypervisor
+
+
+TimeCreated                      Id LevelDisplayName Message
+-----------                      -- ---------------- -------
+6/1/2024 9:31:43 PM               2 Information      Hypervisor scheduler type is 0x4.
+</code></pre>
 <p>其中 <code>0x4</code> 表示调度器为 <code>Root scheduler</code> ，其它数字含义如下：</p>
 <ul>
 <li>1 = Classic scheduler, SMT disabled</li>
@@ -985,8 +980,8 @@
 </ul>
 <p>调度器具体区别可参考 <a href="https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types">Manage Hyper-V hypervisor scheduler types</a> ，</p>
 <p>修改调度器方法为 Core scheduler 的方法为：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>bcdedit /set hypervisorschedulertype core
-</span></code></pre></div></td></tr></table></div>
+<pre><code>bcdedit /set hypervisorschedulertype core
+</code></pre>
 <p>修改以后需要重启。</p>
 
 

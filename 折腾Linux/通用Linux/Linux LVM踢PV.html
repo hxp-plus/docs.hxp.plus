@@ -1298,13 +1298,13 @@
   
 
 
-<h1 id="linux-lvm-pv">Linux LVM 踢 PV<a class="headerlink" href="#linux-lvm-pv" title="Permanent link">&para;</a></h1>
+<h1 id="linux-lvm-pv">Linux LVM 踢 PV</h1>
 <p>lv_ubuntu 由 <code>/dev/sdb</code> 和 <code>/dev/sda3</code> 两个 pv 组成，其中部分数据写在了 <code>/dev/sdb</code> ，如果想把 <code>/dev/sdb</code> 踢盘，需要先进行如下操作：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pvmove /dev/sdb /dev/sda3
-</span></code></pre></div></td></tr></table></div>
+<pre><code>pvmove /dev/sdb /dev/sda3
+</code></pre>
 <p>将 <code>/dev/sdb</code> 这个 PV 里的 PE 迁移到 <code>/dev/sda3</code> 上，之后踢盘：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>vgreduce ubuntu-vg /dev/sdb
-</span></code></pre></div></td></tr></table></div>
+<pre><code>vgreduce ubuntu-vg /dev/sdb
+</code></pre>
 
 
 

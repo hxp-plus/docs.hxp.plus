@@ -1259,29 +1259,23 @@
   
 
 
-<h1 id="k3s-namespace-terminating">k3s 删除 namespace 卡死在 Terminating 解决方法<a class="headerlink" href="#k3s-namespace-terminating" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 问题现象<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="k3s-namespace-terminating">k3s 删除 namespace 卡死在 Terminating 解决方法</h1>
+<h2 id="1">1. 问题现象</h2>
 <p>k3s 在删除 namespace 时，卡死，按 Ctrl-C 后发现 namespace 一直处于 Terminating 状态：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>$ kubectl get ns
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>NAME              STATUS        AGE
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>kube-system       Active        33d
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>default           Active        33d
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>kube-public       Active        33d
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>kube-node-lease   Active        33d
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>awx               Terminating   5d18h
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2">2. 解决方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<pre><code>$ kubectl get ns
+NAME              STATUS        AGE
+kube-system       Active        33d
+default           Active        33d
+kube-public       Active        33d
+kube-node-lease   Active        33d
+awx               Terminating   5d18h
+</code></pre>
+<h2 id="2">2. 解决方法</h2>
 <p>用以下命令清理：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>NS=`kubectl get ns |grep Terminating | awk &#39;NR==1 {print $1}&#39;` &amp;&amp; kubectl get namespace &quot;$NS&quot; -o json   | tr -d &quot;\n&quot; | sed &quot;s/\&quot;finalizers\&quot;: \[[^]]\+\]/\&quot;finalizers\&quot;: []/&quot;   | kubectl replace --raw /api/v1/namespaces/$NS/finalize -f -
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3">3. 参考文献<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p><a href="https://stackoverflow.com/questions/52369247/namespace-stucked-as-terminating-how-i-removed-it">https://stackoverflow.com/questions/52369247/namespace-stucked-as-terminating-how-i-removed-it</a></p>
+<pre><code>NS=`kubectl get ns |grep Terminating | awk 'NR==1 {print $1}'` &amp;&amp; kubectl get namespace &quot;$NS&quot; -o json   | tr -d &quot;\n&quot; | sed &quot;s/\&quot;finalizers\&quot;: \[[^]]\+\]/\&quot;finalizers\&quot;: []/&quot;   | kubectl replace --raw /api/v1/namespaces/$NS/finalize -f -
+</code></pre>
+<h2 id="3">3. 参考文献</h2>
+<p>https://stackoverflow.com/questions/52369247/namespace-stucked-as-terminating-how-i-removed-it</p>
 
 
 

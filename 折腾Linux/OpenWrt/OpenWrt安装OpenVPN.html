@@ -1008,6 +1008,69 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E8%A7%A3%E9%94%81SSH.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000解锁SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E5%88%B7%E6%9C%BA.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000刷机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%B0%8F%E7%B1%B3AX9000%E5%8A%A0%E5%85%A5160MHz%E6%94%AF%E6%8C%81.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米AX9000加入160MHz支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1402,270 +1465,151 @@
   
 
 
-<h1 id="openwrt-openvpn">OpenWrt 安装 OpenVPN<a class="headerlink" href="#openwrt-openvpn" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 前言<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="openwrt-openvpn">OpenWrt 安装 OpenVPN</h1>
+<h2 id="1">1. 前言</h2>
 <p>尽管 OpenVPN 这种异地组网方式有些许远古，但是还是有使用 OpenVPN 的必要，譬如说它支持 TCP 协议。因此本文会建立一个 OpenVPN 服务器，前置条件如下：</p>
 <ul>
 <li>OpenWrt 有公网 IPv6 ，且高位 TCP 端口可稳定连接。</li>
 <li>私网网段 10.8.1.0/24 没有被使用，将会被作为 OpenVPN 私网网段。</li>
 </ul>
-<h2 id="2">2. 安装软件包<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 安装软件包</h2>
 <p>使用 opkg 安装软件：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a># Install packages
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>opkg update
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>opkg install openvpn-openssl openvpn-easy-rsa
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3">3. 设置环境变量<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<pre><code># Install packages
+opkg update
+opkg install openvpn-openssl openvpn-easy-rsa
+</code></pre>
+<h2 id="3">3. 设置环境变量</h2>
 <p>以下为安装需要的环境变量：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Configuration parameters</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">VPN_DIR</span><span class="o">=</span><span class="s2">&quot;/etc/openvpn&quot;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nv">VPN_PKI</span><span class="o">=</span><span class="s2">&quot;/etc/easy-rsa/pki&quot;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="nv">VPN_PORT</span><span class="o">=</span><span class="s2">&quot;11940&quot;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="nv">VPN_PROTO</span><span class="o">=</span><span class="s2">&quot;tcp6&quot;</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="nv">VPN_POOL</span><span class="o">=</span><span class="s2">&quot;10.8.1.0 255.255.255.0&quot;</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="nv">VPN_DNS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VPN_POOL</span><span class="p">%.* *</span><span class="si">}</span><span class="s2">.1&quot;</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="nv">VPN_DN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>uci<span class="w"> </span>-q<span class="w"> </span>get<span class="w"> </span>dhcp.@dnsmasq<span class="o">[</span><span class="m">0</span><span class="o">]</span>.domain<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="c1"># Fetch server address</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="nv">NET_FQDN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>uci<span class="w"> </span>-q<span class="w"> </span>get<span class="w"> </span>ddns.@service<span class="o">[</span><span class="m">0</span><span class="o">]</span>.lookup_host<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>.<span class="w"> </span>/lib/functions/network.sh
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>network_flush_cache
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>network_find_wan<span class="w"> </span>NET_IF
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>network_get_ipaddr<span class="w"> </span>NET_ADDR<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NET_IF</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NET_FQDN</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="k">then</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">  </span><span class="nv">VPN_SERV</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NET_FQDN</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="k">else</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">  </span><span class="nv">VPN_SERV</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NET_ADDR</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="k">fi</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash"># Configuration parameters
+VPN_DIR=&quot;/etc/openvpn&quot;
+VPN_PKI=&quot;/etc/easy-rsa/pki&quot;
+VPN_PORT=&quot;11940&quot;
+VPN_PROTO=&quot;tcp6&quot;
+VPN_POOL=&quot;10.8.1.0 255.255.255.0&quot;
+VPN_DNS=&quot;${VPN_POOL%.* *}.1&quot;
+VPN_DN=&quot;$(uci -q get dhcp.@dnsmasq[0].domain)&quot;
+
+# Fetch server address
+NET_FQDN=&quot;$(uci -q get ddns.@service[0].lookup_host)&quot;
+. /lib/functions/network.sh
+network_flush_cache
+network_find_wan NET_IF
+network_get_ipaddr NET_ADDR &quot;${NET_IF}&quot;
+if [ -n &quot;${NET_FQDN}&quot; ];then
+  VPN_SERV=&quot;${NET_FQDN}&quot;
+else
+  VPN_SERV=&quot;${NET_ADDR}&quot;
+fi
+</code></pre>
 <p>如果中途退出，需要重新设置。</p>
-<h2 id="4-easyrsa">4. 使用 EasyRSA 生成密钥<a class="headerlink" href="#4-easyrsa" title="Permanent link">&para;</a></h2>
+<h2 id="4-easyrsa">4. 使用 EasyRSA 生成密钥</h2>
 <p>一键下载并生成密钥：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1"># Work around EasyRSA issues</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>wget<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>-O<span class="w"> </span>/tmp/easyrsa.tar.gz<span class="w"> </span>https://github.com/OpenVPN/easy-rsa/releases/download/v3.2.0/EasyRSA-3.2.0.tgz
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>tar<span class="w"> </span>-z<span class="w"> </span>-x<span class="w"> </span>-f<span class="w"> </span>/tmp/easyrsa.tar.gz
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1"># Configuration parameters</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; /etc/profile.d/easy-rsa.sh</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="s">export EASYRSA_PKI=&quot;${VPN_PKI}&quot;</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="s">export EASYRSA_TEMP_DIR=&quot;/tmp&quot;</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="s">export EASYRSA_CERT_EXPIRE=&quot;3650&quot;</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="s">export EASYRSA_BATCH=&quot;1&quot;</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="s">alias easyrsa=&quot;/root/EasyRSA-3.2.0/easyrsa&quot;</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="s">EOF</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>.<span class="w"> </span>/etc/profile.d/easy-rsa.sh
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="c1"># Remove and re-initialize PKI directory</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>easyrsa<span class="w"> </span>init-pki
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="c1"># Generate DH parameters</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a>easyrsa<span class="w"> </span>gen-dh
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="c1"># Create a new CA</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a>easyrsa<span class="w"> </span>build-ca<span class="w"> </span>nopass
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="c1"># Generate server keys and certificate</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a>easyrsa<span class="w"> </span>build-server-full<span class="w"> </span>server<span class="w"> </span>nopass
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a>openvpn<span class="w"> </span>--genkey<span class="w"> </span>tls-crypt-v2-server<span class="w"> </span><span class="si">${</span><span class="nv">EASYRSA_PKI</span><span class="si">}</span>/private/server.pem
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="c1"># Generate client keys and certificate</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a>easyrsa<span class="w"> </span>build-client-full<span class="w"> </span>client<span class="w"> </span>nopass
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a>openvpn<span class="w"> </span>--tls-crypt-v2<span class="w"> </span><span class="si">${</span><span class="nv">EASYRSA_PKI</span><span class="si">}</span>/private/server.pem<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a>--genkey<span class="w"> </span>tls-crypt-v2-client<span class="w"> </span><span class="si">${</span><span class="nv">EASYRSA_PKI</span><span class="si">}</span>/private/client.pem
-</span></code></pre></div></td></tr></table></div>
-<h2 id="5-openvpn">5. 生成 OpenVPN 配置并启动服务<a class="headerlink" href="#5-openvpn" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">cd ~
+# Work around EasyRSA issues
+wget -U &quot;&quot; -O /tmp/easyrsa.tar.gz https://github.com/OpenVPN/easy-rsa/releases/download/v3.2.0/EasyRSA-3.2.0.tgz
+tar -z -x -f /tmp/easyrsa.tar.gz
+
+# Configuration parameters
+cat &lt;&lt; EOF &gt; /etc/profile.d/easy-rsa.sh
+export EASYRSA_PKI=&quot;${VPN_PKI}&quot;
+export EASYRSA_TEMP_DIR=&quot;/tmp&quot;
+export EASYRSA_CERT_EXPIRE=&quot;3650&quot;
+export EASYRSA_BATCH=&quot;1&quot;
+alias easyrsa=&quot;/root/EasyRSA-3.2.0/easyrsa&quot;
+EOF
+. /etc/profile.d/easy-rsa.sh
+
+# Remove and re-initialize PKI directory
+easyrsa init-pki
+
+# Generate DH parameters
+easyrsa gen-dh
+
+# Create a new CA
+easyrsa build-ca nopass
+
+# Generate server keys and certificate
+easyrsa build-server-full server nopass
+openvpn --genkey tls-crypt-v2-server ${EASYRSA_PKI}/private/server.pem
+
+# Generate client keys and certificate
+easyrsa build-client-full client nopass
+openvpn --tls-crypt-v2 ${EASYRSA_PKI}/private/server.pem \
+--genkey tls-crypt-v2-client ${EASYRSA_PKI}/private/client.pem
+</code></pre>
+<h2 id="5-openvpn">5. 生成 OpenVPN 配置并启动服务</h2>
 <p>生成客户端与服务器配置文件：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span>
-<span class="normal"><a href="#__codelineno-3-15">15</a></span>
-<span class="normal"><a href="#__codelineno-3-16">16</a></span>
-<span class="normal"><a href="#__codelineno-3-17">17</a></span>
-<span class="normal"><a href="#__codelineno-3-18">18</a></span>
-<span class="normal"><a href="#__codelineno-3-19">19</a></span>
-<span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span>
-<span class="normal"><a href="#__codelineno-3-31">31</a></span>
-<span class="normal"><a href="#__codelineno-3-32">32</a></span>
-<span class="normal"><a href="#__codelineno-3-33">33</a></span>
-<span class="normal"><a href="#__codelineno-3-34">34</a></span>
-<span class="normal"><a href="#__codelineno-3-35">35</a></span>
-<span class="normal"><a href="#__codelineno-3-36">36</a></span>
-<span class="normal"><a href="#__codelineno-3-37">37</a></span>
-<span class="normal"><a href="#__codelineno-3-38">38</a></span>
-<span class="normal"><a href="#__codelineno-3-39">39</a></span>
-<span class="normal"><a href="#__codelineno-3-40">40</a></span>
-<span class="normal"><a href="#__codelineno-3-41">41</a></span>
-<span class="normal"><a href="#__codelineno-3-42">42</a></span>
-<span class="normal"><a href="#__codelineno-3-43">43</a></span>
-<span class="normal"><a href="#__codelineno-3-44">44</a></span>
-<span class="normal"><a href="#__codelineno-3-45">45</a></span>
-<span class="normal"><a href="#__codelineno-3-46">46</a></span>
-<span class="normal"><a href="#__codelineno-3-47">47</a></span>
-<span class="normal"><a href="#__codelineno-3-48">48</a></span>
-<span class="normal"><a href="#__codelineno-3-49">49</a></span>
-<span class="normal"><a href="#__codelineno-3-50">50</a></span>
-<span class="normal"><a href="#__codelineno-3-51">51</a></span>
-<span class="normal"><a href="#__codelineno-3-52">52</a></span>
-<span class="normal"><a href="#__codelineno-3-53">53</a></span>
-<span class="normal"><a href="#__codelineno-3-54">54</a></span>
-<span class="normal"><a href="#__codelineno-3-55">55</a></span>
-<span class="normal"><a href="#__codelineno-3-56">56</a></span>
-<span class="normal"><a href="#__codelineno-3-57">57</a></span>
-<span class="normal"><a href="#__codelineno-3-58">58</a></span>
-<span class="normal"><a href="#__codelineno-3-59">59</a></span>
-<span class="normal"><a href="#__codelineno-3-60">60</a></span>
-<span class="normal"><a href="#__codelineno-3-61">61</a></span>
-<span class="normal"><a href="#__codelineno-3-62">62</a></span>
-<span class="normal"><a href="#__codelineno-3-63">63</a></span>
-<span class="normal"><a href="#__codelineno-3-64">64</a></span>
-<span class="normal"><a href="#__codelineno-3-65">65</a></span>
-<span class="normal"><a href="#__codelineno-3-66">66</a></span>
-<span class="normal"><a href="#__codelineno-3-67">67</a></span>
-<span class="normal"><a href="#__codelineno-3-68">68</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Configure VPN service and generate client profiles</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">umask</span><span class="w"> </span><span class="nv">go</span><span class="o">=</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="nv">VPN_DH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/dh.pem<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="nv">VPN_CA</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/ca.crt<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>ls<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/issued<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/\.\w*</span>$<span class="s2">//&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>VPN_ID
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="k">do</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="nv">VPN_TC</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/private/<span class="si">${</span><span class="nv">VPN_ID</span><span class="si">}</span>.pem<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="nv">VPN_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/private/<span class="si">${</span><span class="nv">VPN_ID</span><span class="si">}</span>.key<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="nv">VPN_CERT</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span><span class="si">${</span><span class="nv">VPN_PKI</span><span class="si">}</span>/issued/<span class="si">${</span><span class="nv">VPN_ID</span><span class="si">}</span>.crt<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="nv">VPN_EKU</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VPN_CERT</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-purpose<span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="k">case</span><span class="w"> </span><span class="si">${</span><span class="nv">VPN_EKU</span><span class="si">}</span><span class="w"> </span><span class="k">in</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="o">(</span>*<span class="s2">&quot;SSL server : Yes&quot;</span>*<span class="o">)</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="nv">VPN_CONF</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VPN_DIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">VPN_ID</span><span class="si">}</span><span class="s2">.conf&quot;</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; ${VPN_CONF} ;;</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="s">user nobody</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="s">group nogroup</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="s">dev tun</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="s">port ${VPN_PORT}</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="s">proto ${VPN_PROTO}</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="s">server ${VPN_POOL}</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="s">topology subnet</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="s">client-to-client</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="s">keepalive 10 60</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="s">persist-tun</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="s">persist-key</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="s">push &quot;dhcp-option DNS ${VPN_DNS}&quot;</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="s">push &quot;dhcp-option DOMAIN ${VPN_DN}&quot;</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="s">push &quot;redirect-gateway def1&quot;</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="s">push &quot;persist-tun&quot;</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="s">push &quot;persist-key&quot;</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="s">&lt;dh&gt;</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="s">${VPN_DH}</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="s">&lt;/dh&gt;</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="s">EOF</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="o">(</span>*<span class="s2">&quot;SSL client : Yes&quot;</span>*<span class="o">)</span>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="nv">VPN_CONF</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">VPN_DIR</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">VPN_ID</span><span class="si">}</span><span class="s2">.ovpn&quot;</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; ${VPN_CONF} ;;</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="s">user nobody</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="s">group nogroup</span>
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="s">dev tun</span>
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="s">nobind</span>
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="s">client</span>
-</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="s">remote ${VPN_SERV} ${VPN_PORT} ${VPN_PROTO}</span>
-</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46"></a><span class="s">auth-nocache</span>
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="s">comp-lzo yes</span>
-</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="s">allow-compression yes</span>
-</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49"></a><span class="s">remote-cert-tls server</span>
-</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50"></a><span class="s">EOF</span>
-</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51"></a><span class="k">esac</span>
-</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52"></a>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt;&gt; ${VPN_CONF}</span>
-</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53"></a><span class="s">&lt;tls-crypt-v2&gt;</span>
-</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54"></a><span class="s">${VPN_TC}</span>
-</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55"></a><span class="s">&lt;/tls-crypt-v2&gt;</span>
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56"></a><span class="s">&lt;key&gt;</span>
-</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57"></a><span class="s">${VPN_KEY}</span>
-</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58"></a><span class="s">&lt;/key&gt;</span>
-</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59"></a><span class="s">&lt;cert&gt;</span>
-</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60"></a><span class="s">${VPN_CERT}</span>
-</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61"></a><span class="s">&lt;/cert&gt;</span>
-</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62"></a><span class="s">&lt;ca&gt;</span>
-</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63"></a><span class="s">${VPN_CA}</span>
-</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64"></a><span class="s">&lt;/ca&gt;</span>
-</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65"></a><span class="s">EOF</span>
-</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66"></a><span class="k">done</span>
-</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67"></a>service<span class="w"> </span>openvpn<span class="w"> </span>restart
-</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68"></a>ls<span class="w"> </span><span class="si">${</span><span class="nv">VPN_DIR</span><span class="si">}</span>/*.ovpn
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash"># Configure VPN service and generate client profiles
+umask go=
+VPN_DH=&quot;$(cat ${VPN_PKI}/dh.pem)&quot;
+VPN_CA=&quot;$(openssl x509 -in ${VPN_PKI}/ca.crt)&quot;
+ls ${VPN_PKI}/issued \
+| sed -e &quot;s/\.\w*$//&quot; \
+| while read -r VPN_ID
+do
+VPN_TC=&quot;$(cat ${VPN_PKI}/private/${VPN_ID}.pem)&quot;
+VPN_KEY=&quot;$(cat ${VPN_PKI}/private/${VPN_ID}.key)&quot;
+VPN_CERT=&quot;$(openssl x509 -in ${VPN_PKI}/issued/${VPN_ID}.crt)&quot;
+VPN_EKU=&quot;$(echo &quot;${VPN_CERT}&quot; | openssl x509 -noout -purpose)&quot;
+case ${VPN_EKU} in
+(*&quot;SSL server : Yes&quot;*)
+VPN_CONF=&quot;${VPN_DIR}/${VPN_ID}.conf&quot;
+cat &lt;&lt; EOF &gt; ${VPN_CONF} ;;
+user nobody
+group nogroup
+dev tun
+port ${VPN_PORT}
+proto ${VPN_PROTO}
+server ${VPN_POOL}
+topology subnet
+client-to-client
+keepalive 10 60
+persist-tun
+persist-key
+push &quot;dhcp-option DNS ${VPN_DNS}&quot;
+push &quot;dhcp-option DOMAIN ${VPN_DN}&quot;
+push &quot;redirect-gateway def1&quot;
+push &quot;persist-tun&quot;
+push &quot;persist-key&quot;
+&lt;dh&gt;
+${VPN_DH}
+&lt;/dh&gt;
+EOF
+(*&quot;SSL client : Yes&quot;*)
+VPN_CONF=&quot;${VPN_DIR}/${VPN_ID}.ovpn&quot;
+cat &lt;&lt; EOF &gt; ${VPN_CONF} ;;
+user nobody
+group nogroup
+dev tun
+nobind
+client
+remote ${VPN_SERV} ${VPN_PORT} ${VPN_PROTO}
+auth-nocache
+comp-lzo yes
+allow-compression yes
+remote-cert-tls server
+EOF
+esac
+cat &lt;&lt; EOF &gt;&gt; ${VPN_CONF}
+&lt;tls-crypt-v2&gt;
+${VPN_TC}
+&lt;/tls-crypt-v2&gt;
+&lt;key&gt;
+${VPN_KEY}
+&lt;/key&gt;
+&lt;cert&gt;
+${VPN_CERT}
+&lt;/cert&gt;
+&lt;ca&gt;
+${VPN_CA}
+&lt;/ca&gt;
+EOF
+done
+service openvpn restart
+ls ${VPN_DIR}/*.ovpn
+</code></pre>
 <p>生成的客户端配置在 <code>/etc/openvpn/client.ovpn</code> ，服务器配置在 <code>/etc/openvpn/server.conf</code></p>
-<h2 id="6">6. 配置防火墙<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h2 id="6">6. 配置防火墙</h2>
 <p>在 <code>Network -&gt; Firewall -&gt; Traffic Rules</code> 配置防火墙，放行 OpenVPN 端口：</p>
 <p><img alt="" src="images/OpenVPN_1.png" /></p>
 <p>在 <code>Network -&gt; Interfaces</code> 中添加 <code>tun0</code> 网络接口：</p>
@@ -1675,7 +1619,7 @@
 <p>同时，在 <code>Network -&gt; Firewall -&gt; Zones</code> 中，设置 <code>vpn</code> 区域对所有区域可转发，开启 <code>Masquerading</code> ，Input 、 Output 、 Forward 全部 Accept ：</p>
 <p><img alt="" src="images/OpenVPN_4.png" /></p>
 <p>至此一个最基本的 OpenVPN 配置完成。</p>
-<h2 id="7-luci-app-openvpn">7. luci-app-openvpn 的配置<a class="headerlink" href="#7-luci-app-openvpn" title="Permanent link">&para;</a></h2>
+<h2 id="7-luci-app-openvpn">7. luci-app-openvpn 的配置</h2>
 <p>如果要使用图形化管理 OpenVPN ，首先需要安装 luci-app-openvpn ，之后根据 <code>/etc/openvpn/server.conf</code> 进行配置文件迁移。首先先在 <code>/etc/openvpn/server.conf</code> 中提取证书，并存放到相应位置：</p>
 <table>
 <thead>
@@ -1715,8 +1659,8 @@
 <p><img alt="" src="images/OpenVPN_8.png" /></p>
 <p><img alt="" src="images/OpenVPN_9.png" /></p>
 <p><img alt="" src="images/OpenVPN_10.png" /></p>
-<h2 id="8">8. 参考资料<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
-<p><a href="https://openwrt.org/docs/guide-user/services/vpn/openvpn/server">https://openwrt.org/docs/guide-user/services/vpn/openvpn/server</a></p>
+<h2 id="8">8. 参考资料</h2>
+<p>https://openwrt.org/docs/guide-user/services/vpn/openvpn/server</p>
 
 
 

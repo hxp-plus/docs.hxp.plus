@@ -1378,24 +1378,23 @@
   
 
 
-<h1 id="linux-udev">Linux 配置 udev 规则忽略磁盘<a class="headerlink" href="#linux-udev" title="Permanent link">&para;</a></h1>
-<h2 id="1-udev">1. 配置 udev 规则忽略磁盘<a class="headerlink" href="#1-udev" title="Permanent link">&para;</a></h2>
+<h1 id="linux-udev">Linux 配置 udev 规则忽略磁盘</h1>
+<h2 id="1-udev">1. 配置 udev 规则忽略磁盘</h2>
 <p>在安装 Proxmox VE 并使用 Clover 进行引导后，我不想在 PVE 里看到引导用的 U 盘/dev/sdd，需要配置 udev rule 来忽略引导 U 盘。首先抓取 udev 特征：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>udevadm<span class="w"> </span>info<span class="w"> </span>-a<span class="w"> </span>-n<span class="w"> </span>/dev/sdd
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">udevadm info -a -n /dev/sdd
+</code></pre>
 <p>重点关注 model 或者 vendor：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ATTRS{model}==&quot;CHIPFANCIER     &quot;
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>ATTRS{vendor}==&quot;32G SLC &quot;
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ATTRS{model}==&quot;CHIPFANCIER     &quot;
+ATTRS{vendor}==&quot;32G SLC &quot;
+</code></pre>
 <p>然后新建文件 <code>/etc/udev/rules.d/99-hide-usb.rules</code> 如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>KERNEL==&quot;sd?&quot;, ATTRS{model}==&quot;CHIPFANCIER     &quot;, ATTRS{vendor}==&quot;32G SLC &quot;, ENV{UDISKS_IGNORE}=&quot;1&quot;, RUN+=&quot;/bin/sh -c &#39;/usr/bin/echo deleted device %k &gt;&gt; /tmp/udev.log &amp;&amp; echo 1 &gt; /sys/block/%k/device/delete&#39;&quot;
-</span></code></pre></div></td></tr></table></div>
+<pre><code>KERNEL==&quot;sd?&quot;, ATTRS{model}==&quot;CHIPFANCIER     &quot;, ATTRS{vendor}==&quot;32G SLC &quot;, ENV{UDISKS_IGNORE}=&quot;1&quot;, RUN+=&quot;/bin/sh -c '/usr/bin/echo deleted device %k &gt;&gt; /tmp/udev.log &amp;&amp; echo 1 &gt; /sys/block/%k/device/delete'&quot;
+</code></pre>
 <p>使其生效：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>udevadm<span class="w"> </span>control<span class="w"> </span>--reload<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>udevadm<span class="w"> </span>trigger
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">udevadm control --reload &amp;&amp; udevadm trigger
+</code></pre>
 <p>这个 udev rule 原理是有这个盘就删除这个盘。</p>
-<h2 id="2">2. 参考链接<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 参考链接</h2>
 <p><a href="https://www.baeldung.com/linux/shell-run-script-usb-plugged">https://www.baeldung.com/linux/shell-run-script-usb-plugged</a></p>
 <p><a href="https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co">https://askubuntu.com/questions/352836/how-can-i-tell-linux-kernel-to-completely-ignore-a-disk-as-if-it-was-not-even-co</a></p>
 <p><a href="https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot">https://unix.stackexchange.com/questions/25552/making-udev-ignore-certain-devices-during-boot</a></p>

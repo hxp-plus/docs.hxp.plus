@@ -1043,17 +1043,16 @@
   
 
 
-<h1 id="virt-manager-did-not-find-any-uefi-binary-path-for-arch-aarch64">virt-manager 创建虚拟机报错 “Did not find any UEFI binary path for arch 'aarch64'” 问题<a class="headerlink" href="#virt-manager-did-not-find-any-uefi-binary-path-for-arch-aarch64" title="Permanent link">&para;</a></h1>
-<h2 id="_1">问题描述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h1 id="virt-manager-did-not-find-any-uefi-binary-path-for-arch-aarch64">virt-manager 创建虚拟机报错 “Did not find any UEFI binary path for arch 'aarch64'” 问题</h1>
+<h2 id="_1">问题描述</h2>
 <p>在 ARM64 架构的华为鲲鹏架构物理机上，安装 virt-manager 后，无法创建 KVM 虚拟机，报错 “Did not find any UEFI binary path for arch 'aarch64'” ：</p>
 <p><img alt="" src="images/virt-manager%E6%8A%A5%E9%94%99.png" /></p>
 <p>操作系统为银河麒麟 V10，经过检查， <code>edk2-ovmf-201908-9.ky10.noarch.rpm</code> 软件包已安装。</p>
-<h2 id="_2">解决方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_2">解决方法</h2>
 <p>需要安装 <code>edk2-aarch64</code> 并重启 libvirtd ：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum install edk2-aarch64
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>systemctl restart libvirtd
-</span></code></pre></div></td></tr></table></div>
+<pre><code>yum install edk2-aarch64
+systemctl restart libvirtd
+</code></pre>
 
 
 

@@ -766,9 +766,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-docker" class="md-nav__link">
+  <a href="#yaml-titlecontainerd-installyaml" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 安装 docker
+      ```yaml title="containerd-install.yaml"
     </span>
   </a>
   
@@ -1134,9 +1134,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-docker" class="md-nav__link">
+  <a href="#yaml-titlecontainerd-installyaml" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 安装 docker
+      ```yaml title="containerd-install.yaml"
     </span>
   </a>
   
@@ -1229,8 +1229,8 @@
   
 
 
-<h1 id="v10-ceph">银河麒麟 V10 安装 Ceph<a class="headerlink" href="#v10-ceph" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 系统架构<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="v10-ceph">银河麒麟 V10 安装 Ceph</h1>
+<h2 id="1">1. 系统架构</h2>
 <p>本次安装的 Ceph 仅有 3 个节点，各个节点配置和用途如下：</p>
 <table>
 <thead>
@@ -1263,36 +1263,26 @@
 </tbody>
 </table>
 <p>其中，所有的节点都需要配置 NTP 时钟同步服务器，且所有节点都需要有默认网关。同时，需要使用 Ansible 对这 3 个节点进行批量配置。</p>
-<h2 id="2">2. 准备工作<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<h3 id="21">2.1 安装前系统参数<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<h2 id="2">2. 准备工作</h2>
+<h3 id="21">2.1 安装前系统参数</h3>
 <p>所有节点均需要禁用 swap 、关闭 firewalld 防火墙与 SELinux ：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a># Disable swap
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>sed -i &#39;/^.*[[:space:]]*swap[[:space:]]*swap[[:space:]]*.*$/d&#39; /etc/fstab
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a># Disable firewalld
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>systemctl disable firewalld.service
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a># Disable SELinux
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>sed -i &#39;s/^SELINUX=.*$/SELINUX=disabled/g&#39; /etc/selinux/config
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a># Reboot to apply changes
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>reboot
-</span></code></pre></div></td></tr></table></div>
-<h3 id="22-ansible">2.2 Ansible 主机清单配置<a class="headerlink" href="#22-ansible" title="Permanent link">&para;</a></h3>
+<pre><code># Disable swap
+sed -i '/^.*[[:space:]]*swap[[:space:]]*swap[[:space:]]*.*$/d' /etc/fstab
+# Disable firewalld
+systemctl disable firewalld.service
+# Disable SELinux
+sed -i 's/^SELINUX=.*$/SELINUX=disabled/g' /etc/selinux/config
+# Reboot to apply changes
+reboot
+</code></pre>
+<h3 id="22-ansible">2.2 Ansible 主机清单配置</h3>
 <p>本文使用 Ansible 来对节点进行批量操作，Ansible 主机清单配置如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>[ceph]
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>192.168.100.14
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>192.168.100.15
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>192.168.100.16
-</span></code></pre></div></td></tr></table></div>
-<h3 id="23">2.3 介质下载<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<pre><code>[ceph]
+192.168.100.14
+192.168.100.15
+192.168.100.16
+</code></pre>
+<h3 id="23">2.3 介质下载</h3>
 <p>如果需要离线安装，需要额外准备一台可以通外网的机器来下载介质，此机器也需要禁用 swap 、关闭 firewalld 防火墙与 SELinux ，且至少需要安装 docker 。其中需要下载的二进制文件及配置文件如下：</p>
 <table>
 <thead>
@@ -1304,23 +1294,23 @@
 <tbody>
 <tr>
 <td>containerd-1.7.11-linux-amd64.tar.gz</td>
-<td><a href="https://github.com/containerd/containerd/releases">https://github.com/containerd/containerd/releases</a></td>
+<td>https://github.com/containerd/containerd/releases</td>
 </tr>
 <tr>
 <td>containerd.service</td>
-<td><a href="https://raw.githubusercontent.com/containerd/containerd/main/containerd.service">https://raw.githubusercontent.com/containerd/containerd/main/containerd.service</a></td>
+<td>https://raw.githubusercontent.com/containerd/containerd/main/containerd.service</td>
 </tr>
 <tr>
 <td>docker-24.0.7.tgz</td>
-<td><a href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></td>
+<td>https://download.docker.com/linux/static/stable/x86_64/</td>
 </tr>
 <tr>
 <td>docker.service</td>
-<td><a href="https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.service">https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.service</a></td>
+<td>https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.service</td>
 </tr>
 <tr>
 <td>docker.socket</td>
-<td><a href="https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.socket">https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.socket</a></td>
+<td>https://github.com/moby/moby/blob/master/contrib/init/systemd/docker.socket</td>
 </tr>
 </tbody>
 </table>
@@ -1360,358 +1350,219 @@
 </tbody>
 </table>
 <p>使用 docker 下载容器镜像的命令如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>docker pull [镜像名称]
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>docker image save -i [镜像名称].tar
-</span></code></pre></div></td></tr></table></div>
+<pre><code>docker pull [镜像名称]
+docker image save -i [镜像名称].tar
+</code></pre>
 <p>导入 docker 容器镜像命令如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>docker image load -i [镜像名称].tar
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-containerd">3. 安装 containerd 容器运行环境<a class="headerlink" href="#3-containerd" title="Permanent link">&para;</a></h2>
+<pre><code>docker image load -i [镜像名称].tar
+</code></pre>
+<h2 id="3-containerd">3. 安装 containerd 容器运行环境</h2>
 <p>所有的 ceph 节点都需要安装 containerd ，使用此 Ansible Playbook 进行批量安装：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">containerd-install.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nn">---</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install containerd</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">extract containerd-1.7.11-linux-amd64.tar.gz</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">      </span><span class="nt">unarchive</span><span class="p">:</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">        </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerd-1.7.11-linux-amd64.tar.gz</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install containerd.service</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">      </span><span class="nt">copy</span><span class="p">:</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">        </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerd.service</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">        </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/lib/systemd/system/containerd.service</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate default containerd config</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">      </span><span class="nt">shell</span><span class="p">:</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">        </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">          </span><span class="no">mkdir -p /etc/containerd/</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">          </span><span class="no">containerd config default &gt; /etc/containerd/config.toml</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configure containerd to use systemd cgroup</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">      </span><span class="nt">replace</span><span class="p">:</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerd/config.toml</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">        </span><span class="nt">regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SystemdCgroup</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">false&quot;</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">        </span><span class="nt">replace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SystemdCgroup</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">true&quot;</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configure containerd to use pause:3.9</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">      </span><span class="nt">replace</span><span class="p">:</span>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerd/config.toml</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">        </span><span class="nt">regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;registry.k8s.io/pause:3.8&quot;</span>
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">        </span><span class="nt">replace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;registry.k8s.io/pause:3.9&quot;</span>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enable and restart containerd service</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">      </span><span class="nt">systemd</span><span class="p">:</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerd</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">        </span><span class="nt">daemon_reload</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restarted</span>
-</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="4-docker">4. 安装 docker<a class="headerlink" href="#4-docker" title="Permanent link">&para;</a></h2>
-<p>所有的 ceph 节点都需要安装 docker ，使用此 Ansible Playbook 进行批量安装：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">docker-install.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span>
-<span class="normal"><a href="#__codelineno-5-13">13</a></span>
-<span class="normal"><a href="#__codelineno-5-14">14</a></span>
-<span class="normal"><a href="#__codelineno-5-15">15</a></span>
-<span class="normal"><a href="#__codelineno-5-16">16</a></span>
-<span class="normal"><a href="#__codelineno-5-17">17</a></span>
-<span class="normal"><a href="#__codelineno-5-18">18</a></span>
-<span class="normal"><a href="#__codelineno-5-19">19</a></span>
-<span class="normal"><a href="#__codelineno-5-20">20</a></span>
-<span class="normal"><a href="#__codelineno-5-21">21</a></span>
-<span class="normal"><a href="#__codelineno-5-22">22</a></span>
-<span class="normal"><a href="#__codelineno-5-23">23</a></span>
-<span class="normal"><a href="#__codelineno-5-24">24</a></span>
-<span class="normal"><a href="#__codelineno-5-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nn">---</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install docker</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">copy files to remote /tmp</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">      </span><span class="nt">copy</span><span class="p">:</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">        </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">        </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">      </span><span class="nt">with_items</span><span class="p">:</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-24.0.7.tgz</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.service</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.socket</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install docker</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">        </span><span class="no">cd /tmp</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">        </span><span class="no">tar zxvf docker-24.0.7.tgz</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">        </span><span class="no">cp docker/* /usr/bin/</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">        </span><span class="no">cp docker.service docker.socket /usr/lib/systemd/system/</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">        </span><span class="no">groupadd --system docker --gid 357</span>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enable and restart docker service</span>
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">      </span><span class="nt">systemd</span><span class="p">:</span>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="w">        </span><span class="nt">daemon_reload</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restarted</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="5-cephadm-ceph">5. 安装 cephadm 和 ceph<a class="headerlink" href="#5-cephadm-ceph" title="Permanent link">&para;</a></h2>
+<h2 id="yaml-titlecontainerd-installyaml">```yaml title="containerd-install.yaml"</h2>
+<ul>
+<li>name: install containerd
+  hosts: all
+  tasks:
+    - name: extract containerd-1.7.11-linux-amd64.tar.gz
+      unarchive:
+        src: containerd-1.7.11-linux-amd64.tar.gz
+        dest: /usr/local/
+    - name: install containerd.service
+      copy:
+        src: containerd.service
+        dest: /usr/lib/systemd/system/containerd.service
+    - name: generate default containerd config
+      shell:
+        cmd: |
+          mkdir -p /etc/containerd/
+          containerd config default &gt; /etc/containerd/config.toml
+    - name: configure containerd to use systemd cgroup
+      replace:
+        path: /etc/containerd/config.toml
+        regexp: "SystemdCgroup = false"
+        replace: "SystemdCgroup = true"
+    - name: configure containerd to use pause:3.9
+      replace:
+        path: /etc/containerd/config.toml
+        regexp: "registry.k8s.io/pause:3.8"
+        replace: "registry.k8s.io/pause:3.9"
+    - name: enable and restart containerd service
+      systemd:
+        name: containerd
+        daemon_reload: yes
+        state: restarted
+        enabled: yes</li>
+</ul>
+<pre><code>
+## 4. 安装 docker
+
+所有的 ceph 节点都需要安装 docker ，使用此 Ansible Playbook 进行批量安装：
+
+```yaml title=&quot;docker-install.yaml&quot;
+---
+- name: install docker
+  hosts: ceph
+  tasks:
+    - name: copy files to remote /tmp
+      copy:
+        src: &quot;{{ item }}&quot;
+        dest: /tmp/
+      with_items:
+        - docker-24.0.7.tgz
+        - docker.service
+        - docker.socket
+    - name: install docker
+      shell: |
+        cd /tmp
+        tar zxvf docker-24.0.7.tgz
+        cp docker/* /usr/bin/
+        cp docker.service docker.socket /usr/lib/systemd/system/
+        groupadd --system docker --gid 357
+    - name: enable and restart docker service
+      systemd:
+        name: docker
+        daemon_reload: yes
+        state: restarted
+        enabled: yes
+</code></pre>
+<h2 id="5-cephadm-ceph">5. 安装 cephadm 和 ceph</h2>
 <p>使用以下 playbook 安装 ceph 和 cephadm：</p>
-<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span>
-<span class="normal"><a href="#__codelineno-6-20">20</a></span>
-<span class="normal"><a href="#__codelineno-6-21">21</a></span>
-<span class="normal"><a href="#__codelineno-6-22">22</a></span>
-<span class="normal"><a href="#__codelineno-6-23">23</a></span>
-<span class="normal"><a href="#__codelineno-6-24">24</a></span>
-<span class="normal"><a href="#__codelineno-6-25">25</a></span>
-<span class="normal"><a href="#__codelineno-6-26">26</a></span>
-<span class="normal"><a href="#__codelineno-6-27">27</a></span>
-<span class="normal"><a href="#__codelineno-6-28">28</a></span>
-<span class="normal"><a href="#__codelineno-6-29">29</a></span>
-<span class="normal"><a href="#__codelineno-6-30">30</a></span>
-<span class="normal"><a href="#__codelineno-6-31">31</a></span>
-<span class="normal"><a href="#__codelineno-6-32">32</a></span>
-<span class="normal"><a href="#__codelineno-6-33">33</a></span>
-<span class="normal"><a href="#__codelineno-6-34">34</a></span>
-<span class="normal"><a href="#__codelineno-6-35">35</a></span>
-<span class="normal"><a href="#__codelineno-6-36">36</a></span>
-<span class="normal"><a href="#__codelineno-6-37">37</a></span>
-<span class="normal"><a href="#__codelineno-6-38">38</a></span>
-<span class="normal"><a href="#__codelineno-6-39">39</a></span>
-<span class="normal"><a href="#__codelineno-6-40">40</a></span>
-<span class="normal"><a href="#__codelineno-6-41">41</a></span>
-<span class="normal"><a href="#__codelineno-6-42">42</a></span>
-<span class="normal"><a href="#__codelineno-6-43">43</a></span>
-<span class="normal"><a href="#__codelineno-6-44">44</a></span>
-<span class="normal"><a href="#__codelineno-6-45">45</a></span>
-<span class="normal"><a href="#__codelineno-6-46">46</a></span>
-<span class="normal"><a href="#__codelineno-6-47">47</a></span>
-<span class="normal"><a href="#__codelineno-6-48">48</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nn">---</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install ceph</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag images</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">        </span><span class="no">docker image tag quay.io/prometheus/alertmanager:v0.25.0 localhost:5000/prometheus/alertmanager:v0.25.0</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">        </span><span class="no">docker image tag quay.io/ceph/ceph-grafana:9.4.7 localhost:5000/ceph/ceph-grafana:9.4.7</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">        </span><span class="no">docker image tag quay.io/ceph/ceph:v18 localhost:5000/ceph/ceph:v18</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">        </span><span class="no">docker image tag quay.io/prometheus/node-exporter:v1.5.0 localhost:5000/prometheus/node-exporter:v1.5.0</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">        </span><span class="no">docker image tag quay.io/prometheus/prometheus:v2.43.0 localhost:5000/prometheus/prometheus:v2.43.0</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">run docker local registry</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">        </span><span class="no">docker run -d --restart=unless-stopped --name registry \</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">          </span><span class="no">-e &quot;REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry&quot; \</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">          </span><span class="no">-e &quot;REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR=inmemory&quot; \</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">          </span><span class="no">-e &quot;REGISTRY_STORAGE_DELETE_ENABLED=true&quot; \</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">          </span><span class="no">-e &quot;REGISTRY_VALIDATION_DISABLED=true&quot; \</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">          </span><span class="no">-v &quot;registry-data:/var/lib/registry&quot; \</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="w">          </span><span class="no">-p &quot;127.0.0.1:5000:5000&quot; \</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="w">          </span><span class="no">registry:2</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">        </span><span class="no">true</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">push images to local repository</span>
-</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">        </span><span class="no">docker push localhost:5000/prometheus/alertmanager:v0.25.0</span>
-</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">        </span><span class="no">docker push localhost:5000/ceph/ceph-grafana:9.4.7</span>
-</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">        </span><span class="no">docker push localhost:5000/ceph/ceph:v18</span>
-</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="w">        </span><span class="no">docker push localhost:5000/prometheus/node-exporter:v1.5.0</span>
-</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29"></a><span class="w">        </span><span class="no">docker push localhost:5000/prometheus/prometheus:v2.43.0</span>
-</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install cephadm</span>
-</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="w">      </span><span class="nt">copy</span><span class="p">:</span>
-</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32"></a><span class="w">        </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cephadm</span>
-</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33"></a><span class="w">        </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/bin/</span>
-</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0755</span>
-</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add ceph group</span>
-</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36"></a><span class="w">      </span><span class="nt">group</span><span class="p">:</span>
-</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph</span>
-</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38"></a><span class="w">        </span><span class="nt">gid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">167</span>
-</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add ceph user</span>
-</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40"></a><span class="w">      </span><span class="nt">user</span><span class="p">:</span>
-</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ceph</span>
-</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42"></a><span class="w">        </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">167</span>
-</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43"></a><span class="w">        </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sbin/nologin</span>
-</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44"></a><span class="w">        </span><span class="nt">expires</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
-</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add /root/.bashrc environment variable</span>
-</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46"></a><span class="w">      </span><span class="nt">lineinfile</span><span class="p">:</span>
-</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/root/.bashrc</span>
-</span><span id="__span-6-48"><a id="__codelineno-6-48" name="__codelineno-6-48"></a><span class="w">        </span><span class="nt">line</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;export</span><span class="nv"> </span><span class="s">CEPHADM_IMAGE=localhost:5000/ceph/ceph:v18&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="6-ceph01">6. 配置 ceph01 节点<a class="headerlink" href="#6-ceph01" title="Permanent link">&para;</a></h2>
+<pre><code class="language-yaml">---
+- name: install ceph
+  hosts: ceph
+  tasks:
+    - name: tag images
+      shell: |
+        docker image tag quay.io/prometheus/alertmanager:v0.25.0 localhost:5000/prometheus/alertmanager:v0.25.0
+        docker image tag quay.io/ceph/ceph-grafana:9.4.7 localhost:5000/ceph/ceph-grafana:9.4.7
+        docker image tag quay.io/ceph/ceph:v18 localhost:5000/ceph/ceph:v18
+        docker image tag quay.io/prometheus/node-exporter:v1.5.0 localhost:5000/prometheus/node-exporter:v1.5.0
+        docker image tag quay.io/prometheus/prometheus:v2.43.0 localhost:5000/prometheus/prometheus:v2.43.0
+    - name: run docker local registry
+      shell: |
+        docker run -d --restart=unless-stopped --name registry \
+          -e &quot;REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry&quot; \
+          -e &quot;REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR=inmemory&quot; \
+          -e &quot;REGISTRY_STORAGE_DELETE_ENABLED=true&quot; \
+          -e &quot;REGISTRY_VALIDATION_DISABLED=true&quot; \
+          -v &quot;registry-data:/var/lib/registry&quot; \
+          -p &quot;127.0.0.1:5000:5000&quot; \
+          registry:2
+        true
+    - name: push images to local repository
+      shell: |
+        docker push localhost:5000/prometheus/alertmanager:v0.25.0
+        docker push localhost:5000/ceph/ceph-grafana:9.4.7
+        docker push localhost:5000/ceph/ceph:v18
+        docker push localhost:5000/prometheus/node-exporter:v1.5.0
+        docker push localhost:5000/prometheus/prometheus:v2.43.0
+    - name: install cephadm
+      copy:
+        src: cephadm
+        dest: /usr/local/bin/
+        mode: 0755
+    - name: add ceph group
+      group:
+        name: ceph
+        gid: 167
+    - name: add ceph user
+      user:
+        name: ceph
+        uid: 167
+        shell: /sbin/nologin
+        expires: -1
+    - name: add /root/.bashrc environment variable
+      lineinfile:
+        path: /root/.bashrc
+        line: &quot;export CEPHADM_IMAGE=localhost:5000/ceph/ceph:v18&quot;
+</code></pre>
+<h2 id="6-ceph01">6. 配置 ceph01 节点</h2>
 <p>安装完成后，在 ceph01 节点，创建 ceph 集群：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>source ~/.bashrc
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>cephadm bootstrap --mon-ip 192.168.100.14
-</span></code></pre></div></td></tr></table></div>
+<pre><code>source ~/.bashrc
+cephadm bootstrap --mon-ip 192.168.100.14
+</code></pre>
 <p>之后使用<code>cephadm shell</code>命令进入 ceph 命令行（所有 ceph 命令均需要在 ceph 命令行执行），运行以下命令修改 ceph 相关容器使用本地镜像仓库：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>ceph config set mgr mgr/cephadm/container_image_prometheus localhost:5000/prometheus/prometheus:v2.43.0
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>ceph config set mgr mgr/cephadm/container_image_node_exporter localhost:5000/prometheus/node-exporter:v1.5.0
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>ceph config set mgr mgr/cephadm/container_image_grafana localhost:5000/ceph/ceph-grafana:9.4.7
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>ceph config set mgr mgr/cephadm/container_image_alertmanager localhost:5000/prometheus/alertmanager:v0.25.0
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph config set mgr mgr/cephadm/container_image_prometheus localhost:5000/prometheus/prometheus:v2.43.0
+ceph config set mgr mgr/cephadm/container_image_node_exporter localhost:5000/prometheus/node-exporter:v1.5.0
+ceph config set mgr mgr/cephadm/container_image_grafana localhost:5000/ceph/ceph-grafana:9.4.7
+ceph config set mgr mgr/cephadm/container_image_alertmanager localhost:5000/prometheus/alertmanager:v0.25.0
+</code></pre>
 <p>重新部署 ceph 容器：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>ceph orch redeploy prometheus
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>ceph orch redeploy node-exporter
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>ceph orch redeploy grafana
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>ceph orch redeploy alertmanager
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph orch redeploy prometheus
+ceph orch redeploy node-exporter
+ceph orch redeploy grafana
+ceph orch redeploy alertmanager
+</code></pre>
 <p>验证：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>ceph orch ls
-</span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span>
-<span class="normal"><a href="#__codelineno-11-5">5</a></span>
-<span class="normal"><a href="#__codelineno-11-6">6</a></span>
-<span class="normal"><a href="#__codelineno-11-7">7</a></span>
-<span class="normal"><a href="#__codelineno-11-8">8</a></span>
-<span class="normal"><a href="#__codelineno-11-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>NAME           PORTS        RUNNING  REFRESHED  AGE  PLACEMENT
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>alertmanager   ?:9093,9094      1/1  7s ago     3m   count:1
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>ceph-exporter                   1/1  7s ago     3m   *
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>crash                           1/1  7s ago     3m   *
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>grafana        ?:3000           1/1  7s ago     3m   count:1
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>mgr                             1/2  7s ago     3m   count:2
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>mon                             1/5  7s ago     3m   count:5
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>node-exporter  ?:9100           1/1  7s ago     3m   *
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>prometheus     ?:9095           1/1  7s ago     3m   count:1
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph orch ls
+</code></pre>
+<pre><code>NAME           PORTS        RUNNING  REFRESHED  AGE  PLACEMENT
+alertmanager   ?:9093,9094      1/1  7s ago     3m   count:1
+ceph-exporter                   1/1  7s ago     3m   *
+crash                           1/1  7s ago     3m   *
+grafana        ?:3000           1/1  7s ago     3m   count:1
+mgr                             1/2  7s ago     3m   count:2
+mon                             1/5  7s ago     3m   count:5
+node-exporter  ?:9100           1/1  7s ago     3m   *
+prometheus     ?:9095           1/1  7s ago     3m   count:1
+</code></pre>
 <p>将节点 ceph01 设置成管理节点：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>ceph orch host label add ceph01 _admin
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph orch host label add ceph01 _admin
+</code></pre>
 <p>检查 ceph 所有节点：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>ceph orch host ls
-</span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>HOST    ADDR            LABELS  STATUS
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>ceph01  192.168.100.14  _admin
-</span></code></pre></div></td></tr></table></div>
-<h2 id="7-ceph">7. 将其它节点加入 ceph 集群作为管理节点<a class="headerlink" href="#7-ceph" title="Permanent link">&para;</a></h2>
+<pre><code>ceph orch host ls
+</code></pre>
+<pre><code>HOST    ADDR            LABELS  STATUS
+ceph01  192.168.100.14  _admin
+</code></pre>
+<h2 id="7-ceph">7. 将其它节点加入 ceph 集群作为管理节点</h2>
 <p>在第一个节点上，将剩下两个节点加入 ceph 集群（以下命令不要在 ceph 命令行执行）：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span>
-<span class="normal"><a href="#__codelineno-15-4">4</a></span>
-<span class="normal"><a href="#__codelineno-15-5">5</a></span>
-<span class="normal"><a href="#__codelineno-15-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a>ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.15
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.16
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a>cephadm shell -- ceph orch host add ceph02 192.168.100.15
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a>cephadm shell -- ceph orch host label add ceph02 _admin
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a>cephadm shell -- ceph orch host add ceph03 192.168.100.16
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a>cephadm shell -- ceph orch host label add ceph03 _admin
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.15
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.16
+cephadm shell -- ceph orch host add ceph02 192.168.100.15
+cephadm shell -- ceph orch host label add ceph02 _admin
+cephadm shell -- ceph orch host add ceph03 192.168.100.16
+cephadm shell -- ceph orch host label add ceph03 _admin
+</code></pre>
 <p>将 monitor 部署在三个节点：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a>ceph orch apply mon --placement=&quot;ceph01,ceph02,ceph03&quot;
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph orch apply mon --placement=&quot;ceph01,ceph02,ceph03&quot;
+</code></pre>
 <p>如果三个节点在一个 B 段，但是不在一个 C 段，还需要额外运行这个命令修改 public_network 子网：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>ceph config set mon public_network 192.168.0.0/16
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph config set mon public_network 192.168.0.0/16
+</code></pre>
 <p>完成以后，检查 ceph 主机列表：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a>ceph orch host ls
-</span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span>
-<span class="normal"><a href="#__codelineno-19-3">3</a></span>
-<span class="normal"><a href="#__codelineno-19-4">4</a></span>
-<span class="normal"><a href="#__codelineno-19-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a>HOST    ADDR            LABELS  STATUS
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a>ceph01  192.168.100.14  _admin
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a>ceph02  192.168.100.15  _admin
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>ceph03  192.168.100.16  _admin
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a>3 hosts in cluster
-</span></code></pre></div></td></tr></table></div>
-<h2 id="8-ceph">8. 将磁盘加入 ceph<a class="headerlink" href="#8-ceph" title="Permanent link">&para;</a></h2>
+<pre><code>ceph orch host ls
+</code></pre>
+<pre><code>HOST    ADDR            LABELS  STATUS
+ceph01  192.168.100.14  _admin
+ceph02  192.168.100.15  _admin
+ceph03  192.168.100.16  _admin
+3 hosts in cluster
+</code></pre>
+<h2 id="8-ceph">8. 将磁盘加入 ceph</h2>
 <p>将三个机器的/dev/sdb 加入 ceph 集群：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
-<span class="normal"><a href="#__codelineno-20-2">2</a></span>
-<span class="normal"><a href="#__codelineno-20-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a>ceph orch daemon add osd ceph01:/dev/sdb
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2"></a>ceph orch daemon add osd ceph02:/dev/sdb
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3"></a>ceph orch daemon add osd ceph03:/dev/sdb
-</span></code></pre></div></td></tr></table></div>
-<h2 id="9-ceph">9. 检查 ceph 集群状态<a class="headerlink" href="#9-ceph" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a>ceph<span class="w"> </span>status
-</span></code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-22-10">10</a></span>
-<span class="normal"><a href="#__codelineno-22-11">11</a></span>
-<span class="normal"><a href="#__codelineno-22-12">12</a></span>
-<span class="normal"><a href="#__codelineno-22-13">13</a></span>
-<span class="normal"><a href="#__codelineno-22-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a>  cluster:
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a>    id:     2708c980-bdb5-11ee-9d2f-000c29838e6e
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a>    health: HEALTH_OK
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5"></a>  services:
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6"></a>    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 3m)
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7"></a>    mgr: ceph02.rlxrnd(active, since 3m), standbys: ceph01.ftqqta
-</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8"></a>    osd: 3 osds: 3 up (since 22s), 3 in (since 38s)
-</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9"></a>
-</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10"></a>  data:
-</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11"></a>    pools:   1 pools, 1 pgs
-</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12"></a>    objects: 2 objects, 449 KiB
-</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13"></a>    usage:   80 MiB used, 96 GiB / 96 GiB avail
-</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14"></a>    pgs:     1 active+clean
-</span></code></pre></div></td></tr></table></div>
+<pre><code>ceph orch daemon add osd ceph01:/dev/sdb
+ceph orch daemon add osd ceph02:/dev/sdb
+ceph orch daemon add osd ceph03:/dev/sdb
+</code></pre>
+<h2 id="9-ceph">9. 检查 ceph 集群状态</h2>
+<pre><code class="language-bash">ceph status
+</code></pre>
+<pre><code>  cluster:
+    id:     2708c980-bdb5-11ee-9d2f-000c29838e6e
+    health: HEALTH_OK
+
+  services:
+    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 3m)
+    mgr: ceph02.rlxrnd(active, since 3m), standbys: ceph01.ftqqta
+    osd: 3 osds: 3 up (since 22s), 3 in (since 38s)
+
+  data:
+    pools:   1 pools, 1 pgs
+    objects: 2 objects, 449 KiB
+    usage:   80 MiB used, 96 GiB / 96 GiB avail
+    pgs:     1 active+clean
+</code></pre>
 
 
 

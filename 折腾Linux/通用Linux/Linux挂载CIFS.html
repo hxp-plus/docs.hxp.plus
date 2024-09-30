@@ -1304,27 +1304,23 @@
   
 
 
-<h1 id="linux-cifs">Linux 挂载 CIFS<a class="headerlink" href="#linux-cifs" title="Permanent link">&para;</a></h1>
+<h1 id="linux-cifs">Linux 挂载 CIFS</h1>
 <p>首先安装 cifs-utils，然后编辑文件<code>/etc/cifs-credentials</code>：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>username=[username]
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>password=[password]
-</span></code></pre></div></td></tr></table></div>
+<pre><code>username=[username]
+password=[password]
+</code></pre>
 <p>修改文件权限：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/cifs-credentials
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>chown<span class="w"> </span>root:root<span class="w"> </span>/etc/cifs-credentials
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">chmod 600 /etc/cifs-credentials
+chown root:root /etc/cifs-credentials
+</code></pre>
 <p>在/etc/fstab 追加挂载项：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=1000,gid=1000,_netdev 0 0
-</span></code></pre></div></td></tr></table></div>
+<pre><code>//[IP_address]/[share_name] /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=1000,gid=1000,_netdev 0 0
+</code></pre>
 <p>挂载：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/winshare
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>systemctl<span class="w"> </span>daemon-reload
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>mount<span class="w"> </span>-a
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">mkdir -p /mnt/winshare
+systemctl daemon-reload
+mount -a
+</code></pre>
 
 
 

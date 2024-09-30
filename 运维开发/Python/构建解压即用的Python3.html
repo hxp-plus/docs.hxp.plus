@@ -1370,63 +1370,43 @@
   
 
 
-<h1 id="python3">构建解压即用的 Python3<a class="headerlink" href="#python3" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="python3">构建解压即用的 Python3</h1>
+<h2 id="1">1. 背景</h2>
 <p>在复杂的运维场景下，不同的 Linux 操作系统的 Python 版本不一，有的操作系统是 Python2，有的是 Python3 ，且即使都 Python3，各个操作系统的 Python3 的版本也不一样。如果我们要发布一个程序，譬如说监控程序，需要让不同的操作系统都能运行，则需要把所有操作系统都适配一遍，且每次更新都需要适配。不如直接单独带一个 Python 到所有的操作系统中。</p>
-<h2 id="2-python3-opt">2. 编译一份 Python3 并将其安装到 /opt 目录<a class="headerlink" href="#2-python3-opt" title="Permanent link">&para;</a></h2>
+<h2 id="2-python3-opt">2. 编译一份 Python3 并将其安装到 /opt 目录</h2>
 <p>由于不同版本的 Linux 的 glibc 版本不同，且高版本的 glibc 兼容低版本，反之不兼容，因此需要在你需要适配的最低版本 Linux 上编译，我这里选用的 CentOS 6 ，同时，编译不需要真的安装 CentOS 6 ，可以使用 docker 容器并在容器里编译。我的 Dockerfile 如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>FROM centos:6.10
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>COPY &lt;&lt;-&#39;EOF&#39; /etc/yum.repos.d/CentOS-Base.repo
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>[base]
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>name=CentOS-$releasever - Base
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>baseurl=https://vault.centos.org/6.10/os/$basearch/
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>gpgcheck=0
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>EOF
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>RUN yum install -y make gcc zlib-devel
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>RUN mkdir -p /build
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>WORKDIR /build
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>RUN curl https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz -o Python-3.7.17.tgz
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>RUN tar -zxf Python-3.7.17.tgz -C /build
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>WORKDIR /build/Python-3.7.17
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>RUN ./configure --prefix=/opt/Python-3.7.17
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>RUN make install
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a>WORKDIR /opt
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a>VOLUME /opt
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>CMD [&quot;/bin/bash&quot;]
-</span></code></pre></div></td></tr></table></div>
+<pre><code>FROM centos:6.10
+COPY &lt;&lt;-'EOF' /etc/yum.repos.d/CentOS-Base.repo
+[base]
+name=CentOS-$releasever - Base
+baseurl=https://vault.centos.org/6.10/os/$basearch/
+gpgcheck=0
+EOF
+RUN yum install -y make gcc zlib-devel
+RUN mkdir -p /build
+WORKDIR /build
+RUN curl https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz -o Python-3.7.17.tgz
+RUN tar -zxf Python-3.7.17.tgz -C /build
+WORKDIR /build/Python-3.7.17
+RUN ./configure --prefix=/opt/Python-3.7.17
+RUN make install
+WORKDIR /opt
+VOLUME /opt
+CMD [&quot;/bin/bash&quot;]
+</code></pre>
 <p>使用 docker 构建一个容器并在容器里编译出 Python3，安装到容器的 /opt 目录：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>docker build -t centos6-python3.7 .
-</span></code></pre></div></td></tr></table></div>
+<pre><code>docker build -t centos6-python3.7 .
+</code></pre>
 <p>之后将容器内编译好的 Python3 复制出来：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir -p dist
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c &#39;cd /opt &amp;&amp; /bin/tar zcpf /mnt/Python-3.7.17.tgz Python-3.7.17&#39;
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-python3">3. 使用 Python3<a class="headerlink" href="#3-python3" title="Permanent link">&para;</a></h2>
+<pre><code>mkdir -p dist
+docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c 'cd /opt &amp;&amp; /bin/tar zcpf /mnt/Python-3.7.17.tgz Python-3.7.17'
+</code></pre>
+<h2 id="3-python3">3. 使用 Python3</h2>
 <p>将整个 Python-3.7.17 目录复制到别的机器上，运行前设置环境变量：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>export PATH=$PWD/Python-3.7.17/bin:$PATH
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>export LD_LIBRATY_PATH=$PWD/Python-3.7.17/lib:$LD_LIBRATY_PATH
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>echo &quot;Current Python version is: $(python3 --version)&quot;
-</span></code></pre></div></td></tr></table></div>
+<pre><code>export PATH=$PWD/Python-3.7.17/bin:$PATH
+export LD_LIBRATY_PATH=$PWD/Python-3.7.17/lib:$LD_LIBRATY_PATH
+echo &quot;Current Python version is: $(python3 --version)&quot;
+</code></pre>
 <p>之后使用 python3 命令执行。</p>
 
 

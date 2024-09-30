@@ -1369,32 +1369,28 @@
   
 
 
-<h1 id="xfce-fcitx">安装 xfce 后 fcitx 右上角显示但无法选择输入法问题解决<a class="headerlink" href="#xfce-fcitx" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 问题描述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="xfce-fcitx">安装 xfce 后 fcitx 右上角显示但无法选择输入法问题解决</h1>
+<h2 id="1">1. 问题描述</h2>
 <p>在安装 xfce 后，安装 fcitx-rime ，之后发现输入法的键盘图标在右上角能显示，但是右键无法选择输入法。已经尝试过的方法为：</p>
 <ul>
 <li>将那三个环境变量同时配置于 <code>~/.xprofile</code> 、 <code>~/.xinitrc</code> 和 <code>/etc/profile.d/fcitx.sh</code> ，重启，问题依旧存在。</li>
 <li>使用 <code>fcitx-diagnose</code> 诊断，发现无异常。</li>
 <li>尝试使用 vnc 连接，问题依旧存在。</li>
 </ul>
-<h2 id="2">2. 解决方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h2 id="2">2. 解决方法</h2>
 <p>安装 ibus 输入法后，问题自动解决，我也不知道为什么：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>emerge --ask app-i18n/ibus ibus-libpinyin
-</span></code></pre></div></td></tr></table></div>
+<pre><code>emerge --ask app-i18n/ibus ibus-libpinyin
+</code></pre>
 <p>表现为安装 ibus 后，我将三个环境变量清除：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>export GTK_IM_MODULE=fcitx
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>export QT_IM_MODULE=fcitx
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>export XMODIFIERS=@im=fcitx
-</span></code></pre></div></td></tr></table></div>
+<pre><code>export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+</code></pre>
 <p>然后改成了 ibus 的：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>GTK_IM_MODULE=ibus
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>QT_IM_MODULE=ibus
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>XMODIFIERS=@im=ibus
-</span></code></pre></div></td></tr></table></div>
+<pre><code>GTK_IM_MODULE=ibus
+QT_IM_MODULE=ibus
+XMODIFIERS=@im=ibus
+</code></pre>
 <p>之后没有卸载 fcitx ，重启后发现 xfce 右上角键盘图标变成加粗的图标， fcitx 莫名其妙地好了。删除 ibus 环境变量，不添加 fcitx 环境变量，重启，依旧是好的。</p>
 
 

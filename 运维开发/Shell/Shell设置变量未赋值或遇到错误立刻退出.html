@@ -1307,21 +1307,19 @@
   
 
 
-<h1 id="shell">Shell 设置变量未赋值或遇到错误立刻退出<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 问题背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="shell">Shell 设置变量未赋值或遇到错误立刻退出</h1>
+<h2 id="1">1. 问题背景</h2>
 <p>众所周知 Shell 是一个不安全的语言，变量不被定义也可以被访问，而且一行命令报错以后，不是像其它语言似的退出，而是接着运行下面的命令。通过修改 Shell 脚本的一些设置，可以暂时弥补下这个问题。</p>
-<h2 id="2-shell">2. 每个 Shell 脚本都推荐增加的参数<a class="headerlink" href="#2-shell" title="Permanent link">&para;</a></h2>
+<h2 id="2-shell">2. 每个 Shell 脚本都推荐增加的参数</h2>
 <p>推荐在每个 Shell 脚本前都加入以下语句：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>nounset
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>pipefail
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">set -o errexit
+set -o nounset
+set -o pipefail
+</code></pre>
 <p>其中 <code>set -o errexit</code> 等同于 <code>set -e</code> ,作用为有一行命令报错立刻退出。 <code>set -o nounset</code> 等同于 <code>set -u</code> ，作用为在访问未定义变量时报错。 <code>set -o pipefail</code> 作用为对于单行命令，返回值不再是最右侧命令返回值，而是在返回值不为零的命令中，取最右侧的作为返回值。</p>
-<h2 id="3">3. 参考资料<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p><a href="https://medium.com/factualopinions/consider-starting-all-your-bash-scripts-with-these-options-74fbec0cbb83">https://medium.com/factualopinions/consider-starting-all-your-bash-scripts-with-these-options-74fbec0cbb83</a></p>
-<p><a href="https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin">https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin</a></p>
+<h2 id="3">3. 参考资料</h2>
+<p>https://medium.com/factualopinions/consider-starting-all-your-bash-scripts-with-these-options-74fbec0cbb83</p>
+<p>https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin</p>
 
 
 

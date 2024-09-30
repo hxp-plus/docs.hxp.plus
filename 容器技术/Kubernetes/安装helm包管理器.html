@@ -708,6 +708,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#titlehelm-installyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      ```title="helm-install.yaml"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       3. 参考链接
@@ -1245,6 +1254,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#titlehelm-installyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      ```title="helm-install.yaml"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       3. 参考链接
@@ -1295,9 +1313,9 @@
   
 
 
-<h1 id="helm">安装 helm 包管理器<a class="headerlink" href="#helm" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 准备工作<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
-<h3 id="11">1.1 介质下载<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<h1 id="helm">安装 helm 包管理器</h1>
+<h2 id="1">1. 准备工作</h2>
+<h3 id="11">1.1 介质下载</h3>
 <table>
 <thead>
 <tr>
@@ -1308,44 +1326,35 @@
 <tbody>
 <tr>
 <td>helm-v3.14.0-linux-amd64.tar.gz</td>
-<td><a href="https://github.com/helm/helm/releases">https://github.com/helm/helm/releases</a></td>
+<td>https://github.com/helm/helm/releases</td>
 </tr>
 </tbody>
 </table>
-<h2 id="2-ansible-playbook-k8s-helm">2. 使用 Ansible Playbook 为所有 k8s 节点批量安装 helm<a class="headerlink" href="#2-ansible-playbook-k8s-helm" title="Permanent link">&para;</a></h2>
+<h2 id="2-ansible-playbook-k8s-helm">2. 使用 Ansible Playbook 为所有 k8s 节点批量安装 helm</h2>
 <p>将 helm 二进制程序放到<code>/usr/local/bin/</code>即可完成安装，playbook 如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helm-install.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>---
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>- name: install helm
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>  hosts: k8s
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>  tasks:
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>  - name: unarchive files to remote /tmp
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>    unarchive:
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>      src: helm-v3.14.0-linux-amd64.tar.gz
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>      dest: /tmp/
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>  - name: install helm
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>    copy:
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>      src: /tmp/linux-amd64/helm
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>      dest: /usr/local/bin/helm
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>      mode: 0755
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a>      remote_src: yes
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3">3. 参考链接<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p><a href="https://helm.sh/docs/intro/install/">https://helm.sh/docs/intro/install/</a></p>
-<p><a href="https://stackoverflow.com/questions/50343089/how-to-use-helm-charts-without-internet-access">https://stackoverflow.com/questions/50343089/how-to-use-helm-charts-without-internet-access</a></p>
-<p><a href="https://stackoverflow.com/questions/60892265/extract-docker-images-from-helm-chart">https://stackoverflow.com/questions/60892265/extract-docker-images-from-helm-chart</a></p>
+<h2 id="titlehelm-installyaml">```title="helm-install.yaml"</h2>
+<ul>
+<li>name: install helm
+  hosts: k8s
+  tasks:<ul>
+<li>name: unarchive files to remote /tmp
+  unarchive:
+    src: helm-v3.14.0-linux-amd64.tar.gz
+    dest: /tmp/</li>
+<li>name: install helm
+  copy:
+    src: /tmp/linux-amd64/helm
+    dest: /usr/local/bin/helm
+    mode: 0755
+    remote_src: yes
+```</li>
+</ul>
+</li>
+</ul>
+<h2 id="3">3. 参考链接</h2>
+<p>https://helm.sh/docs/intro/install/</p>
+<p>https://stackoverflow.com/questions/50343089/how-to-use-helm-charts-without-internet-access</p>
+<p>https://stackoverflow.com/questions/60892265/extract-docker-images-from-helm-chart</p>
 
 
 

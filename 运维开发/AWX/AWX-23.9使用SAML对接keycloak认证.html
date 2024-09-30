@@ -1496,54 +1496,37 @@
   
 
 
-<h1 id="awx-239-saml-keycloak">AWX-23.9 使用 SAML 对接 keycloak 认证<a class="headerlink" href="#awx-239-saml-keycloak" title="Permanent link">&para;</a></h1>
-<h2 id="1-ssl">1. 生成 SSL 证书<a class="headerlink" href="#1-ssl" title="Permanent link">&para;</a></h2>
+<h1 id="awx-239-saml-keycloak">AWX-23.9 使用 SAML 对接 keycloak 认证</h1>
+<h2 id="1-ssl">1. 生成 SSL 证书</h2>
 <p>在任意 Linux 执行以下命令生成 SSL 证书：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>openssl req -new -x509 -days 3650 -nodes -out saml_3650.crt -keyout saml_3650.key
-</span></code></pre></div></td></tr></table></div>
+<pre><code>openssl req -new -x509 -days 3650 -nodes -out saml_3650.crt -keyout saml_3650.key
+</code></pre>
 <p>这个命令提示一路回车不用管，SSL 证书直接申请 10 年。输出如下：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>Generating a RSA private key
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>........+++++
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>....................................+++++
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>writing new private key to &#39;saml_3650.key&#39;
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>-----
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>You are about to be asked to enter information that will be incorporated
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>into your certificate request.
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>What you are about to enter is what is called a Distinguished Name or a DN.
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>There are quite a few fields but you can leave some blank
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>For some fields there will be a default value,
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>If you enter &#39;.&#39;, the field will be left blank.
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>-----
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>Country Name (2 letter code) [AU]:
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>State or Province Name (full name) [Some-State]:
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>Locality Name (eg, city) []:
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a>Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>Organizational Unit Name (eg, section) []:
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>Common Name (e.g. server FQDN or YOUR name) []:
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>Email Address []:
-</span></code></pre></div></td></tr></table></div>
-<h2 id="2-awx">2. 修改 AWX 配置<a class="headerlink" href="#2-awx" title="Permanent link">&para;</a></h2>
+<pre><code>Generating a RSA private key
+........+++++
+....................................+++++
+writing new private key to 'saml_3650.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:
+Email Address []:
+
+</code></pre>
+<h2 id="2-awx">2. 修改 AWX 配置</h2>
 <p>点击 Settings -&gt; Miscellaneous System ，修改“Base URL of the service”为 AWX 的公网 URL：
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_chromium_20240306172050.png" /></p>
-<h2 id="3-awx-saml">3. 在 AWX 上配置 SAML 认证<a class="headerlink" href="#3-awx-saml" title="Permanent link">&para;</a></h2>
+<h2 id="3-awx-saml">3. 在 AWX 上配置 SAML 认证</h2>
 <p>点击 Settings -&gt; SAML settings ，填写 keycloak 服务器配置如下：</p>
 <ol>
 <li>SAML Service Provider Entity ID ： awx-saml</li>
@@ -1551,102 +1534,69 @@
 <li>SAML Service Provider Private Key ：上传生成的 saml_3650.key 密钥</li>
 <li>SAML Service Provider Organization Info ：</li>
 </ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span>
-<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>{
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>  &quot;en-US&quot;: {
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>    &quot;displayname&quot;: &quot;RHSSO&quot;,
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>    &quot;name&quot;: &quot;RHSSO&quot;,
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>    &quot;url&quot;: &quot;https://sso.bocsys.cn&quot;
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>  }
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>{
+  &quot;en-US&quot;: {
+    &quot;displayname&quot;: &quot;RHSSO&quot;,
+    &quot;name&quot;: &quot;RHSSO&quot;,
+    &quot;url&quot;: &quot;https://sso.bocsys.cn&quot;
+  }
+}
+</code></pre>
 <ol>
 <li>SAML Service Provider Technical Contact ：</li>
 </ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>{
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>  &quot;emailAddress&quot;: &quot;awx@boc.cn&quot;,
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>  &quot;givenName&quot;: &quot;boc&quot;
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>{
+  &quot;emailAddress&quot;: &quot;awx@boc.cn&quot;,
+  &quot;givenName&quot;: &quot;boc&quot;
+}
+</code></pre>
 <ol>
 <li>SAML Service Provider Support Contact ：</li>
 </ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>{
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>  &quot;emailAddress&quot;: &quot;awx@boc.cn&quot;,
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>  &quot;givenName&quot;: &quot;boc&quot;
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>{
+  &quot;emailAddress&quot;: &quot;awx@boc.cn&quot;,
+  &quot;givenName&quot;: &quot;boc&quot;
+}
+</code></pre>
 <ol>
 <li>SAML Enabled Identity Providers ：</li>
 </ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>{
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>  &quot;RHSSO&quot;: {
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>    &quot;attr_email&quot;: &quot;email&quot;,
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>    &quot;attr_first_name&quot;: &quot;first_name&quot;,
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>    &quot;attr_last_name&quot;: &quot;last_name&quot;,
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>    &quot;attr_user_permanent_id&quot;: &quot;name_id&quot;,
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>    &quot;attr_username&quot;: &quot;username&quot;,
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>    &quot;entity_id&quot;: &quot;https://sso.bocsys.cn/auth/realms/BOC-IT&quot;,
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>    &quot;url&quot;: &quot;https://sso.bocsys.cn/auth/realms/BOC-IT/protocol/saml&quot;,
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>    &quot;x509cert&quot;: &quot;-----BEGIN CERTIFICATE-----MIIDaz*****X7Z-----END CERTIFICATE-----&quot;
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>  }
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>{
+  &quot;RHSSO&quot;: {
+    &quot;attr_email&quot;: &quot;email&quot;,
+    &quot;attr_first_name&quot;: &quot;first_name&quot;,
+    &quot;attr_last_name&quot;: &quot;last_name&quot;,
+    &quot;attr_user_permanent_id&quot;: &quot;name_id&quot;,
+    &quot;attr_username&quot;: &quot;username&quot;,
+    &quot;entity_id&quot;: &quot;https://sso.bocsys.cn/auth/realms/BOC-IT&quot;,
+    &quot;url&quot;: &quot;https://sso.bocsys.cn/auth/realms/BOC-IT/protocol/saml&quot;,
+    &quot;x509cert&quot;: &quot;-----BEGIN CERTIFICATE-----MIIDaz*****X7Z-----END CERTIFICATE-----&quot;
+  }
+}
+</code></pre>
 <p>x509cert 内容这样生成：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sed<span class="w"> </span><span class="s1">&#39;:a;N;$!ba;s/\n//g&#39;</span><span class="w"> </span>saml_3650.crt
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">sed ':a;N;$!ba;s/\n//g' saml_3650.crt
+</code></pre>
 <ol>
 <li>SAML Organization Map ：</li>
 </ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>{
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>  &quot;Default&quot;: {
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>    &quot;users&quot;: true
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>  },
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>  &quot;RHSSO&quot;: {
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>    &quot;admins&quot;: [],
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a>    &quot;remove_admins&quot;: false,
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>    &quot;remove_users&quot;: false,
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>    &quot;users&quot;: true
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a>  }
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>}
-</span></code></pre></div></td></tr></table></div>
+<pre><code>{
+  &quot;Default&quot;: {
+    &quot;users&quot;: true
+  },
+  &quot;RHSSO&quot;: {
+    &quot;admins&quot;: [],
+    &quot;remove_admins&quot;: false,
+    &quot;remove_users&quot;: false,
+    &quot;users&quot;: true
+  }
+}
+</code></pre>
 <ol>
 <li>SAML Security Config 、 SAML Organization Attribute Mapping 、 SAML Team Attribute Mapping 、 SAML User Flags Attribute Mapping 均为 <code>{}</code></li>
 <li>SAML Service Provider extra configuration data 、 SAML IDP to extra_data attribute mapping 、 SAML Team Map 均为 <code>null</code></li>
 </ol>
-<h2 id="4-keycloak">4. Keycloak 配置<a class="headerlink" href="#4-keycloak" title="Permanent link">&para;</a></h2>
+<h2 id="4-keycloak">4. Keycloak 配置</h2>
 <p>接下来以 Keycloak 11 为例，Keycloak 24 不一样的地方特殊说明。首先需要在 AWX 上访问这里的 URL，获取 keycloak 配置：
 <img alt="" src="images/Pasted%20image%2020240306174116.png" /></p>
 <p>下载 xml 配置，点击 keycloak 的 Clients -&gt; Create , 上传 xml 配置：
@@ -1670,21 +1620,21 @@
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_org.deepin.browser_20240306175906.png" />
 测试用户名、电子邮箱、姓名能否正常获取：
 <img alt="" src="images/%E6%88%AA%E5%9B%BE%E5%BD%95%E5%B1%8F_Navigator_20240306180102.png" /></p>
-<h2 id="5">5. 参考文献<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<p><a href="https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k">https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k</a></p>
-<p><a href="https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings">https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings</a></p>
-<p><a href="https://github.com/ansible/awx/issues/5570">https://github.com/ansible/awx/issues/5570</a></p>
-<p><a href="https://github.com/ansible/awx/issues/1016">https://github.com/ansible/awx/issues/1016</a></p>
-<p><a href="https://github.com/ansible/awx/issues/4814">https://github.com/ansible/awx/issues/4814</a></p>
-<p><a href="https://github.com/ansible/awx/issues/13226">https://github.com/ansible/awx/issues/13226</a></p>
-<p><a href="https://www.ansible.com/blog/red-hat-single-sign-on-integration-with-ansible-tower">https://www.ansible.com/blog/red-hat-single-sign-on-integration-with-ansible-tower</a></p>
-<p><a href="https://dev.to/iderr/connect-your-awxansible-tower-with-keycloak-using-oidc--4ekb">https://dev.to/iderr/connect-your-awxansible-tower-with-keycloak-using-oidc--4ekb</a></p>
-<p><a href="https://josh-tracy.github.io/Ansible_Tower_RedHatSSO/">https://josh-tracy.github.io/Ansible_Tower_RedHatSSO/</a></p>
-<p><a href="https://github.com/getsentry/self-hosted/issues/1571">https://github.com/getsentry/self-hosted/issues/1571</a></p>
-<p><a href="https://rdeplatform.netlify.app/docs/single%20sign-on%20with%20keycloak/">https://rdeplatform.netlify.app/docs/single%20sign-on%20with%20keycloak/</a>
+<h2 id="5">5. 参考文献</h2>
+<p>https://dev.to/rpelisse/automate-your-sso-with-ansible-and-keycloak-o1k</p>
+<p>https://docs.ansible.com/ansible-tower/latest/html/administration/ent_auth.html#saml-authentication-settings</p>
+<p>https://github.com/ansible/awx/issues/5570</p>
+<p>https://github.com/ansible/awx/issues/1016</p>
+<p>https://github.com/ansible/awx/issues/4814</p>
+<p>https://github.com/ansible/awx/issues/13226</p>
+<p>https://www.ansible.com/blog/red-hat-single-sign-on-integration-with-ansible-tower</p>
+<p>https://dev.to/iderr/connect-your-awxansible-tower-with-keycloak-using-oidc--4ekb</p>
+<p>https://josh-tracy.github.io/Ansible_Tower_RedHatSSO/</p>
+<p>https://github.com/getsentry/self-hosted/issues/1571</p>
+<p>https://rdeplatform.netlify.app/docs/single%20sign-on%20with%20keycloak/
 integration%20with%20awx/</p>
-<p><a href="https://number1.co.za/using-keycloak-as-the-identity-provider-for-awx/">https://number1.co.za/using-keycloak-as-the-identity-provider-for-awx/</a></p>
-<p><a href="https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html">https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html</a></p>
+<p>https://number1.co.za/using-keycloak-as-the-identity-provider-for-awx/</p>
+<p>https://docs.ansible.com/ansible-tower/latest/html/administration/social_auth.html</p>
 
 
 

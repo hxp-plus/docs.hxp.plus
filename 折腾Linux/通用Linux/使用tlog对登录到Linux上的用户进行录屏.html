@@ -1414,41 +1414,39 @@
   
 
 
-<h1 id="tlog-linux">使用 tlog 对登录到 Linux 上的用户进行录屏<a class="headerlink" href="#tlog-linux" title="Permanent link">&para;</a></h1>
-<h2 id="1">1. 项目背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h1 id="tlog-linux">使用 tlog 对登录到 Linux 上的用户进行录屏</h1>
+<h2 id="1">1. 项目背景</h2>
 <p>需要对 SSH 登录到 Linux 服务器上的用户进行录屏，主要有两种需求：</p>
 <ol>
 <li>记录自己在 Linux 上的操作。</li>
 <li>如果别人做了什么蠢事，把他揪出来。</li>
 </ol>
-<h2 id="2-tlog">2. 安装 tlog<a class="headerlink" href="#2-tlog" title="Permanent link">&para;</a></h2>
+<h2 id="2-tlog">2. 安装 tlog</h2>
 <p>从 <a href="https://github.com/Scribery/tlog">GitHub 仓库</a> 的 Releases 页面下载 tlog 源码，之后安装依赖 （以 RHEL 8 为例）：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum<span class="w"> </span>install<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>m4<span class="w"> </span>json-c-devel<span class="w"> </span>systemd-devel<span class="w"> </span>libcurl-devel
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">yum install gcc make m4 json-c-devel systemd-devel libcurl-devel
+</code></pre>
 <p>之后对源码进行编译安装：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>./configure<span class="w"> </span>--prefix<span class="o">=</span>/opt/tlog<span class="w"> </span>--sysconfdir<span class="o">=</span>/etc<span class="w"> </span>--localstatedir<span class="o">=</span>/var<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>make<span class="w"> </span>install
-</span></code></pre></div></td></tr></table></div>
-<h2 id="3-tlog">3. 为用户启用 tlog<a class="headerlink" href="#3-tlog" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">./configure --prefix=/opt/tlog --sysconfdir=/etc --localstatedir=/var &amp;&amp; make
+make install
+</code></pre>
+<h2 id="3-tlog">3. 为用户启用 tlog</h2>
 <p>启用 tlog 需要修改用户登录 shell ：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>usermod<span class="w"> </span>-s<span class="w"> </span>/opt/tlog/bin/tlog-rec-session<span class="w"> </span>hxp
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">usermod -s /opt/tlog/bin/tlog-rec-session hxp
+</code></pre>
 <p>修改 pam 配置 <code>/etc/pam.d/sshd</code> 和 <code>/etc/pam.d/system-auth</code> ，加入：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>session     required      pam_env.so readenv=1 envfile=/etc/locale.conf
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-text">session     required      pam_env.so readenv=1 envfile=/etc/locale.conf
+</code></pre>
 <p>修改系统临时文件目录配置 <code>/usr/lib/tmpfiles.d/tlog.conf</code> ，加入：</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>d /var/run/tlog 1777 root root 10d
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-text">d /var/run/tlog 1777 root root 10d
+</code></pre>
 <p>创建 <code>/var/run/tlog/</code> 目录：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/run/tlog/
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>chmod<span class="w"> </span><span class="m">1777</span><span class="w"> </span>/var/run/tlog/
-</span></code></pre></div></td></tr></table></div>
-<h2 id="4">4. 查看录屏<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">mkdir -p /var/run/tlog/
+chmod 1777 /var/run/tlog/
+</code></pre>
+<h2 id="4">4. 查看录屏</h2>
 <p>录屏会录入到 journal ，查看 journal 中用户登录记录获取 ID 后：</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>tlog-play<span class="w"> </span>-r<span class="w"> </span>journal<span class="w"> </span>-M<span class="w"> </span><span class="nv">TLOG_REC</span><span class="o">=</span>12ca5b356065453fb50adfe57007658a-306a-26f2910<span class="w"> </span>-s<span class="w"> </span><span class="m">5</span>
-</span></code></pre></div></td></tr></table></div>
+<pre><code class="language-bash">tlog-play -r journal -M TLOG_REC=12ca5b356065453fb50adfe57007658a-306a-26f2910 -s 5
+</code></pre>
 
 
 
