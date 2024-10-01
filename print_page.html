@@ -6744,7 +6744,100 @@ nvram commit
 <p><a href="https://forum.openwrt.org/t/openwrt-support-for-xiaomi-ax9000/98908/976">https://forum.openwrt.org/t/openwrt-support-for-xiaomi-ax9000/98908/976</a></p>
 <p><a href="https://openwrt.org/toh/xiaomi/ax9000#potential_issueslimitations">https://openwrt.org/toh/xiaomi/ax9000#potential_issueslimitations</a></p>
 <p><a href="https://www.right.com.cn/forum/thread-8354210-1-1.html">https://www.right.com.cn/forum/thread-8354210-1-1.html</a></p>
-<p><a href="https://www.right.com.cn/forum/thread-8342494-1-1.html">https://www.right.com.cn/forum/thread-8342494-1-1.html</a></p></section><h1 class='nav-section-title-end'>Ended: OpenWrt</h1>
+<p><a href="https://www.right.com.cn/forum/thread-8342494-1-1.html">https://www.right.com.cn/forum/thread-8342494-1-1.html</a></p></section><section class="print-page" id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2"><nav class='md-tags'><span class='md-tag'>F4610U</span><span class='md-tag'>光猫破解</span><span class='md-tag'>宽带</span></nav><h1 id="f4610u">北京联通中兴 F4610U 光猫开超管界面</h1>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-1">1. 降级固件</h2>
+<p>从恩山论坛<a href="https://www.right.com.cn/forum/thread-8361606-1-1.html">北京联通光猫固件中兴 4610U_V1.2.0P1N20/N16 固件升降级及参数修改教程</a>下载固件，使用普通账号和密码登录 <a href="http://192.168.1.1">http://192.168.1.1</a> ，再浏览器复制粘贴这个地址：</p>
+<pre><code class="language-text">http://192.168.1.1/getpage.gch?pid=1001&amp;hidden=upgrade
+</code></pre>
+<p>进入 <code>设备管理</code>-&gt;<code>设备管理</code>-&gt;<code>版本升级</code>。</p>
+<p>先上传 <code>F4610U_V1.2.0P1N20_upgrade.bin</code> 文件进行升级，升级后光猫会重启，等待光猫重启完毕，再上传 <code>F4610U_V1.2.0P1N16_upgrade.bin</code> 文件进行降级。降级完成后，进入 <code>状态</code> -&gt; <code>设备信息</code> ，检查 <code>软件版本号</code> 为 <code>V1.2.0P1T1</code> 则降级成功。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-2-telnet">2. 开启 telnet</h2>
+<p>开启 Telnet 前，需要先拔掉光猫的光纤，之后用牙签捅 Reset 按钮，之后使用 <a href="https://github.com/douniwan5788/zte_modem_tools">zte_modem_tools</a> 开源项目：</p>
+<pre><code class="language-powershell">python .\zte_factroymode.py telnet
+</code></pre>
+<p>如果报错可重试，重试失败可尝试再次拔掉光纤用牙签捅 Reset 按钮，成功实例输出如下：</p>
+<pre><code class="language-text">PS C:\Users\hxp\Downloads\zte_modem_tools-main&gt; python .\zte_factroymode.py telnet
+trying  user:&quot;factorymode&quot; pass:&quot;nE%jA@5b&quot;
+reset facTelnetSteps:
+reset OK!
+
+facStep 1:
+OK!
+
+facStep 2:
+OK!
+
+facStep 3:
+OK!
+
+facStep 4:
+OK!
+
+b'FactoryMode.gch\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xd6`\xd0[1F\xb9\x87\x8f\xb5p/P\xd0\xab\x17'
+facStep 5:
+OK!
+
+b'FactoryModeAuth.gch?user=H5nb40xW&amp;pass=T******3\x00'
+done
+</code></pre>
+<p>这一步会生成随机用户名和密码（此用户名为 <code>H5nb40xW</code> 密码为 <code>T******3</code>），用 Telnet 进行连接：</p>
+<pre><code class="language-text">F4610U
+
+Login: H5nb40xW
+Password:
+
+BusyBox v1.17.2 (2022-10-20 22:55:06 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+/ #
+</code></pre>
+<p>如果需要开永久 telnet（密码 Zte521），运行：</p>
+<pre><code class="language-text">sendcmd 1 DB p TelnetCfg
+sendcmd 1 DB set TelnetCfg 0 Lan_Enable 1
+sendcmd 1 DB set TelnetCfg 0 TS_UName root
+sendcmd 1 DB set TelnetCfg 0 TSLan_UName root
+sendcmd 1 DB set TelnetCfg 0 TS_UPwd Zte521??
+sendcmd 1 DB set TelnetCfg 0 TSLan_UPwd Zte521
+sendcmd 1 DB set TelnetCfg 0 Max_Con_Num 99
+sendcmd 1 DB set TelnetCfg 0 ExitTime 999999
+sendcmd 1 DB set TelnetCfg 0 InitSecLvl 3
+sendcmd 1 DB set TelnetCfg 0 CloseServerTime 9999999
+sendcmd 1 DB set TelnetCfg 0 Lan_EnableAfterOlt 1
+sendcmd 1 DB save
+killall telnetd
+</code></pre>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-3">3. 修改区域</h2>
+<p>先查看区域代码：</p>
+<pre><code class="language-bash">cat /etc/init.d/regioncode
+</code></pre>
+<p>设定区域为河北省：</p>
+<pre><code class="language-bash">upgradetest sdefconf 322
+</code></pre>
+<p>成功后光猫输出 success 并自动重启：</p>
+<pre><code class="language-text">&lt;a00002a025&gt;11930:43:45 [U_upgradetest][Crit] [upgrade_test.c(126)main] LOG_SEC: Upgradetest sdefconf!
+&lt;a00002a025&gt;11930:43:45 [U_upgradetest][Crit] [pon_upgrade_cma(480)CmDelCfgFile] LOG_SEC: Delete cfg file!
+success!
+</code></pre>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-4">4. 使用超级管理员登录</h2>
+<p>等光猫重启后，访问 <a href="http://192.168.1.1/cu.html">http://192.168.1.1/cu.html</a> ，使用 <code>cuadmin</code> 账号登录超级管理员。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-5">5. 修改为桥接模式</h2>
+<p>登录超级管理员界面后，进入 <code>基本配置</code> -&gt; <code>WAN连接</code> ，使用如下配置新建网络连接：</p>
+<ul>
+<li>连接名称：新建 WAN 连接</li>
+<li>连接模式：桥接</li>
+<li>VLAN 模式：改写(tag)</li>
+<li>VLAN ID：3961</li>
+<li>802.1p：0</li>
+<li>使能 DSCP：否</li>
+<li>DHCP 服务使能：否</li>
+</ul>
+<p>之后通过 OpenWrt 使用宽带账号密码拨号。</p>
+<h2 id="%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2-6">6. 参考资料</h2>
+<p><a href="https://www.bilibili.com/video/BV1W94y1t7cW/?vd_source=d266dd531d25724f221c1d5d3c3d2438">https://www.bilibili.com/video/BV1W94y1t7cW/?vd_source=d266dd531d25724f221c1d5d3c3d2438</a></p>
+<p><a href="https://www.bilibili.com/video/BV1W94y1t7cW/?vd_source=d266dd531d25724f221c1d5d3c3d2438">https://www.bilibili.com/video/BV1W94y1t7cW/?vd_source=d266dd531d25724f221c1d5d3c3d2438</a></p>
+<p><a href="https://www.right.com.cn/forum/thread-8389711-1-1.html">https://www.right.com.cn/forum/thread-8389711-1-1.html</a></p>
+<p><a href="https://www.right.com.cn/forum/thread-8389176-1-1.html">https://www.right.com.cn/forum/thread-8389176-1-1.html</a></p>
+<p><a href="https://www.right.com.cn/forum/thread-8361606-1-1.html">https://www.right.com.cn/forum/thread-8361606-1-1.html</a></p></section><h1 class='nav-section-title-end'>Ended: OpenWrt</h1>
                         <h2 class='nav-section-title' id='section-ubuntu'>
                             Ubuntu <a class='headerlink' href='#section-ubuntu' title='Permanent link'>↵</a>
                         </h2>
@@ -7102,6 +7195,10 @@ systemctl restart libvirtd
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-keycloak-%e4%bd%bf%e7%94%a8docker-compose%e6%90%ad%e5%bb%bakeycloak%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83">使用docker-compose搭建keycloak开发环境</a></li>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%96%87%e6%a1%a3%e8%bd%af%e4%bb%b6-%e7%bc%96%e8%af%91onlyoffice%e4%bb%a5%e8%a7%a3%e9%99%a420%e8%bf%9e%e6%8e%a5%e6%95%b0%e9%99%90%e5%88%b6">编译OnlyOffice以解除20连接数限制</a></li>
 </ul>
+<h2 id="tags-f4610u"><span class="md-tag">F4610U</span></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2">北京联通中兴F4610U光猫开超管界面</a></li>
+</ul>
 <h2 id="tags-geeker-admin"><span class="md-tag">Geeker-Admin</span></h2>
 <ul>
 <li><a href="#%e5%89%8d%e7%ab%af%e5%bc%80%e5%8f%91-vue3-geeker-admin%e6%8e%a5%e5%85%a5keycloak%e8%ae%a4%e8%af%81">Geeker-Admin接入Keycloak认证</a></li>
@@ -7356,7 +7453,15 @@ systemctl restart libvirtd
 <li><a href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e6%9b%99%e5%85%89%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%a3%85%e6%9c%ba%e6%97%a0raid%e5%8d%a1%e9%a9%b1%e5%8a%a8%e5%af%bc%e8%87%b4%e4%b8%8d%e8%83%bd%e8%af%86%e5%88%ab%e7%a1%ac%e7%9b%98%e9%97%ae%e9%a2%98%e5%88%86%e6%9e%90%e4%b8%8e%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88">曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案</a></li>
 <li><a href="#%e6%8a%98%e8%85%belinux-%e4%b8%ad%e6%a0%87%e9%ba%92%e9%ba%9fv7-%e8%81%94%e6%83%b3%e7%89%a9%e7%90%86%e6%9c%bapxe%e8%a3%85%e6%9c%ba%e6%8a%a5%e9%94%99%e2%80%9c%e6%a0%b9%e5%88%86%e5%8c%ba%e6%89%be%e4%b8%8d%e5%88%b0%e2%80%9d%e5%8e%9f%e5%9b%a0%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95">联想物理机PXE装机报错“根分区找不到”原因及解决方法</a></li>
 </ul>
-<h2 id="tags-_2"><span class="md-tag">思源笔记</span></h2>
+<h2 id="tags-_2"><span class="md-tag">光猫破解</span></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2">北京联通中兴F4610U光猫开超管界面</a></li>
+</ul>
+<h2 id="tags-_3"><span class="md-tag">宽带</span></h2>
+<ul>
+<li><a href="#%e6%8a%98%e8%85%belinux-openwrt-%e5%8c%97%e4%ba%ac%e8%81%94%e9%80%9a%e4%b8%ad%e5%85%b4f4610u%e5%85%89%e7%8c%ab%e5%bc%80%e8%b6%85%e7%ae%a1%e7%95%8c%e9%9d%a2">北京联通中兴F4610U光猫开超管界面</a></li>
+</ul>
+<h2 id="tags-_4"><span class="md-tag">思源笔记</span></h2>
 <ul>
 <li><a href="#%e8%bf%90%e7%bb%b4%e5%bc%80%e5%8f%91-%e7%ac%94%e8%ae%b0%e5%8f%8a%e6%96%87%e6%a1%a3%e8%bd%af%e4%bb%b6-%e6%80%9d%e6%ba%90%e7%ac%94%e8%ae%b0k8s%e9%83%a8%e7%bd%b2">思源笔记k8s部署</a></li>
 </ul>
