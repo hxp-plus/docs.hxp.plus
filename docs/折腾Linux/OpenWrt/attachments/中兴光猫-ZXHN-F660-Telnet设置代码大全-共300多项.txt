@@ -1,0 +1,699 @@
+中兴光猫 ZXHN F660 Telnet设置代码大全，共300多项  
+
+Login: root
+Password:Zte521
+
+BusyBox v1.17.2 (2022-10-20 22:55:06 CST) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+/ # cd /userconfig/cfg
+/userconfig/cfg # ls
+db_backup_cfg.xml   db_user_cfg.xml     log                 protocol_flag.file
+db_default_cfg.xml  flag_usrfs          logconf
+/userconfig/cfg # tftp -p -l db_user_cfg.xml 192.168.1.25
+/userconfig/cfg #
+
+
+
+C:\Users\Lucky0605>factorymode_crack.exe -l xxx open -i 192.168.1.1
+version:3.1
+Enter 192.168.1.1 FactoryMode Success:FactoryModeAuth.gch?user=HE46r2b0&pass=1c2D3J0G
+
+C:\Users\Lucky0605>factorymode_crack.exe -l xxx open -i 192.168.1.1
+version:3.1
+Enter 192.168.1.1 FactoryMode Success:FactoryModeAuth.gch?user=oWSwFMcp&pass=24tQW4in
+
+C:\Users\Lucky0605>factorymode_crack.exe -l xxx open -i 192.168.1.1
+version:3.1
+Enter 192.168.1.1 FactoryMode Success:FactoryModeAuth.gch?user=31zKRwtf&pass=AcS20iNG
+
+C:\Users\Lucky0605>factorymode_crack.exe -l xxx open -i 192.168.1.1
+version:3.1
+Enter 192.168.1.1 FactoryMode Success:FactoryModeAuth.gch?user=VzYm0FLp&pass=r1N1T6q8
+
+C:\Users\Lucky0605>factorymode_crack.exe -l xxx open -i 192.168.1.1
+version:3.1
+Enter 192.168.1.1 FactoryMode Success:FactoryModeAuth.gch?user=07IftA24&pass=xkvLaKxU
+
+C:\Users\Lucky0605>
+
+
+# 光猫telnet端，确认本地已打开tftp，ip地址自己按实际改
+tftp -p -l userconfig/cfg/db_user_cfg.xml -r db_user_cfg.xml 192.168.1.2
+# 本地端
+.\ztecfg.exe -d AESCBC -i .\db_user_cfg.xml -o break.
+
+2：
+
+需先开启Telnet进入
+
+解决刷完后打开任意网页自动跳转LOID注册页面—
+
+sendcmd 1 DB set PDTCTUSERINFO 0 Status 0
+
+sendcmd 1 DB set PDTCTUSERINFO 0 Result 1
+
+sendcmd 1 DB save
+
+更改网口上行
+setmac 1 40961 1
+sendcmd 1 DB save
+reboot
+
+—查看系统参数—
+
+setmac show2
+
+
+
+—开永久telnet（密码Zte521）—
+
+sendcmd 1 DB p TelnetCfg
+
+sendcmd 1 DB set TelnetCfg 0 Lan_Enable 1
+
+sendcmd 1 DB set TelnetCfg 0 TS_UName root
+
+sendcmd 1 DB set TelnetCfg 0 TSLan_UName root
+
+sendcmd 1 DB set TelnetCfg 0 TS_UPwd Zte521??
+
+sendcmd 1 DB set TelnetCfg 0 TSLan_UPwd Zte521
+
+sendcmd 1 DB set TelnetCfg 0 Max_Con_Num 99
+
+sendcmd 1 DB set TelnetCfg 0 ExitTime 999999
+
+sendcmd 1 DB set TelnetCfg 0 InitSecLvl 3
+
+sendcmd 1 DB set TelnetCfg 0 CloseServerTime 9999999
+
+sendcmd 1 DB set TelnetCfg 0 Lan_EnableAfterOlt 1
+
+sendcmd 1 DB save
+
+killall telnetd
+
+
+
+—备份mtd0分区–
+
+dd if=/dev/mtd0 of=/mnt/【优盘目录名】/f7607p.bin
+
+或
+
+cat /dev/mtd0 > /mnt/【优盘目录名】/f7607p.bin
+
+
+
+—删除Wi-Fi前缀—
+
+sendcmd 1 DB set WLANCfg 0 ESSIDPrefix （设置2.4G的ssid前缀为空）
+
+sendcmd 1 DB set WLANCfg 4 ESSIDPrefix （设置5G的ssid前缀为空）
+
+sendcmd 1 DB save
+
+
+
+—切换区域（省份）—
+
+cat /etc/init.d/regioncode 查看区域
+
+upgradetest sdefconf 307 （shanxi）
+
+
+
+—修改超密—
+
+sendcmd 1 DB set DevAuthInfo 0 User xxxxxxxx （改超级用户名）
+
+sendcmd 1 DB set DevAuthInfo 0 Pass xxxxxxxx（改超级用户密码）
+
+
+
+—查看系统参数—
+
+setmac show2
+
+
+
+—修改ponmac—
+
+setmac 1 32769 MAC地址
+
+
+
+—删除电信远程控制—
+
+sendcmd 1 DB p MgtServer （查看一下当前的电信远程控制）
+
+sendcmd 1 DB set MgtServer 0 URL http://127.0.0.1? 把服务器 URL 改掉
+
+sendcmd 1 DB set MgtServer 0 Tr069Enable 0 禁用TR069远程控制
+
+sendcmd 1 DB save
+
+
+
+—关闭下行GPON光口和WiFi—
+
+ip link set mini-olt down
+
+rmmod optical
+
+rmmod mtlk
+
+rmmod mtlkroot
+
+
+
+—手动欺骗ITMS注册结果—
+
+sendcmd 1 DB set PDTCTUSERINFO 0 Status 0
+
+sendcmd 1 DB set PDTCTUSERINFO 0 Result 1
+
+sendcmd 1 DB save
+
+
+
+—查看硬件配置信息—
+
+cat /proc/capability/boardinfo
+
+ 作者：Jutean https://www.bilibili.com/read/cv22921362/ 出处：bilibili
+
+3：常用命名：
+
+sendcmd 1 DB
+all:print all table
+p [tablename] :print table info
+pv:print view info
+rreset:remote reset
+lreset:local reset
+reset:local reset
+save
+debug [0/1]: not reboot to see the file of critical param
+set [tablename][rownum][dm][dmvalue] :
+addr [tablename]: add ROW to table
+delr [tablename][rownum]:delete ROW of table
+pti [tablename]: print the detail information of the table
+fc [bin-file-name]:compress user config to bin-file-name
+fuc [bin-file-name]:uncompress bin-file-name to user config
+bckinterval [0]: time of backup 0:syn
+bcktype [0/1/2]: backup type 0:no bck 1:all bck 2:part bck
+backup : backup now!
+partrst [ModName]: part restore now!
+prtpdt : print all of product interface.
+pcl : print cfg list.
+pvf [ViewID]: print View Fun.
+aset1 :
+aget1 : print View Fun.
+aset1w :
+aget1w :
+aset1wnl :
+aget1wnl :
+aset1wp :
+aget1wp :
+addv :
+lck1w :
+find1w :
+pshm : show shmpool infomation
+pstate : show state_machine infomation
+saveasy : Asy save
+decry : cfg decry
+
+sendcmd 1 DB p TelnetCfg
+<Tbl name="TelnetCfg" RowCount="1">
+<Row No="0">
+<DM name="TS_Enable" val="0"/>
+<DM name="Wan_Enable" val="0"/>
+<DM name="Lan_Enable" val="0"/>
+<DM name="TS_Port" val="23"/>
+<DM name="TS_UName" val="root"/>
+<DM name="TS_UPwd" val="root"/>
+<DM name="Max_Con_Num" val="2"/>
+<DM name="ProcType" val="0"/>
+</Row>
+</Tbl>
+
+Telnet光猫IP（192.168.1.1）输入用户名（root）和密码（Zte521）即可进入telnet界面，输入一下命令显示所有可以设置的参数：
+
+命令：sendcmd 1 DB p all 有些版本不现实，下面我把所有的可设置項列出来了，具体修改命令格式在最下面。
+
+0 sendcmd 1 DB p DBBase
+1 sendcmd 1 DB p WAND
+
+2 sendcmd 1 DB p WANCD
+#wan vlan
+
+3 sendcmd 1 DB p WANC
+#pppoe for wan
+
+4 sendcmd 1 DB p WANCServList
+5 sendcmd 1 DB p WANCIP
+6 sendcmd 1 DB p WANCIPOpts
+
+7 sendcmd 1 DB p WANCPPP
+#pppoe 信息
+
+8 sendcmd 1 DB p IPv6IP
+
+9 sendcmd 1 DB p LAND
+#LAN 口信息
+
+10 sendcmd 1 DB p BrGrp
+#端口桥接情况
+
+11 sendcmd 1 DB p BrGrp2ndIP
+12 sendcmd 1 DB p DHCP6SHostCfg
+
+13 sendcmd 1 DB p DHCPSHostCfg
+#dhcp服务器配置
+
+14 sendcmd 1 DB p DHCPSPoll
+15 sendcmd 1 DB p DHCPSOpts
+
+16 sendcmd 1 DB p DHCPSBind
+#dhcp地址绑定mac
+
+17 sendcmd 1 DB p DHCPSHostInfo
+#dhcp分配情况
+
+18 sendcmd 1 DB p DHCPSComm
+19 sendcmd 1 DB p DHCPCComm
+20 sendcmd 1 DB p WLANBase
+
+21 sendcmd 1 DB p WLANCfg
+#多SSID信息
+
+22 sendcmd 1 DB p WLANWMM
+23 sendcmd 1 DB p WLANWEP
+24 sendcmd 1 DB p WLANAD
+25 sendcmd 1 DB p WLANCountry
+26 sendcmd 1 DB p WLANWPS
+27 sendcmd 1 DB p WLANPSK
+28 sendcmd 1 DB p IGMPProxy
+
+29 sendcmd 1 DB p DevInfo
+#设备信息
+
+30 sendcmd 1 DB p UserIF
+#web登录超时
+
+31 sendcmd 1 DB p UserInfo
+#web用户信息
+
+32 sendcmd 1 DB p AccessDev
+33 sendcmd 1 DB p AclCfg
+34 sendcmd 1 DB p FWBase
+35 sendcmd 1 DB p FWLevel
+36 sendcmd 1 DB p FWALG
+37 sendcmd 1 DB p FWDMZ
+38 sendcmd 1 DB p FWIP
+39 sendcmd 1 DB p FWURL
+40 sendcmd 1 DB p FWSC
+41 sendcmd 1 DB p FWPM
+42 sendcmd 1 DB p FWPT
+43 sendcmd 1 DB p FWPURL
+44 sendcmd 1 DB p FWPMAPP
+45 sendcmd 1 DB p FWPMDEV
+
+46 sendcmd 1 DB p SNTP
+#SNTP设置
+
+47 sendcmd 1 DB p QOSBasic
+48 sendcmd 1 DB p QOSClassification
+49 sendcmd 1 DB p QOSPolicer
+50 sendcmd 1 DB p QOSQueue
+51 sendcmd 1 DB p MAC
+52 sendcmd 1 DB p L3Forwarding
+53 sendcmd 1 DB p L3ForwardingRT
+
+54 sendcmd 1 DB p MgtServer
+#cn远程控制选项
+
+55 sendcmd 1 DB p ParamAttr
+56 sendcmd 1 DB p DNSSettings
+57 sendcmd 1 DB p DNSHostsList
+58 sendcmd 1 DB p DNSDHCPHostsList
+59 sendcmd 1 DB p UPnPCfg
+60 sendcmd 1 DB p UPnPPortMap
+
+61 sendcmd 1 DB p DDNSClient
+62 sendcmd 1 DB p DDNSService
+63 sendcmd 1 DB p DDNSHostname
+#自带DDNS
+
+64 sendcmd 1 DB p WANDCommCfg
+65 sendcmd 1 DB p Log
+
+66 sendcmd 1 DB p FTPServerCfg
+67 sendcmd 1 DB p FTPUser
+#FTP配置
+
+68 sendcmd 1 DB p USBStorageParList
+
+69 sendcmd 1 DB p TelnetCfg
+
+70 sendcmd 1 DB p RouteSYSRT
+71 sendcmd 1 DB p L2BBridge
+72 sendcmd 1 DB p L2BFilter
+73 sendcmd 1 DB p L2BMarking
+74 sendcmd 1 DB p L2BAvailIF
+
+75 sendcmd 1 DB p PortBinding
+76 sendcmd 1 DB p PortControl
+#端口配置
+
+77 sendcmd 1 DB p Upgrade
+78 sendcmd 1 DB p MacFilter
+79 sendcmd 1 DB p RIPConf
+80 sendcmd 1 DB p RIPIf
+81 sendcmd 1 DB p UsbBakRst
+82 sendcmd 1 DB p USBBackup
+83 sendcmd 1 DB p APPList
+84 sendcmd 1 DB p PRoute
+85 sendcmd 1 DB p Tr069Queue
+86 sendcmd 1 DB p AttrInfo
+87 sendcmd 1 DB p VoIPPortCfg
+88 sendcmd 1 DB p VoIPVMediaCfg
+89 sendcmd 1 DB p VoIPFMediaCfg
+90 sendcmd 1 DB p VoIPMMediaCfg
+91 sendcmd 1 DB p VoIPPhyNumCfg
+92 sendcmd 1 DB p VoIPBearInfo
+93 sendcmd 1 DB p VoIPSIP
+94 sendcmd 1 DB p VoIPSLCTIMECfg
+95 sendcmd 1 DB p VoIPSLCINFCfg
+96 sendcmd 1 DB p VoIPVoiceProfile
+97 sendcmd 1 DB p VoIPVPCallTimer
+98 sendcmd 1 DB p VoIPVPService
+99 sendcmd 1 DB p VoIPVPCodec
+100 sendcmd 1 DB p VoIPVPDTMF
+101 sendcmd 1 DB p VoIPVPLine
+102 sendcmd 1 DB p VoIPCSLine
+103 sendcmd 1 DB p VoIPSIPServer
+104 sendcmd 1 DB p VoIPSIPTimer
+105 sendcmd 1 DB p VoIPDTMFADVCfg
+106 sendcmd 1 DB p VoIPFaxModemRptCtrlCfg
+107 sendcmd 1 DB p VoIPDSPCIDCfg
+108 sendcmd 1 DB p VoIPBGWCfg
+109 sendcmd 1 DB p VoIPDSPMISCCfg
+110 sendcmd 1 DB p VoIPRTPADVCfg
+111 sendcmd 1 DB p VoIPRTCPADVCfg
+112 sendcmd 1 DB p VoIPRTPREDCfg
+113 sendcmd 1 DB p VoIPTONECfg
+114 sendcmd 1 DB p VoIPTONEEventCfg
+115 sendcmd 1 DB p VoIPTONEDescrptCfg
+116 sendcmd 1 DB p VoIPTONEPatternCfg
+117 sendcmd 1 DB p VoIPT38ADVCfg
+118 sendcmd 1 DB p VoIPRingerCfg
+119 sendcmd 1 DB p VoIPRingerEventCfg
+120 sendcmd 1 DB p VoIPRingerDescrptCfg
+121 sendcmd 1 DB p VoIPRingerPatternCfg
+122 sendcmd 1 DB p VoIPVoiceProcCfg
+123 sendcmd 1 DB p VoIPPortStauts
+124 sendcmd 1 DB p VoIPSIPEventSubscribe
+125 sendcmd 1 DB p VoIPSIPLine
+126 sendcmd 1 DB p VoIPIADDiag
+127 sendcmd 1 DB p VoIPSRTermination
+128 sendcmd 1 DB p VoIPSRDigitCollect
+129 sendcmd 1 DB p VoIPSROfficeGroupPrefix
+130 sendcmd 1 DB p VoIPSROfficePrefix
+131 sendcmd 1 DB p VoIPSROfficeDigitMap
+132 sendcmd 1 DB p VoIPSRRouteDigitMap
+133 sendcmd 1 DB p VoIPSRBwList
+134 sendcmd 1 DB p VoIPSRPhyRefListEnable
+135 sendcmd 1 DB p VoIPLineCodec
+136 sendcmd 1 DB p VoIPDMTimerCfg
+137 sendcmd 1 DB p VoIPRTPCfg
+138 sendcmd 1 DB p VoIPRTCPCfg
+139 sendcmd 1 DB p VoIPSRTPCfg
+140 sendcmd 1 DB p VoIPFaxT38Cfg
+141 sendcmd 1 DB p VoIPFaxVBDCfg
+142 sendcmd 1 DB p VoIPModemVBDCfg
+143 sendcmd 1 DB p VoIPSessionCfg
+144 sendcmd 1 DB p VoIPLastSessionCfg
+145 sendcmd 1 DB p VoIPLineCfg
+146 sendcmd 1 DB p VoIPLineHistoryCfg
+147 sendcmd 1 DB p VoIPLineLastCfg
+148 sendcmd 1 DB p VoIPHook
+149 sendcmd 1 DB p VoIPHookVPCfg
+150 sendcmd 1 DB p VoIPIVRPsd
+151 sendcmd 1 DB p VoIPVPNP
+152 sendcmd 1 DB p VoIPVPNPPrefix
+153 sendcmd 1 DB p VOIPVPNUMBERPROC
+154 sendcmd 1 DB p VOIPVPSPEEDDIAL
+155 sendcmd 1 DB p VOIPVPCallFeature
+156 sendcmd 1 DB p VOIPVPSERVICEKEY
+157 sendcmd 1 DB p VoIPPoorQualityList
+158 sendcmd 1 DB p VoipCapabilitiesCodec
+159 sendcmd 1 DB p VOIPCAP
+160 sendcmd 1 DB p VOIPPhyInterface
+161 sendcmd 1 DB p VOIPPhyCallFeature
+162 sendcmd 1 DB p VOIPSLMTerm
+163 sendcmd 1 DB p VOIPSLMWAN
+164 sendcmd 1 DB p VOIPSLMGlobal
+165 sendcmd 1 DB p VOIPSLMAD
+166 sendcmd 1 DB p VOIPSLMSeviceKey
+167 sendcmd 1 DB p VOIPSLMMedia
+168 sendcmd 1 DB p VOIPSLMFaxMedia
+169 sendcmd 1 DB p VOIPSLMVOIPCfg
+170 sendcmd 1 DB p VOIPSrCommonConfigs
+171 sendcmd 1 DB p VOIPSrTidConfigs
+172 sendcmd 1 DB p VOIPSrGroupPrefix
+173 sendcmd 1 DB p VOIPSrOfficeDiMap
+174 sendcmd 1 DB p VOIPSrRouteDiMap
+175 sendcmd 1 DB p VOIPSrBwListInf
+176 sendcmd 1 DB p VOIPDRSLC
+177 sendcmd 1 DB p VOIPDSPToneRing
+178 sendcmd 1 DB p VOIPDSPT38Fax
+179 sendcmd 1 DB p VOIPDSPVoiceGainEc
+180 sendcmd 1 DB p VOIPDSPVadCng
+181 sendcmd 1 DB p VOIPDSPDTMF
+182 sendcmd 1 DB p VOIPDSPTone
+183 sendcmd 1 DB p VOIPDSPJitterBuffer
+184 sendcmd 1 DB p VOIPDSPFaxModemTone
+185 sendcmd 1 DB p VOIPDSPFaxT38More
+186 sendcmd 1 DB p VOIPDSPCID
+187 sendcmd 1 DB p VOIPDSPFaxModemCtrl
+188 sendcmd 1 DB p VOIPDSPFaxVbd
+189 sendcmd 1 DB p VOIPDSPModemVbd
+190 sendcmd 1 DB p VOIPDSPMisc
+191 sendcmd 1 DB p VOIPRcaCommon
+192 sendcmd 1 DB p VOIPSIPWANLine
+193 sendcmd 1 DB p VOIPSIPLANLine
+194 sendcmd 1 DB p VOIPSIPTimerCfg
+195 sendcmd 1 DB p VOIPSIPServerCfg
+196 sendcmd 1 DB p VOIPSIPCfg
+197 sendcmd 1 DB p VOIPSIPExtraCfg
+198 sendcmd 1 DB p VOIPSIPEventCfg
+199 sendcmd 1 DB p VOIPSIPSupportedCfg
+200 sendcmd 1 DB p VOIPCommTotal
+201 sendcmd 1 DB p VOIPCommTTY
+202 sendcmd 1 DB p VOIPCommPort
+203 sendcmd 1 DB p VOIPExt
+204 sendcmd 1 DB p VOIPCIDCfg
+205 sendcmd 1 DB p VOIPVoiceRecord
+206 sendcmd 1 DB p VOIPIVRPassword
+207 sendcmd 1 DB p VOIPHookCfg
+
+208 sendcmd 1 DB p WANDInstInfo
+209 sendcmd 1 DB p PortPriority
+#端口优先级
+
+210 sendcmd 1 DB p SambaCfg
+#samba
+
+211 sendcmd 1 DB p TimePolicy
+#定时策略
+
+212 sendcmd 1 DB p PrefixCfg
+213 sendcmd 1 DB p RaCfg
+
+214 sendcmd 1 DB p DMSCfg
+#DMS配置
+
+215 sendcmd 1 DB p MldProxyCfg
+216 sendcmd 1 DB p PingKeep
+217 sendcmd 1 DB p PingCfg
+218 sendcmd 1 DB p DHCP6SPool
+
+219 sendcmd 1 DB p UserBehaviorCfg
+#行为管理
+
+220 sendcmd 1 DB p UBApps
+221 sendcmd 1 DB p UBFlow
+222 sendcmd 1 DB p UBHttpGetDiag
+
+# sendcmd 1 DB set UBHttpGetDiag 0 HttpServerURL
+
+
+223 sendcmd 1 DB p UBTcpConnectDiag
+224 sendcmd 1 DB p UBDnsQueryDiag
+225 sendcmd 1 DB p NetMonitorDiagnostics
+226 sendcmd 1 DB p UBBasicInfo
+227 sendcmd 1 DB p UBClassification
+
+228 sendcmd 1 DB p VLANInfo
+229 sendcmd 1 DB p PONCfgProduct
+
+230 sendcmd 1 DB p BoardInfo
+#主板信息
+
+231 sendcmd 1 DB p LANInfo
+#端口信息
+
+232 sendcmd 1 DB p IGMPProduct
+233 sendcmd 1 DB p MultiGlobalProduct
+234 sendcmd 1 DB p MultiPortProduct
+235 sendcmd 1 DB p MultiWancConfProduct
+
+236 sendcmd 1 DB p ETHProduct
+237 sendcmd 1 DB p ETHCONFProduct
+
+238 sendcmd 1 DB p QOSCONFProduct
+239 sendcmd 1 DB p QOSProduct
+240 sendcmd 1 DB p QueueWeightProduct
+241 sendcmd 1 DB p TcToCosProduct
+242 sendcmd 1 DB p SvlanS2DtagProduct
+243 sendcmd 1 DB p SvlanMemberCfgProduct
+244 sendcmd 1 DB p RateChgTcProduct
+245 sendcmd 1 DB p AddTagProduct
+246 sendcmd 1 DB p RemoveTagProduct
+247 sendcmd 1 DB p RuleMacProduct
+248 sendcmd 1 DB p PortRuleMacProduct
+249 sendcmd 1 DB p TAGRuleMacProduct
+250 sendcmd 1 DB p UNTAGRuleMacProduct
+251 sendcmd 1 DB p DscpToTciProduct
+252 sendcmd 1 DB p PortQosProduct
+253 sendcmd 1 DB p EthQosACL
+254 sendcmd 1 DB p PortFilterProduct
+255 sendcmd 1 DB p SwitchMonitorProduct
+256 sendcmd 1 DB p PortDHCPServer
+
+257 sendcmd 1 DB print WEBCFG
+#WEB登陆端口
+
+258 sendcmd 1 DB p OMCICFG
+259 sendcmd 1 DB p ARPDETECTConfig
+260 sendcmd 1 DB p ARPAGEINGTIME
+261 sendcmd 1 DB p PdtMiddleWare
+262 sendcmd 1 DB p ALARMCONFIG
+263 sendcmd 1 DB p ALARMPARM
+264 sendcmd 1 DB p MONITORCONFIG
+265 sendcmd 1 DB p MONITORPARM
+266 sendcmd 1 DB p MonitorCollectorCfg
+267 sendcmd 1 DB p MonitorCollectorParm
+
+268 sendcmd 1 DB p CltLmt
+#电信限制
+
+269 sendcmd 1 DB p PDTCTUSERINFO
+270 sendcmd 1 DB p WancPortBindingProduct
+271 sendcmd 1 DB p DhcpcOption125Product
+272 sendcmd 1 DB p PDTWANCEXT
+273 sendcmd 1 DB p WANCPONCFGProduct
+274 sendcmd 1 DB p WancpppProduct
+275 sendcmd 1 DB p PDTE8COPT60S
+276 sendcmd 1 DB p PonCommonCfg
+277 sendcmd 1 DB p LoopBackCheck
+278 sendcmd 1 DB p LoopBackCheckAlarm
+279 sendcmd 1 DB p LoopBackCheckPara
+280 sendcmd 1 DB p LoopBackCheckVlan
+281 sendcmd 1 DB p LongLuminousDetect
+282 sendcmd 1 DB p SimCardInfo
+283 sendcmd 1 DB p HLTInfo
+284 sendcmd 1 DB p HLTLanStatInfo
+285 sendcmd 1 DB p HistoryHLTInfo
+286 sendcmd 1 DB p HistoryHLTLanStatInfo
+287 sendcmd 1 DB p DhcpV6Opt16S
+288 sendcmd 1 DB p Dhcp6cOpt17
+289 sendcmd 1 DB p Lanusb
+290 sendcmd 1 DB p Tr069InformParaExtend
+291 sendcmd 1 DB p PONPower
+292 sendcmd 1 DB p QosCvpA
+293 sendcmd 1 DB p QOSRule
+294 sendcmd 1 DB p QOSType
+295 sendcmd 1 DB p DOWNETHFLOW
+296 sendcmd 1 DB p DOWNGEMFLOW
+297 sendcmd 1 DB p DOWNVLANACTION
+
+298 sendcmd 1 DB p GPONCFG
+#GPON注册信息
+
+299 sendcmd 1 DB p OMCIFLOW
+300 sendcmd 1 DB p OUTINPORTUPETHFLOW
+301 sendcmd 1 DB p PONALARM
+302 sendcmd 1 DB p RATECTR
+303 sendcmd 1 DB p TCIPORTUPETHFLOW
+304 sendcmd 1 DB p TCI2GEMFLOW
+305 sendcmd 1 DB p TCI2TCI
+306 sendcmd 1 DB p TCONT
+307 sendcmd 1 DB p TCONTQUEUE
+308 sendcmd 1 DB p UPETHFLOW
+309 sendcmd 1 DB p UPGEMFLOW
+310 sendcmd 1 DB p UPVLANACTION
+311 sendcmd 1 DB p VID2DOWNETHFLOW
+312 sendcmd 1 DB p VIDPORT2UPETHFLOW
+313 sendcmd 1 DB p DownVidTci2EthflowProduct
+314 sendcmd 1 DB p UpVidTci2EthflowProduct
+315 sendcmd 1 DB p DownEthClassMethodProduct
+316 sendcmd 1 DB p QOSCONFProduct
+317 sendcmd 1 DB p QOSProduct
+318 sendcmd 1 DB p ETHFLOWCLASSMETHODProduct
+319 sendcmd 1 DB p GEMPORT
+320 sendcmd 1 DB p VLANTOUPGEMPORTProduct
+321 sendcmd 1 DB p CatvOpticalPara
+
+
+每一条代码中的“p”代表print，显示的意思，改成“set”，加上用“p”打印出来的表格号、变量名等可以直接修改光猫的所有设置参数。
+
+例如：sendcmd 1 DB p MgtServer
+显示如下内容：
+
+<Tbl name="MgtServer" RowCount="1">
+        <Row No="0">
+                <DM name="URL" val="http://10.0.0.1"/>
+                <DM name="UserName" val="hgw"/>
+                <DM name="Password" val="hgw"/>
+                <DM name="PeriodicInformEnable" val="1"/>
+                <DM name="PeriodicInformInterval" val="43200"/>
+                <DM name="PeriodicInformTime" val="0001-01-01T00:00:00Z"/>
+                <DM name="ParameterKey" val=""/>
+                <DM name="ConnectionRequestURL" val="58000"/>
+                <DM name="ConnectionRequestUsername" val="itms"/>
+                <DM name="ConnectionRequestPassword" val="itms"/>
+                <DM name="UpgradesManaged" val="0"/>
+                <DM name="Event" val=""/>
+                <DM name="DefaultWan" val="IGD.WD1.WCD1.WCIP1"/>
+                <DM name="SessionRetryTimes" val="10:10:10:30:60:300:600:3600"/>
+                <DM name="SupportCertAuth" val="0"/>
+                <DM name="Tr069Enable" val="0"/>
+                <DM name="MWSURL" val="http://0.0.0.0:9090"/>
+                <DM name="InfoStat" val="0"/>
+                <DM name="InfoDescption" val="3"/>
+                <DM name="AcsStat" val="0"/>
+                <DM name="AcsDescption" val="0"/>
+        </Row>
+</Tbl>
+
+其中，行号“0”，变量名“Tr069Enable”，原来的值是1，可以改成0，关闭运营商远程操控你的光猫，命令如下：
+
+命令：sendcmd 1 DB set MgtServer 0 Tr069Enable 0
+
+解释：sendcmd 1 DB 设置 表格名 行号 变量名    值
+
+      sendcmd 1 DB set WLANCfg 1 11iEncryptType 2
+
+      sendcmd 1 DB set WLANCfg 1 ESSID IPTV
+
+      sendcmd 1 DB set FTPServerCfg 0 FtpEnable 1
+
+      sendcmd 1 DB set PortControl 0 PortValue 88
+      
+      sendcmd 1 DB set UserIF 0 Timeout 300
+
+    
+
