@@ -127,6 +127,8 @@ nav:
           - Hyper-V修改调度器: 虚拟化技术/Hyper-V/Hyper-V修改调度器.md
       - QEMU:
           - virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题: ./虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md
+      - 华为云:
+          - 华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决: 虚拟化技术/华为云/华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决.md
   - 文档分类: tags.md
 plugins:
   - search: null
