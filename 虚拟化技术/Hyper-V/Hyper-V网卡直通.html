@@ -10,13 +10,13 @@
         <meta name="author" content="胡喜平">
       
       
-        <link rel="canonical" href="https://docs.hxp.plus/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html">
+        <link rel="canonical" href="https://docs.hxp.plus/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E7%BD%91%E5%8D%A1%E7%9B%B4%E9%80%9A.html">
       
       
-        <link rel="prev" href="../../%E6%8A%98%E8%85%BELinux/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10/%E8%AE%B0%E6%9F%90%E6%AC%A1%E6%9F%90%E5%AE%89%E5%85%A8%E5%8E%82%E5%95%86%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E5%90%8E%EF%BC%8CLinux%E5%87%BA%E7%8E%B0ping%E5%BB%B6%E8%BF%9F%E9%AB%98%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF.html">
+        <link rel="prev" href="Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html">
       
       
-        <link rel="next" href="Hyper-V%E7%BD%91%E5%8D%A1%E7%9B%B4%E9%80%9A.html">
+        <link rel="next" href="../QEMU/virt-manager%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%A5%E9%94%99%E2%80%9CDid%20not%20find%20any%20UEFI%20binary%20path%20for%20arch%20%27aarch64%27%E2%80%9D%E9%97%AE%E9%A2%98.html">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Hyper-V修改调度器 - hxp的文档库</title>
+        <title>Hyper-V网卡直通 - hxp的文档库</title>
       
     
     
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Hyper-V修改调度器
+              Hyper-V网卡直通
             
           </span>
         </div>
@@ -798,6 +798,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hyper-V修改调度器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -810,29 +831,18 @@
         
       
       
-      <a href="Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   <span class="md-ellipsis">
-    Hyper-V修改调度器
+    Hyper-V网卡直通
   </span>
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Hyper-V%E7%BD%91%E5%8D%A1%E7%9B%B4%E9%80%9A.html" class="md-nav__link">
+      <a href="Hyper-V%E7%BD%91%E5%8D%A1%E7%9B%B4%E9%80%9A.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -841,6 +851,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 宿主机禁用网卡
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 将设备挂载到虚拟机
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -987,6 +1044,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 宿主机禁用网卡
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 将设备挂载到虚拟机
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1005,48 +1097,38 @@
 
 
                   
-  
-<nav class="md-tags" >
-  
-    
-    
-    
-      <a href="../../tags.html#hyper-v" class="md-tag">Hyper-V</a>
-    
-  
-</nav>
-
 
   
   
 
 
-<h1 id="hyper-v">Hyper-V 修改调度器</h1>
-<p>在尝试给 Hyper-V 虚拟机设置 CPU 使用限制时，发现这样的告警：</p>
-<p><img alt="" src="images/hyper-v_1.png" /></p>
-<p>需要修改调度器。查看当前调度器的 PowerShell 命令为：</p>
-<pre><code class="language-powershell">Get-WinEvent -FilterHashTable @{ProviderName=&quot;Microsoft-Windows-Hyper-V-Hypervisor&quot;; ID=2} -MaxEvents 1
+<h1 id="hyper-v">Hyper-V 网卡直通</h1>
+<h2 id="1">1. 宿主机禁用网卡</h2>
+<p>进入设备管理器，先找到网卡的 LocationPath ：</p>
+<p><img alt="获取LocationPath" src="images/%E8%8E%B7%E5%8F%96LocationPath.png" /></p>
+<p>将其记录下来后，设备管理器中禁用设备：</p>
+<p><img alt="宿主机禁用设备" src="images/%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%A6%81%E7%94%A8%E8%AE%BE%E5%A4%87.png" /></p>
+<p>之后将设备从宿主机上解除挂载：</p>
+<pre><code class="language-powershell">Dismount-VMHostAssignableDevice -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot; -Force
 </code></pre>
-<p>命令返回如下：</p>
-<pre><code>   ProviderName: Microsoft-Windows-Hyper-V-Hypervisor
-
-
-TimeCreated                      Id LevelDisplayName Message
------------                      -- ---------------- -------
-6/1/2024 9:31:43 PM               2 Information      Hypervisor scheduler type is 0x4.
+<p>如果需要将网卡加回宿主机：</p>
+<pre><code class="language-powershell">Mount-VMHostAssignableDevice -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
 </code></pre>
-<p>其中 <code>0x4</code> 表示调度器为 <code>Root scheduler</code> ，其它数字含义如下：</p>
-<ul>
-<li>1 = Classic scheduler, SMT disabled</li>
-<li>2 = Classic scheduler</li>
-<li>3 = Core scheduler</li>
-<li>4 = Root scheduler</li>
-</ul>
-<p>调度器具体区别可参考 <a href="https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types">Manage Hyper-V hypervisor scheduler types</a> ，</p>
-<p>修改调度器方法为 Core scheduler 的方法为：</p>
-<pre><code>bcdedit /set hypervisorschedulertype core
+<p>如果查看已经解除挂载但未分配给虚拟机的设备：</p>
+<pre><code class="language-powershell">Get-VMHostAssignableDevice
 </code></pre>
-<p>修改以后需要重启。</p>
+<h2 id="2">2. 将设备挂载到虚拟机</h2>
+<p>将上述设备加入到虚拟机 <code>speedtest</code> 的命令为：</p>
+<pre><code class="language-powershell">Add-VMAssignableDevice -VMName speedtest -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
+</code></pre>
+<p>如果需要移除此设备：</p>
+<pre><code class="language-powershell">Remove-VMAssignableDevice -VMName speedtest -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
+</code></pre>
+<p>查看所有已连接设备：</p>
+<pre><code class="language-powershell">Get-VMAssignableDevice -VMName speedtest
+</code></pre>
+<h2 id="3">3. 参考资料</h2>
+<p><a href="https://www.nakivo.com/blog/hyper-v-gpu-passthrough/">https://www.nakivo.com/blog/hyper-v-gpu-passthrough/</a></p>
 
 
 
@@ -1069,7 +1151,7 @@ TimeCreated                      Id LevelDisplayName Message
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月20日</span>
   </span>
 
     
@@ -1079,7 +1161,7 @@ TimeCreated                      Id LevelDisplayName Message
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年6月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月20日</span>
   </span>
 
     
@@ -1115,7 +1197,7 @@ TimeCreated                      Id LevelDisplayName Message
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../../%E6%8A%98%E8%85%BELinux/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10/%E8%AE%B0%E6%9F%90%E6%AC%A1%E6%9F%90%E5%AE%89%E5%85%A8%E5%8E%82%E5%95%86%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E5%90%8E%EF%BC%8CLinux%E5%87%BA%E7%8E%B0ping%E5%BB%B6%E8%BF%9F%E9%AB%98%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路">
+          <a href="Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Hyper-V修改调度器">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1125,20 +1207,20 @@ TimeCreated                      Id LevelDisplayName Message
                 上一页
               </span>
               <div class="md-ellipsis">
-                记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路
+                Hyper-V修改调度器
               </div>
             </div>
           </a>
         
         
           
-          <a href="Hyper-V%E7%BD%91%E5%8D%A1%E7%9B%B4%E9%80%9A.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Hyper-V网卡直通">
+          <a href="../QEMU/virt-manager%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%A5%E9%94%99%E2%80%9CDid%20not%20find%20any%20UEFI%20binary%20path%20for%20arch%20%27aarch64%27%E2%80%9D%E9%97%AE%E9%A2%98.html" class="md-footer__link md-footer__link--next" aria-label="下一页: virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch &#39;aarch64&#39;”问题">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                Hyper-V网卡直通
+                virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题
               </div>
             </div>
             <div class="md-footer__button md-icon">

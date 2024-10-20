@@ -7145,7 +7145,33 @@ TimeCreated                      Id LevelDisplayName Message
 <p>修改调度器方法为 Core scheduler 的方法为：</p>
 <pre><code>bcdedit /set hypervisorschedulertype core
 </code></pre>
-<p>修改以后需要重启。</p></section><h1 class='nav-section-title-end'>Ended: Hyper-V</h1>
+<p>修改以后需要重启。</p></section><section class="print-page" id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a"><h1 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a-hyper-v">Hyper-V 网卡直通</h1>
+<h2 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a-1">1. 宿主机禁用网卡</h2>
+<p>进入设备管理器，先找到网卡的 LocationPath ：</p>
+<p><img alt="获取LocationPath" src="%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/images/%E8%8E%B7%E5%8F%96LocationPath.png" /></p>
+<p>将其记录下来后，设备管理器中禁用设备：</p>
+<p><img alt="宿主机禁用设备" src="%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/images/%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%A6%81%E7%94%A8%E8%AE%BE%E5%A4%87.png" /></p>
+<p>之后将设备从宿主机上解除挂载：</p>
+<pre><code class="language-powershell">Dismount-VMHostAssignableDevice -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot; -Force
+</code></pre>
+<p>如果需要将网卡加回宿主机：</p>
+<pre><code class="language-powershell">Mount-VMHostAssignableDevice -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
+</code></pre>
+<p>如果查看已经解除挂载但未分配给虚拟机的设备：</p>
+<pre><code class="language-powershell">Get-VMHostAssignableDevice
+</code></pre>
+<h%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a-2 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a-2">2. 将设备挂载到虚拟机</h2>
+<p>将上述设备加入到虚拟机 <code>speedtest</code> 的命令为：</p>
+<pre><code class="language-powershell">Add-VMAssignableDevice -VMName speedtest -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
+</code></pre>
+<p>如果需要移除此设备：</p>
+<pre><code class="language-powershell">Remove-VMAssignableDevice -VMName speedtest -LocationPath &quot;PCIROOT(0)#PCI(0100)#PCI(0000)#PCI(0600)#PCI(0001)&quot;
+</code></pre>
+<p>查看所有已连接设备：</p>
+<pre><code class="language-powershell">Get-VMAssignableDevice -VMName speedtest
+</code></pre>
+<h2 id="%e8%99%9a%e6%8b%9f%e5%8c%96%e6%8a%80%e6%9c%af-hyper-v-hyper-v%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a-3">3. 参考资料</h2>
+<p><a href="https://www.nakivo.com/blog/hyper-v-gpu-passthrough/">https://www.nakivo.com/blog/hyper-v-gpu-passthrough/</a></p></section><h1 class='nav-section-title-end'>Ended: Hyper-V</h1>
                         <h2 class='nav-section-title' id='section-qemu'>
                             QEMU <a class='headerlink' href='#section-qemu' title='Permanent link'>↵</a>
                         </h2>
