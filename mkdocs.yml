@@ -125,6 +125,7 @@ nav:
   - 虚拟化技术:
       - Hyper-V:
           - Hyper-V修改调度器: 虚拟化技术/Hyper-V/Hyper-V修改调度器.md
+          - Hyper-V网卡直通: 虚拟化技术/Hyper-V/Hyper-V网卡直通.md
       - QEMU:
           - virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题: ./虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md
       - 华为云:
