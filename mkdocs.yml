@@ -56,7 +56,7 @@ nav:
           - AWX和stolon高可用调优: 运维开发/AWX/AWX和stolon高可用调优.md
           - 使用stolon安装高可用PostgreSQL: 运维开发/AWX/使用stolon安装高可用PostgreSQL.md
           - 安装AWX-23.7: 运维开发/AWX/安装AWX-23.7.md
-          - AWX-23.9使用SAML对接keycloak认证: 运维开发/AWX/AWX-23.9使用SAML对接keycloak认证.md
+          - AWX-23.9使用SAML对接Keycloak-24认证: 运维开发/AWX/AWX-23.9使用SAML对接Keycloak-24认证.md
           - AWX增加并使用token: 运维开发/AWX/AWX增加并使用token.md
           - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
           - AWX新增容器组: 运维开发/AWX/AWX新增容器组.md
