@@ -110,8 +110,7 @@ kubectl -n awx get secret awx-admin-password -o jsonpath="{.data.password}" | ba
 如果需要修改 admin 密码，可以进入容器修改：
 
 ```bash
-kubectl -n awx exec -it awx-web-6b97857864-5rngv -- awx-manage update_password --username=admin -
--password=changeme
+kubectl -n awx exec -it awx-web-6b97857864-5rngv -- awx-manage update_password --username=admin --password=changeme
 ```
 
 ## 参考资料
