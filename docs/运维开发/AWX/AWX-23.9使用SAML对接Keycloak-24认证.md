@@ -183,10 +183,19 @@ sed ':a;N;$!ba;s/\n//g' certificate.pem | sed 's/^-----BEGIN CERTIFICATE-----//;
 
 ![](./images/微信截图_20250302182610.png)
 
+## 登录验证
+
 完成以后，去 AWX 点击这里登录：
+
 ![](images/截图录屏_org.deepin.browser_20240306175906.png)
+
 测试用户名、电子邮箱、姓名能否正常获取：
+
 ![](images/截图录屏_Navigator_20240306180102.png)
+
+## 其它设置
+
+可以在 `设置` -> `其它身份验证` 里设置 `登录重定向覆写 URL` 为 `/sso/login/saml/?idp=Keycloak` 来让 Keycloak SAML 为默认登陆选项。
 
 ## 参考文献
 
