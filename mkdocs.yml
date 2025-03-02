@@ -175,7 +175,6 @@ markdown_extensions:
   - pymdownx.tabbed: null
   - toc:
       permalink: true
+  - mdx_truly_sane_lists: null
 extra_css:
   - stylesheets/extra.css
-markdown_extensions:
-  - mdx_truly_sane_lists
