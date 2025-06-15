@@ -51,6 +51,8 @@ nav:
           - 银河麒麟V10安装Ceph: 存储技术/Ceph/银河麒麟V10安装Ceph.md
       - ZFS:
           - TrueNAS删除所有空快照: 存储技术/ZFS/TrueNAS删除所有空快照.md
+      - TrueNAS:
+          - TrueNAS iSCSI 安装 Windows Server 2025: 存储技术/TrueNAS/TrueNAS iSCSI 安装 Windows Server 2025.md
   - 运维开发:
       - AWX:
           - AWX和stolon高可用调优: 运维开发/AWX/AWX和stolon高可用调优.md
