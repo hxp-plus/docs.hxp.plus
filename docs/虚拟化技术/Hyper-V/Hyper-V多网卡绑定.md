@@ -19,6 +19,12 @@ Get-NetAdapter
 New-VMSwitch -Name "External" -NetAdapterName "以太网 2", "以太网 3" -AllowManagementOS $false
 ```
 
+查看虚拟交换机参数：
+
+```powershell
+Get-VMSwitchTeam -Name External | Format-List
+```
+
 修改虚拟交换机负载均衡算法为动态：
 
 ```powershell
