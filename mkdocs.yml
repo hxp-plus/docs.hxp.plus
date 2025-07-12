@@ -101,6 +101,7 @@ nav:
           - Linux配置udev规则忽略磁盘: 折腾Linux/通用Linux/Linux配置udev规则忽略磁盘.md
           - 使用tlog对登录到Linux上的用户进行录屏: 折腾Linux/通用Linux/使用tlog对登录到Linux上的用户进行录屏.md
           - Kickstart 软raid安装.md: 折腾Linux/通用Linux/Kickstart 软raid安装.md
+          - Linux 开启 OTP 二次认证: 折腾Linux/通用Linux/Linux 开启 OTP 二次认证.md
       - Gentoo:
           - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
           - 在Hyper-V环境安装Gentoo: 折腾Linux/Gentoo/在Hyper-V环境安装Gentoo.md
