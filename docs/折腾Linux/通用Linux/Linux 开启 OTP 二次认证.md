@@ -18,10 +18,10 @@ sudo dnf install google-authenticator qrencode qrencode-libs
 
 ## 配置令牌
 
-直接使用 google-authenticator 配置：
+直接使用 google-authenticator 配置（此处配置的是当前用户令牌）：
 
 ```bash
-sudo google-authenticator
+google-authenticator
 ```
 
 ## 配置 PAM
