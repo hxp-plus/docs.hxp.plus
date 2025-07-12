@@ -4,12 +4,12 @@
 
 下载以下文件：
 
-- [rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz](https://static.rust-lang.org/dist/2025-06-26/rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz)
-- [rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz](https://static.rust-lang.org/dist/2025-06-26/rust-std-1.80.1-aarch64-unknown-linux-gnu.tar.xz)
-- [rust-src-1.80.1.tar.xz](https://static.rust-lang.org/dist/2025-06-26/rust-src-1.80.1.tar.xz)
-- [rustup-init](https://static.rust-lang.org/rustup/archive/1.27.1/aarch64-unknown-linux-gnu/rustup-init)
+- rust-1.80.1-aarch64-unknown-linux-gnu.tar.xz
+- rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
+- rust-src-1.80.1.tar.xz
+- rustup-init
 
-安装地址详见 <https://static.rust-lang.org/dist/channel-rust-stable.toml>
+安装地址详见 <https://static.rust-lang.org/dist/channel-rust-stable.toml> 和 <https://rust-lang.github.io/rustup/installation/other.html>
 
 ## 配置安装路径
 
