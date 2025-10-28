@@ -59,7 +59,7 @@ git clone https://github.com/ipxe/ipxe.git
 cd src
 ```
 
-新建 `boot.ipxe` 文件：
+新建 `boot.ipxe` 文件，根据序列号启动：
 
 ```ipxe
 #!ipxe
@@ -67,6 +67,16 @@ echo Configure dhcp ....
 dhcp
 chain --replace http://pxe.hxp.lan/http-boot.ipxe
 shell
+```
+
+根据MAC地址启动：
+
+```ipxe
+#!ipxe
+echo Serial number: ${serial}
+echo Configure dhcp ....
+dhcp
+chain --replace http://pxe.hxp.lan:31485/ipxe/${netX/mac}.ipxe
 ```
 
 这个 iPXE 仅负责将网卡 DHCP 获取到 IP 地址，并加载 `http://pxe.hxp.lan/http-boot.ipxe` ，如果后续需要修改 iPXE 则修改 HTTP 服务器上 `http-boot.ipxe` 而不是重新编译这个 iPXE 镜像。编译 iPXE 镜像：
