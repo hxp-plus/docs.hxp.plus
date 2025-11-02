@@ -130,13 +130,19 @@ rd C:\WinPE_amd64
 ```cmd
 md C:\WinPE_amd64\mount
 Dism /Mount-Image /ImageFile:"C:\temp\boot.wim" /Index:1 /MountDir:"C:\WinPE_amd64\mount"
-Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository\rt640x64.inf_amd64_cbf4e23981c3c8a3\rt640x64.inf" /ForceUnsigned
+Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository" /ForceUnsigned /Recurse
 Dism /Unmount-Image /MountDir:"C:\WinPE_amd64\mount" /Commit
-Dism /Mount-Image /ImageFile:"C:\temp\install.wim" /Index:1 /MountDir:"C:\WinPE_amd64\mount"
-Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository\rt640x64.inf_amd64_cbf4e23981c3c8a3\rt640x64.inf" /ForceUnsigned
+Dism /Mount-Image /ImageFile:"C:\temp\install.wim" /Index:4 /MountDir:"C:\WinPE_amd64\mount"
+Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository" /ForceUnsigned /Recurse
 Dism /Unmount-Image /MountDir:"C:\WinPE_amd64\mount" /Commit
 rd C:\WinPE_amd64\mount
 rd C:\WinPE_amd64
+```
+
+其中 install.wim 命令应当填入的序号在这里查看：
+
+```cmd
+Dism /Get-ImageInfo /ImageFile:"C:\temp\install.wim"
 ```
 
 ## 安装 Windows Server
