@@ -112,54 +112,32 @@ chain --replace http://pxe.hxp.lan/boot-${serial}.ipxe
 之后找到开始菜单里的 `部署和映像工具环境` ，使用管理员权限运行，会得到一个 CMD 窗口，输入以下命令：
 
 ```cmd
-C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools>cd "..\Windows Preinstallation Environment\amd64"
-
-C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64>md C:\WinPE_amd64\mount
-
-C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64>Dism /Mount-Image /ImageFile:"en-us\winpe.wim" /index:1 /MountDir:"C:\WinPE_amd64\mount"
-
-部署映像服务和管理工具
-版本: 10.0.26100.2454
-
-正在安装映像
-[==========================100.0%==========================]
-操作成功完成。
-
-C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64>dir
- 驱动器 C 中的卷没有标签。
- 卷的序列号是 7E2C-A537
-
- C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64 的目录
-
-05/25/2025  04:55 PM    <DIR>          .
-05/25/2025  04:54 PM    <DIR>          ..
-05/25/2025  04:54 PM    <DIR>          en-us
-05/25/2025  04:54 PM    <DIR>          Media
-05/25/2025  04:55 PM    <DIR>          WinPE_OCs
-               0 个文件              0 字节
-               5 个目录 466,589,450,240 可用字节
-
-C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64>copype amd64 C:\temp\winpe\amd64
-
-===================================================
-Creating Windows PE customization working directory
-
-    C:\temp\winpe\amd64
-===================================================
-
-Staging media files...
-Mounting "C:\temp\winpe\amd64\media\sources\boot.wim"
-Copying boot files from WIM...
-Unmounting "C:\temp\winpe\amd64\media\sources\boot.wim"
-
-===================================================
-Successfully staged C:\temp\winpe\amd64
-===================================================
-
-
+cd "..\Windows Preinstallation Environment\amd64"
+md C:\WinPE_amd64\mount
+Dism /Mount-Image /ImageFile:"en-us\winpe.wim" /index:1 /MountDir:"C:\WinPE_amd64\mount"
+copype amd64 C:\temp\winpe\amd64
+Dism /Unmount-Image /MountDir:"C:\WinPE_amd64\mount" /Commit
+rd C:\WinPE_amd64\mount
+rd C:\WinPE_amd64
 ```
 
 之后将 `C:\temp\winpe\amd64` 复制到 HTTP 服务器的根目录下。
+
+## 修改 Windows 安装镜像增加驱动
+
+对 Windows 安装镜像 sources 目录下 boot.wim 和 install.wim 做如下操作（驱动可在 `C:\Windows\System32\DriverStore\FileRepository` 目录查找）：
+
+```cmd
+md C:\WinPE_amd64\mount
+Dism /Mount-Image /ImageFile:"C:\temp\boot.wim" /Index:1 /MountDir:"C:\WinPE_amd64\mount"
+Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository\rt640x64.inf_amd64_cbf4e23981c3c8a3\rt640x64.inf" /ForceUnsigned
+Dism /Unmount-Image /MountDir:"C:\WinPE_amd64\mount" /Commit
+Dism /Mount-Image /ImageFile:"C:\temp\install.wim" /Index:1 /MountDir:"C:\WinPE_amd64\mount"
+Dism /Image:"C:\WinPE_amd64\mount" /Add-Driver /Driver:"C:\Windows\System32\DriverStore\FileRepository\rt640x64.inf_amd64_cbf4e23981c3c8a3\rt640x64.inf" /ForceUnsigned
+Dism /Unmount-Image /MountDir:"C:\WinPE_amd64\mount" /Commit
+rd C:\WinPE_amd64\mount
+rd C:\WinPE_amd64
+```
 
 ## 安装 Windows Server
 
