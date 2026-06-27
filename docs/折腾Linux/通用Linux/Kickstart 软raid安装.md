@@ -1,3 +1,10 @@
+---
+tags:
+  - Linux
+  - Kickstart
+  - RAID
+---
+
 # Kickstart 软 RAID 安装
 
 使用以下 `kickstart` 分区配置安装 软 RAID 1 到最小的两块硬盘的分盘脚本如下：

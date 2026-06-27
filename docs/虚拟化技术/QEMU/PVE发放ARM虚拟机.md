@@ -1,3 +1,9 @@
+---
+tags:
+  - PVE
+  - QEMU
+  - ARM
+---
 
 # PVE发放ARM虚拟机
 

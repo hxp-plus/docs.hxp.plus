@@ -1,3 +1,10 @@
+---
+tags:
+  - Kubernetes
+  - k8s
+  - swap
+---
+
 # k8s 开启 swap 支持
 
 ## 隔离并驱逐所有容器

@@ -1,3 +1,10 @@
+---
+tags:
+  - 华为云
+  - cloud-init
+  - 银河麒麟V10
+---
+
 # 华为 HCS 8 与银河麒麟 V10SP4 cloud-init 适配问题解决
 
 ## 问题现象

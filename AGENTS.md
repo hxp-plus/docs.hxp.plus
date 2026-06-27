@@ -35,16 +35,16 @@ hxp 的中文个人文档库。MkDocs Material 主题，GitHub Actions 自动 `m
 
 ## WHERE TO LOOK
 
-| 任务 | 位置 | 备注 |
-|------|------|------|
-| 新增文档 | `docs/<分类>/<子类>/` + `mkdocs.yml` nav | **两处都要改**，否则不显示 |
-| 改首页 | `docs/index.md` | 个人简介 + 9 张证书 PNG |
-| 改主题/CSS | `docs/stylesheets/extra.css` + `docs/overrides/main.html` | 主题在 `mkdocs.yml theme:` |
-| 加插件 | `mkdocs.yml plugins:` + `Dockerfile` pip + `ci.yml` pip | **三处都要同步**（见 ANTI-PATTERNS）|
-| 改导航分类 | `mkdocs.yml` nav: 段（28-141 行） | 手动维护，无 auto-discovery |
-| 看构建产物 | `site/`（已 gitignore） | `mkdocs build` 生成 |
-| 本地预览 | `docker run -p 8001:8000 ...` | 见 COMMANDS |
-| 查标签云 | `docs/tags.md`（自动生成） | 由 `tags` 插件从 front-matter 聚合 |
+| 任务       | 位置                                                      | 备注                                 |
+| ---------- | --------------------------------------------------------- | ------------------------------------ |
+| 新增文档   | `docs/<分类>/<子类>/` + `mkdocs.yml` nav                  | **两处都要改**，否则不显示           |
+| 改首页     | `docs/index.md`                                           | 个人简介 + 9 张证书 PNG              |
+| 改主题/CSS | `docs/stylesheets/extra.css` + `docs/overrides/main.html` | 主题在 `mkdocs.yml theme:`           |
+| 加插件     | `mkdocs.yml plugins:` + `Dockerfile` pip + `ci.yml` pip   | **三处都要同步**（见 ANTI-PATTERNS） |
+| 改导航分类 | `mkdocs.yml` nav: 段（28-141 行）                         | 手动维护，无 auto-discovery          |
+| 看构建产物 | `site/`（已 gitignore）                                   | `mkdocs build` 生成                  |
+| 本地预览   | `docker run -p 8001:8000 ...`                             | 见 COMMANDS                          |
+| 查标签云   | `docs/tags.md`（自动生成）                                | 由 `tags` 插件从 front-matter 聚合   |
 
 ## CONVENTIONS
 
@@ -59,7 +59,6 @@ tags:
   - K3S
   - AWX
 ---
-
 # H1 标题（与文件名一致）
 ```
 
@@ -85,7 +84,7 @@ tags:
 
 - 全中文，技术术语保留英文（Kubernetes、helm、traefik）
 - 教程式：环境画像表 → 命令块 → 故障排查
-- 代码块标注语言（```bash / ```yaml / ```powershell）
+- 代码块标注语言（`bash / `yaml / ```powershell）
 - 已启用 `pymdownx.superfences` + `pymdownx.tabbed` + `pymdownx.tasklist`
 - 已启用 `pymdownx.details`，但**项目内从未使用** `???` 折叠块
 - Admonition 用 4 空格缩进：`!!! note`、`!!! warning`、`!!! tip`、`!!! info`
@@ -159,11 +158,11 @@ mkdocs gh-deploy --force
 
 ### 依赖矩阵（改插件时三处同步）
 
-| 位置 | 内容 |
-|------|------|
-| `mkdocs.yml` `plugins:` | 启用/配置插件 |
-| `Dockerfile` `pip install` 行 | 本地预览装包（pin 在 mkdocs-material 9.5.27） |
-| `.github/workflows/ci.yml` `pip install` 行 | CI 装包（**未 pin 版本**，可能漂移） |
+| 位置                                        | 内容                                          |
+| ------------------------------------------- | --------------------------------------------- |
+| `mkdocs.yml` `plugins:`                     | 启用/配置插件                                 |
+| `Dockerfile` `pip install` 行               | 本地预览装包（pin 在 mkdocs-material 9.5.27） |
+| `.github/workflows/ci.yml` `pip install` 行 | CI 装包（**未 pin 版本**，可能漂移）          |
 
 ### 站点语言
 

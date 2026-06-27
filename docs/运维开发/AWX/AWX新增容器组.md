@@ -1,3 +1,9 @@
+---
+tags:
+  - AWX
+  - Kubernetes
+---
+
 # AWX 新增容器组
 
 ## 需要下载的文件
