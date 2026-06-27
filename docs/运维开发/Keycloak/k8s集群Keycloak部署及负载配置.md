@@ -6,6 +6,17 @@ tags:
 
 # k8s 集群 Keycloak 部署及负载配置
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - Keycloak 24（当前最新 26.6.4）
+    - `KC_PROXY=edge` 在 Keycloak 26+ 已废弃，改用 `KC_PROXY_HEADERS=xforwarded`
+    - `KEYCLOAK_ADMIN` / `KEYCLOAK_ADMIN_PASSWORD` 推荐改为 `KC_BOOTSTRAP_ADMIN_USERNAME` / `KC_BOOTSTRAP_ADMIN_PASSWORD`
+    - `--hostname-strict-https=false` 在 hostname:v2（Keycloak 25+ 默认）下不再存在
+    - 部分参考链接指向已归档的 WildFly Operator 文档（2022-11 archive）
+
 ## 部署 MySQL 数据库
 
 新建一套 MySQL-8 数据库，新建用户 keycloak 和数据库 keycloak，然后测试其连接性：

@@ -7,6 +7,14 @@ tags:
 
 # 使用 openresty 容器为 k8s 的服务提供 Keycloak 认证服务
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - 基于第三方项目 `smyrgeorge/openresty-keycloak-gateway`，长期维护风险
+    - 主流社区方案推荐 oauth2-proxy 或官方 Keycloak Operator
+
 ## 前置条件
 
 - 一个能运作的 k8s 集群

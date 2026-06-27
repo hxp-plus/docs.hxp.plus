@@ -8,6 +8,15 @@ tags:
 
 # SpringBoot 2.5.1 对接 Keycloak 认证
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - Spring Boot 2.5.1 已 EOL（OSS 支持 2023-08 终止），存在大量未修复 CVE
+    - Keycloak 24（当前最新 26.6.4）
+    - 注：本文实际使用 Spring Security OAuth2 Client（非已废弃的 keycloak-spring-boot-starter 适配器），方向正确
+
 ## Spring 项目配置
 
 在 `pom.xml` 加入依赖：

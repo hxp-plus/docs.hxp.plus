@@ -6,6 +6,15 @@ tags:
 
 # AWX-23.9 使用 SAML 对接 Keycloak-24 认证
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - AWX 23.9（当前最新 24.6.1）
+    - Keycloak 24（当前最新 26.6.4）
+    - Keycloak 25+ 默认 saml-security-profile 收紧，"关闭 Client signature required" 违反新策略
+
 ## 生成 SSL 证书
 
 在任意 Linux 执行以下命令生成 SSL 证书：

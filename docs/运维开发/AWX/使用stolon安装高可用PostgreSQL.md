@@ -6,6 +6,15 @@ tags:
 
 # 使用 stolon 安装高可用 PostgreSQL
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - stolon v0.17.0-pg13：项目实质停滞（最后 release 2021-09，最后 commit 2023-09）
+    - PostgreSQL 13 已 EOL（2025-11-13）
+    - 推荐替代方案：CloudNativePG（v1.29.1 活跃维护）
+
 ## 准备工作
 
 stolon 是一种安装在 kubernetes 的 PostgreSQL 数据库，因此需要一套完整的 k8s 集群，且必须有至少 1 个 StorageClass，推荐是 local-path-provisioner。

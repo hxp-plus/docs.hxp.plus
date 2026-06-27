@@ -6,6 +6,14 @@ tags:
 
 # 使用 docker-compose 搭建 keycloak 开发环境
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - Keycloak 24（当前最新 26.6.4）
+    - `KEYCLOAK_ADMIN` 推荐改为 `KC_BOOTSTRAP_ADMIN_USERNAME`
+
 开发环境需要 keycloak ，使用 docker-compose 搭建运行在 `172.21.1.56:8085` 的 keycloak ，新建文件 `compose.yaml` ：
 
 ```yaml

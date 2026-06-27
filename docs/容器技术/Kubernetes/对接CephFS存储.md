@@ -6,6 +6,14 @@ tags:
 
 # 对接 CephFS 存储
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - Ceph-CSI v3.10.1（当前最新 v3.17.0）
+    - Ceph-CSI v3.16+ 官方推荐迁移到 ceph-csi-operator，helm 部署方式已 deprecated
+
 ## 准备工作
 
 ### 介质下载

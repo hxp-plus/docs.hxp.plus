@@ -6,6 +6,14 @@ tags:
 
 # 安装 traefik ingress controller
 
+!!! warning "文档时效性说明"
+    本文档基于写作时的技术栈编写，下方的版本号、API 参数、镜像 tag、第三方项目活跃度可能已过时。请以官方最新文档为准。
+
+    **已知过时点**：
+
+    - Traefik helm chart 27.0.2（对应 Traefik v2.x）
+    - Traefik v3 已彻底移除 `traefik.containo.us` CRD 命名空间，仅保留 `traefik.io`
+
 ## 准备工作
 
 ### 介质下载
