@@ -16,9 +16,9 @@ tags:
 
 ## 使用 Ansible Playbook 为所有 k8s 节点批量安装 helm
 
-将 helm 二进制程序放到`/usr/local/bin/`即可完成安装，playbook 如下：
+将 helm 二进制程序放到 `/usr/local/bin/` 即可完成安装，playbook 如下：
 
-```title="helm-install.yaml"
+```yaml title="helm-install.yaml"
 ---
 - name: install helm
   hosts: k8s

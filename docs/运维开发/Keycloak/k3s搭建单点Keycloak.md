@@ -317,7 +317,10 @@ spec:
               path: cache-ispn.xml
 ```
 
-JDBC ping 的原理是每个 keycloak 都往数据库里的 JGROUPSPING 表写上自己的信息，通过读数据库来发现别的节点。在创建完成以后，需要进入到容器里，修改 admin realm 的 sslRequired 参数（此时容器为 NotReady 状态为正常现象）：
+JDBC ping 的原理是每个 keycloak 都往数据库里的 JGROUPSPING 表写上自己的信息，通过读数据库来发现别的节点。在创建完成以后，需要进入到容器里，修改 admin realm 的 sslRequired 参数：
+
+!!! info
+    此时容器为 NotReady 状态为正常现象。
 
 ```bash
 kubectl -n keycloak exec -it keycloak-59d77cf866-mjchw -- /bin/bash -c '/opt/keycloak/bin/kcadm.sh update realms/master -s sslRequired=NONE --server http://keycloak:8080 --realm master --user admin'

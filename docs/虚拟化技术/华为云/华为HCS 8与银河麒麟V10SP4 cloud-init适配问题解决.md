@@ -11,7 +11,7 @@ tags:
 
 在制作银河麒麟 V10SP4 虚拟机镜像时，安装后检查发现没有安装 cloud-init ，进一步调查 packer 日志如下：
 
-```
+```text
 qemu: install-cloud-init.sh executing ......
 qemu: /usr/bin/python3
 qemu: python version check success
@@ -20,7 +20,7 @@ qemu: setuptools install failed, try to install setuptools through specified dir
 qemu: uninstall old setuptools, try to install setuptools again
 ```
 
-日志指向为 setuptools 安装失败。尝试挂载 image-tools 的 ISO 进行手动安装：
+日志指向 setuptools 安装失败。尝试挂载 image-tools 的 ISO 进行手动安装：
 
 ```bash
 mount /dev/sr0 /mnt
@@ -67,7 +67,7 @@ fnSetuptoolsInstall()
 
 进一步使用 `bash -xv install-cloud-init.sh` 打印 Shell 脚本详细调试信息如下：
 
-```
+```text
 ++ fnSetuptoolsInstall
 ++ '[' -e /etc/.productinfo ']'
 +++ grep -c Kylin /etc/.productinfo
@@ -97,9 +97,9 @@ uninstall old setuptools, try to install setuptools again
 python3 setup.py install --prefix=/
 ```
 
-手动执行，发现开源版本 setuptools 不能安装：
+手动执行后发现开源版本 setuptools 不能安装：
 
-```
+```text
 [root@localhost setuptools-65.6.3]# python3 setup.py install
 Traceback (most recent call last):
   File "setup.py", line 87, in <module>
@@ -127,7 +127,7 @@ AttributeError: type object 'Distribution' has no attribute '_finalize_feature_o
 from setuptools.dist import Distribution
 ```
 
-看起来像是 python 在安装时检查 Linux 发行版版本，不识别银河麒麟系列操作系统。因此断定需要安装麒麟修改后的 setuptools 而非开源版本。这一点华为云工程师已经考虑到了，代码 `/opt/image-tools/linux/cloud-init/cloudinit_scripts/offdeploy-cloud-init.sh` 里有对麒麟操作系统的判断：
+看起来像是 Python 在安装时检查 Linux 发行版版本，不识别银河麒麟系列操作系统。因此断定需要安装麒麟修改后的 setuptools 而非开源版本。这一点华为云工程师已经考虑到了，代码 `/opt/image-tools/linux/cloud-init/cloudinit_scripts/offdeploy-cloud-init.sh` 里有对麒麟操作系统的判断：
 
 ```bash
 # install python setuptools
@@ -171,9 +171,9 @@ fnSetuptoolsInstall()
 }
 ```
 
-但是此代码仅能判断银河麒麟 V10 SP3 ，实测判断命令在 银河麒麟 V10 SP4 上输出如下：
+但是此代码仅能判断银河麒麟 V10 SP3，实测判断命令在银河麒麟 V10 SP4 上输出如下：
 
-```
+```text
 [root@localhost linux]# grep -c "V10 (SP3)" /etc/.productinfo
 0
 [root@localhost linux]# cat /etc/.productinfo
@@ -189,6 +189,10 @@ ls: cannot access '/usr/bin/python': No such file or directory
 [root@localhost linux]# ls -lh /usr/bin/python3
 lrwxrwxrwx 1 root root 9 Mar 18  2024 /usr/bin/python3 -> python3.7
 ```
+
+!!! warning
+
+    此代码仅能判断银河麒麟 V10 SP3，在 SP4 上会因版本字符串不匹配而走旧逻辑，导致安装失败。
 
 ## 解决方法
 

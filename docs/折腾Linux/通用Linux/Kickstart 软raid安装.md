@@ -7,7 +7,7 @@ tags:
 
 # Kickstart 软 RAID 安装
 
-使用以下 `kickstart` 分区配置安装 软 RAID 1 到最小的两块硬盘的分盘脚本如下：
+使用以下 `kickstart` 分区配置，将软 RAID 1 安装到最小的两块硬盘，分盘脚本如下：
 
 ```bash
 # Partition disks
@@ -48,6 +48,10 @@ EOF
 %end
 %include /tmp/part-include
 ```
+
+!!! note
+
+    该脚本会自动选择最小的两块硬盘，安装前请确认目标硬盘数据已备份。
 
 封装 ISO 镜像可参考以下代码：
 

@@ -260,7 +260,7 @@ kubectl -n keycloak exec -it keycloak-8659669957-jrtqr -- /bin/bash
 ### 配置负载均衡器
 
 负载均衡器配置如下，需要打开“附加 HTTP 头字段：\[客户端真实 IP / X-Forwarded-For\]”功能：
-![](images/k8s安装keycloak_负载配置.png)
+![](./images/k8s安装keycloak_负载配置.png)
 
 ## 参考链接
 

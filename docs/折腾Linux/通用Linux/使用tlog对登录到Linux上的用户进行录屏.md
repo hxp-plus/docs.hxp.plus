@@ -42,6 +42,10 @@ usermod -s /opt/tlog/bin/tlog-rec-session hxp
 session     required      pam_env.so readenv=1 envfile=/etc/locale.conf
 ```
 
+!!! warning
+
+    修改 PAM 配置前建议先备份，并保留一个 root 登录会话用于测试，避免配置错误导致无法登录。
+
 修改系统临时文件目录配置 `/usr/lib/tmpfiles.d/tlog.conf` ，加入：
 
 ```text

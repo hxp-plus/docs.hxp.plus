@@ -15,7 +15,10 @@ tags:
 
 ## Python 项目的打包方式比较
 
-对于这个项目，显然需要将 Python 项目进行打包，否则还是会有随着项目的推进、往服务器上部署的脚本文件越来越多的问题。目前 Python 项目的打包大致有使用 PyInstaller 和 zipapp 两种方式。不推荐使用 PyInstaller 的原因为：PyInstaller 虽然不需要目标主机安装 Python，但是它在运行的时候会在 /tmp 下创建临时目录存放 Python 代码，如果遇到了问题中途崩溃，则临时目录不会被清空。这会导致如果程序代码有问题，随着 crontab 不断调用代码会导致 /tmp 目录下子目录越来越多。
+对于这个项目，显然需要将 Python 项目进行打包，否则还是会有随着项目的推进、往服务器上部署的脚本文件越来越多的问题。目前 Python 项目的打包大致有使用 PyInstaller 和 zipapp 两种方式。
+
+!!! tip
+    不推荐使用 PyInstaller 的原因为：PyInstaller 虽然不需要目标主机安装 Python，但是它在运行的时候会在 /tmp 下创建临时目录存放 Python 代码，如果遇到了问题中途崩溃，则临时目录不会被清空。这会导致如果程序代码有问题，随着 crontab 不断调用代码会导致 /tmp 目录下子目录越来越多。
 
 如果使用 zipapp 方式，则需要给所有的机器通过解压的方式安装一个 Python3 供项目运行使用。本次示例将 Python-3.7.17 解压和项目放到了 `/opt/Python-3.7.17` 目录下。
 
@@ -23,7 +26,7 @@ tags:
 
 项目的结构如下：
 
-```
+```text
 .
 ├── build.sh
 ├── dist
@@ -41,7 +44,7 @@ tags:
 
 目录 `src` 下为监控工具代码，其中 `monitor.py` 为程序的入口：
 
-```Python
+```python
 from utils.command import run
 
 def main():
@@ -58,7 +61,7 @@ if __name__ == '__main__':
 
 所有的功能以模块的形式放在 `utils` 下，其中 `utils/command.py` 为 Shell 命令相关的模块，模块里有个函数 `run` 是用来运行命令并返回命令运行结果的：
 
-```Python
+```python
 import subprocess
 
 def run(cmd):
@@ -72,7 +75,7 @@ def run(cmd):
 
 `run.sh` 为运行项目的脚本，如下：
 
-```Shell
+```bash
 #!/bin/bash
 ulimit -v 128000 # Limit memory usage to 128MiB
 PYTHON_INSTALL_DIR=/opt/Python-3.7.17/
@@ -87,7 +90,7 @@ python3 dist/monitor.pyz 2>&1 | tee -a $LOG_FILE
 
 `build.sh` 为打包 Python 的脚本：
 
-```Shell
+```bash
 #!/bin/bash
 PYTHON_INSTALL_DIR=/opt/Python-3.7.17/
 APP_NAME=monitor

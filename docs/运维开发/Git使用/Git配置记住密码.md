@@ -13,6 +13,6 @@ tags:
 
 使用以下命令配置（全局生效，如果想仅对仓库生效，去掉 `--global` ）：
 
-```
+```bash
 git config --global credential.helper store
 ```

@@ -13,7 +13,7 @@ tags:
 
 登录到 GitLab 服务器上，进入 Rails 控制台修改邮箱为已认证：
 
-```
+```ruby
 [root@gitlab gitlab]# gitlab-rails console production
 -------------------------------------------------------------------------------------
  GitLab:       11.5.1 (c90ae59)

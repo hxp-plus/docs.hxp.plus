@@ -8,7 +8,7 @@ tags:
 
 ## 系统架构
 
-本次安装的 Ceph 仅有 3 个节点，各个节点配置和用途如下：
+本次 Ceph 安装仅使用 3 个节点，各个节点配置和用途如下：
 
 | 节点名称 | IP 地址        | 服务器角色 | 配置要求 |
 | -------- | -------------- | ---------- | -------- |
@@ -16,7 +16,7 @@ tags:
 | ceph02   | 192.168.100.15 | Ceph 节点  | 4C8G     |
 | ceph03   | 192.168.100.16 | Ceph 节点  | 4C8G     |
 
-其中，所有的节点都需要配置 NTP 时钟同步服务器，且所有节点都需要有默认网关。同时，需要使用 Ansible 对这 3 个节点进行批量配置。
+所有节点均需配置 NTP 时钟同步服务器，并确保具有默认网关。同时，需要使用 Ansible 对这 3 个节点进行批量配置。
 
 ## 准备工作
 
@@ -24,7 +24,7 @@ tags:
 
 所有节点均需要禁用 swap 、关闭 firewalld 防火墙与 SELinux ：
 
-```
+```bash
 # Disable swap
 sed -i '/^.*[[:space:]]*swap[[:space:]]*swap[[:space:]]*.*$/d' /etc/fstab
 # Disable firewalld
@@ -35,11 +35,14 @@ sed -i 's/^SELINUX=.*$/SELINUX=disabled/g' /etc/selinux/config
 reboot
 ```
 
+!!! warning
+    修改 SELinux 配置后必须重启系统才能生效。
+
 ### Ansible 主机清单配置
 
 本文使用 Ansible 来对节点进行批量操作，Ansible 主机清单配置如下：
 
-```
+```ini
 [ceph]
 192.168.100.14
 192.168.100.15
@@ -48,7 +51,7 @@ reboot
 
 ### 介质下载
 
-如果需要离线安装，需要额外准备一台可以通外网的机器来下载介质，此机器也需要禁用 swap 、关闭 firewalld 防火墙与 SELinux ，且至少需要安装 docker 。其中需要下载的二进制文件及配置文件如下：
+如需离线安装，需额外准备一台可访问外网的机器用于下载介质，该机器同样需要禁用 swap 、关闭 firewalld 防火墙与 SELinux ，且至少需要安装 docker 。其中需要下载的二进制文件及配置文件如下：
 
 | 介质名称                             | 下载地址                                                                        |
 | ------------------------------------ | ------------------------------------------------------------------------------- |
@@ -71,14 +74,14 @@ reboot
 
 使用 docker 下载容器镜像的命令如下：
 
-```
+```bash
 docker pull [镜像名称]
 docker image save -i [镜像名称].tar
 ```
 
 导入 docker 容器镜像命令如下：
 
-```
+```bash
 docker image load -i [镜像名称].tar
 ```
 
@@ -213,14 +216,17 @@ docker image load -i [镜像名称].tar
 
 安装完成后，在 ceph01 节点，创建 ceph 集群：
 
-```
+```bash
 source ~/.bashrc
 cephadm bootstrap --mon-ip 192.168.100.14
 ```
 
+!!! note
+    后续所有 `ceph` 命令均需要在 `cephadm shell` 启动的容器环境中执行。
+
 之后使用`cephadm shell`命令进入 ceph 命令行（所有 ceph 命令均需要在 ceph 命令行执行），运行以下命令修改 ceph 相关容器使用本地镜像仓库：
 
-```
+```bash
 ceph config set mgr mgr/cephadm/container_image_prometheus localhost:5000/prometheus/prometheus:v2.43.0
 ceph config set mgr mgr/cephadm/container_image_node_exporter localhost:5000/prometheus/node-exporter:v1.5.0
 ceph config set mgr mgr/cephadm/container_image_grafana localhost:5000/ceph/ceph-grafana:9.4.7
@@ -229,7 +235,7 @@ ceph config set mgr mgr/cephadm/container_image_alertmanager localhost:5000/prom
 
 重新部署 ceph 容器：
 
-```
+```bash
 ceph orch redeploy prometheus
 ceph orch redeploy node-exporter
 ceph orch redeploy grafana
@@ -238,11 +244,11 @@ ceph orch redeploy alertmanager
 
 验证：
 
-```
+```bash
 ceph orch ls
 ```
 
-```
+```text
 NAME           PORTS        RUNNING  REFRESHED  AGE  PLACEMENT
 alertmanager   ?:9093,9094      1/1  7s ago     3m   count:1
 ceph-exporter                   1/1  7s ago     3m   *
@@ -256,17 +262,17 @@ prometheus     ?:9095           1/1  7s ago     3m   count:1
 
 将节点 ceph01 设置成管理节点：
 
-```
+```bash
 ceph orch host label add ceph01 _admin
 ```
 
 检查 ceph 所有节点：
 
-```
+```bash
 ceph orch host ls
 ```
 
-```
+```text
 HOST    ADDR            LABELS  STATUS
 ceph01  192.168.100.14  _admin
 ```
@@ -275,7 +281,10 @@ ceph01  192.168.100.14  _admin
 
 在第一个节点上，将剩下两个节点加入 ceph 集群（以下命令不要在 ceph 命令行执行）：
 
-```
+!!! warning
+    以下命令在宿主机的 shell 中执行，切勿在 `cephadm shell` 容器环境内执行。
+
+```bash
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.15
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@192.168.100.16
 cephadm shell -- ceph orch host add ceph02 192.168.100.15
@@ -286,23 +295,23 @@ cephadm shell -- ceph orch host label add ceph03 _admin
 
 将 monitor 部署在三个节点：
 
-```
+```bash
 ceph orch apply mon --placement="ceph01,ceph02,ceph03"
 ```
 
 如果三个节点在一个 B 段，但是不在一个 C 段，还需要额外运行这个命令修改 public_network 子网：
 
-```
+```bash
 ceph config set mon public_network 192.168.0.0/16
 ```
 
 完成以后，检查 ceph 主机列表：
 
-```
+```bash
 ceph orch host ls
 ```
 
-```
+```text
 HOST    ADDR            LABELS  STATUS
 ceph01  192.168.100.14  _admin
 ceph02  192.168.100.15  _admin
@@ -312,9 +321,12 @@ ceph03  192.168.100.16  _admin
 
 ## 将磁盘加入 ceph
 
-将三个机器的/dev/sdb 加入 ceph 集群：
+将三个节点的 /dev/sdb 加入 Ceph 集群：
 
-```
+!!! warning
+    加入 Ceph 集群的磁盘数据将被完全擦除，请确保目标磁盘不包含重要数据。
+
+```bash
 ceph orch daemon add osd ceph01:/dev/sdb
 ceph orch daemon add osd ceph02:/dev/sdb
 ceph orch daemon add osd ceph03:/dev/sdb
@@ -326,7 +338,7 @@ ceph orch daemon add osd ceph03:/dev/sdb
 ceph status
 ```
 
-```
+```text
   cluster:
     id:     2708c980-bdb5-11ee-9d2f-000c29838e6e
     health: HEALTH_OK

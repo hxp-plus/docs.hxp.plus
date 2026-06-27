@@ -12,41 +12,41 @@ tags:
 
 需要使用以下命令下载 traefik 的 helm chart：
 
-```
+```bash
 helm repo add traefik https://traefik.github.io/charts
 helm pull traefik/traefik
 ```
 
 同时需要下载此 helm chart 所需的容器镜像，镜像名称用以下命令查看：
 
-```
+```bash
 helm install --dry-run traefik traefik-27.0.2.tgz | grep image:
 ```
 
-如果需要测试 traefik 部署，还需要下载容器镜像`docker.io/traefik/whoami:v1.10`，并从 traefik 官网的 [QuickStart](https://doc.traefik.io/traefik/getting-started/quick-start-with-kubernetes/) 章节下载 yaml 文件`03-whoami.yml`、`03-whoami-services.yml`和`04-whoami-ingress.yml`。
+如果需要测试 traefik 部署，还需要下载容器镜像 `docker.io/traefik/whoami:v1.10`，并从 Traefik 官网的 [QuickStart](https://doc.traefik.io/traefik/getting-started/quick-start-with-kubernetes/) 章节下载 yaml 文件 `03-whoami.yml`、`03-whoami-services.yml` 和 `04-whoami-ingress.yml`。
 
 ## 创建并修改 values
 
-创建`values.yaml`：
+创建 `values.yaml`：
 
-```
+```bash
 helm show values traefik-27.0.2.tgz > values.yaml
 ```
 
-如果使用私有镜像仓库，需要修改`image`和`imagePullSecrets`。
+如果使用私有镜像仓库，需要修改 `image` 和 `imagePullSecrets`。
 
 ## 部署 helm chart
 
 创建 namespace 并部署：
 
-```
+```bash
 kubectl create ns traefik
 helm install --namespace traefik traefik traefik-27.0.2.tgz --values values.yaml
 ```
 
 将容器部署修改为 3 个：
 
-```
+```bash
 kubectl -n traefik scale deployment traefik --replicas 3
 ```
 
@@ -54,18 +54,18 @@ kubectl -n traefik scale deployment traefik --replicas 3
 
 首选查询 traefik 的 NodePort 端口：
 
-```
+```bash
 kubectl get svc -n traefik
 ```
 
-```
+```text
 NAME      TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 traefik   LoadBalancer   10.96.103.221   <pending>     80:30795/TCP,443:32752/TCP   5d1h
 ```
 
 这里 http 端口 30795，https 端口 32752，配置负载均衡器的 80 端口转发到所有 k8s 节点 30795 端口，443 端口转发到所有 k8s 节点 32752 端口，负载模式为 TCP 轮询。如果使用的是在 k8s master 节点使用 static pod 方式安装 HAProxy 和 Keepalived 的方式，则需要修改 HAProxy 配置：
 
-```cfg
+```haproxy
 frontend web
     bind *:80
     mode tcp
@@ -95,17 +95,17 @@ backend websecurebackend
 
 static pod 重启必须使用 crictl 命令，首先找到 static pod 的容器 ID：
 
-```
+```bash
 crictl ps | grep haproxy
 ```
 
-```
+```text
 a0b4e29a3ba18 6600fae04efde 3 minutes ago Running haproxy 2 5e3faac3ce66d haproxy-k8s01
 ```
 
 然后停止容器：
 
-```
+```bash
 crictl stop a0b4e29a3ba18
 ```
 
@@ -115,17 +115,17 @@ crictl stop a0b4e29a3ba18
 
 在 default 命名空间，创建 whoami 容器、service 和 ingress：
 
-```
+```bash
 kubectl apply -f 03-whoami.yml -f 03-whoami-services.yml -f 04-whoami-ingress.yml
 ```
 
 使用 curl 命令检查：
 
-```
+```bash
 curl http://[负载均衡器VIP]/whoami/
 ```
 
-```
+```text
 Hostname: whoami-78994d7bf9-x7lzr
 IP: 127.0.0.1
 IP: ::1
@@ -145,7 +145,7 @@ X-Forwarded-Server: traefik-deployment-65547f8865-27d6x
 X-Real-Ip: 192.168.100.11
 ```
 
-可以看到 whoami 容器收到的请求里带着文根 whoami，之后测试 middleware 去除文根功能，修改`04-whoami-ingress.yml`如下：
+可以看到 whoami 容器收到的请求里带着文根 whoami，之后测试 middleware 去除文根功能，修改 `04-whoami-ingress.yml` 如下：
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -180,17 +180,17 @@ spec:
 
 修改完成后应用 yaml 配置：
 
-```
+```bash
 kubectl apply -f 04-whoami-ingress.yml
 ```
 
 用 curl 命令测试：
 
-```
+```bash
 curl http://[负载均衡器VIP]/whoami/
 ```
 
-```
+```text
 Hostname: whoami-8c9864b56-dms8j
 IP: 127.0.0.1
 IP: ::1
@@ -211,9 +211,9 @@ X-Forwarded-Server: traefik-858b7cfbcd-t4ltm
 X-Real-Ip: 172.18.122.0
 ```
 
-注意这里的`GET /whoami/ HTTP/1.1`变成了`GET / HTTP/1.1`，说明 middleware 生效。最后清理测试使用的资源：
+注意这里的 `GET /whoami/ HTTP/1.1` 变成了 `GET / HTTP/1.1`，说明 middleware 生效。最后清理测试使用的资源：
 
-```
+```bash
 kubectl delete -f 03-whoami.yml -f 03-whoami-services.yml -f 04-whoami-ingress.yml
 ```
 

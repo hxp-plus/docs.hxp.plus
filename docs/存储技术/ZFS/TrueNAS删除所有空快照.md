@@ -8,22 +8,22 @@ tags:
 
 ## ZFS 列出所有快照
 
-使用以下命令列出所有快照:
+使用以下命令列出所有快照：
 
-```
+```bash
 zfs list -t snap
 ```
 
-该命令输出大致如下:
+该命令输出大致如下：
 
-```
+```text
 NAME                                   USED  AVAIL  REFER  MOUNTPOINT
 boot-pool/ROOT/24.04.0@pristine          8K      -   164M  -
 boot-pool/ROOT/24.04.0/conf@pristine     0B      -   140K  -
 boot-pool/ROOT/24.04.0/etc@pristine   1.06M      -  5.54M  -
-boot-pool/ROOT/24.04.0/opt@pristine      0B      -  74.1M  -
-boot-pool/ROOT/24.04.0/usr@pristine      0B      -  2.12G  -
-boot-pool/ROOT/24.04.0/var@pristine    716K      -  30.8M  -
+boot-pool/ROOT/24.04.0/opt@pristine      0B      -   74.1M  -
+boot-pool/ROOT/24.04.0/usr@pristine      0B      -   2.12G  -
+boot-pool/ROOT/24.04.0/var@pristine    716K      -   30.8M  -
 nas@auto-2023-10-28_20-00               80K      -   120K  -
 nas@auto-2023-10-28_21-00                0B      -   112K  -
 nas@auto-2023-10-28_22-00                0B      -   112K  -
@@ -41,11 +41,11 @@ nas@auto-2023-10-29_08-00                0B      -   112K  -
 
 ## 找出所有大小为 0B 的快照并删除
 
-使用以下脚本,用 awk 提取出大小为 0B 的快照,并输出 zfs 删除快照的命令:
+使用以下脚本，通过 awk 提取大小为 0B 的快照，并生成 zfs 删除快照的命令：
 
 !!! note "remove_empty_snapshots.sh"
 
-    ```
+    ```bash
     #!/bin/bash
     snapshots=$(zfs list -t snap | awk '$2=="0B"{print $1}')
     while read -r line;do
@@ -53,14 +53,17 @@ nas@auto-2023-10-29_08-00                0B      -   112K  -
     done <<< "$snapshots"
     ```
 
-将此脚本输出重定向到文件 `remove.sh` :
+将此脚本输出重定向到文件 `remove.sh` ：
 
-```
+!!! warning
+    运行删除脚本前，请务必核对 `remove.sh` 的内容，确认不会误删非空快照。
+
+```bash
 /bin/bash remove_empty_snapshots.sh > remove.sh
 ```
 
-在核对 `remove.sh` 内容后,运行 `remove.sh` :
+在核对 `remove.sh` 内容无误后，执行该脚本：
 
-```
+```bash
 /bin/bash remove.sh
 ```

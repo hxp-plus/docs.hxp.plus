@@ -7,13 +7,13 @@ tags:
 
 ## 使用 pip 列出所有不是最新的依赖
 
-```
+```bash
 pip list --outdated
 ```
 
 输出示例如下：
 
-```
+```text
 Package                                   Version   Latest    Type
 ----------------------------------------- --------- --------- -----
 Babel                                     2.14.0    2.15.0    wheel
@@ -34,13 +34,13 @@ watchdog                                  4.0.0     4.0.1     wheel
 
 确认无误后，一键升级：
 
-```
+```bash
 pip install -U `pip list --outdated | awk 'NR>2 {print $1}'`
 ```
 
-之后验证通过后，更新 `requirements.txt` ：
+之后验证通过后，更新 `requirements.txt`：
 
-```
+```bash
 pip freeze > requirements.txt
 ```
 

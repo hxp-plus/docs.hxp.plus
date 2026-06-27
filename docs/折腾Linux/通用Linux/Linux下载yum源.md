@@ -35,11 +35,13 @@ EOF
 
 下载到 `/mnt/kylin10-x86` ：
 
-```
+```bash
 dnf reposync -c kylin10-x86.repo -p /mnt/kylin10-x86 --repo ks10-adv-os,ks10-adv-updates --arch=x86_64,noarch
 ```
 
-在下 x86 的 yum 源时推荐加 `--arch=x86_64,noarch` 防止下载到 32 位的包，如果是 arm 则需要加 `--arch=aarch64,noarch` 。
+!!! tip
+
+    下载 x86 架构的 yum 源时，建议加 `--arch=x86_64,noarch` 防止下载到 32 位包；如果是 ARM 架构，则需要加 `--arch=aarch64,noarch`。
 
 ## 使用 wget 下载
 

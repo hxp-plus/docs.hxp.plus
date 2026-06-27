@@ -12,7 +12,7 @@ tags:
 
 ## 安装 docker
 
-准备一个格式化成 ext4 格式且大于 64GB 的 U 盘，插入 AX9000，登录[小米路由器后台](http://192.168.31.1)安装 docker 后安装管理插件。
+准备一个格式化为 ext4 且大于 64GB 的 U 盘，插入 AX9000，登录[小米路由器后台](http://192.168.31.1)安装 docker 及管理插件。
 
 ## 启动 busybox 容器
 
@@ -72,11 +72,11 @@ passwd root
 
 ## 固化 SSH
 
-如果想让升级后依旧保留 SSH 权限，需要固化，固化直接使用这个工具即可：<https://github.com/paldier/ax3600_tool>
+如果想让升级后依旧保留 SSH 权限，需要固化，直接使用这个工具即可：<https://github.com/paldier/ax3600_tool>
 
 注意 AX9000 的 bdata 分区是 mtd18
 
-```
+```text
 root@XiaoQiang:~# cat /proc/mtd
 dev: size erasesize name
 mtd0: 00100000 00020000 "0:SBL1"

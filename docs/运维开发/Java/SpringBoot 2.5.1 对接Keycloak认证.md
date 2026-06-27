@@ -152,7 +152,8 @@ public class SecurityConfig {
 }
 ```
 
-注意这里我禁用了 CSRF ，并且允许 `/track` 和 `/download` 非授权访问。
+!!! warning
+    注意这里我禁用了 CSRF，并且允许 `/track` 和 `/download` 非授权访问。
 
 ## 在 Spring 里读取已登录的 Keycloak 用户信息
 

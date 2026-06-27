@@ -15,7 +15,7 @@ tags:
 
 ## 安装 Keycloak 对接器
 
-```
+```bash
 npm i --save keycloak-js@24.0
 ```
 
@@ -23,7 +23,7 @@ npm i --save keycloak-js@24.0
 
 在 `.env.development` 加入：
 
-```
+```text
 # keycloak options
 VITE_APP_KEYCLOAK_OPTIONS_URL = 'http://localhost:8080/'
 VITE_APP_KEYCLOAK_OPTIONS_REALM = 'test'
@@ -35,7 +35,7 @@ VITE_APP_KEYCLOAK_OPTIONS_ONLOAD = 'login-required'
 
 在 `src/main.ts` 中加入以下代码，引入 Keycloak：
 
-```javascript
+```typescript
 // 引入Keycloak
 // 参考：https://github.com/achernetsov/vue-keycloak-template
 import Keycloak, {
@@ -47,7 +47,7 @@ import { useKeycloakStore } from "@/store/modules/keycloakStore";
 
 为 Keycloak 加入 store，创建文件 `src/stores/modules/keycloakStore.ts` ：
 
-```javascript
+```typescript
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type Keycloak from "keycloak-js";
@@ -60,9 +60,9 @@ export const useKeycloakStore = defineStore("keycloakStore", () => {
 
 ```
 
-在 `main.ts` 中加入 Keycloak 将以下代码：
+在 `main.ts` 中加入 Keycloak，将以下代码：
 
-```javascript
+```typescript
 app
   .use(ElementPlus)
   .use(directives)
@@ -74,7 +74,7 @@ app
 
 替换为：
 
-```javascript
+```typescript
 app.use(ElementPlus).use(directives).use(router).use(I18n).use(pinia);
 
 let keycloakConfig: KeycloakConfig = {

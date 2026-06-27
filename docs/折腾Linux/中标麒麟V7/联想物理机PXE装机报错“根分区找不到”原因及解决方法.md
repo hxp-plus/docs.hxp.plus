@@ -10,7 +10,7 @@ tags:
 
 实际观察到的联想服务器装机启动过程大致如下：
 
-1. 加载位于  [http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz](http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz) 的内核和位于 [http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img](http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz%E7%9A%84%E5%86%85%E6%A0%B8%E5%92%8C%E4%BD%8D%E4%BA%8Ehttp://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img "http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz%E7%9A%84%E5%86%85%E6%A0%B8%E5%92%8C%E4%BD%8D%E4%BA%8Ehttp://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img")  的 initramfs
+1. 加载位于 [http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz](http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/vmlinuz) 的内核和位于 [http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img](http://osinstall/kylin/v7-hygon/os/x86_64/images/pxeboot/initrd.img) 的 initramfs
 2. initramfs 加载完毕后，加载  [http://osinstall.pxe/kylin/v7-hygon/os/x86_64/LiveOS/squashfs.img](http://osinstall.pxe/kylin/v7-hygon/os/x86_64/LiveOS/squashfs.img "http://osinstall.pxe/kylin/v7-hygon/os/x86_64/LiveOS/squashfs.img") ，并将其挂载，之后 chroot 进 squashfs 进行后续安装
 
 装机失败报错 /dev/root 找不到，是卡在挂载 squashfs.img 这一步：
@@ -39,7 +39,7 @@ tags:
 
 联想服务器 PXE 装机失败报错/dev/root 找不到，原因为 initrd.img 无法下载 squashfs.img，从而无法挂载 squashfs，经检查发现 initrd.img 里没有网讯网卡驱动，解决方法是在 initramfs 里加入网讯网卡驱动。首先将装机镜像的 images/pxeboot/initrd.img 复制到一台已经装好海光版本麒麟 7.6 的机器上（可以是没有网讯网卡的虚拟机），并解压 initrd.img：
 
-```
+```bash
 mkdir /root/initramfs-hygon
 cd /root/initramfs-hygon
 xz -d -c -k /tmp/initrd.img | cpio -i
@@ -47,7 +47,7 @@ xz -d -c -k /tmp/initrd.img | cpio -i
 
 之后把驱动程序 txgbe.ko 使用 xz 压缩，并复制到相应目录：
 
-```
+```bash
 cd usr/lib/modules/3.10.0-957.el7.hg.3.x86_64/kernel/drivers/net/ethernet/
 mkdir txgbe
 cd txgbe/
@@ -56,35 +56,35 @@ mv /tmp/txgbe.ko.xz .
 
 然后需要 chroot 进去进行 depmod：
 
-```
+```bash
 chroot /root/initramfs-hygon/
 depmod -v | grep txgbe
 ```
 
-```
+```text
 /lib/modules/3.10.0-957.el7.hg.3.x86_64/kernel/drivers/net/ethernet/txgbe/txgbe.ko.xz needs "ptp_clock_index": /lib/modules/3.10.0-957.el7.hg.3.x86_64/kernel/drivers/ptp/ptp.ko.xz
 ```
 
 退出 chroot ：
 
-```
+```bash
 exit
 ```
 
 之后重新封装 initrd.img：
 
-```
+```bash
 cd /root/initramfs-hygon/
 find . | cpio -H newc -o | xz --check=crc32 --x86 --lzma2 > /root/initrd-230322.img
 ```
 
 验证：
 
-```
+```bash
 lsinitramfs initrd-230322.img | grep txgbe
 ```
 
-```
+```text
 usr/lib/modules/3.10.0-957.el7.hg.3.x86_64/kernel/drivers/net/ethernet/txgbe
 usr/lib/modules/3.10.0-957.el7.hg.3.x86_64/kernel/drivers/net/ethernet/txgbe/txgbe.ko.xz
 ```

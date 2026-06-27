@@ -14,7 +14,7 @@ tags:
 opkg update && opkg install bash
 ```
 
-检查 `/etc/shells` 中有 `/bin/bash` 后，修改 root 用户的 shell 解释器，编辑 `/etc/passwd` 文件，修改第一行（第一行就是 root 用户）中的 `/bin/ash` ，改成 `/bin/bash` ，重启路由器。
+确认 `/etc/shells` 中包含 `/bin/bash` 后，修改 root 用户的 shell 解释器，编辑 `/etc/passwd` 文件，修改第一行（第一行就是 root 用户）中的 `/bin/ash`，改成 `/bin/bash`，重启路由器。
 
 ## 配置命令时间戳记录
 

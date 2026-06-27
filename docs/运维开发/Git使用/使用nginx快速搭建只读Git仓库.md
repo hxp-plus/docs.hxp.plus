@@ -28,7 +28,7 @@ tags:
 
 以下 Dockerfile 是一个 Dumb HTTP 仓库的示例：
 
-```
+```dockerfile
 FROM redhat/ubi8:8.10
 RUN yum install -y nginx git
 WORKDIR /usr/share/nginx/html
@@ -73,7 +73,7 @@ EXPOSE 80
 CMD ["/sbin/nginx"]
 ```
 
-可以看出，建立过程为大致以下几步：
+可以看出，建立过程大致如下：
 
 1. 安装 git 和 nginx 。
 2. 在 nginx 的根目录，克隆 git 仓库。
@@ -82,7 +82,7 @@ CMD ["/sbin/nginx"]
 
 如果需要更新 nginx 上的 git 仓库，使用如下命令：
 
-```
+```bash
 cd /usr/share/nginx/html/docs.hxp.plus.git
 git fetch --all
 ```

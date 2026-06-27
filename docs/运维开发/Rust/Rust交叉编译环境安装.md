@@ -44,7 +44,7 @@ tar -xJf rust-std-1.80.1-aarch64-unknown-linux-musl.tar.xz
 
 修改 `~/.cargo/config.toml` ：
 
-```bash
+```toml
 [target.aarch64-unknown-linux-musl]
 linker = "aarch64-linux-musl-ld"
 ```

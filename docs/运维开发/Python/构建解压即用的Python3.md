@@ -13,7 +13,7 @@ tags:
 
 由于不同版本的 Linux 的 glibc 版本不同，且高版本的 glibc 兼容低版本，反之不兼容，因此需要在你需要适配的最低版本 Linux 上编译，我这里选用的 CentOS 6 ，同时，编译不需要真的安装 CentOS 6 ，可以使用 docker 容器并在容器里编译。我的 Dockerfile 如下：
 
-```
+```dockerfile
 FROM centos:6.10
 COPY <<-'EOF' /etc/yum.repos.d/CentOS-Base.repo
 [base]
@@ -34,15 +34,15 @@ VOLUME /opt
 CMD ["/bin/bash"]
 ```
 
-使用 docker 构建一个容器并在容器里编译出 Python3，安装到容器的 /opt 目录：
+使用 docker 构建镜像并在容器里编译出 Python3，安装到容器的 /opt 目录：
 
-```
+```bash
 docker build -t centos6-python3.7 .
 ```
 
 之后将容器内编译好的 Python3 复制出来：
 
-```
+```bash
 mkdir -p dist
 docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c 'cd /opt && /bin/tar zcpf /mnt/Python-3.7.17.tgz Python-3.7.17'
 ```
@@ -51,7 +51,7 @@ docker run --rm -v ./dist:/mnt centos6-python3.7 /bin/bash -c 'cd /opt && /bin/t
 
 将整个 Python-3.7.17 目录复制到别的机器上，运行前设置环境变量：
 
-```
+```bash
 export PATH=$PWD/Python-3.7.17/bin:$PATH
 export LD_LIBRATY_PATH=$PWD/Python-3.7.17/lib:$LD_LIBRATY_PATH
 echo "Current Python version is: $(python3 --version)"

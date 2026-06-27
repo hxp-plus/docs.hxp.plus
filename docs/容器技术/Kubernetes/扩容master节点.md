@@ -9,19 +9,19 @@ tags:
 
 在已有的 master 节点生成证书和加入集群命令：
 
-```
+```bash
 kubeadm token create --print-join-command
 ```
 
-```
+```text
 kubeadm join cluster-endpoint:8443 --token 9igvk8.ptcn52v5d7g261ff --discovery-token-ca-cert-hash sha256:b25ba14968a69b71974b51ee5996d61c3ae1940afcea673500b3d5468d41a1ee
 ```
 
-```
+```bash
 kubeadm init phase upload-certs --upload-certs
 ```
 
-```
+```text
 W0417 16:23:10.938672 3195210 version.go:104] could not fetch a Kubernetes version from the internet: unable to get URL "https://dl.k8s.io/release/stable-1.txt": Get "https://dl.k8s.io/release/stable-1.txt": dial tcp: lookup dl.k8s.io on 21.126.129.88:53: no such host
 W0417 16:23:10.938728 3195210 version.go:105] falling back to the local client version: v1.29.2
 [upload-certs] Storing the certificates in Secret "kubeadm-certs" in the "kube-system" Namespace
@@ -31,9 +31,9 @@ W0417 16:23:10.938728 3195210 version.go:105] falling back to the local client v
 
 ## 在新节点加入 K8S 集群
 
-在新节点上使用 kubeadm 命令加入集群，并作为 master 节点：
+在新节点上执行 kubeadm 命令加入集群，并作为 master 节点：
 
-```
+```bash
 kubeadm join cluster-endpoint:8443 --token 9igvk8.ptcn52v5d7g261ff --discovery-token-ca-cert-hash sha256:b25ba14968a69b71974b51ee5996d61c3ae1940afcea673500b3d5468d41a1ee --control-plane --certificate-key 6147e16f74b590e74b53dd24e4e928dfeaf934c66229adb4036f6cbac792392a
 ```
 

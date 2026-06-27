@@ -10,7 +10,7 @@ tags:
 
 ## 准备工作
 
-要想在 Windows Server 安装到 TrueNAS 的 iSCSI 服务器上，需要先具备以下：
+要将 Windows Server 安装到 TrueNAS 的 iSCSI 服务器上，需要预先准备以下服务：
 
 - HTTP 服务器：由 TrueNAS 上虚拟机提供
 - TFTP 服务器：由 TrueNAS 的容器提供
@@ -18,13 +18,17 @@ tags:
 - DNS 和 DHCP 服务器：由 OpenWrt 上 dnsmasq 提供
 - SMB 服务器：由 TrueNAS 提供
 
-同时需要具备一台已经装好 Windows 的机器用于制作 WinPE 镜像，一台 Linux 的机器用于编译 iPXE 和上传 iPXE 镜像到 TFTP 服务器
+同时需要一台已安装 Windows 的电脑用于制作 WinPE 镜像，以及一台 Linux 机器用于编译 iPXE 并上传镜像到 TFTP 服务器
 
 ## 在 iSCSI 上划分一个 LUN
 
 首先进入 Datasets ，新建一个 Zvol ，名称为 `windows-server-2025` ，大小为 64 GB ：
 ![新建Zvol](<images/Screenshot 2025-06-15 155635.png>)
 之后不要忘记对此 Zvol 设置定时快照，以防 Windows 更新无法回退：
+
+!!! tip
+    建议为 Zvol 配置定期快照任务，以便在 Windows 更新失败时快速回滚。
+
 ![设置快照](<images/Screenshot 2025-06-15 155956.png>)
 进入 Shares -> iSCSI ，点击 Wizard 快速创建一个 LUN ：
 ![创建LUN-1](<images/Screenshot 2025-06-15 155635.png>)
@@ -34,7 +38,7 @@ tags:
 
 ## 搭建 TFTP 服务
 
-直接使用 TrueNAS Scale 的容器功能搭建 TFTP 服务，在 Apps 里安装 `tftpd-hpa` 应用即可，相关配置默认即可。搭建完成后使用 TFTP 命令验证，注意 TFTP 命令是没有 ls 的。
+直接使用 TrueNAS Scale 的容器功能搭建 TFTP 服务，在 Apps 里安装 `tftpd-hpa` 应用即可，相关配置默认即可。搭建完成后使用 TFTP 命令验证，注意 TFTP 命令不支持 ls 。
 
 ## 配置 DNS 和 DHCP 服务
 
@@ -79,13 +83,16 @@ dhcp
 chain --replace http://pxe.hxp.lan:31485/ipxe/${netX/mac}.ipxe
 ```
 
-这个 iPXE 仅负责将网卡 DHCP 获取到 IP 地址，并加载 `http://pxe.hxp.lan/http-boot.ipxe` ，如果后续需要修改 iPXE 则修改 HTTP 服务器上 `http-boot.ipxe` 而不是重新编译这个 iPXE 镜像。编译 iPXE 镜像：
+这个 iPXE 仅负责将网卡 DHCP 获取到 IP 地址，并加载 `http://pxe.hxp.lan/http-boot.ipxe` ，如需后续修改 iPXE 配置，只需修改 HTTP 服务器上的 `http-boot.ipxe`，无需重新编译 iPXE 镜像。编译 iPXE 镜像：
 
 ```bash
 make bin-x86_64-efi/ipxe.efi EMBED=boot.ipxe
 ```
 
 上传编译好的 ipxe.efi 到 TFTP 服务器（如果 TFTP 命令卡死，需要临时禁用防火墙）：
+
+!!! warning
+    若 TFTP 命令无响应，请临时禁用防火墙后再尝试上传。
 
 ```bash
 cd bin-x86_64-efi
@@ -180,7 +187,7 @@ boot
 让待装机服务器从 PXE 启动：
 ![WinPE启动](<images/Screenshot 2025-06-15 170514.png>)
 
-提前准备 SMB 服务器并将 Windows 安装 ISO 解压至 winsrv2025 目录，启动进入 WinPE 后，进入 CMD 命令行，按下 Ctrl-C ，然后挂载 SMB 目录到 `Z:` 并运行 `setup.exe` ：
+提前准备好 SMB 服务器，并将 Windows 安装 ISO 解压至 winsrv2025 目录，启动进入 WinPE 后，打开 CMD 命令行，按 Ctrl-C ，然后挂载 SMB 目录到 `Z:` 并运行 `setup.exe` ：
 
 ```cmd
 net use Z: \\172.21.0.2\downloads\others\winsrv2025
@@ -190,7 +197,7 @@ setup.exe
 
 ![启动setup.exe](<images/Screenshot 2025-06-15 171854.png>)
 
-如果安装失败可能需要点击 `use previous version of windows setup` ，安装系统完成后，修改 `boot-[序列号].ipxe` 为如下：
+如果安装失败，可能需要点击 `use previous version of windows setup` ，安装系统完成后，修改 `boot-[序列号].ipxe` 为如下：
 
 ```ipxe
 echo booting from SAN storage

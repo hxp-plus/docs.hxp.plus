@@ -39,7 +39,7 @@ cpu: x86-64-v2-AES
 vmgenid: 8e8ffebe-a35d-4882-9039-a8f1d66b6b8d
 ```
 
-之后再页面上删除 CD 驱动器，再新建为 SCSI 的 CD 驱动器。修改完成此配置示例如下：
+之后在页面上删除 CD 驱动器，再新建为 SCSI 的 CD 驱动器。修改完成后的配置示例如下：
 
 ```text
 arch: aarch64

@@ -16,9 +16,9 @@ tags:
 | k8s02    | 192.168.100.12 | K8S master 节点 | 2C4G，公网网卡名称 ens33 |
 | k8s03    | 192.168.100.13 | K8S master 节点 | 2C4G，公网网卡名称 ens33 |
 
-其中，所有的节点都需要配置 NTP 时钟同步服务器，且所有节点都需要有默认网关。节点 k8s01 和 k8s03 因有安装 KeepAlived 的需求，需要额外配置一个 VIP：192.168.100.10，同时，需要使用 Ansible 对这 3 个节点进行批量配置。
+所有节点都需要配置 NTP 时钟同步服务器，且都需要有默认网关。节点 k8s01 和 k8s03 因有安装 KeepAlived 的需求，需要额外配置一个 VIP：192.168.100.10，同时，需要使用 Ansible 对这 3 个节点进行批量配置。
 
-此次安装为最小化安装，安装网络插件 calico，ingress、helm、ceph-csi 、metrics-server 等非必要功能不安装。同时，推荐提前创建 `/var/lib/containerd` 目录并给其单独挂在逻辑卷。
+此次安装为最小化安装，安装网络插件 calico，ingress、helm、ceph-csi 、metrics-server 等非必要功能不安装。同时，推荐提前创建 `/var/lib/containerd` 目录并为其单独挂载逻辑卷。
 
 ## 准备工作
 
@@ -26,7 +26,7 @@ tags:
 
 所有节点均需要禁用 swap、关闭 firewalld 防火墙与 SELinux：
 
-```
+```bash
 # Disable swap
 sed -i '/^.*[[:space:]]*swap[[:space:]]*swap[[:space:]]*.*$/d' /etc/fstab
 # Disable firewalld
@@ -39,7 +39,7 @@ reboot
 
 对于 1C2G 的低配置机器，如果发现内存不足，需要修改 kdump 的默认 1024M 内存为更小的数值：
 
-```
+```bash
 sed -i 's/crashkernel=1024M,high/crashkernel=128M,high/' /etc/default/grub
 grub2-mkconfig -o /boot/grub2/grub.cfg
 reboot
@@ -49,7 +49,7 @@ reboot
 
 所有 k8s 节点都需要使用 yum 命令安装以下依赖：
 
-```
+```bash
 yum install conntrack-tools libnetfilter_cthelper ibnetfilter_cttimeout libnetfilter_queue socat
 ```
 
@@ -57,7 +57,7 @@ yum install conntrack-tools libnetfilter_cthelper ibnetfilter_cttimeout libnetfi
 
 本文使用 Ansible 来对节点进行批量操作，Ansible 主机清单配置如下：
 
-```
+```ini
 [k8s]
 192.168.100.11
 192.168.100.12
@@ -119,21 +119,21 @@ keepalived_vip=192.168.100.10
 
 容器镜像使用 ctr 或者 docker 命令下载，ctr 的下载命令如下：
 
-```
+```bash
 ctr -n k8s.io image pull [镜像名称] --platform linux/amd64
 ctr -n k8s.io image export [镜像名称].tar [镜像名称] --platform linux/amd64
 ```
 
 docker 下载的命令如下：
 
-```
+```bash
 docker pull [镜像名称]
 docker image save -i [镜像名称].tar
 ```
 
 导入容器镜像，需要在 k8s 节点用 ctr 命令导入，命令如下：
 
-```
+```bash
 ctr -n k8s.io image import [镜像名称].tar --platform linux/amd64
 ```
 
@@ -268,7 +268,7 @@ ctr -n k8s.io image import [镜像名称].tar --platform linux/amd64
 
 创建一个 jinja2 模板文件用于配置 hosts，将其放在 templates 目录下：
 
-```title="hosts.j2"
+```jinja title="hosts.j2"
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
@@ -297,13 +297,13 @@ ctr -n k8s.io image import [镜像名称].tar --platform linux/amd64
 
 !!! warning
 
-    在生产环境，如果负载均衡器可用，推荐使用负载均衡器来实现 apiserver 高可用。如果没有负载均衡器，推荐单独发放 2 台虚拟机做 HAProxy 和 Keepalived 进行软负载高可用。如果实在无法满足条件，在 2 个 k8s 节点以 static pod 方式安装 HAProxy 和 Keepalived。
+    在生产环境，如果负载均衡器可用，推荐使用负载均衡器来实现 apiserver 高可用。如果没有负载均衡器，推荐单独发放 2 台虚拟机做 HAProxy 和 Keepalived 进行软负载高可用。如果实在无法满足条件，可在 2 个 k8s 节点上以 static pod 方式安装 HAProxy 和 Keepalived。
 
 #### 创建 jinja2 模板文件
 
 一共需要创建 4 个 jinja2 模板文件，将其放在 templates 目录下：
 
-```title="check_apiserver.sh.j2"
+```bash title="check_apiserver.sh.j2"
 #!/bin/sh
 
 errorExit() {
@@ -317,7 +317,7 @@ if ip addr | grep -q {{ keepalived_vip }}; then
 fi
 ```
 
-```title="haproxy.cfg.j2"
+```haproxy title="haproxy.cfg.j2"
 # /etc/haproxy/haproxy.cfg
 #---------------------------------------------------------------------
 # Global settings
@@ -371,7 +371,7 @@ backend apiserverbackend
     {% endfor %}
 ```
 
-```title="haproxy.yaml.j2"
+```yaml title="haproxy.yaml.j2"
 apiVersion: v1
 kind: Pod
 metadata:
@@ -401,7 +401,7 @@ spec:
 status: {}
 ```
 
-```title="keepalived.conf.j2"
+```ini title="keepalived.conf.j2"
 ! /etc/keepalived/keepalived.conf
 ! Configuration File for keepalived
 global_defs {
@@ -433,7 +433,7 @@ vrrp_instance VI_1 {
 }
 ```
 
-```title="keepalived.yaml.j2"
+```yaml title="keepalived.yaml.j2"
 apiVersion: v1
 kind: Pod
 metadata:
@@ -517,13 +517,13 @@ status: {}
 
 在 k8s01 节点创建集群：
 
-```
+```bash
 kubeadm init --control-plane-endpoint cluster-endpoint:8443 --pod-network-cidr=172.18.0.0/16 --upload-certs
 ```
 
 创建成功后会有以下提示：
 
-```
+```text
 You can now join any number of the control-plane node running the following command on each as root:
 
   kubeadm join cluster-endpoint:8443 --token dqgsa7.3g5uhcbbtbgogrfm \
@@ -533,7 +533,7 @@ You can now join any number of the control-plane node running the following comm
 
 在 k8s02 和 k8s03 执行：
 
-```
+```bash
 kubeadm join cluster-endpoint:8443 --token dqgsa7.3g5uhcbbtbgogrfm \
     --discovery-token-ca-cert-hash sha256:7b66a8861d2c2986f1d5caf043b8e5358477b52d4760055dda2781ddad44cc92 \
     --control-plane --certificate-key 526b695cca88e6c8bbb1e19f805f46f080087bcb748a5547009d99c6ac1e4d27
@@ -541,14 +541,14 @@ kubeadm join cluster-endpoint:8443 --token dqgsa7.3g5uhcbbtbgogrfm \
 
 将两个节点加入集群，之后所有 k8s 节点都修改 bashrc：
 
-```
+```bash
 echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> /root/.bashrc
 source /root/.bashrc
 ```
 
 检查集群状态：
 
-```
+```text
 # kubectl get nodes
 NAME    STATUS     ROLES           AGE     VERSION
 k8s01   NotReady   control-plane   4m32s   v1.29.0
@@ -556,13 +556,13 @@ k8s02   NotReady   control-plane   2m6s    v1.29.0
 k8s03   NotReady   control-plane   110s    v1.29.0
 ```
 
-此时 NotReady 是因为没有安装 calico，为正常现象。
+此时节点状态为 NotReady 是因为尚未安装 Calico，属正常现象。
 
 ### 设置允许 master 节点调度容器
 
-集群创建以后，因为我们只有 master 节点，需要允许容器在 master 节点调度：
+集群创建后，由于仅有 master 节点，需要允许容器在 master 节点上调度：
 
-```
+```bash
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
 
@@ -622,14 +622,14 @@ spec:
 
 在任意一个 k8s 节点上运行：
 
-```
+```bash
 kubectl create -f tigera-operator.yaml
 kubectl create -f custom-resources.yaml
 ```
 
 检查 pod 状态：
 
-```
+```text
 # kubectl -n tigera-operator get pods
 NAME                               READY   STATUS    RESTARTS      AGE
 tigera-operator-55585899bf-6mwrh   1/1     Running   2 (50s ago)   11m
@@ -641,7 +641,7 @@ calico-typha-f8fd87f9d-thkt6   1/1     Running   1 (92s ago)    10m
 
 在完全就绪以后，在 k8s 上查看路由表，可以看到 calico 为每个 k8s 节点都分配了一个网段，网段写入了路由表：
 
-```
+```text
 # ip route
 default via 192.168.100.1 dev ens33 proto static metric 100
 172.18.97.0/24 via 172.18.97.0 dev vxlan.calico onlink
@@ -654,15 +654,15 @@ blackhole 172.18.209.0/24 proto 80
 
 完全就绪以后，检查两个 coredns 是不是扎堆部署在一个节点上：
 
-```
+```text
 # kubectl -n kube-system get pods -o wide | grep coredns
 kube-system        coredns-76f75df574-4nskd            1/1     Running   1 (4m17s ago)   47m     172.18.97.7      k8s03    <none>           <none>
 kube-system        coredns-76f75df574-t9stk            1/1     Running   1 (4m17s ago)   47m     172.18.97.6      k8s03    <none>           <none>
 ```
 
-如果有这种情况，需要轮询重启 coredns 来使得 coredns 不扎堆在一个节点：
+如果有这种情况，需要轮询重启 coredns，使其不扎堆在同一个节点上：
 
-```
+```bash
 kubectl -n kube-system rollout restart deployment coredns
 ```
 

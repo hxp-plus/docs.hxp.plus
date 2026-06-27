@@ -17,7 +17,7 @@ Get-WinEvent -FilterHashTable @{ProviderName="Microsoft-Windows-Hyper-V-Hypervis
 
 命令返回如下：
 
-```
+```text
    ProviderName: Microsoft-Windows-Hyper-V-Hypervisor
 
 
@@ -35,10 +35,12 @@ TimeCreated                      Id LevelDisplayName Message
 
 调度器具体区别可参考 [Manage Hyper-V hypervisor scheduler types](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types) ，
 
-修改调度器方法为 Core scheduler 的方法为：
+修改调度器为 Core scheduler 的方法为：
 
-```
+```powershell
 bcdedit /set hypervisorschedulertype core
 ```
 
-修改以后需要重启。
+!!! tip
+
+    修改调度器后需要重启系统才能生效。

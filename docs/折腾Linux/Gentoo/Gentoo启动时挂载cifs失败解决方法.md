@@ -8,13 +8,13 @@ tags:
 
 ## 问题描述
 
-今日观察到 Gentoo 重启后 cifs 挂载项丢失，其中 `/etc/fstab` 是这样写的：
+某次重启后发现 Gentoo 的 cifs 挂载项丢失，其中 `/etc/fstab` 配置如下：
 
-```
+```text
 //192.168.11.254/downloads/others /mnt/winshare cifs credentials=/etc/cifs-credentials,uid=3000,gid=3000,_netdev 0 0
 ```
 
-启动报错里 `dmesg` 大致为网络不可达类型的报错。
+启动报错中 `dmesg` 大致为网络不可达类型的报错。
 
 ## 排查方向
 
@@ -31,18 +31,22 @@ tags:
 
 配置文件 `/etc/conf.d/netmount` ：
 
-```
+```text
 rc_need="net.eth0"
 rc_need="dhcpcd"
 ```
 
 配置文件 `/etc/conf.d/net-online` ：
 
-```
+```text
 interfaces="eth0"
 include_ping_test=yes
 ping_test_host=192.168.11.1
 timeout=120
 ```
+
+!!! warning
+
+    `netmount` 依赖的网络服务必须与实际网卡名称一致，否则开机时网络尚未就绪，cifs 挂载即会失败。
 
 同时将这两个服务开机自启动。

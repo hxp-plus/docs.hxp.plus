@@ -7,15 +7,15 @@ tags:
 
 # Linux 将最后一个磁盘分区扩容到最大
 
-在扩容 Linux 的系统盘后， `/dev/sda` 后部有大量空闲空间没有使用，需要将其纳入最后一个磁盘分区中。
+在扩容 Linux 系统盘后， `/dev/sda` 后部有大量空闲空间没有使用，需要将其纳入最后一个磁盘分区中。
 
-## 检查路由表
+## 检查磁盘空间
 
-```
+```bash
 parted -s -a opt /dev/sda "print free"
 ```
 
-```
+```text
 Warning: Not all of the space available to /dev/sda appears to be used, you can fix the GPT to use all of the space (an extra 201326592 blocks) or continue with the current setting?
 Model: Msft Virtual Disk (scsi)
 Disk /dev/sda: 137GB
@@ -33,10 +33,14 @@ Number  Start   End     Size    File system  Name  Flags
 
 ## 扩容第 3 个分区到磁盘末尾
 
-```
+```bash
 root@ubuntu:~# growpart /dev/sda 3
 ```
 
-```
+```text
 CHANGED: partition=3 start=6397952 old: size=60708864 end=67106815 new: size=262037471 end=268435422
 ```
+
+!!! warning
+
+    扩容分区前建议先备份数据，并确认目标分区之后无其他分区，否则会导致数据丢失。

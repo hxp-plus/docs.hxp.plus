@@ -13,7 +13,7 @@ tags:
 
 解决方法：
 
-```
+```bash
 sudo apt-get install "linux-cloud-tools-$(uname -r)"
 ```
 

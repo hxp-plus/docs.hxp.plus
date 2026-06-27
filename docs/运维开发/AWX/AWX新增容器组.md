@@ -14,7 +14,7 @@ tags:
 
 containergroup-sa.yml 修改如下：
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: ServiceAccount

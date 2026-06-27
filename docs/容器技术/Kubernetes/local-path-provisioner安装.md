@@ -17,7 +17,7 @@ kubectl apply -f local-path-storage.yaml
 
 ## 创建 local-path-provisioner 目录
 
-在所有节点，创建`/opt/local-path-provisioner`目录（建议对此目录单独建立逻辑卷
+在所有节点，创建 `/opt/local-path-provisioner` 目录（建议对此目录单独建立逻辑卷）。
 
 ## 将 local-path-provisioner 设置为默认 StorageClass
 
@@ -27,9 +27,9 @@ kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storagec
 
 ## 测试并验证
 
-创建 pvc 并测试，新建文件`test-pvc.yaml`：
+创建 pvc 并测试，新建文件 `test-pvc.yaml`：
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -46,7 +46,7 @@ spec:
 
 创建 pvc：
 
-```
+```bash
 kubectl apply -f test-pvc.yaml
 ```
 
@@ -90,11 +90,11 @@ kubectl run -i --rm --tty busybox --overrides='
 
 检查 pvc 为 Bound 状态：
 
-```
+```bash
 kubectl get pvc
 ```
 
-```
+```text
 NAME       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS    VOLUMEATTRIBUTESCLASS   AGE
 test-pvc   Bound    pvc-9c92208e-cd5a-436a-a785-74b6dc00ae31   1Gi        RWX            csi-cephfs-sc   <unset>                 9m15s
 ```

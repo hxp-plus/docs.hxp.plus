@@ -8,13 +8,13 @@ tags:
 
 在新系统修改编译 flag 后，重新编译系统里所有包时，运行了如下命令：
 
-```
+```bash
 emerge -Deuav world
 ```
 
 报错如下：
 
-```
+```text
 * Messages for package net-libs/nghttp2-1.61.0:
 
  * ERROR: net-libs/nghttp2-1.61.0::gentoo failed (compile phase):
@@ -47,7 +47,7 @@ emerge -Deuav world
 
 其中日志文件 `/var/tmp/portage/net-libs/nghttp2-1.61.0/temp/build.log` 报错如下：
 
-```
+```text
 ninja: error: manifest 'build.ninja' still dirty after 100 tries, perhaps system time is not set
  * ERROR: net-libs/nghttp2-1.61.0::gentoo failed (compile phase):
  *   ninja -v -j16 -l16 failed
@@ -77,17 +77,21 @@ ninja: error: manifest 'build.ninja' still dirty after 100 tries, perhaps system
  * S: '/var/tmp/portage/net-libs/nghttp2-1.61.0/work/nghttp2-1.61.0'
 ```
 
-报错的原因是系统刚装好进行了时间同步， ninja 编译发现有一些文件是在未来创建的。解决方法为找到所有在未来创建的文件，并将其时间戳修改为现在：
+报错原因是系统刚装好即进行了时间同步，ninja 编译发现部分文件是在未来创建的。解决方法为找到所有在未来创建的文件，并将其时间戳修改为现在：
 
-```
+```bash
 touch currtime
 find / -cnewer currtime -exec touch {} \;
 rm currtime
 ```
 
+!!! warning
+
+    `find / -cnewer ... -exec touch {} \;` 会遍历整个文件系统，可能耗时较长。建议在 chroot 环境或已知的小范围内执行。
+
 最后单独重新编译这一个包：
 
-```
+```bash
 emerge -av =net-libs/nghttp2-1.61.0
 ```
 

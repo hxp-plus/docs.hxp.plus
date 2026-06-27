@@ -12,20 +12,20 @@ tags:
 
 需要使用以下命令下载 ceph-csi-cephfs 的 helm chart：
 
-```
+```bash
 helm repo add ceph-csi https://ceph.github.io/csi-charts
 helm pull ceph-csi/ceph-csi-cephfs
 ```
 
 同时需要下载此 helm chart 所需的容器镜像，镜像名称用以下命令查看：
 
-```
+```bash
 helm template ceph-csi-cephfs-3.10.1.tgz | grep 'image:'
 ```
 
 ## 新建 cephfs 和 volume
 
-在 ceph 服务器上，使用`cephadm shell`进入 ceph 命令行，并执行以下命令：
+在 ceph 服务器上，使用 `cephadm shell` 进入 ceph 命令行，并执行以下命令：
 
 ```bash
 ceph fs volume create cephfs
@@ -34,11 +34,11 @@ ceph fs subvolumegroup create cephfs csi
 
 执行以后检查：
 
-```
+```bash
 ceph fs volume ls
 ```
 
-```
+```json
 [
     {
         "name": "cephfs"
@@ -46,11 +46,11 @@ ceph fs volume ls
 ]
 ```
 
-```
+```bash
 ceph fs subvolumegroup ls cephfs
 ```
 
-```
+```json
 [
     {
         "name": "csi"
@@ -62,22 +62,22 @@ ceph fs subvolumegroup ls cephfs
 
 在 ceph 节点上，收集 ceph 配置和 admin 的 keyring：
 
-```
+```bash
 ceph config generate-minimal-conf
 ```
 
-```
+```ini
 # minimal ceph.conf for 77488730-b4d9-11ee-bec7-fa163e3bb924
 [global]
     fsid = 77488730-b4d9-11ee-bec7-fa163e3bb924
     mon_host = [v2:192.168.100.14:3300/0,v1:192.168.100.14:6789/0] [v2:192.168.100.15:3300/0,v1:192.168.100.15:6789/0] [v2:192.168.100.16:3300/0,v1:192.168.100.16:6789/0]
 ```
 
-```
+```bash
 ceph auth get client.admin
 ```
 
-```
+```ini
 [client.admin]
     key = ********
     caps mds = "allow *"
@@ -90,11 +90,11 @@ ceph auth get client.admin
 
 首先生成 values.yaml：
 
-```
+```bash
 helm show values ceph-csi-cephfs-3.10.1.tgz > values.yaml
 ```
 
-修改以下的部分：
+修改以下部分：
 
 ```yaml
 csiConfig:
@@ -109,7 +109,7 @@ csiConfig:
 # csiConfig: []
 ```
 
-```
+```yaml
 secret:
   # Specifies whether the secret should be created
   create: true
@@ -118,7 +118,7 @@ secret:
   adminKey: ********
 ```
 
-```
+```yaml
 storageClass:
   create: true
   name: csi-cephfs-sc
@@ -141,7 +141,7 @@ kubectl patch storageclass ceph-csi-sc -p '{"metadata": {"annotations":{"storage
 
 ## 创建 pvc 并测试
 
-新建文件`test-pvc.yaml`：
+新建文件 `test-pvc.yaml`：
 
 ```yaml title="test-pvc.yaml"
 ---
@@ -160,30 +160,30 @@ spec:
 
 创建 pvc：
 
-```
+```bash
 kubectl apply -f test-pvc.yaml
 ```
 
 检查 pvc 状态为 Bound 则为安装成功：
 
-```
+```bash
 kubectl get pvc
 ```
 
-```
+```text
 NAME       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS    VOLUMEATTRIBUTESCLASS   AGE
 test-pvc   Bound    pvc-9c92208e-cd5a-436a-a785-74b6dc00ae31   1Gi        RWX            csi-cephfs-sc   <unset>                 9m15s
 ```
 
 如果要查询这个 pvc 对应的 pv 对应的 cephfs 存储位置，可使用以下命令：
 
-```
+```bash
 kubectl get pv $(kubectl get pvc test-pvc -o jsonpath="{.spec.volumeName}") -o jsonpath='{.spec.csi.volumeAttributes.subvolumePath}';echo
 ```
 
 清理：
 
-```
+```bash
 kubectl delete -f testpvc.yaml
 ```
 
@@ -193,13 +193,13 @@ kubectl delete -f testpvc.yaml
 
 在 ceph 客户端上安装 ceph-fuse：
 
-```
+```bash
 yum install ceph-fuse
 ```
 
-配置`/etc/ceph/ceph.conf`：
+配置 `/etc/ceph/ceph.conf`：
 
-```
+```bash
 mkdir -p -m 755 /etc/ceph
 cat > /etc/ceph/ceph.conf <<-'EOF'
 [global]
@@ -211,7 +211,7 @@ chmod 644 /etc/ceph/ceph.conf
 
 配置 keyring：
 
-```
+```bash
 cat > /etc/ceph/ceph.client.admin.keyring <<-'EOF'
 [client.admin]
     key = **********
@@ -219,25 +219,25 @@ EOF
 chmod 600 /etc/ceph/ceph.client.admin.keyring
 ```
 
-### 临时挂在 cephfs
+### 临时挂载 cephfs
 
 如果要临时挂载，使用命令：
 
-```
+```bash
 ceph-fuse -n client.admin /mnt/cephfs
 ```
 
 ### 永久挂载 cephfs
 
-如果要永久挂载，则配置`/etc/fstab`，加入以下行：
+如果要永久挂载，则配置 `/etc/fstab`，加入以下行：
 
-```
+```ini
 none	/mnt/cephfs	fuse.ceph	ceph.id=admin,_netdev	0	0
 ```
 
 再挂载 cephfs：
 
-```
+```bash
 mkdir -p /mnt/cephfs
 mount /mnt/cephfs
 ```

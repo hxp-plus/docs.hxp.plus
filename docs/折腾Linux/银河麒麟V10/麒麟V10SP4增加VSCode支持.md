@@ -7,7 +7,11 @@ tags:
 
 # 麒麟 V10SP4 增加 VSCode 支持
 
-VSCode 自 1.99 版本开始抛弃了对旧版本 Linux 的支持，对于旧版本需要额外进行一些配置才能使用。
+VSCode 自 1.99 版本开始停止支持旧版本 Linux，对于旧版本需要额外进行一些配置才能使用。
+
+!!! info
+
+    以下步骤需要在具备 root 权限的环境中执行，且编译过程耗时较长。
 
 ## 安装编译依赖
 
@@ -45,7 +49,7 @@ CT_ALLOW_BUILD_AS_ROOT=y
 CT_ALLOW_BUILD_AS_ROOT_SURE=y
 ```
 
-用 `make menuconfig` 修改 gcc 版本：
+使用 `make menuconfig` 修改 gcc 版本：
 
 ```bash
 /opt/crosstool-ng-1.26.0/bin/ct-ng menuconfig

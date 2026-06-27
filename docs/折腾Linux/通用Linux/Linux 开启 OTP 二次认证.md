@@ -68,7 +68,9 @@ auth       substack     password-auth
 sudo useradd -m -s /sbin/nologin proxy
 ```
 
-> `-s /sbin/nologin` 使该用户无法获得 shell，但 SSH ProxyJump（端口转发）不需要 shell 也能正常工作。
+!!! note
+
+    `-s /sbin/nologin` 使该用户无法获得 shell，但 SSH ProxyJump（端口转发）不需要 shell 也能正常工作。
 
 ### 2. 修改 PAM 配置：proxy 用户跳过 OTP
 
@@ -116,7 +118,9 @@ sudo chmod 700 /home/proxy/.ssh
 sudo chmod 600 /home/proxy/.ssh/authorized_keys
 ```
 
-> proxy 用户不需要运行 `google-authenticator`，PAM 层已经跳过了 OTP 验证。
+!!! note
+
+    proxy 用户不需要运行 `google-authenticator`，PAM 层已经跳过了 OTP 验证。
 
 ### 5. 验证并重启
 
@@ -144,4 +148,6 @@ Host via-proxy
 | `Match User proxy` + `AuthenticationMethods publickey` | 仅需公钥，无 OTP                               |
 | 不为 proxy 生成 OTP secret                             | 纵深防御，即使 PAM 配置出错也无法通过 OTP 认证 |
 
-`DisablePTTY` 不是 OpenSSH 合法指令，不要使用，`PermitTTY no` 已足够。
+!!! warning
+
+    `DisablePTTY` 不是 OpenSSH 合法指令，不要使用，`PermitTTY no` 已足够。

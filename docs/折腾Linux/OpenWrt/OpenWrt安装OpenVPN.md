@@ -17,7 +17,7 @@ tags:
 
 使用 opkg 安装软件：
 
-```
+```bash
 # Install packages
 opkg update
 opkg install openvpn-openssl openvpn-easy-rsa
@@ -190,7 +190,7 @@ ls ${VPN_DIR}/*.ovpn
 
 ## luci-app-openvpn 的配置
 
-如果要使用图形化管理 OpenVPN ，首先需要安装 luci-app-openvpn ，之后根据 `/etc/openvpn/server.conf` 进行配置文件迁移。首先先在 `/etc/openvpn/server.conf` 中提取证书，并存放到相应位置：
+如果要使用图形化管理 OpenVPN，首先需要安装 luci-app-openvpn，之后根据 `/etc/openvpn/server.conf` 进行配置文件迁移。首先在 `/etc/openvpn/server.conf` 中提取证书，并存放到相应位置：
 
 | `server.conf` 中证书 | 存放地点                    |
 | -------------------- | --------------------------- |

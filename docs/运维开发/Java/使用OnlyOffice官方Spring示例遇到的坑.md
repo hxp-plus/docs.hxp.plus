@@ -14,7 +14,7 @@ tags:
 
 ![](./images/onlyoffice_1.png)
 
-```
+```bash
 git clone --recurse-submodules https://github.com/ONLYOFFICE/document-server-integration.git
 ```
 
@@ -24,7 +24,7 @@ git clone --recurse-submodules https://github.com/ONLYOFFICE/document-server-int
 
 ![](./images/onlyoffice_2.png)
 
-jar 包会生成在 `target/integration-1.0.jar` ，将其复制即可使用。
+jar 包会生成在 `target/integration-1.0.jar`，复制即可使用。
 
 ## 项目打包成 jar 后单独运行报错
 
@@ -114,20 +114,20 @@ spring.jpa.hibernate.ddl-auto=create-drop
 
 在引入 spring security 后，即使是 permitAll() 在打开 OnlyOffice 页面还是报错， document-server 报错如下：
 
-```
+```text
 document-server-1  | [2024-05-28T22:08:57.809] [ERROR] [localhost] [1383708097] [1] nodeJS - postData error: url = http://ubuntu.hxp.lan:4000/track?fileName=new.docx&userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F;data = {"key":"1383708097","status":1,"users":["1"],"actions":[{"type":1,"userid":"1"}]} Error: Error response: statusCode:403; headers:{"set-cookie":["JSESSIONID=B667F99DC2C69C008DF263C81F2A5FCA; Path=/; HttpOnly"],"x-content-type-options":"nosniff","x-xss-protection":"1; mode=block","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"0","x-frame-options":"DENY","content-type":"application/json","transfer-encoding":"chunked","date":"Tue, 28 May 2024 14:08:57 GMT","connection":"close"}; body:
 document-server-1  | {"timestamp":1716905337808,"status":403,"error":"Forbidden","message":"Forbidden","path":"/track"}
 ```
 
 此时需要检查 Spring 的日志，在 `application.properties` 加入：
 
-```
+```ini
 logging.level.org.springframework.security=DEBUG
 ```
 
 观察到 Spring 吐出以下日志：
 
-```
+```text
 2024-05-28 14:07:54.813 DEBUG 1342180 --- [nio-4000-exec-2] s.s.w.c.SecurityContextPersistenceFilter : Set SecurityContextHolder to empty SecurityContext
 2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.security.web.csrf.CsrfFilter         : Invalid CSRF token found for http://ubuntu.hxp.lan:4000/track?fileName=new.docx&userAddress=%2Fhome%2Fhxp%2Fonlyoffice-spring-keycloak%2Fdocuments%2F127.0.1.1%2F
 2024-05-28 14:07:54.814 DEBUG 1342180 --- [nio-4000-exec-2] o.s.s.w.access.AccessDeniedHandlerImpl   : Responding with 403 status code
@@ -171,7 +171,7 @@ public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception
 
 这样打包后的 jar 包不含 `application.properties` ，运行需要手动指定：
 
-```
+```bash
 java -jar integration-1.0.jar --spring.config.location=file:///${HOME}/onlyoffice-spring-keycloak/src/main/resources/application.properties
 ```
 

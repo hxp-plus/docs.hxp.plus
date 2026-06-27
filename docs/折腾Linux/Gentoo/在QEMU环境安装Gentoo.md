@@ -32,17 +32,17 @@ tags:
 
 ### 连接网络并启动 SSH 服务
 
-使用静态 IP 地址的方式配置网络，使用 `ip a` 命令查询到当前环境网卡名称为 `enp0s18` ，之后使用命令 `net-setup enp0s18` 命令配置网络，本次 IP 地址暂时配置为 `192.168.100.200` （跟着 TUI 界面指引一步步配置即可）。
+使用静态 IP 地址的方式配置网络，使用 `ip a` 命令查询到当前环境网卡名称为 `enp0s18` ，之后使用 `net-setup enp0s18` 命令配置网络，本次 IP 地址暂时配置为 `192.168.100.200` （跟着 TUI 界面指引一步步配置即可）。
 
 !!! tip
 
     如果配置完成后网络不通，需要用 `ip r` 命令检查路由表是否正确，如果不正确需要添加如下路由：
-    ```
+    ```bash
     ip route add 192.168.100.0/24 dev enp0s18
     ip route add default via 192.168.100.1
     ```
     用以下命令重启网卡：
-    ```
+    ```bash
     ifconfig enp0s18 down
     ifconfig enp0s18 up
     ```
@@ -53,7 +53,7 @@ tags:
 
 参考 [官方手册](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Disks) 的 "Partitioning the disk with MBR for BIOS / legacy boot" 进行分区（不创建 swap 分区）：
 
-```
+```text
 livecd ~ # fdisk /dev/vda
 
 Welcome to fdisk (util-linux 2.39.3).
@@ -114,7 +114,7 @@ Syncing disks.
 
 格式化并挂载文件系统：
 
-```
+```bash
 mkfs.xfs /dev/vda1
 mkfs.xfs /dev/vda2
 mkdir --parents /mnt/gentoo
@@ -127,7 +127,7 @@ mount /dev/vda1 /mnt/gentoo/boot
 
 先将 stage 文件放在家目录下，然后解压：
 
-```
+```bash
 cd /mnt/gentoo/
 tar xpvf ~/stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
 ```
@@ -136,31 +136,31 @@ tar xpvf ~/stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
 
 最好在安装前用 `chronyd` 命令同步下时间，避免日后下载东西报错：
 
-```
+```bash
 chronyd -q
 ```
 
 ## 默认配置修改
 
-修改 `/mnt/gentoo/etc/portage/make.conf` 中以下一行：
+修改 `/mnt/gentoo/etc/portage/make.conf` 中的以下一行：
 
-```
+```ini
 COMMON_FLAGS="-march=native -O2 -pipe"
 ```
 
-修改之后编译安装所有软件会根据机器自己的指令集编译。
+修改后，所有软件将根据本机指令集编译。
 
 ## 安装 base system
 
 ### 复制 DNS 服务器信息到新系统
 
-```
+```bash
 cp --dereference /etc/resolv.conf /mnt/gentoo/etc/
 ```
 
 ### 挂载文件系统
 
-```
+```bash
 mount --types proc /proc /mnt/gentoo/proc
 mount --rbind /sys /mnt/gentoo/sys
 mount --make-rslave /mnt/gentoo/sys
@@ -174,13 +174,13 @@ mount --make-slave /mnt/gentoo/run
 
 挂载文件系统后， chroot 进入新系统：
 
-```
+```bash
 chroot /mnt/gentoo /bin/bash
 ```
 
 chroot 之后需要 source 下 profile：
 
-```
+```bash
 source /etc/profile
 export PS1="(chroot) ${PS1}"
 ```
@@ -189,33 +189,33 @@ export PS1="(chroot) ${PS1}"
 
 创建配置文件：
 
-```
+```bash
 mkdir --parents /etc/portage/repos.conf
 cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
 ```
 
 为了加快下载速度，需要配置镜像，修改 `/etc/portage/repos.conf/gentoo.conf` ：
 
-```
+```ini
 sync-uri = rsync://mirrors.tuna.tsinghua.edu.cn/gentoo-portage
 ```
 
 在 `/etc/portage/make.conf` 中加入：
 
-```
+```ini
 GENTOO_MIRRORS="https://mirrors.tuna.tsinghua.edu.cn/gentoo"
 ```
 
 更新仓库：
 
-```
+```bash
 emerge-webrsync
 emerge --sync
 ```
 
 ### 更新所有软件包
 
-```
+```bash
 emerge --ask --verbose --update --deep --newuse @world
 ```
 
@@ -223,7 +223,7 @@ emerge --ask --verbose --update --deep --newuse @world
 
 ### 设置时区
 
-```
+```bash
 echo "Asia/Shanghai" > /etc/timezone
 emerge --config sys-libs/timezone-data
 ```
@@ -232,17 +232,17 @@ emerge --config sys-libs/timezone-data
 
 在 `/etc/locale.gen` 中对需要的 locale 取消注释，然后重新生成 locale ：
 
-```
+```bash
 locale-gen
 ```
 
 设置默认 locale ：
 
-```
+```bash
 eselect locale list
 ```
 
-```
+```text
 Available targets for the LANG variable:
   [1]   C
   [2]   C.utf8
@@ -252,18 +252,18 @@ Available targets for the LANG variable:
   [ ]   (free form)
 ```
 
-```
+```bash
 eselect locale set 4
 ```
 
-```
+```text
 Setting LANG to en_US.utf8 ...
 Run ". /etc/profile" to update the variable in your shell.
 ```
 
 重新加载 profile ：
 
-```
+```bash
 env-update && source /etc/profile && export PS1="(chroot) ${PS1}"
 ```
 
@@ -271,28 +271,28 @@ env-update && source /etc/profile && export PS1="(chroot) ${PS1}"
 
 ### 下载内核源码
 
-```
+```bash
 emerge --ask sys-kernel/installkernel sys-kernel/gentoo-sources
 ```
 
 ### 选择内核源码
 
-```
+```bash
 eselect kernel list
 ```
 
-```
+```text
 Available kernel symlink targets:
   [1]   linux-6.6.21-gentoo
 ```
 
-```
+```bash
 eselect kernel set 1
 ```
 
 ### 安装 genkernel
 
-```
+```bash
 mkdir -p /etc/portage/package.license
 echo 'sys-kernel/linux-firmware @BINARY-REDISTRIBUTABLE' > /etc/portage/package.license/linux-firmware
 emerge --ask sys-kernel/genkernel
@@ -300,15 +300,15 @@ emerge --ask sys-kernel/genkernel
 
 ### 编译内核
 
-用 genkernel 生成并自动安装内核：
+使用 genkernel 生成并自动安装内核：
 
-```
+```bash
 genkernel --mountboot --install all --menuconfig
 ```
 
 注意，在弹出的界面中，需要额外配置这几项来将相关驱动编译进内核：
 
-```
+```text
 Processor type and features  --->
     [*] Linux guest support --->
         [*] Enable Paravirtualization code
@@ -335,7 +335,7 @@ Device Drivers  --->
 
 ### 安装 QEMU 虚拟机相关软件
 
-```
+```bash
 emerge --ask sys-power/acpid app-emulation/qemu-guest-agent
 rc-update add acpid default
 rc-update add qemu-guest-agent default
@@ -345,16 +345,16 @@ rc-update add qemu-guest-agent default
 
 ### 配置 fstab
 
-编辑 `/etc/fstab`：
+编辑 `/etc/fstab` ：
 
-```
+```text
 /dev/vda1 /boot xfs defaults  0 2
 /dev/vda2 / xfs defaults  0 0
 ```
 
 ### 配置主机名
 
-```
+```bash
 echo gentoo > /etc/hostname
 ```
 
@@ -362,7 +362,7 @@ echo gentoo > /etc/hostname
 
 安装 dhcpcd 来为 DHCP 提供支持:
 
-```
+```bash
 emerge --ask net-misc/dhcpcd
 rc-update add dhcpcd default
 rc-service dhcpcd start
@@ -370,13 +370,13 @@ rc-service dhcpcd start
 
 安装 netifrc 来管理网络：
 
-```
+```bash
 emerge --ask --noreplace net-misc/netifrc
 ```
 
 安装 system logger 、 chrony 等基础软件：
 
-```
+```bash
 emerge --ask app-admin/sysklogd sys-process/cronie sys-apps/mlocate net-misc/chrony app-shells/bash-completion sys-fs/xfsprogs sys-block/io-scheduler-udev-rules
 rc-update add sysklogd default
 rc-update add chronyd default
@@ -386,34 +386,38 @@ rc-update add chronyd default
 
 安装 grub 软件包：
 
-```
+```bash
 echo 'GRUB_PLATFORMS="pc"' >> /etc/portage/make.conf
 emerge --ask --verbose sys-boot/grub
 ```
 
 配置 grub ，修改 `/etc/default/grub` ：
 
-```
+```text
 GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0"
 GRUB_TERMINAL=console
 ```
 
 配置 `/etc/inittab` ：
 
-```
+```text
 # SERIAL CONSOLES
 s0:12345:respawn:/sbin/agetty -L 115200 ttyS0 vt100
 ```
 
+!!! warning
+
+    安装 grub 到硬盘头会覆盖现有引导扇区，请确认目标磁盘正确。
+
 安装 grub 到硬盘头：
 
-```
+```bash
 grub-install /dev/vda
 ```
 
 生成 grub 启动项配置：
 
-```
+```bash
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
@@ -429,14 +433,14 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 使用静态地址的方式配置网络，在 `/etc/conf.d/net` 中增加网卡配置：
 
-```
+```text
 config_enp0s18="192.168.100.5 netmask 255.255.255.0 brd 192.168.100.255"
 routes_enp0s18="default via 192.168.100.1"
 ```
 
 配置开机启动（如果是静态地址，需要禁用 dhcpcd 防止其自动获取 169.254 网关）：
 
-```
+```bash
 cd /etc/init.d
 ln -s net.lo net.enp0s18
 rc-update del dhcpcd
@@ -445,13 +449,13 @@ rc-update add net.enp0s18 default
 
 ### 配置 SSH 开机启动
 
-```
+```bash
 rc-update add sshd default
 ```
 
 ## 安装完成并重启
 
-```
+```bash
 exit
 umount -l /mnt/gentoo/dev{/shm,/pts,}
 umount -R /mnt/gentoo

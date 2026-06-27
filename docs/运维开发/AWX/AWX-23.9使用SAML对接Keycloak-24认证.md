@@ -14,7 +14,8 @@ tags:
 openssl req -subj "/C=CN/ST=Beijing/L=Haidian/O=awx.hxp.lan/CN=awx.hxp.lan" -sha256 -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 3650 -out certificate.pem
 ```
 
-此 SSL 证书直接申请了 10 年有效期。记得在 10 年后更新。
+!!! tip
+    此 SSL 证书直接申请了 10 年有效期，记得在 10 年后更新。
 
 ## 修改 AWX 配置
 
@@ -187,11 +188,11 @@ sed ':a;N;$!ba;s/\n//g' certificate.pem | sed 's/^-----BEGIN CERTIFICATE-----//;
 
 完成以后，去 AWX 点击这里登录：
 
-![](images/截图录屏_org.deepin.browser_20240306175906.png)
+![](./images/截图录屏_org.deepin.browser_20240306175906.png)
 
 测试用户名、电子邮箱、姓名能否正常获取：
 
-![](images/截图录屏_Navigator_20240306180102.png)
+![](./images/截图录屏_Navigator_20240306180102.png)
 
 ## 其它设置
 

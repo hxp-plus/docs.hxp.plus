@@ -9,7 +9,7 @@ tags:
 
 k3s 在删除 namespace 时，卡死，按 Ctrl-C 后发现 namespace 一直处于 Terminating 状态：
 
-```
+```text
 $ kubectl get ns
 NAME              STATUS        AGE
 kube-system       Active        33d
@@ -23,7 +23,7 @@ awx               Terminating   5d18h
 
 用以下命令清理：
 
-```
+```bash
 NS=`kubectl get ns |grep Terminating | awk 'NR==1 {print $1}'` && kubectl get namespace "$NS" -o json   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/"   | kubectl replace --raw /api/v1/namespaces/$NS/finalize -f -
 ```
 

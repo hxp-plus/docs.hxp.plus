@@ -32,14 +32,16 @@ namespace: awx
 
 生成 yaml 文件：
 
-```
+```bash
 kubectl apply -k . -o yaml --dry-run=client > awx-operator.yaml
 ```
 
-如果需要离线部署，需要把`awx-operator.yaml`中`imagePullPolicy: Always`修改为`imagePullPolicy: IfNotPresent`，
-将 yaml 文件应用：
+!!! warning
+    如果需要离线部署，需要把 `awx-operator.yaml` 中 `imagePullPolicy: Always` 修改为 `imagePullPolicy: IfNotPresent`。
 
-```
+应用 YAML 文件：
+
+```bash
 kubectl create namespace awx
 kubectl -n awx apply -f awx-operator.yaml
 ```
@@ -48,11 +50,11 @@ kubectl -n awx apply -f awx-operator.yaml
 
 AWX 存储数据需要一套 PostgreSQL-13 数据库，数据库需要新建用户 awx 和数据库 awx：
 
-```
+```bash
 psql -h postgresql-13 -U postgres
 ```
 
-```
+```text
 Password for user postgres:
 psql (13.11, server 13.0 (Debian 13.0-1.pgdg100+1))
 Type "help" for help.
@@ -127,20 +129,20 @@ type: Opaque
 
 将两个 yaml 文件应用：
 
-```
+```bash
 kubectl -n awx apply -f awx-postgres-configuration.yaml
 kubectl -n awx apply -f awx.yaml
 ```
 
 观察部署进度：
 
-```
+```bash
 kubectl -n awx logs -f deployments/awx-operator-controller-manager
 ```
 
 获取默认 admin 密码：
 
-```
+```bash
 kubectl -n awx get secret awx-admin-password -o jsonpath="{.data.password}" | base64 --decode; echo
 ```
 

@@ -19,7 +19,7 @@ tags:
 
 需要安装 `edk2-aarch64` 并重启 libvirtd ：
 
-```
+```bash
 yum install edk2-aarch64
 systemctl restart libvirtd
 ```

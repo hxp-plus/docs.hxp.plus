@@ -20,13 +20,13 @@ tags:
 
 安装 ibus 输入法后，问题自动解决，我也不知道为什么：
 
-```
+```bash
 emerge --ask app-i18n/ibus ibus-libpinyin
 ```
 
 表现为安装 ibus 后，我将三个环境变量清除：
 
-```
+```bash
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
@@ -34,10 +34,14 @@ export XMODIFIERS=@im=fcitx
 
 然后改成了 ibus 的：
 
-```
+```bash
 GTK_IM_MODULE=ibus
 QT_IM_MODULE=ibus
 XMODIFIERS=@im=ibus
 ```
 
 之后没有卸载 fcitx ，重启后发现 xfce 右上角键盘图标变成加粗的图标， fcitx 莫名其妙地好了。删除 ibus 环境变量，不添加 fcitx 环境变量，重启，依旧是好的。
+
+!!! note
+
+    该问题的根本原因尚不明确，属于 workaround 而非根治方案。如后续找到 root cause，建议补充说明。

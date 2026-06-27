@@ -561,15 +561,19 @@ ufw status
 
 ### 14.5 headed 模式下 Chrome 启动后闪退 / `/dev/shm` 不足
 
-**原因**：容器内 `/dev/shm` 通常只有 64MB（docker/k8s 默认），Chrome 默认把共享内存用在这；超过会触发 renderer 崩溃。
+!!! warning
 
-**解决**：启动参数加 `--disable-dev-shm-usage`，改用 `/tmp` 目录。这是 headed 模式**必须**加的参数。
+    **原因**：容器内 `/dev/shm` 通常只有 64MB（docker/k8s 默认），Chrome 默认把共享内存用在这；超过会触发 renderer 崩溃。
+
+    **解决**：启动参数加 `--disable-dev-shm-usage`，改用 `/tmp` 目录。这是 headed 模式**必须**加的参数。
 
 ### 14.6 headed 模式下 Chrome 启动后 `Target page, context or browser has been closed`
 
-**原因**：缺 `--disable-setuid-sandbox`，Chrome 仍尝试用 setuid helper 创建 sandbox 子进程；root 跑时该路径必败。
+!!! warning
 
-**解决**：见 §11.3，三件套（`--no-sandbox` + `--disable-setuid-sandbox` + `DISPLAY=:1`）缺一不可。
+    **原因**：缺 `--disable-setuid-sandbox`，Chrome 仍尝试用 setuid helper 创建 sandbox 子进程；root 跑时该路径必败。
+
+    **解决**：见 §11.3，三件套（`--no-sandbox` + `--disable-setuid-sandbox` + `DISPLAY=:1`）缺一不可。
 
 ### 14.7 headed 模式下 Chrome 出现但点击/键入无响应
 
@@ -585,20 +589,22 @@ DISPLAY=:1 xdotool search --name "Chrome" | head -1 | xargs DISPLAY=:1 xdotool w
 
 ## 15. 注意事项
 
-- **磁盘只剩 ~7.3G**，建议定期清理 `/root` 下归档资料
-- **未对外暴露端口**：所有图形服务仅 localhost，安全但需 SSH 隧道
-- **VNC 鉴权 = None**：纯靠 SSH 加密，未授权用户即使知道 IP 也连不进
-- **Chrome 默认以 root + headless 跑**：性能最佳、攻击面最小。**可切到 headed 模式**（见 §11），代价是失去 sandbox 隔离
-- **headed 模式三件套**：`--no-sandbox` + `--disable-setuid-sandbox` + `DISPLAY=:1`，缺一不可
-- **headed 模式容器内必须加**：`--disable-dev-shm-usage`（/dev/shm 通常 64MB 不够）
-- **headed 模式安全等级**：与 root 跑 Xfce/VNC 同级，本机可控；如对外暴露需要更多防御
-- **重启后**：`vncserver@1` 和 `novnc@1` systemd unit 都会自动拉起
+!!! warning
+
+    - **磁盘只剩 ~7.3G**，建议定期清理 `/root` 下归档资料
+    - **未对外暴露端口**：所有图形服务仅 localhost，安全但需 SSH 隧道
+    - **VNC 鉴权 = None**：纯靠 SSH 加密，未授权用户即使知道 IP 也连不进
+    - **Chrome 默认以 root + headless 跑**：性能最佳、攻击面最小。**可切到 headed 模式**（见 §11），代价是失去 sandbox 隔离
+    - **headed 模式三件套**：`--no-sandbox` + `--disable-setuid-sandbox` + `DISPLAY=:1`，缺一不可
+    - **headed 模式容器内必须加**：`--disable-dev-shm-usage`（/dev/shm 通常 64MB 不够）
+    - **headed 模式安全等级**：与 root 跑 Xfce/VNC 同级，本机可控；如对外暴露需要更多防御
+    - **重启后**：`vncserver@1` 和 `novnc@1` systemd unit 都会自动拉起
 
 ---
 
 ## 16. 关键文件清单
 
-```
+```text
 /etc/systemd/system/vncserver@.service
 /etc/systemd/system/novnc@.service
 /root/.vnc/xstartup

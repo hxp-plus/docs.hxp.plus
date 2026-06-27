@@ -8,9 +8,9 @@ tags:
 
 ## 构建容器编译环境
 
-编译需要用到 Ubuntu 20.04 ，明智的做法是整一个 Ubuntu 20.04 的容器。在任意已经安装 docker 的机器上，新建目录 `onlyoffice` 作为本项目工作目录，创建 Dockerfile 如下：
+编译需要用到 Ubuntu 20.04 ，建议使用 Ubuntu 20.04 的容器。在任意已经安装 docker 的机器上，新建目录 `onlyoffice` 作为本项目工作目录，创建 Dockerfile 如下：
 
-```
+```dockerfile
 FROM ubuntu:20.04
 
 ENV TZ=Etc/UTC
@@ -29,26 +29,26 @@ CMD /bin/bash -c 'while true;do sleep 3600;done'
 
 构建容器：
 
-```
+```bash
 docker build --tag onlyoffice-document-editors-builder .
 ```
 
 启动容器前需要禁用 IPv6 ：
 
-```
+```bash
 sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
 ```
 
 启动容器（需要在新创建的 `onlyoffice` 目录运行）：
 
-```
+```bash
 docker rm onlyoffice_build
 docker run -d --name onlyoffice_build -p 8701:80 -v $PWD:/build onlyoffice-document-editors-builder
 ```
 
 容器后台启动完成后，进入容器：
 
-```
+```bash
 docker exec -it onlyoffice_build /bin/bash
 ```
 
@@ -58,14 +58,14 @@ docker exec -it onlyoffice_build /bin/bash
 
 进入容器，下载`build_tools` 项目：
 
-```
+```bash
 cd /build
 git clone https://github.com/ONLYOFFICE/build_tools.git
 ```
 
 使用 `build_tools` 项目编译：
 
-```
+```bash
 cd /build/build_tools/tools/linux && ./automate.py server
 ```
 
@@ -75,35 +75,35 @@ cd /build/build_tools/tools/linux && ./automate.py server
 
 修改 `/build/server/Common/sources/constants.js` ：
 
-```
+```javascript
 exports.LICENSE_CONNECTIONS = 99999;
 ```
 
 修改 `/build/build_tools/tools/linux/automate.py` 中此处 `--update` 为 `0` ，使得下次编译不再更新文件：
 
-```
+```python
 build_tools_params = ["--branch", branch,
                       "--module", modules,
                       "--update", "0",
                       "--qt-dir", os.getcwd() + "/qt_build/Qt-5.9.9"] + params
 ```
 
-之后重新 编译源代码：
+之后重新编译源代码：
 
-```
+```bash
 cd /build/build_tools/tools/linux && ./automate.py server
 ```
 
-二次编译完成后，可以使用以下命令验证：
+重新编译完成后，可以使用以下命令验证：
 
-```
+```bash
 grep CONNECTIONS /build/build_tools/out/linux_64/onlyoffice/documentserver-snap/var
 /www/onlyoffice/documentserver/server/Common/sources/constants.js
 ```
 
 这里的 `exports.LICENSE_CONNECTIONS` 由 20 变为 99999 则为修改生效：
 
-```
+```javascript
 exports.LICENSE_CONNECTIONS = 99999;
 ```
 
@@ -113,14 +113,14 @@ exports.LICENSE_CONNECTIONS = 99999;
 
 安装并清除 nginx 默认配置：
 
-```
+```bash
 sudo apt-get install nginx
 sudo rm -f /etc/nginx/sites-enabled/default
 ```
 
 新建文件 `/etc/nginx/sites-available/onlyoffice-documentserver` 如下：
 
-```
+```nginx
 map $http_host $this_host {
   "" $host;
   default $http_host;
@@ -156,13 +156,13 @@ server {
 
 使配置文件生效：
 
-```
+```bash
 sudo ln -s /etc/nginx/sites-available/onlyoffice-documentserver /etc/nginx/sites-enabled/onlyoffice-documentserver
 ```
 
 重启 nginx：
 
-```
+```bash
 service nginx restart
 ```
 
@@ -170,14 +170,14 @@ service nginx restart
 
 安装 postgresql 并启动：
 
-```
+```bash
 sudo apt-get install postgresql
 service postgresql restart
 ```
 
 创建数据库和用户：
 
-```
+```bash
 sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
 sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';"
 sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
@@ -185,20 +185,20 @@ sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO only
 
 数据铺底：
 
-```
+```bash
 psql -hlocalhost -Uonlyoffice -d onlyoffice -f /build/build_tools/out/linux_64/onlyoffice/documentserver/server/schema/postgresql/createdb.sql # 密码为 onlyoffice
 ```
 
 ### 安装并启动 RabbitMQ
 
-```
+```bash
 sudo apt-get install rabbitmq-server
 service rabbitmq-server restart
 ```
 
 ### 生成字体和幻灯片主题
 
-```
+```bash
 cd /build/build_tools/out/linux_64/onlyoffice/documentserver
 mkdir fonts
 LD_LIBRARY_PATH=${PWD}/server/FileConverter/bin server/tools/allfontsgen \
@@ -219,14 +219,14 @@ LD_LIBRARY_PATH=${PWD}/server/FileConverter/bin server/tools/allthemesgen \
 
 启动 FileConverter ：
 
-```
+```bash
 cd /build/build_tools/out/linux_64/onlyoffice/documentserver/server/FileConverter/
 nohup bash -c 'LD_LIBRARY_PATH=$PWD/bin NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./converter' &
 ```
 
 启动 DocService ：
 
-```
+```bash
 cd /build/build_tools/out/linux_64/onlyoffice/documentserver/server/DocService
 nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config ./docservice' &
 ```
@@ -235,7 +235,7 @@ nohup bash -c 'NODE_ENV=development-linux NODE_CONFIG_DIR=$PWD/../Common/config 
 
 使用官方的 [Java Spring Demo](https://api.onlyoffice.com/zh/editors/example/javaspring) 进行测试，该项目 GitHub 地址为：<https://github.com/ONLYOFFICE/document-server-integration/tree/master/web/documentserver-example/java-spring> ，也可以在 <https://api.onlyoffice.com/zh/editors/demopreview> 页面“选择编程语言并将在线编辑器集成示例的代码下载到您的网站”处下载。Spring 项目需要修改 `src/main/resources/application.properties` 的如下 2 行：
 
-```
+```properties
 server.port=4000
 files.docservice.url.site=http://ubuntu.hxp.lan:8701/
 ```
@@ -246,7 +246,7 @@ files.docservice.url.site=http://ubuntu.hxp.lan:8701/
 
 将以上所有操作做成容器镜像，新建 Dockerfile ：
 
-```
+```dockerfile
 FROM ubuntu:20.04
 
 ENV TZ=Etc/UTC
@@ -302,7 +302,7 @@ CMD /bin/bash /start.sh
 
 其中 `start.sh` 如下：
 
-```
+```bash
 #!/bin/bash
 
 service nginx restart
@@ -321,7 +321,7 @@ tail -f /logs.txt
 
 nginx 配置 `onlyoffice-documentserver` 如下：
 
-```
+```nginx
 map $http_host $this_host {
   "" $host;
   default $http_host;
@@ -357,13 +357,13 @@ server {
 
 构建容器镜像：
 
-```
+```bash
 docker build --tag hxp.plus/onlyoffice/document-server:v20240526 .
 ```
 
 启动容器：
 
-```
+```bash
 docker run -p 8701:80 --rm -it --name document-server hxp.plus/onlyoffice/document-server:v20240526
 ```
 

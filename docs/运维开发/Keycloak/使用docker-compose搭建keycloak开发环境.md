@@ -62,10 +62,11 @@ volumes:
     name: geeker-admin-mysql
 ```
 
-特别注意， `KC_HOSTNAME` 一定配置成服务器外部域名或 IP，不能是 `localhost` 。启动：
+特别注意，`KC_HOSTNAME` 一定配置成服务器外部域名或 IP，不能是 `localhost` 。启动：
 
-```
+```bash
 docker compose up
 ```
 
-注：第一次启动可能不成功，需要重启一次。
+!!! tip
+    第一次启动可能不成功，需要重启一次。
