@@ -40,16 +40,39 @@ nav:
           - 扩容master节点: 容器技术/Kubernetes/扩容master节点.md
           - k3s删除namespace卡死在Terminating解决方法: 容器技术/Kubernetes/k3s删除namespace卡死在Terminating解决方法.md
           - k8s 开启 swap 支持: 容器技术/Kubernetes/k8s开启swap支持.md
+          - Deploy kubegres on k8s: 容器技术/Kubernetes/k8s_kubegres.md
+          - High-Availability Kubernetes setup with HAProxy and Keepalived: 容器技术/Kubernetes/High-Availability Kubernetes setup with HAProxy and Keepalived.md
+          - Install GitLab with local path on k3s with relative url path as stateful set: 容器技术/Kubernetes/k3s_gitlab_relative_path.md
+          - Install kubeadm with ansible on CentOS Stream 8: 容器技术/Kubernetes/kubeadm_install_ansible.md
+          - Install the Kubegres database with local path storage provisioner on kubernetes: 容器技术/Kubernetes/k8s_local_path_provisoner_install.md
+          - k3s_traefik_path_prefix_strip: 容器技术/Kubernetes/k3s_traefik_path_prefix_strip.md
+          - k3s安装: 容器技术/Kubernetes/k3s安装.md
+          - k8s_qbittorrent_prefix: 容器技术/Kubernetes/k8s_qbittorrent_prefix.md
+          - k8s临时启动挂载pvc的容器: 容器技术/Kubernetes/k8s临时启动挂载pvc的容器.md
+          - k8s从私网Nexus仓库拉取docker镜像: 容器技术/Kubernetes/k8s从私网Nexus仓库拉取docker镜像.md
+          - k8s创建service account并授权、导入kublet: 容器技术/Kubernetes/k8s创建service account并授权、导入kublet.md
+          - k8s安装local-path-provisioner: 容器技术/Kubernetes/k8s安装local-path-provisioner.md
+          - Tuning Kubernetes cluster to react faster on node failure: 容器技术/Kubernetes/Tuning Kubernetes cluster to react faster on node failure.md
+          - Using Ceph as Kubernetes storage backend: 容器技术/Kubernetes/kubernetes_ceph.md
+          - 麒麟V10SP1高可用Kubernetes+Ceph集群部署: 容器技术/Kubernetes/麒麟V10SP1高可用Kubernetes+Ceph集群部署.md
       - Docker&Podman:
           - Dockerfile中不保留编译缓存: 容器技术/Docker&Podman/Dockerfile中不保留编译缓存.md
           - 基于eBPF的容器审计技术的实现: 容器技术/Docker&Podman/基于eBPF的容器审计技术的实现.md
           - RTX 5090单卡极限长上下文部署调优指南: 容器技术/Docker&Podman/RTX 5090单卡极限长上下文部署调优指南.md
+          - Delete every Docker containers: 容器技术/Docker&Podman/delete-all-containers-images-docker.md
+          - Increase Docker Download Speed in China Mainland: 容器技术/Docker&Podman/Docker.md
   - 前端开发:
       - Vue3:
           - Geeker-Admin接入Keycloak认证: 前端开发/Vue3/Geeker-Admin接入Keycloak认证.md
+          - Vue前端接入Keycloak验证: 前端开发/Vue3/Vue前端接入Keycloak验证.md
   - 存储技术:
       - Ceph:
           - 银河麒麟V10安装Ceph: 存储技术/Ceph/银河麒麟V10安装Ceph.md
+          - 3 node ceph cluster install on CentOS 8 Stream: 存储技术/Ceph/3_node_ceph_cluster.md
+          - Adding additional monitor and osd nodes to Ceph cluster: 存储技术/Ceph/Adding additional monitor and osd nodes to Ceph cluster.md
+          - Bootstrap a 3-node ceph cluster on Arch Linux: 存储技术/Ceph/Bootstrap a 3-node ceph cluster on Arch Linux.md
+          - ceph-deploy: 存储技术/Ceph/ceph-deploy.md
+          - Remove a node from Ceph cluster: 存储技术/Ceph/Remove a node from Ceph cluster.md
       - ZFS:
           - TrueNAS删除所有空快照: 存储技术/ZFS/TrueNAS删除所有空快照.md
       - TrueNAS:
@@ -64,11 +87,89 @@ nav:
           - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
           - AWX新增容器组: 运维开发/AWX/AWX新增容器组.md
           - 在k3s上搭建awx测试环境: 运维开发/AWX/在k3s上搭建awx测试环境.md
+          - 'AWX on k8s: Using external PostgreSQL database': 运维开发/AWX/AWX on k8s Using external PostgreSQL database.md
+          - AWX-ee执行环境容器镜像封装: 运维开发/AWX/AWX-ee执行环境容器镜像封装.md
+          - AWX修改密码: 运维开发/AWX/AWX修改密码.md
+          - AWX新增instance: 运维开发/AWX/AWX新增instance.md
+          - Install AWX on k8s with awx-operator: 运维开发/AWX/Install AWX on k8s with awx-operator.md
+          - Install CloudNativePG for AWX: 运维开发/AWX/Install CloudNativePG for AWX.md
+          - RHEL8 k3s 与 AWX-23.9 安装: 运维开发/AWX/RHEL8 k3s 与 AWX-23.9 安装.md
+          - 在k8s集群安装高可用AWX: 运维开发/AWX/在k8s集群安装高可用AWX.md
       - Keycloak:
           - 使用openresty容器为k8s的服务提供Keycloak认证服务: 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
           - k8s集群Keycloak部署及负载配置: 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
           - 使用docker-compose搭建keycloak开发环境: 运维开发/Keycloak/使用docker-compose搭建keycloak开发环境.md
           - k3s搭建单点Keycloak: 运维开发/Keycloak/k3s搭建单点Keycloak.md
+      - OpenStack:
+          - Answers to OpenStack Practice: 运维开发/OpenStack/Answers to OpenStack Practice.md
+          - Deploying OpenStack Cluster on CentOS 8  Stream with packstack: 运维开发/OpenStack/openstack-packstack-210610.md
+          - Deploying OpenStack Cluster on CentOS 8 with packstack: 运维开发/OpenStack/openstack-packstack.md
+          - Install All-in-One OpenStack Platform: 运维开发/OpenStack/aio-openstack.md
+          - Install OpenStack All-in-one CentOS Stream: 运维开发/OpenStack/openstack-aio.md
+          - OpenStack Tenant Network: 运维开发/OpenStack/openstack-tenant-network.md
+      - 安全:
+          - Generate Hash for Linux shadow file: 运维开发/安全/generate-hash-for-linux-shadow.md
+          - Redis Get Shell Vulnerability Reproduction: 运维开发/安全/Redis-Vulnerbility.md
+          - Stripping SSL: 运维开发/安全/stripping-ssl.md
+      - 工具:
+          - Change your usermane in Windows 10: 运维开发/工具/Change-Usermane-Windows-10.md
+          - Easiest-way-to-deploy-kodexploler: 运维开发/工具/Easiest-way-to-deploy-kodexploler.md
+          - Fix Windows 10 Sleep Issue: 运维开发/工具/Fix-Win10-Sleep-Issue.md
+          - Linux社团服务器使用指南: 运维开发/工具/Linux社团服务器使用指南.md
+          - Useful bash Scripts to Batch Convert: 运维开发/工具/batch-converting.md
+          - vlc-stuck: 运维开发/工具/vlc-stuck.md
+          - 下载与传输:
+              - Download m3u8 with FFmepg: 运维开发/工具/下载与传输/m3u8-download.md
+              - Enabling mixed content in Mozilla Firefox: 运维开发/工具/下载与传输/Aria2.md
+              - Install qbittorrent with nginx reverse proxy on Fedora Cloud: 运维开发/工具/下载与传输/install-qbittorrent.md
+              - Mounting /dev/null as a filesystem on Linux: 运维开发/工具/下载与传输/mount-nullfs.md
+              - Use non-standard SSH port to copy files remotely: 运维开发/工具/下载与传输/non-standard-port-rsync.md
+              - Using rsync to verify the integrity of a duplicate: 运维开发/工具/下载与传输/rsync-integrity-check.md
+              - Using wget to clone a whole site: 运维开发/工具/下载与传输/Using wget to clone a whole site.md
+          - 加解密:
+              - Crack Multi-file large rar password: 运维开发/工具/加解密/crack-rar-password.md
+              - Crack Multi-file Large Zip Password: 运维开发/工具/加解密/crack-zip-passwd.md
+          - 多媒体处理:
+              - '[How to crop permanently in Acrobat](https://superuser.com/questions/127568/how-to-crop-permanently-in-acrobat)': 运维开发/工具/多媒体处理/How to crop permanently in Acrobat.md
+              - autocrop: 运维开发/工具/多媒体处理/autocrop.md
+              - Edit PDF Metadata on Linux: 运维开发/工具/多媒体处理/edit-pdf-linux.md
+              - Get Video Resolution: 运维开发/工具/多媒体处理/Get Video Resolution.md
+              - How to play audio through multiple audio device at the same time: 运维开发/工具/多媒体处理/play-audio-multi-device.md
+              - name-youtube-dl-videos-with-playlist-index: 运维开发/工具/多媒体处理/name-youtube-dl-videos-with-playlist-index.md
+              - Setting up Chinese support for pdf readers like evince and okular.etc: 运维开发/工具/多媒体处理/evince-okular-chinese-support.md
+              - Using FFmpeg to Convert Videos: 运维开发/工具/多媒体处理/convert-video-ffmpeg.md
+          - 开发与办公:
+              - Add Matlab Shortcut to GNOME or KDE: 运维开发/工具/开发与办公/add-matlab-shortcut.md
+              - Bug fix for Matlab R2020a black ui: 运维开发/工具/开发与办公/fix-matlab-R2020a-black-ui.md
+              - Cast Android to Fedora using scrcpy: 运维开发/工具/开发与办公/cast-android-adb.md
+              - Containerize MATLAB with systemd-nspawn: 运维开发/工具/开发与办公/containerize-matlab-systemd-nspawn.md
+              - ES存数组并增删改查: 运维开发/工具/开发与办公/ES存数组并增删改查.md
+              - LaTeX Force Table Positioned at Current Context: 运维开发/工具/开发与办公/LaTeX-Force-Table-Positioned-at-Current-Context.md
+              - Obsidian插入图片: 运维开发/工具/开发与办公/Obsidian插入图片.md
+          - 系统配置:
+              - 403 Forbidden When Accessing Files in Webroot through Softlink: 运维开发/工具/系统配置/403-Forbidden-Softlink-Nginx.md
+              - Add a localhost-only port in CentOS via firewall-cmd: 运维开发/工具/系统配置/Add-Localhost-Only-Port-CentOS.md
+              - ANSI Escape Sequences: 运维开发/工具/系统配置/ANSI.md
+              - Change GNOME Top Bar font: 运维开发/工具/系统配置/change-gnome-top-bar-font.md
+              - Change Linux file permissions back to default: 运维开发/工具/系统配置/linux-permission.md
+              - Customizing Linux Boot: 运维开发/工具/系统配置/customizing-linux-boot.md
+              - Dell R730使用Clover引导NVMe磁盘启动: 运维开发/工具/系统配置/Dell R730使用Clover引导NVMe磁盘启动.md
+              - Disable host key checking in SSH clients: 运维开发/工具/系统配置/Disable host key checking in SSH clients.md
+              - Disable Linux Shutdown: 运维开发/工具/系统配置/disable-linux-shutdown.md
+              - Disabling Shutdown and Logout in GNOME: 运维开发/工具/系统配置/disabling-shutdown-logout-gnome.md
+              - Fix the powertop always show 0 mW Display Backlight usage error: 运维开发/工具/系统配置/power-top-0mW-backlight.md
+              - Format USB Pen Drive to NTFS or FAT32 in Linux: 运维开发/工具/系统配置/format-disk-ntfs.md
+              - Install Hack font on CentOS: 运维开发/工具/系统配置/install-fonts-centos.md
+              - Install hxp-dvorak keyboard layout: 运维开发/工具/系统配置/install-hxp-dvorak.md
+              - Install Xfce Desktop with VNC on CentOS: 运维开发/工具/系统配置/install-xfce-centos.md
+              - install-vnc-centos: 运维开发/工具/系统配置/install-vnc-centos.md
+              - Knowing from which yum repository a package has been installed: 运维开发/工具/系统配置/show-yum-package-source.md
+              - Move/resize windows on grid: 运维开发/工具/系统配置/GNOME.md
+              - Piping Terminal to Clipboard: 运维开发/工具/系统配置/pipe-to-clipboard.md
+              - r730-fan-speed: 运维开发/工具/系统配置/r730-fan-speed.md
+              - register-rhel: 运维开发/工具/系统配置/register-rhel.md
+              - Set Time Automatically on Linux: 运维开发/工具/系统配置/set-time-linux-auto.md
+              - Way to delete old kernel and release disk space in /boot: 运维开发/工具/系统配置/Delete_Old_Kernel.md
       - 笔记及文档软件:
           - 思源笔记k8s部署: 运维开发/笔记及文档软件/思源笔记k8s部署.md
           - mkdocs在k8s上的部署: 运维开发/笔记及文档软件/mkdocs在k8s上的部署.md
@@ -80,11 +181,13 @@ nav:
           - Git配置记住密码: 运维开发/Git使用/Git配置记住密码.md
           - 使用nginx快速搭建只读Git仓库: 运维开发/Git使用/使用nginx快速搭建只读Git仓库.md
           - GitLab第二邮箱修改为已认证: 运维开发/Git使用/GitLab第二邮箱修改为已认证.md
+          - Add Chinese Support to git: 运维开发/Git使用/git-chinese-support.md
       - Python:
           - 构建解压即用的Python3: 运维开发/Python/构建解压即用的Python3.md
           - 基于Python的模块化监控工具的开发: 运维开发/Python/基于Python的模块化监控工具的开发.md
           - Python升级所有依赖: 运维开发/Python/Python升级所有依赖.md
           - Python限制内存和CPU使用: 运维开发/Python/Python限制内存和CPU使用.md
+          - Data Types (dtpye): 运维开发/Python/Numpy.md
       - Java:
           - SpringBoot 2.5.1 对接Keycloak认证: 运维开发/Java/SpringBoot 2.5.1 对接Keycloak认证.md
           - 使用OnlyOffice官方Spring示例遇到的坑: 运维开发/Java/使用OnlyOffice官方Spring示例遇到的坑.md
@@ -93,7 +196,42 @@ nav:
       - Rust:
           - Rust离线开发环境安装: 运维开发/Rust/Rust离线开发环境安装.md
           - Rust交叉编译环境安装: 运维开发/Rust/Rust交叉编译环境安装.md
+      - 网络:
+          - Bridging WLAN Networks Using 2 Wireless Cards: 运维开发/网络/sharing-wireless-network.md
+          - Configure NetworkManager to Change MAC Address everytime iface restarts: 运维开发/网络/network-manager-mac-auto-change.md
+          - OpenVPN实验手册: 运维开发/网络/openvpn.md
+          - Use Linux as a Miracast receiver: 运维开发/网络/liunx-miracast-server.md
   - 折腾Linux:
+      - Arch:
+          - Configure Bluetooth Audio for Arch Linux: 折腾Linux/Arch/arch-linux-bluetooth-audio.md
+          - Install Arch Linux from Scratch: 折腾Linux/Arch/arch-install.md
+          - Install CUPS Printing Service: 折腾Linux/Arch/install-cups-arch.md
+          - Install deb package on Arch Linux: 折腾Linux/Arch/install-deb-archlinux.md
+          - Install Samba on Arch Linux: 折腾Linux/Arch/install-samba-archlinux.md
+          - Moving existing Arch Linux installation to VMWare: 折腾Linux/Arch/move-archlinux-to-vmware.md
+      - Fedora:
+          - enable-repos-fedora: 折腾Linux/Fedora/enable-repos-fedora.md
+          - Fedora System Upgrade: 折腾Linux/Fedora/upgrade-fedora.md
+          - Install Cockpit on Fedora: 折腾Linux/Fedora/Install-cockpit-fedora.md
+          - Install OpenVPN on Fedora: 折腾Linux/Fedora/install-openvpn-fedora.md
+          - Setting up fail2ban with Gmail notification to secure your Fedora server from brute force: 折腾Linux/Fedora/fedora-fail2ban-gmail.md
+      - Manjaro:
+          - Install and Configure SMB service on Manjaro KDE: 折腾Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
+          - Install Tencent TIM on Manjaro: 折腾Linux/Manjaro/tim-install.md
+      - Windows:
+          - 2023-03-26-Activate-Windows-using-KMS-server: 折腾Linux/Windows/2023-03-26-Activate-Windows-using-KMS-server.md
+          - 2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers...: 折腾Linux/Windows/2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....md
+          - 2023-04-01_Mirror_boot_drive_windows_server: 折腾Linux/Windows/2023-04-01_Mirror_boot_drive_windows_server.md
+          - 2023-04-01_Windows-Server-Software-RAID: 折腾Linux/Windows/2023-04-01_Windows-Server-Software-RAID.md
+          - 2023-04-04-Hyper-V-daily-backup-script: 折腾Linux/Windows/2023-04-04-Hyper-V-daily-backup-script.md
+          - Completely uninstall Widgets feature on Windows 11: 折腾Linux/Windows/2023-03-28_Completely-Remove-ADs-from-Windows-11.md
+          - Fix for invalid format error when using Git on Windows: 折腾Linux/Windows/Fix-for-Windows-Git-SSH-key-invalid-format.md
+          - Fix for the External HDD Sleep Automatically when Idle Issus on Windows 10: 折腾Linux/Windows/windows-hdd-sleep.md
+          - Patching Windows 10 registry to fix Chinese font display error: 折腾Linux/Windows/2023-03-29_win10-chinese-font-patch.md
+          - Steps to Uninstall OneDrive Completely on Windows 10 Pro: 折腾Linux/Windows/Uninstall-Onedrive-Completely-Windows-10-Pro.md
+          - Windows 10 not connect to wifi automatically when an ethernet connection is present: 折腾Linux/Windows/Windows 10 not connect to wifi automatically when an ethernet connection is present.md
+          - Windows 11修改自动更新设置: 折腾Linux/Windows/Windows 11修改自动更新设置.md
+          - Windows 11家庭版升级到专业版: 折腾Linux/Windows/Windows 11家庭版升级到专业版.md
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
           - Linux挂载CIFS: 折腾Linux/通用Linux/Linux挂载CIFS.md
@@ -103,13 +241,27 @@ nav:
           - 使用tlog对登录到Linux上的用户进行录屏: 折腾Linux/通用Linux/使用tlog对登录到Linux上的用户进行录屏.md
           - Kickstart 软raid安装.md: 折腾Linux/通用Linux/Kickstart 软raid安装.md
           - Linux 开启 OTP 二次认证: 折腾Linux/通用Linux/Linux 开启 OTP 二次认证.md
+          - 2023-03-30_Enable_BBR_congestion_control_on_CentOS_8: 折腾Linux/通用Linux/2023-03-30_Enable_BBR_congestion_control_on_CentOS_8.md
+          - 2023-04-01_Backup_and_restore_partition_table: 折腾Linux/通用Linux/2023-04-01_Backup_and_restore_partition_table.md
+          - 2023-04-01_Install_CA_certificate_RHEL: 折腾Linux/通用Linux/2023-04-01_Install_CA_certificate_RHEL.md
+          - Kickstart Installation for RHEL and CentOS: 折腾Linux/通用Linux/2023-07-09_Kickstart_RHEL.md
+          - Linux下载apt源: 折腾Linux/通用Linux/Linux下载apt源.md
+          - Linux忽略某个磁盘: 折腾Linux/通用Linux/Linux忽略某个磁盘.md
+          - Linux递归下载一个YUM源: 折腾Linux/通用Linux/Linux递归下载一个YUM源.md
+          - 使用 Clover 实现 nvme 引导启动: 折腾Linux/通用Linux/Clover实现nvme启动.md
       - Gentoo:
           - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
           - 在Hyper-V环境安装Gentoo: 折腾Linux/Gentoo/在Hyper-V环境安装Gentoo.md
-          - emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法: 折腾Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md
+          - "emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法": "折腾Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md"
           - Gentoo启动时挂载cifs失败解决方法: 折腾Linux/Gentoo/Gentoo启动时挂载cifs失败解决方法.md
           - Hyper-V环境下sddm无法启动图形界面问题解决: 折腾Linux/Gentoo/Hyper-V环境下sddm无法启动图形界面问题解决.md
           - 安装xfce后fcitx右上角显示但无法选择输入法问题解决: 折腾Linux/Gentoo/安装xfce后fcitx右上角显示但无法选择输入法问题解决.md
+          - '[How to see which flags -march=native will activate?](https://stackoverflow.com/questions/5470257/how-to-see-which-flags-march-native-will-activate)': 折腾Linux/Gentoo/How to see which flags -march=native will activate.md
+          - Install Chinese Support based on KDE: 折腾Linux/Gentoo/Install Chinese Support based on KDE.md
+          - Install Gentoo Linux CLI: 折腾Linux/Gentoo/Install Gentoo Linux CLI.md
+          - Install Gentoo Linux KDE based on CLI: 折腾Linux/Gentoo/Install Gentoo Linux KDE.md
+          - Install VNC Server on Gentoo: 折腾Linux/Gentoo/Install VNC Server on Gentoo.md
+          - 'Ways to convert these notes to batch file, and then execute the commands line by line': '折腾Linux/Gentoo/Ways to convert these notes to batch file, and then execute the commands line by line.md'
       - OpenWrt:
           - OpenWrt安装WireGuard: 折腾Linux/OpenWrt/OpenWrt安装WireGuard.md
           - OpenWrt安装OpenVPN: 折腾Linux/OpenWrt/OpenWrt安装OpenVPN.md
@@ -119,6 +271,7 @@ nav:
           - 小米AX9000加入160MHz支持: 折腾Linux/OpenWrt/小米AX9000加入160MHz支持.md
           - 北京联通中兴F4610U光猫开超管界面: 折腾Linux/OpenWrt/北京联通中兴F4610U光猫开超管界面.md
           - OpenWrt修改默认Shell为bash并开启历史命令时间戳: 折腾Linux/OpenWrt/OpenWrt修改默认Shell为bash并开启历史命令时间戳.md
+          - OpenWrt配置网卡名和MAC地址绑定: 折腾Linux/OpenWrt/OpenWrt配置网卡名和MAC地址绑定.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
           - Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程: 折腾Linux/Ubuntu/Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程.md
@@ -135,9 +288,19 @@ nav:
           - Hyper-V修改调度器: 虚拟化技术/Hyper-V/Hyper-V修改调度器.md
           - Hyper-V网卡直通: 虚拟化技术/Hyper-V/Hyper-V网卡直通.md
           - Hyper-V多网卡绑定: 虚拟化技术/Hyper-V/Hyper-V多网卡绑定.md
+      - KVM:
+          - Create a KVM virtual machine using virsh command: 虚拟化技术/KVM/create-vm.md
+          - KVM installation on Gentoo: 虚拟化技术/KVM/KVM installation on Gentoo.md
+          - Use libvirt to Run KVM: 虚拟化技术/KVM/libvirt-kvm.md
+          - Vitrualize Ubuntu or Other Systems with KVM and QEMU: 虚拟化技术/KVM/qemu-kvm-virtualization.md
       - QEMU:
-          - virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题: 虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md
+          - "virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题": "虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md"
           - PVE发放ARM虚拟机: 虚拟化技术/QEMU/PVE发放ARM虚拟机.md
+      - VMware:
+          - 2023-03-12-vsphere-cert-replace: 虚拟化技术/VMware/2023-03-12-vsphere-cert-replace.md
+          - 2023-04-01_How-to-disable-the-vCenter-Server-Update-Notification-banner: 虚拟化技术/VMware/2023-04-01_How-to-disable-the-vCenter-Server-Update-Notification-banner.md
+          - 2023-04-05-VMware-Key: 虚拟化技术/VMware/2023-04-05-VMware-Key.md
+          - assign-static-ip-vmware: 虚拟化技术/VMware/assign-static-ip-vmware.md
       - 华为云:
           - 华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决: 虚拟化技术/华为云/华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决.md
   - 文档分类: tags.md
