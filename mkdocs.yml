@@ -43,6 +43,7 @@ nav:
       - Docker&Podman:
           - Dockerfile中不保留编译缓存: 容器技术/Docker&Podman/Dockerfile中不保留编译缓存.md
           - 基于eBPF的容器审计技术的实现: 容器技术/Docker&Podman/基于eBPF的容器审计技术的实现.md
+          - RTX 5090单卡极限长上下文部署调优指南: 容器技术/Docker&Podman/RTX 5090单卡极限长上下文部署调优指南.md
   - 前端开发:
       - Vue3:
           - Geeker-Admin接入Keycloak认证: 前端开发/Vue3/Geeker-Admin接入Keycloak认证.md
@@ -120,6 +121,7 @@ nav:
           - OpenWrt修改默认Shell为bash并开启历史命令时间戳: 折腾Linux/OpenWrt/OpenWrt修改默认Shell为bash并开启历史命令时间戳.md
       - Ubuntu:
           - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
+          - Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程: 折腾Linux/Ubuntu/Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程.md
       - RHEL6:
           - 记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题: 折腾Linux/RHEL6/记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题.md
       - 中标麒麟V7:
@@ -131,7 +133,7 @@ nav:
   - 虚拟化技术:
       - Hyper-V:
           - Hyper-V修改调度器: 虚拟化技术/Hyper-V/Hyper-V修改调度器.md
-          - Hyper-V网卡直通: Hyper-V网卡直通.md
+          - Hyper-V网卡直通: 虚拟化技术/Hyper-V/Hyper-V网卡直通.md
           - Hyper-V多网卡绑定: 虚拟化技术/Hyper-V/Hyper-V多网卡绑定.md
       - QEMU:
           - virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题: ./虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md
