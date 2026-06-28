@@ -101,7 +101,7 @@ nav:
           - 使用 docker-compose 搭建 keycloak 开发环境: 运维开发/Keycloak/使用docker-compose搭建keycloak开发环境.md
           - k3s 搭建单点 keycloak: 运维开发/Keycloak/k3s搭建单点Keycloak.md
       - OpenStack:
-          - Answers to OpenStack Practice: 运维开发/OpenStack/Answers to OpenStack Practice.md
+          - OpenStack 练习答案: 运维开发/OpenStack/Answers to OpenStack Practice.md
           - 使用 packstack 在 CentOS 8 Stream 上部署 OpenStack 集群: 运维开发/OpenStack/openstack-packstack-210610.md
           - 使用 packstack 在 CentOS 8 上部署 OpenStack 集群: 运维开发/OpenStack/openstack-packstack.md
           - 安装 All-in-One OpenStack 平台: 运维开发/OpenStack/aio-openstack.md
@@ -112,14 +112,14 @@ nav:
           - Redis 获取 Shell 漏洞复现: 运维开发/安全/Redis-Vulnerbility.md
           - 剥离 SSL: 运维开发/安全/stripping-ssl.md
       - 工具:
-          - Change your usermane in Windows 10: 运维开发/工具/Change-Usermane-Windows-10.md
-          - Easiest-way-to-deploy-kodexploler: 运维开发/工具/Easiest-way-to-deploy-kodexploler.md
+          - 在 Windows 10 中修改用户名: 运维开发/工具/Change-Usermane-Windows-10.md
+          - 部署 kodexplorer 的最简单方法: 运维开发/工具/Easiest-way-to-deploy-kodexploler.md
           - 修复 Windows 10 休眠问题: 运维开发/工具/Fix-Win10-Sleep-Issue.md
           - Linux社团服务器使用指南: 运维开发/工具/Linux社团服务器使用指南.md
           - 实用的批量转换 bash 脚本: 运维开发/工具/batch-converting.md
           - VLC 卡顿问题: 运维开发/工具/vlc-stuck.md
           - 下载与传输:
-              - Download m3u8 with FFmepg: 运维开发/工具/下载与传输/m3u8-download.md
+              - 使用 FFmpeg 下载 m3u8: 运维开发/工具/下载与传输/m3u8-download.md
               - 在 Mozilla Firefox 中启用混合内容: 运维开发/工具/下载与传输/Aria2.md
               - 在 Fedora Cloud 上使用 nginx 反向代理安装 qbittorrent: 运维开发/工具/下载与传输/install-qbittorrent.md
               - 在 Linux 上将 /dev/null 挂载为文件系统: 运维开发/工具/下载与传输/mount-nullfs.md
@@ -217,7 +217,7 @@ nav:
               - 在 Fedora 上安装 OpenVPN: 操作系统/Linux/Fedora/install-openvpn-fedora.md
               - 使用 fail2ban 和 Gmail 通知保护 Fedora 服务器免受暴力破解: 操作系统/Linux/Fedora/fedora-fail2ban-gmail.md
           - Manjaro:
-              - Install and Configure SMB service on Manjaro KDE: 操作系统/Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
+              - 在 Manjaro KDE 上安装和配置 SMB 服务: 操作系统/Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
               - 在 Manjaro 上安装腾讯 TIM: 操作系统/Linux/Manjaro/tim-install.md
           - 通用Linux:
               - Linux下载yum源: 操作系统/Linux/通用Linux/Linux下载yum源.md
@@ -291,7 +291,7 @@ nav:
           - Hyper-V 网卡直通: 虚拟化技术/Hyper-V/Hyper-V网卡直通.md
           - Hyper-V 多网卡绑定: 虚拟化技术/Hyper-V/Hyper-V多网卡绑定.md
       - KVM:
-          - Create a KVM virtual machine using virsh command: 虚拟化技术/KVM/create-vm.md
+          - 使用 virsh 命令创建 KVM 虚拟机: 虚拟化技术/KVM/create-vm.md
           - 在 Gentoo 上安装 KVM: 虚拟化技术/KVM/KVM installation on Gentoo.md
           - 使用 libvirt 运行 KVM: 虚拟化技术/KVM/libvirt-kvm.md
           - 使用 KVM 和 QEMU 虚拟化 Ubuntu 或其他系统: 虚拟化技术/KVM/qemu-kvm-virtualization.md
