@@ -108,7 +108,7 @@ nav:
           - 在 CentOS Stream 上安装 OpenStack All-in-one: 运维开发/OpenStack/openstack-aio.md
           - OpenStack 租户网络: 运维开发/OpenStack/openstack-tenant-network.md
       - 安全:
-          - Generate Hash for Linux shadow file: 运维开发/安全/generate-hash-for-linux-shadow.md
+          - 为 Linux shadow 文件生成哈希: 运维开发/安全/generate-hash-for-linux-shadow.md
           - Redis 获取 Shell 漏洞复现: 运维开发/安全/Redis-Vulnerbility.md
           - 剥离 SSL: 运维开发/安全/stripping-ssl.md
       - 工具:
@@ -127,7 +127,7 @@ nav:
               - 使用 rsync 验证副本的完整性: 运维开发/工具/下载与传输/rsync-integrity-check.md
               - 使用 wget 克隆整个网站: 运维开发/工具/下载与传输/Using wget to clone a whole site.md
           - 加解密:
-              - Crack Multi-file large rar password: 运维开发/工具/加解密/crack-rar-password.md
+              - 破解多文件大 RAR 密码: 运维开发/工具/加解密/crack-rar-password.md
               - 破解多文件大 ZIP 密码: 运维开发/工具/加解密/crack-zip-passwd.md
           - 多媒体处理:
               - '[How to crop permanently in Acrobat](https://superuser.com/questions/127568/how-to-crop-permanently-in-acrobat)': 运维开发/工具/多媒体处理/How to crop permanently in Acrobat.md
@@ -139,7 +139,7 @@ nav:
               - 为 evince、okular 等 PDF 阅读器设置中文支持: 运维开发/工具/多媒体处理/evince-okular-chinese-support.md
               - 使用 FFmpeg 转换视频: 运维开发/工具/多媒体处理/convert-video-ffmpeg.md
           - 开发与办公:
-              - Add Matlab Shortcut to GNOME or KDE: 运维开发/工具/开发与办公/add-matlab-shortcut.md
+              - 在 GNOME 或 KDE 中添加 Matlab 快捷方式: 运维开发/工具/开发与办公/add-matlab-shortcut.md
               - 修复 Matlab R2020a 黑屏 UI 问题: 运维开发/工具/开发与办公/fix-matlab-R2020a-black-ui.md
               - 使用 scrcpy 将 Android 投屏到 Fedora: 运维开发/工具/开发与办公/cast-android-adb.md
               - 使用 systemd-nspawn 容器化 MATLAB: 运维开发/工具/开发与办公/containerize-matlab-systemd-nspawn.md
@@ -147,7 +147,7 @@ nav:
               - LaTeX 强制表格定位于当前上下文: 运维开发/工具/开发与办公/LaTeX-Force-Table-Positioned-at-Current-Context.md
               - Obsidian插入图片: 运维开发/工具/开发与办公/Obsidian插入图片.md
           - 系统配置:
-              - 403 Forbidden When Accessing Files in Webroot through Softlink: 运维开发/工具/系统配置/403-Forbidden-Softlink-Nginx.md
+              - 通过软链接访问 webroot 文件时 403 Forbidden: 运维开发/工具/系统配置/403-Forbidden-Softlink-Nginx.md
               - 在 CentOS 中通过 firewall-cmd 添加仅本地端口: 运维开发/工具/系统配置/Add-Localhost-Only-Port-CentOS.md
               - ANSI 转义序列: 运维开发/工具/系统配置/ANSI.md
               - 更改 GNOME 顶部栏字体: 运维开发/工具/系统配置/change-gnome-top-bar-font.md
@@ -197,14 +197,14 @@ nav:
           - Rust离线开发环境安装: 运维开发/Rust/Rust离线开发环境安装.md
           - Rust交叉编译环境安装: 运维开发/Rust/Rust交叉编译环境安装.md
       - 网络:
-          - Bridging WLAN Networks Using 2 Wireless Cards: 运维开发/网络/sharing-wireless-network.md
+          - 使用两张无线网卡桥接 WLAN 网络: 运维开发/网络/sharing-wireless-network.md
           - 配置 NetworkManager 在接口重启时自动更改 MAC 地址: 运维开发/网络/network-manager-mac-auto-change.md
           - OpenVPN实验手册: 运维开发/网络/openvpn.md
           - 使用 Linux 作为 Miracast 接收器: 运维开发/网络/liunx-miracast-server.md
   - 操作系统:
       - Linux:
           - Arch:
-              - Configure Bluetooth Audio for Arch Linux: 操作系统/Linux/Arch/arch-linux-bluetooth-audio.md
+              - 配置 Arch Linux 蓝牙音频: 操作系统/Linux/Arch/arch-linux-bluetooth-audio.md
               - 从零开始安装 Arch Linux: 操作系统/Linux/Arch/arch-install.md
               - 安装 CUPS 打印服务: 操作系统/Linux/Arch/install-cups-arch.md
               - 在 Arch Linux 上安装 deb 包: 操作系统/Linux/Arch/install-deb-archlinux.md
@@ -228,7 +228,7 @@ nav:
               - 使用tlog对登录到Linux上的用户进行录屏: 操作系统/Linux/通用Linux/使用tlog对登录到Linux上的用户进行录屏.md
               - Kickstart 软 RAID 安装: 操作系统/Linux/通用Linux/Kickstart 软raid安装.md
               - Linux 开启 OTP 认证: 操作系统/Linux/通用Linux/Linux 开启 OTP 二次认证.md
-              - 2023-03-30_Enable_BBR_congestion_control_on_CentOS_8: 操作系统/Linux/通用Linux/2023-03-30_Enable_BBR_congestion_control_on_CentOS_8.md
+              - 在 CentOS 8 上启用 BBR 拥塞控制: 操作系统/Linux/通用Linux/2023-03-30_Enable_BBR_congestion_control_on_CentOS_8.md
               - 备份和恢复分区表: 操作系统/Linux/通用Linux/2023-04-01_Backup_and_restore_partition_table.md
               - 在 RHEL 上安装 CA 证书: 操作系统/Linux/通用Linux/2023-04-01_Install_CA_certificate_RHEL.md
               - RHEL 和 CentOS 的 Kickstart 安装: 操作系统/Linux/通用Linux/2023-07-09_Kickstart_RHEL.md
@@ -299,7 +299,7 @@ nav:
           - "virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题": "虚拟化技术/QEMU/virt-manager创建虚拟机报错“Did not find any UEFI binary path for arch 'aarch64'”问题.md"
           - PVE发放ARM虚拟机: 虚拟化技术/QEMU/PVE发放ARM虚拟机.md
       - VMware:
-          - 2023-03-12-vsphere-cert-replace: 虚拟化技术/VMware/2023-03-12-vsphere-cert-replace.md
+          - 替换 vSphere 证书: 虚拟化技术/VMware/2023-03-12-vsphere-cert-replace.md
           - 禁用 vCenter Server 更新通知横幅: 虚拟化技术/VMware/2023-04-01_How-to-disable-the-vCenter-Server-Update-Notification-banner.md
           - VMware 密钥: 虚拟化技术/VMware/2023-04-05-VMware-Key.md
           - 为 VMware 虚拟机分配静态 IP: 虚拟化技术/VMware/assign-static-ip-vmware.md
