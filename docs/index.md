@@ -6,7 +6,7 @@
 
 ## 技术标签云
 
-[容器技术](容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md){ .md-button } [运维开发](运维开发/AWX/安装AWX-23.7.md){ .md-button } [Linux 折腾](折腾Linux/通用Linux/Linux下载yum源.md){ .md-button } [虚拟化](虚拟化技术/Hyper-V/Hyper-V修改调度器.md){ .md-button } [存储技术](存储技术/Ceph/银河麒麟V10安装Ceph.md){ .md-button }
+        [容器技术](容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md){ .md-button } [运维开发](运维开发/AWX/安装AWX-23.7.md){ .md-button } [Linux 折腾](操作系统/Linux/通用Linux/Linux下载yum源.md){ .md-button } [虚拟化](虚拟化技术/Hyper-V/Hyper-V修改调度器.md){ .md-button } [存储技术](存储技术/Ceph/银河麒麟V10安装Ceph.md){ .md-button }
 
 ## 内容分类
 
@@ -16,7 +16,7 @@
 | 🎨 [前端开发](前端开发/Vue3/Geeker-Admin接入Keycloak认证.md)    | 1+     | Vue3 · Keycloak 集成                                |
 | 💾 [存储技术](存储技术/Ceph/银河麒麟V10安装Ceph.md)             | 3+     | Ceph · ZFS · TrueNAS · iSCSI                        |
 | 🛠 [运维开发](运维开发/AWX/安装AWX-23.7.md)                     | 30+    | AWX · Keycloak · Git · Python · Rust · Java · Shell |
-| 🐧 [折腾Linux](折腾Linux/通用Linux/Linux下载yum源.md)           | 29+    | 通用Linux · Gentoo · OpenWrt · Ubuntu · 麒麟系      |
+| 🐧 [Linux](操作系统/Linux/通用Linux/Linux下载yum源.md)          | 29+    | 通用Linux · Gentoo · OpenWrt · Ubuntu · 麒麟系      |
 | 🖥 [虚拟化技术](虚拟化技术/Hyper-V/Hyper-V修改调度器.md)        | 6+     | Hyper-V · QEMU · PVE · 华为云                       |
 
 ## 文档特色
@@ -31,7 +31,7 @@
 
 ## 快速导航
 
-- **刚入门？** → [容器技术](容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md) 或 [Linux 基础](折腾Linux/通用Linux/Linux下载yum源.md)
+- **刚入门？** → [容器技术](容器技术/Kubernetes/银河麒麟V10安装Kubernetes.md) 或 [Linux 基础](操作系统/Linux/通用Linux/Linux下载yum源.md)
 - **找工具？** → [运维开发工具集](运维开发/工具/batch-converting.md)
 - **玩存储？** → [Ceph 集群部署](存储技术/Ceph/银河麒麟V10安装Ceph.md)
 - **搞虚拟化？** → [Hyper-V 直通网卡](虚拟化技术/Hyper-V/Hyper-V修改调度器.md)
