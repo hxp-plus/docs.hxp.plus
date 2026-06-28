@@ -2,7 +2,7 @@
 tags:
   - Windows
 ---
-# 2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers...
+# Intel 以太网控制器 Code 10 错误解决方法
 
 文章 ID：000087288 内容类型：错误消息 最后审阅日期：2021/11/01
 
@@ -54,6 +54,8 @@ BUILT IN - ARTICLE INTRO SECOND COMPONENT
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers...
 
 <https://www.intel.com/content/www/us/en/support/articles/000087288/ethernet-products.html>
 

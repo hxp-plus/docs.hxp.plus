@@ -4,6 +4,8 @@ tags:
   - k8s
 ---
 
+# k3s traefik path prefix strip
+
 ```yaml
 ---
 apiVersion: networking.k8s.io/v1
@@ -39,5 +41,7 @@ spec:
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：No namespace defined
 
 change "default to" your namespace in "Traefik.ingress.Kubernetes.io/router.middlewares"

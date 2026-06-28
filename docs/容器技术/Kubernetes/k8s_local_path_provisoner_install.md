@@ -4,11 +4,13 @@ tags:
   - k8s
 ---
 
-# Install the Kubegres database with local path storage provisioner on kubernetes
+# 在 Kubernetes 上安装 Kubegres 数据库（使用 local path storage provisioner）
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install the Kubegres database with local path storage provisioner on kubernetes
 
 ## 安装 local path storage provisioner
 

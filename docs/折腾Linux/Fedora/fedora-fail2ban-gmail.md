@@ -4,10 +4,12 @@ tags:
   - Linux
 ---
 
-# Setting up fail2ban with Gmail notification to secure your Fedora server from brute force
+# 使用 fail2ban 和 Gmail 通知保护 Fedora 服务器免受暴力破解
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Setting up fail2ban with Gmail notification to secure your Fedora server from brute force
 
 ## Step 0: 安装 fail2ban
 
@@ -165,6 +167,7 @@ ipset list
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Fedora
@@ -324,4 +327,5 @@ Add my hostname `hxp-us-server` to `/etc/hosts` solved the problem
 
 ```
 ipset list
+```
 ```

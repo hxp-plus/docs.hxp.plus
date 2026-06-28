@@ -5,11 +5,13 @@ tags:
   - 虚拟化
 ---
 
-# Vitrualize Ubuntu or Other Systems with KVM and QEMU
+# 使用 KVM 和 QEMU 虚拟化 Ubuntu 或其他系统
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Vitrualize Ubuntu or Other Systems with KVM and QEMU
 
 ## 创建磁盘镜像并安装系统
 

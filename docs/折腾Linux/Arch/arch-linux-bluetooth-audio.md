@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Configure Bluetooth Audio for Arch Linux 
+# 为 Arch Linux 配置蓝牙音频
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Configure Bluetooth Audio for Arch Linux
 
 在安装了 Arch Linux 和 KDE 之后，我可以通过 KDE 的图形界面连接蓝牙键盘。但每当我尝试连接蓝牙耳机时，连接总是失败。
 
@@ -78,6 +80,7 @@ Connection successful
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Arch Linux
@@ -153,3 +156,4 @@ Connection successful
 ```
 
 And it still works across reboot.
+```

@@ -56,9 +56,11 @@ vSphere 6.7: MZ48M-DNK56-ZZJD0-RTCE2-9321X
 2. 给vSphere 分配license:
 点击 Manage -> Licensing -> Assign License, 添加新的license
 
-# References
+# VMware 密钥
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：References
 
 <https://www.iamhippo.com/2019-08/898.html>

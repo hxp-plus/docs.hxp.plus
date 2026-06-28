@@ -4,11 +4,13 @@ tags:
   - 工具
 ---
 
-# Way to delete old kernel and release disk space in /boot #
+# 删除旧内核并释放 /boot 磁盘空间
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Way to delete old kernel and release disk space in /boot #
 
 ## 场景：/boot 分区 100% 已满，apt 无法正常工作
 

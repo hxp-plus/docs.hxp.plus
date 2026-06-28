@@ -3,11 +3,13 @@ tags:
   - Windows
 ---
 
-# Completely uninstall Widgets feature on Windows 11
+# 在 Windows 11 上完全卸载小组件功能
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Completely uninstall Widgets feature on Windows 11
 
 要卸载 Windows 11 的 Widgets 功能，请以管理员身份打开 PowerShell 并运行以下
 ```

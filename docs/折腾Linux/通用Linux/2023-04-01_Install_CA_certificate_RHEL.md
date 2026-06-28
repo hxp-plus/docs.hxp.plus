@@ -3,6 +3,10 @@ tags:
   - Linux
 ---
 
+# 在 RHEL 上安装 CA 证书
+
+原英文标题：References
+
 1. Install ca-certificates
 ```bash
 yum install ca-certificates

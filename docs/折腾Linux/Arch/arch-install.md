@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Install Arch Linux from Scratch
+# 从零开始安装 Arch Linux
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install Arch Linux from Scratch
 
 ## 下载 ISO
 
@@ -118,6 +120,7 @@ systemctl enable sddm
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Arch Linux
@@ -232,4 +235,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S plasma
 pacman -S kde-applications
 systemctl enable sddm
+```
 ```

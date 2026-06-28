@@ -3,11 +3,13 @@ tags:
   - OpenStack
 ---
 
-# Deploying OpenStack Cluster on CentOS 8  Stream with packstack
+# 使用 packstack 在 CentOS 8 Stream 上部署 OpenStack 集群
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Deploying OpenStack Cluster on CentOS 8  Stream with packstack
 
  ## 环境描述
 

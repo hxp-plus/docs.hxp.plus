@@ -2,10 +2,12 @@
 tags:
   - Windows
 ---
-# Windows 10 not connect to wifi automatically when an ethernet connection is present
+# Windows 10 在有以太网连接时不自动连接 WiFi
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Windows 10 not connect to wifi automatically when an ethernet connection is present
 
 这个问题可能已经有了解决方案，但这里有一个对笔者有效的、较少依赖硬件的解决方案，使用 RegEdit 和组策略。完全披露，笔者通过在 Google 上搜索该问题找到了此方法，来源是 [https://appuals.com/best-fix-windows-10-will-not-connect-to-wifi-automatically/](https://appuals.com/best-fix-windows-10-will-not-connect-to-wifi-automatically/ "appuals.com")。该网站署名 Kevin Arrows，他自称是一名拥有超过 10 年经验的 MCTS（Microsoft Certified Technology Specialist）认证专家。笔者在 Dell 笔记本电脑上尝试了此方法，效果很好。
 

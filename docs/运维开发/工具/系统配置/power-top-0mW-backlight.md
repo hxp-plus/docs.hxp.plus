@@ -4,11 +4,13 @@ tags:
   - 工具
 ---
 
-# Fix the powertop always show 0 mW Display Backlight usage error
+# 修复 powertop 始终显示 0 mW 显示器背光使用错误
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Fix the powertop always show 0 mW Display Backlight usage error
 
 今天我安装了 `powertop` 来监控笔记本电脑上所有设备的功耗。安装后，我立即通过命令 `powertop` 启动了它。该工具一直显示我的显示器背光功耗为 0 mW，如下所示。
 

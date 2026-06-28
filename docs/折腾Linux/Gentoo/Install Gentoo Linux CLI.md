@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Install Gentoo Linux CLI
+# 安装 Gentoo Linux CLI
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install Gentoo Linux CLI
 
 ## 分区磁盘
 
@@ -105,8 +107,8 @@ emerge --sync
 ## 选择正确的 profile
 
 ```bash
-eselect profile list
-eselect profile set 1
+eeselect profile list
+eeselect profile set 1
 ```
 
 ## 更新 @world 集合
@@ -134,8 +136,8 @@ emerge --config sys-libs/timezone-data
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-eselect locale list
-eselect locale set 5
+eeselect locale list
+eeselect locale set 5
 env-update && source /etc/profile
 ```
 
@@ -143,8 +145,8 @@ env-update && source /etc/profile
 
 ```bash
 emerge sys-kernel/gentoo-sources
-eselect kernel list
-eselect kernel set 1
+eeselect kernel list
+eeselect kernel set 1
 ls -l /usr/src/linux
 ```
 
@@ -358,8 +360,8 @@ emerge --sync
 ## Choosing the right profile
 
 ```bash
-eselect profile list
-eselect profile set 1
+eeselect profile list
+eeselect profile set 1
 ```
 
 ## Updating the @world set
@@ -387,8 +389,8 @@ emerge --config sys-libs/timezone-data
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-eselect locale list
-eselect locale set 5
+eeselect locale list
+eeselect locale set 5
 env-update && source /etc/profile
 ```
 
@@ -396,8 +398,8 @@ env-update && source /etc/profile
 
 ```bash
 emerge sys-kernel/gentoo-sources
-eselect kernel list
-eselect kernel set 1
+eeselect kernel list
+eeselect kernel set 1
 ls -l /usr/src/linux
 ```
 

@@ -4,11 +4,13 @@ tags:
   - 存储
 ---
 
-# 3 node ceph cluster install on CentOS 8 Stream
+# 在 CentOS 8 Stream 上安装 3 节点 Ceph 集群
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：3 node ceph cluster install on CentOS 8 Stream
 
 在所有节点上安装 cephadm：
 

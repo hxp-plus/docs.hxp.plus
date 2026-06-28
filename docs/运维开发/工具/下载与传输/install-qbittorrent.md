@@ -4,11 +4,13 @@ tags:
   - 工具
 ---
 
-# Install qbittorrent with nginx reverse proxy on Fedora Cloud
+# 在 Fedora Cloud 上使用 nginx 反向代理安装 qbittorrent
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install qbittorrent with nginx reverse proxy on Fedora Cloud
 
 ## 安装并启动 qbittorrent
 

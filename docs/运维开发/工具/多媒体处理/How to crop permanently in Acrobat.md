@@ -4,11 +4,13 @@ tags:
   - 工具
 ---
 
-# [How to crop permanently in Acrobat](https://superuser.com/questions/127568/how-to-crop-permanently-in-acrobat)
+# 如何在 Acrobat 中永久裁剪
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：[How to crop permanently in Acrobat](https://superuser.com/questions/127568/how-to-crop-permanently-in-acrobat)
 
 You can use PdfCpu:
 

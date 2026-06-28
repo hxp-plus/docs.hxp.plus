@@ -3,6 +3,10 @@ tags:
   - Linux
 ---
 
+# 备份和恢复分区表
+
+原英文标题：References
+
 To backup /dev/sda partition table, enter:
 ```bash
 sfdisk -d /dev/sda > sda.partition.table.12-30-2015.txt

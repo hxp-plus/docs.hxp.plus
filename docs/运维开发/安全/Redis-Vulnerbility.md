@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Redis Get Shell Vulnerability Reproduction #
+# Redis 获取 Shell 漏洞复现
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Redis Get Shell Vulnerability Reproduction #
 
 ## 部署 Redis ##
 
@@ -137,7 +139,7 @@ tags:
   - Linux
 ---
 
-# Redis Get Shell Vulnerability Reproduction #
+# Redis 获取 Shell 漏洞复现
 
 
 !!! warning "文档时效性说明"

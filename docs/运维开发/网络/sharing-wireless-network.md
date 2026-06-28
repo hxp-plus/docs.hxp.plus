@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Bridging WLAN Networks Using 2 Wireless Cards
+# 使用两张无线网卡桥接 WLAN 网络
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Bridging WLAN Networks Using 2 Wireless Cards
 
 ## 方法一：brctl（不可用）
 
@@ -128,7 +130,7 @@ tags:
   - Linux
 ---
 
-# Bridging WLAN Networks Using 2 Wireless Cards
+# 使用两张无线网卡桥接 WLAN 网络
 
 
 !!! warning "文档时效性说明"

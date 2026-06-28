@@ -3,6 +3,10 @@ tags:
   - Windows
 ---
 
+# 使用 KMS 服务器激活 Windows
+
+原英文标题：References
+
 首先，通过以下命令检查操作系统版本：
 ```
 PS C:\Users\Administrator> dism /Online /Get-CurrentEdition

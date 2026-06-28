@@ -4,11 +4,13 @@ tags:
   - 工具
 ---
 
-# Cast Android to Fedora using scrcpy
+# 使用 scrcpy 将 Android 投屏到 Fedora
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Cast Android to Fedora using scrcpy
 
 Install copr repo
 

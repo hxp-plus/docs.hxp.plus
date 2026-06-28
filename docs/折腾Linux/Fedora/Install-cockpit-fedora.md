@@ -4,16 +4,19 @@ tags:
   - Linux
 ---
 
+# 在 Fedora 上安装 Cockpit
+
+
+!!! warning "文档时效性说明"
+    本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install Cockpit on Fedora
+
 ```
 yum install -y firewalld storaged cockpit cockpit-storaged
 systemctl enable --now cockpit.socket
 firewall-cmd --add-service=cockpit --permanent
 ```
-
-!!! warning "文档时效性说明"
-    本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
-
-# Install Cockpit on Fedora
 
 使用以下命令安装 Cockpit、firewalld 和 storaged：
 
@@ -166,6 +169,7 @@ $PCP_COMPRESSAFTER=never
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Fedora
@@ -314,4 +318,5 @@ Change the compression behavior of pcp in `/etc/pcp/pmlogger/control`, uncomment
 
 ```
 $PCP_COMPRESSAFTER=never
+```
 ```

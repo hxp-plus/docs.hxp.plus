@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Install Gentoo Linux KDE based on CLI
+# 基于 CLI 安装 Gentoo Linux KDE
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install Gentoo Linux KDE based on CLI
 
 ## 安装 sudo
 
@@ -28,8 +30,8 @@ echo "INPUT_DEVICES=\"evdev keyboard mouse synaptics\"" >> /etc/portage/make.con
 ## 选择 Profile
 
 ```
-eselect profile list
-eselect profile set 8
+eeselect profile list
+eeselect profile set 8
 ```
 
 ## 安装 dbus
@@ -141,8 +143,8 @@ echo "INPUT_DEVICES=\"evdev keyboard mouse synaptics\"" >> /etc/portage/make.con
 ## Choose Profile
 
 ```
-eselect profile list
-eselect profile set 8
+eeselect profile list
+eeselect profile set 8
 ```
 
 ## Install dbus

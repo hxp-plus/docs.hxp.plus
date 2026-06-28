@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Ways to convert these notes to batch file, and then execute the commands line by line
+# 将这些笔记转换为批处理文件并逐行执行命令的方法
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Ways to convert these notes to batch file, and then execute the commands line by line
 
 autoinstall.sh
 
@@ -38,4 +40,3 @@ else
     echo "Usage: ./genbatch <note.md> > batch.bat"
 fi
 ```
-

@@ -4,11 +4,13 @@ tags:
   - k8s
 ---
 
-# Install GitLab with local path on k3s with relative url path as stateful set
+# 在 k3s 上安装 GitLab（使用 local path 和 relative URL path）
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install GitLab with local path on k3s with relative url path as stateful set
 
 ## 创建 Persistent Volume
 

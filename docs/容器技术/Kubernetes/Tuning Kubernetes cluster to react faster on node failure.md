@@ -4,11 +4,13 @@ tags:
   - k8s
 ---
 
-# Tuning Kubernetes cluster to react faster on node failure
+# 优化 Kubernetes 集群以更快响应节点故障
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Tuning Kubernetes cluster to react faster on node failure
 
 在 Kubernetes 的默认设置中，只有节点宕机 5 分钟后，Pod 才会被驱逐。在某些情况下，5 分钟太长，因此需要进行调优。
 

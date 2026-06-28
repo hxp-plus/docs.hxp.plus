@@ -4,10 +4,12 @@ tags:
   - Linux
 ---
 
-# Install OpenVPN on Fedora
+# 在 Fedora 上安装 OpenVPN
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Install OpenVPN on Fedora
 
 ## Server
 
@@ -242,6 +244,7 @@ firewall-cmd --runtime-to-permanent
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Fedora
@@ -464,7 +467,7 @@ up-restart
 down /etc/openvpn/scripts/update-systemd-resolved
 down-pre
 ```
-## Increase Stability
+ ## Increase Stability
 Add these in client config
 ```
 keepalive 3 9
@@ -477,4 +480,5 @@ Add route
 ```bash
 firewall-cmd --add-forward-port=port=800:proto=tcp:toport=80:toaddr=10.8.0.2
 firewall-cmd --runtime-to-permanent
+```
 ```

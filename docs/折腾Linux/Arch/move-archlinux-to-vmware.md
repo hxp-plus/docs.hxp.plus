@@ -4,11 +4,13 @@ tags:
   - Linux
 ---
 
-# Moving existing Arch Linux installation to VMWare
+# 将现有 Arch Linux 迁移到 VMware
 
 
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+
+原英文标题：Moving existing Arch Linux installation to VMWare
 
 ## 步骤 1：复制文件
 
@@ -59,6 +61,7 @@ poweroff
 
 ## 原文（English）
 
+```
 ---
 tags:
   - Arch Linux
@@ -114,4 +117,5 @@ mkinitcpio -p linux
 ```bash
 exit
 poweroff
+```
 ```
