@@ -203,72 +203,72 @@ nav:
           - 使用 Linux 作为 Miracast 接收器: 运维开发/网络/liunx-miracast-server.md
   - 折腾Linux:
       - Arch:
-          - Configure Bluetooth Audio for Arch Linux: 折腾Linux/Arch/arch-linux-bluetooth-audio.md
-          - 从零开始安装 Arch Linux: 折腾Linux/Arch/arch-install.md
-          - 安装 CUPS 打印服务: 折腾Linux/Arch/install-cups-arch.md
-          - 在 Arch Linux 上安装 deb 包: 折腾Linux/Arch/install-deb-archlinux.md
-          - 在 Arch Linux 上安装 Samba: 折腾Linux/Arch/install-samba-archlinux.md
-          - 将现有 Arch Linux 迁移到 VMware: 折腾Linux/Arch/move-archlinux-to-vmware.md
+          - Configure Bluetooth Audio for Arch Linux: 操作系统/Linux/Arch/arch-linux-bluetooth-audio.md
+          - 从零开始安装 Arch Linux: 操作系统/Linux/Arch/arch-install.md
+          - 安装 CUPS 打印服务: 操作系统/Linux/Arch/install-cups-arch.md
+          - 在 Arch Linux 上安装 deb 包: 操作系统/Linux/Arch/install-deb-archlinux.md
+          - 在 Arch Linux 上安装 Samba: 操作系统/Linux/Arch/install-samba-archlinux.md
+          - 将现有 Arch Linux 迁移到 VMware: 操作系统/Linux/Arch/move-archlinux-to-vmware.md
       - Fedora:
-          - enable-repos-fedora: 折腾Linux/Fedora/enable-repos-fedora.md
-          - Fedora 系统升级: 折腾Linux/Fedora/upgrade-fedora.md
-          - 在 Fedora 上安装 Cockpit: 折腾Linux/Fedora/Install-cockpit-fedora.md
-          - 在 Fedora 上安装 OpenVPN: 折腾Linux/Fedora/install-openvpn-fedora.md
-          - 使用 fail2ban 和 Gmail 通知保护 Fedora 服务器免受暴力破解: 折腾Linux/Fedora/fedora-fail2ban-gmail.md
+          - enable-repos-fedora: 操作系统/Linux/Fedora/enable-repos-fedora.md
+          - Fedora 系统升级: 操作系统/Linux/Fedora/upgrade-fedora.md
+          - 在 Fedora 上安装 Cockpit: 操作系统/Linux/Fedora/Install-cockpit-fedora.md
+          - 在 Fedora 上安装 OpenVPN: 操作系统/Linux/Fedora/install-openvpn-fedora.md
+          - 使用 fail2ban 和 Gmail 通知保护 Fedora 服务器免受暴力破解: 操作系统/Linux/Fedora/fedora-fail2ban-gmail.md
       - Manjaro:
-          - Install and Configure SMB service on Manjaro KDE: 折腾Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
-          - 在 Manjaro 上安装腾讯 TIM: 折腾Linux/Manjaro/tim-install.md
+          - Install and Configure SMB service on Manjaro KDE: 操作系统/Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
+          - 在 Manjaro 上安装腾讯 TIM: 操作系统/Linux/Manjaro/tim-install.md
       - 通用Linux:
-          - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
-          - Linux 挂载 CIFS: 折腾Linux/通用Linux/Linux挂载CIFS.md
-          - Linux LVM 移除 PV: 折腾Linux/通用Linux/Linux LVM踢PV.md
-          - Linux将最后一个磁盘分区扩容到最大: 折腾Linux/通用Linux/Linux将最后一个磁盘分区扩容到最大.md
-          - Linux 配置 udev 规则忽略磁盘: 折腾Linux/通用Linux/Linux配置udev规则忽略磁盘.md
-          - 使用tlog对登录到Linux上的用户进行录屏: 折腾Linux/通用Linux/使用tlog对登录到Linux上的用户进行录屏.md
-          - Kickstart 软 RAID 安装: 折腾Linux/通用Linux/Kickstart 软raid安装.md
-          - Linux 开启 OTP 认证: 折腾Linux/通用Linux/Linux 开启 OTP 二次认证.md
-          - 2023-03-30_Enable_BBR_congestion_control_on_CentOS_8: 折腾Linux/通用Linux/2023-03-30_Enable_BBR_congestion_control_on_CentOS_8.md
-          - 备份和恢复分区表: 折腾Linux/通用Linux/2023-04-01_Backup_and_restore_partition_table.md
-          - 在 RHEL 上安装 CA 证书: 折腾Linux/通用Linux/2023-04-01_Install_CA_certificate_RHEL.md
-          - RHEL 和 CentOS 的 Kickstart 安装: 折腾Linux/通用Linux/2023-07-09_Kickstart_RHEL.md
-          - 使用 apt-mirror 下载 apt 源: 折腾Linux/通用Linux/Linux下载apt源.md
-          - Linux忽略某个磁盘: 折腾Linux/通用Linux/Linux忽略某个磁盘.md
-          - 参考链接: 折腾Linux/通用Linux/Linux递归下载一个YUM源.md
-          - 使用 Clover 实现 nvme 引导启动: 折腾Linux/通用Linux/Clover实现nvme启动.md
+          - Linux下载yum源: 操作系统/Linux/通用Linux/Linux下载yum源.md
+          - Linux 挂载 CIFS: 操作系统/Linux/通用Linux/Linux挂载CIFS.md
+          - Linux LVM 移除 PV: 操作系统/Linux/通用Linux/Linux LVM踢PV.md
+          - Linux将最后一个磁盘分区扩容到最大: 操作系统/Linux/通用Linux/Linux将最后一个磁盘分区扩容到最大.md
+          - Linux 配置 udev 规则忽略磁盘: 操作系统/Linux/通用Linux/Linux配置udev规则忽略磁盘.md
+          - 使用tlog对登录到Linux上的用户进行录屏: 操作系统/Linux/通用Linux/使用tlog对登录到Linux上的用户进行录屏.md
+          - Kickstart 软 RAID 安装: 操作系统/Linux/通用Linux/Kickstart 软raid安装.md
+          - Linux 开启 OTP 认证: 操作系统/Linux/通用Linux/Linux 开启 OTP 二次认证.md
+          - 2023-03-30_Enable_BBR_congestion_control_on_CentOS_8: 操作系统/Linux/通用Linux/2023-03-30_Enable_BBR_congestion_control_on_CentOS_8.md
+          - 备份和恢复分区表: 操作系统/Linux/通用Linux/2023-04-01_Backup_and_restore_partition_table.md
+          - 在 RHEL 上安装 CA 证书: 操作系统/Linux/通用Linux/2023-04-01_Install_CA_certificate_RHEL.md
+          - RHEL 和 CentOS 的 Kickstart 安装: 操作系统/Linux/通用Linux/2023-07-09_Kickstart_RHEL.md
+          - 使用 apt-mirror 下载 apt 源: 操作系统/Linux/通用Linux/Linux下载apt源.md
+          - Linux忽略某个磁盘: 操作系统/Linux/通用Linux/Linux忽略某个磁盘.md
+          - 参考链接: 操作系统/Linux/通用Linux/Linux递归下载一个YUM源.md
+          - 使用 Clover 实现 nvme 引导启动: 操作系统/Linux/通用Linux/Clover实现nvme启动.md
       - Gentoo:
-          - 在QEMU环境安装Gentoo: 折腾Linux/Gentoo/在QEMU环境安装Gentoo.md
-          - 在 Hyper-V 环境安装 Gentoo: 折腾Linux/Gentoo/在Hyper-V环境安装Gentoo.md
-          - "emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法": "折腾Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md"
-          - Gentoo启动时挂载cifs失败解决方法: 折腾Linux/Gentoo/Gentoo启动时挂载cifs失败解决方法.md
-          - Hyper-V环境下sddm无法启动图形界面问题解决: 折腾Linux/Gentoo/Hyper-V环境下sddm无法启动图形界面问题解决.md
-          - 安装xfce后fcitx右上角显示但无法选择输入法问题解决: 折腾Linux/Gentoo/安装xfce后fcitx右上角显示但无法选择输入法问题解决.md
-          - '[How to see which flags -march=native will activate?](https://stackoverflow.com/questions/5470257/how-to-see-which-flags-march-native-will-activate)': 折腾Linux/Gentoo/How to see which flags -march=native will activate.md
-          - 基于 KDE 安装中文支持: 折腾Linux/Gentoo/Install Chinese Support based on KDE.md
-          - 安装 Gentoo Linux CLI: 折腾Linux/Gentoo/Install Gentoo Linux CLI.md
-          - 基于 CLI 安装 Gentoo Linux KDE: 折腾Linux/Gentoo/Install Gentoo Linux KDE.md
-          - 在 Gentoo 上安装 VNC 服务器: 折腾Linux/Gentoo/Install VNC Server on Gentoo.md
-          - 'Ways to convert these notes to batch file, and then execute the commands line by line': '折腾Linux/Gentoo/Ways to convert these notes to batch file, and then execute the commands line by line.md'
+          - 在QEMU环境安装Gentoo: 操作系统/Linux/Gentoo/在QEMU环境安装Gentoo.md
+          - 在 Hyper-V 环境安装 Gentoo: 操作系统/Linux/Gentoo/在Hyper-V环境安装Gentoo.md
+          - "emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法": "操作系统/Linux/Gentoo/emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法.md"
+          - Gentoo启动时挂载cifs失败解决方法: 操作系统/Linux/Gentoo/Gentoo启动时挂载cifs失败解决方法.md
+          - Hyper-V环境下sddm无法启动图形界面问题解决: 操作系统/Linux/Gentoo/Hyper-V环境下sddm无法启动图形界面问题解决.md
+          - 安装xfce后fcitx右上角显示但无法选择输入法问题解决: 操作系统/Linux/Gentoo/安装xfce后fcitx右上角显示但无法选择输入法问题解决.md
+          - '[How to see which flags -march=native will activate?](https://stackoverflow.com/questions/5470257/how-to-see-which-flags-march-native-will-activate)': 操作系统/Linux/Gentoo/How to see which flags -march=native will activate.md
+          - 基于 KDE 安装中文支持: 操作系统/Linux/Gentoo/Install Chinese Support based on KDE.md
+          - 安装 Gentoo Linux CLI: 操作系统/Linux/Gentoo/Install Gentoo Linux CLI.md
+          - 基于 CLI 安装 Gentoo Linux KDE: 操作系统/Linux/Gentoo/Install Gentoo Linux KDE.md
+          - 在 Gentoo 上安装 VNC 服务器: 操作系统/Linux/Gentoo/Install VNC Server on Gentoo.md
+          - 'Ways to convert these notes to batch file, and then execute the commands line by line': '操作系统/Linux/Gentoo/Ways to convert these notes to batch file, and then execute the commands line by line.md'
       - OpenWrt:
-          - OpenWrt安装WireGuard: 折腾Linux/OpenWrt/OpenWrt安装WireGuard.md
-          - OpenWrt 安装 OpenVPN: 折腾Linux/OpenWrt/OpenWrt安装OpenVPN.md
-          - OpenWrt DDNS 开机启动失败问题: 折腾Linux/OpenWrt/OpenWrt DDNS开机启动失败问题.md
-          - 小米 AX9000 解锁 SSH: 折腾Linux/OpenWrt/小米AX9000解锁SSH.md
-          - 小米AX9000刷机: 折腾Linux/OpenWrt/小米AX9000刷机.md
-          - 小米AX9000加入160MHz支持: 折腾Linux/OpenWrt/小米AX9000加入160MHz支持.md
-          - 北京联通中兴F4610U光猫开超管界面: 折腾Linux/OpenWrt/北京联通中兴F4610U光猫开超管界面.md
-          - OpenWrt 修改默认 Shell 为 bash 并开启历史命令时间戳: 折腾Linux/OpenWrt/OpenWrt修改默认Shell为bash并开启历史命令时间戳.md
-          - OpenWrt配置网卡名和MAC地址绑定: 折腾Linux/OpenWrt/OpenWrt配置网卡名和MAC地址绑定.md
+          - OpenWrt安装WireGuard: 操作系统/Linux/OpenWrt/OpenWrt安装WireGuard.md
+          - OpenWrt 安装 OpenVPN: 操作系统/Linux/OpenWrt/OpenWrt安装OpenVPN.md
+          - OpenWrt DDNS 开机启动失败问题: 操作系统/Linux/OpenWrt/OpenWrt DDNS开机启动失败问题.md
+          - 小米 AX9000 解锁 SSH: 操作系统/Linux/OpenWrt/小米AX9000解锁SSH.md
+          - 小米AX9000刷机: 操作系统/Linux/OpenWrt/小米AX9000刷机.md
+          - 小米AX9000加入160MHz支持: 操作系统/Linux/OpenWrt/小米AX9000加入160MHz支持.md
+          - 北京联通中兴F4610U光猫开超管界面: 操作系统/Linux/OpenWrt/北京联通中兴F4610U光猫开超管界面.md
+          - OpenWrt 修改默认 Shell 为 bash 并开启历史命令时间戳: 操作系统/Linux/OpenWrt/OpenWrt修改默认Shell为bash并开启历史命令时间戳.md
+          - OpenWrt配置网卡名和MAC地址绑定: 操作系统/Linux/OpenWrt/OpenWrt配置网卡名和MAC地址绑定.md
       - Ubuntu:
-          - Ubuntu安装Hyper-V工具: 折腾Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
-          - Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程: 折腾Linux/Ubuntu/Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程.md
+          - Ubuntu安装Hyper-V工具: 操作系统/Linux/Ubuntu/Ubuntu安装Hyper-V工具.md
+          - Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程: 操作系统/Linux/Ubuntu/Ubuntu 25.04 容器环境配置 VNC + noVNC + Xfce + Playwright MCP 全流程.md
       - RHEL6:
-          - 记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题: 折腾Linux/RHEL6/记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题.md
+          - 记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题: 操作系统/Linux/RHEL6/记某次误操作yum update后jboss应用无法启动及重启无法识别vg问题.md
       - 中标麒麟V7:
-          - 曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案: 折腾Linux/中标麒麟V7/曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案.md
-          - 联想物理机PXE装机报错“根分区找不到”原因及解决方法: 折腾Linux/中标麒麟V7/联想物理机PXE装机报错“根分区找不到”原因及解决方法.md
+          - 曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案: 操作系统/Linux/中标麒麟V7/曙光服务器装机无RAID卡驱动导致不能识别硬盘问题分析与解决方案.md
+          - 联想物理机PXE装机报错“根分区找不到”原因及解决方法: 操作系统/Linux/中标麒麟V7/联想物理机PXE装机报错“根分区找不到”原因及解决方法.md
       - 银河麒麟V10:
-          - 麒麟V10SP4增加VSCode支持: 折腾Linux/银河麒麟V10/麒麟V10SP4增加VSCode支持.md
-          - 记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路: 折腾Linux/银河麒麟V10/记某次某安全厂商应用运行一段时间后，Linux出现ping延迟高问题的解决思路.md
+          - 麒麟V10SP4增加VSCode支持: 操作系统/Linux/银河麒麟V10/麒麟V10SP4增加VSCode支持.md
+          - 记某次某安全厂商应用运行一段时间后Linux出现ping延迟高问题的解决思路: 操作系统/Linux/银河麒麟V10/记某次某安全厂商应用运行一段时间后，Linux出现ping延迟高问题的解决思路.md
   - 虚拟化技术:
       - Hyper-V:
           - Hyper-V修改调度器: 虚拟化技术/Hyper-V/Hyper-V修改调度器.md
@@ -290,20 +290,20 @@ nav:
       - 华为云:
           - 华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决: 虚拟化技术/华为云/华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决.md
 
-  - Windows 折腾:
-      - 使用 KMS 服务器激活 Windows: Windows 折腾/2023-03-26-Activate-Windows-using-KMS-server.md
-      - 在 Windows 11 上完全卸载小组件功能: Windows 折腾/2023-03-28_Completely-Remove-ADs-from-Windows-11.md
-      - 修复 Windows 10 中文显示错误的注册表补丁: Windows 折腾/2023-03-29_win10-chinese-font-patch.md
-      - Intel 以太网控制器 Code 10 错误解决方法: Windows 折腾/2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....md
-      - 在 Windows Server 上镜像启动驱动器: Windows 折腾/2023-04-01_Mirror_boot_drive_windows_server.md
-      - 在 Windows Server 上配置软件 RAID: Windows 折腾/2023-04-01_Windows-Server-Software-RAID.md
-      - Hyper-V 每日备份脚本: Windows 折腾/2023-04-04-Hyper-V-daily-backup-script.md
-      - 修复 Windows 上 Git SSH 密钥格式无效错误: Windows 折腾/Fix-for-Windows-Git-SSH-key-invalid-format.md
-      - 在 Windows 10 Pro 上完全卸载 OneDrive 的步骤: Windows 折腾/Uninstall-Onedrive-Completely-Windows-10-Pro.md
-      - Windows 10 在有以太网连接时不自动连接 WiFi: Windows 折腾/Windows 10 not connect to wifi automatically when an ethernet connection is present.md
-      - Windows 11 修改自动更新设置: Windows 折腾/Windows 11修改自动更新设置.md
-      - Windows 11 家庭版升级到专业版: Windows 折腾/Windows 11家庭版升级到专业版.md
-      - 修复 Windows 10 外置硬盘空闲时自动休眠问题: Windows 折腾/windows-hdd-sleep.md
+      - Windows:
+          - 使用 KMS 服务器激活 Windows: 操作系统/Windows/2023-03-26-Activate-Windows-using-KMS-server.md
+          - 在 Windows 11 上完全卸载小组件功能: 操作系统/Windows/2023-03-28_Completely-Remove-ADs-from-Windows-11.md
+          - 修复 Windows 10 中文显示错误的注册表补丁: 操作系统/Windows/2023-03-29_win10-chinese-font-patch.md
+          - Intel 以太网控制器 Code 10 错误解决方法: 操作系统/Windows/2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....md
+          - 在 Windows Server 上镜像启动驱动器: 操作系统/Windows/2023-04-01_Mirror_boot_drive_windows_server.md
+          - 在 Windows Server 上配置软件 RAID: 操作系统/Windows/2023-04-01_Windows-Server-Software-RAID.md
+          - Hyper-V 每日备份脚本: 操作系统/Windows/2023-04-04-Hyper-V-daily-backup-script.md
+          - 修复 Windows 上 Git SSH 密钥格式无效错误: 操作系统/Windows/Fix-for-Windows-Git-SSH-key-invalid-format.md
+          - 在 Windows 10 Pro 上完全卸载 OneDrive 的步骤: 操作系统/Windows/Uninstall-Onedrive-Completely-Windows-10-Pro.md
+          - Windows 10 在有以太网连接时不自动连接 WiFi: 操作系统/Windows/Windows 10 not connect to wifi automatically when an ethernet connection is present.md
+          - Windows 11 修改自动更新设置: 操作系统/Windows/Windows 11修改自动更新设置.md
+          - Windows 11 家庭版升级到专业版: 操作系统/Windows/Windows 11家庭版升级到专业版.md
+          - 修复 Windows 10 外置硬盘空闲时自动休眠问题: 操作系统/Windows/windows-hdd-sleep.md
   - 文档分类: tags.md
 plugins:
   - search: null
