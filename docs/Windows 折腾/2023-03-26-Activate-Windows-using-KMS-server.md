@@ -5,7 +5,7 @@ tags:
 
 # 使用 KMS 服务器激活 Windows
 
-原英文标题：References
+原英文标题：Activate Windows using KMS server
 
 首先，通过以下命令检查操作系统版本：
 ```

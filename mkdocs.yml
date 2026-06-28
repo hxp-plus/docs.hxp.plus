@@ -117,7 +117,7 @@ nav:
           - 修复 Windows 10 休眠问题: 运维开发/工具/Fix-Win10-Sleep-Issue.md
           - Linux社团服务器使用指南: 运维开发/工具/Linux社团服务器使用指南.md
           - 实用的批量转换 bash 脚本: 运维开发/工具/batch-converting.md
-          - vlc-stuck: 运维开发/工具/vlc-stuck.md
+          - VLC 卡顿问题: 运维开发/工具/vlc-stuck.md
           - 下载与传输:
               - Download m3u8 with FFmepg: 运维开发/工具/下载与传输/m3u8-download.md
               - 在 Mozilla Firefox 中启用混合内容: 运维开发/工具/下载与传输/Aria2.md
@@ -131,11 +131,11 @@ nav:
               - 破解多文件大 ZIP 密码: 运维开发/工具/加解密/crack-zip-passwd.md
           - 多媒体处理:
               - '[How to crop permanently in Acrobat](https://superuser.com/questions/127568/how-to-crop-permanently-in-acrobat)': 运维开发/工具/多媒体处理/How to crop permanently in Acrobat.md
-              - autocrop: 运维开发/工具/多媒体处理/autocrop.md
+              - 自动裁剪 PDF 边距: 运维开发/工具/多媒体处理/autocrop.md
               - 在 Linux 上编辑 PDF 元数据: 运维开发/工具/多媒体处理/edit-pdf-linux.md
               - 获取视频分辨率: 运维开发/工具/多媒体处理/Get Video Resolution.md
               - 如何同时通过多个音频设备播放音频: 运维开发/工具/多媒体处理/play-audio-multi-device.md
-              - name-youtube-dl-videos-with-playlist-index: 运维开发/工具/多媒体处理/name-youtube-dl-videos-with-playlist-index.md
+              - 使用 youtube-dl 按播放列表索引命名视频: 运维开发/工具/多媒体处理/name-youtube-dl-videos-with-playlist-index.md
               - 为 evince、okular 等 PDF 阅读器设置中文支持: 运维开发/工具/多媒体处理/evince-okular-chinese-support.md
               - 使用 FFmpeg 转换视频: 运维开发/工具/多媒体处理/convert-video-ffmpeg.md
           - 开发与办公:
@@ -167,7 +167,7 @@ nav:
               - 在网格上移动/调整窗口大小: 运维开发/工具/系统配置/GNOME.md
               - 将终端输出管道到剪贴板: 运维开发/工具/系统配置/pipe-to-clipboard.md
               - r730 风扇转速: 运维开发/工具/系统配置/r730-fan-speed.md
-              - register-rhel: 运维开发/工具/系统配置/register-rhel.md
+              - 注册 RHEL 订阅: 运维开发/工具/系统配置/register-rhel.md
               - 在 Linux 上自动设置时间: 运维开发/工具/系统配置/set-time-linux-auto.md
               - 删除旧内核并释放 /boot 磁盘空间: 运维开发/工具/系统配置/Delete_Old_Kernel.md
       - 笔记及文档软件:
@@ -218,20 +218,6 @@ nav:
       - Manjaro:
           - Install and Configure SMB service on Manjaro KDE: 折腾Linux/Manjaro/Install and Configure SMB service Manjaro KDE.md
           - 在 Manjaro 上安装腾讯 TIM: 折腾Linux/Manjaro/tim-install.md
-      - Windows:
-          - 2023-03-26-Activate-Windows-using-KMS-server: 折腾Linux/Windows/2023-03-26-Activate-Windows-using-KMS-server.md
-          - Intel 以太网控制器 Code 10 错误解决方法: 折腾Linux/Windows/2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....md
-          - 在 Windows Server 上镜像启动驱动器: 折腾Linux/Windows/2023-04-01_Mirror_boot_drive_windows_server.md
-          - 2023-04-01_Windows-Server-Software-RAID: 折腾Linux/Windows/2023-04-01_Windows-Server-Software-RAID.md
-          - 2023-04-04-Hyper-V-daily-backup-script: 折腾Linux/Windows/2023-04-04-Hyper-V-daily-backup-script.md
-          - 在 Windows 11 上完全卸载小组件功能: 折腾Linux/Windows/2023-03-28_Completely-Remove-ADs-from-Windows-11.md
-          - 修复 Windows 上 Git SSH 密钥格式无效错误: 折腾Linux/Windows/Fix-for-Windows-Git-SSH-key-invalid-format.md
-          - 修复 Windows 10 外置硬盘空闲时自动休眠问题: 折腾Linux/Windows/windows-hdd-sleep.md
-          - 修复 Windows 10 中文显示错误的注册表补丁: 折腾Linux/Windows/2023-03-29_win10-chinese-font-patch.md
-          - 在 Windows 10 Pro 上完全卸载 OneDrive 的步骤: 折腾Linux/Windows/Uninstall-Onedrive-Completely-Windows-10-Pro.md
-          - Windows 10 在有以太网连接时不自动连接 WiFi: 折腾Linux/Windows/Windows 10 not connect to wifi automatically when an ethernet connection is present.md
-          - Windows 11修改自动更新设置: 折腾Linux/Windows/Windows 11修改自动更新设置.md
-          - Windows 11家庭版升级到专业版: 折腾Linux/Windows/Windows 11家庭版升级到专业版.md
       - 通用Linux:
           - Linux下载yum源: 折腾Linux/通用Linux/Linux下载yum源.md
           - Linux 挂载 CIFS: 折腾Linux/通用Linux/Linux挂载CIFS.md
@@ -300,9 +286,24 @@ nav:
           - 2023-03-12-vsphere-cert-replace: 虚拟化技术/VMware/2023-03-12-vsphere-cert-replace.md
           - 禁用 vCenter Server 更新通知横幅: 虚拟化技术/VMware/2023-04-01_How-to-disable-the-vCenter-Server-Update-Notification-banner.md
           - VMware 密钥: 虚拟化技术/VMware/2023-04-05-VMware-Key.md
-          - assign-static-ip-vmware: 虚拟化技术/VMware/assign-static-ip-vmware.md
+          - 为 VMware 虚拟机分配静态 IP: 虚拟化技术/VMware/assign-static-ip-vmware.md
       - 华为云:
           - 华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决: 虚拟化技术/华为云/华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决.md
+
+  - Windows 折腾:
+      - 使用 KMS 服务器激活 Windows: Windows 折腾/2023-03-26-Activate-Windows-using-KMS-server.md
+      - 在 Windows 11 上完全卸载小组件功能: Windows 折腾/2023-03-28_Completely-Remove-ADs-from-Windows-11.md
+      - 修复 Windows 10 中文显示错误的注册表补丁: Windows 折腾/2023-03-29_win10-chinese-font-patch.md
+      - Intel 以太网控制器 Code 10 错误解决方法: Windows 折腾/2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....md
+      - 在 Windows Server 上镜像启动驱动器: Windows 折腾/2023-04-01_Mirror_boot_drive_windows_server.md
+      - 在 Windows Server 上配置软件 RAID: Windows 折腾/2023-04-01_Windows-Server-Software-RAID.md
+      - Hyper-V 每日备份脚本: Windows 折腾/2023-04-04-Hyper-V-daily-backup-script.md
+      - 修复 Windows 上 Git SSH 密钥格式无效错误: Windows 折腾/Fix-for-Windows-Git-SSH-key-invalid-format.md
+      - 在 Windows 10 Pro 上完全卸载 OneDrive 的步骤: Windows 折腾/Uninstall-Onedrive-Completely-Windows-10-Pro.md
+      - Windows 10 在有以太网连接时不自动连接 WiFi: Windows 折腾/Windows 10 not connect to wifi automatically when an ethernet connection is present.md
+      - Windows 11 修改自动更新设置: Windows 折腾/Windows 11修改自动更新设置.md
+      - Windows 11 家庭版升级到专业版: Windows 折腾/Windows 11家庭版升级到专业版.md
+      - 修复 Windows 10 外置硬盘空闲时自动休眠问题: Windows 折腾/windows-hdd-sleep.md
   - 文档分类: tags.md
 plugins:
   - search: null

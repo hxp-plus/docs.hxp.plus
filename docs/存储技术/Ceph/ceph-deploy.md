@@ -3,10 +3,11 @@ tags:
   - Ceph
   - 存储
 ---
-# ceph-deploy
+
+# 使用 ceph-deploy 部署 Ceph
 
 !!! warning "文档时效性说明"
-    本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
 
 原英文标题：ceph-deploy
 
@@ -19,16 +20,16 @@ tags:
     5  ifconfig
     6  ping baidu.com
     7  vim /etc/hosts
-    8  vim /etc/sysconfig/selinux 
+    8  vim /etc/sysconfig/selinux
     9  setenforce 0
    10  systemctl disable --now firewalld.service
-   11  for i in {1..3};do ssh-copy-id root@ceph_node$i;donw 
+   11  for i in {1..3};do ssh-copy-id root@ceph_node$i;donw
    12  for i in {1..3};do ssh-copy-id root@ceph_node$i;done
-   13  ssh-keygen 
+   13  ssh-keygen
    14  for i in {1..3};do ssh-copy-id root@ceph_node$i;done
    15  for i in {1..3};do ssh root@ceph_node$i "hostnamectl set-hostname ceph_node$i";done
    16  for i in {1..3};do ssh root@ceph_node$i "hostname -f";done
-   17  vim /etc/chrony.conf 
+   17  vim /etc/chrony.conf
    18  for i in {1..3};do scp /etc/chrony.conf root@ceph_node$i:/etc/;done
    19  for i in {1..3};do ssh root@ceph_node$i "systemctl enable --now chronyd";done
    20  for i in {1..3};do ssh root@ceph_node$i "chronyc sources";done
@@ -36,22 +37,22 @@ tags:
    22  lvremove /dev/ceph*
    23  lsblk
    24  vim /etc/yum.repos.d/ceph.repo
-   25  yum makecache 
+   25  yum makecache
    26  kill 2977
-   27  yum makecache 
+   27  yum makecache
    28  for i in {1..3};do scp /etc/yum.repos.d/ceph.repo root@ceph_node$i:/etc/yum.repos.d/;done
    29  for i in {1..3};do ssh root@ceph_node$i "yum makecache";done
    30  for i in {1..3};do ssh root@ceph_node$i "yum install -y ceph";done
    31  wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
    32  for i in {1..3};do ssh root@ceph_node$i "wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo";done
    33  for i in {1..3};do ssh root@ceph_node$i "yum install -y ceph";done
-   34  vim /etc/yum.repos.d/ceph.repo 
+   34  vim /etc/yum.repos.d/ceph.repo
    35  for i in {1..3};do ssh root@ceph_node$i "yum install -y ceph";done
    36  for i in {1..3};do scp /etc/yum.repos.d/ceph.repo root@ceph_node$i:/etc/yum.repos.d/;done
    37  for i in {1..3};do ssh root@ceph_node$i "yum install -y ceph";done
    38  yum install ceph-deploy
-   39  getenforce 
-   40  systemctl status firewalld.service 
+   39  getenforce
+   40  systemctl status firewalld.service
    41  mkdir cluster
    42  cd cluster/
    43  ceph-deploy new ceph_node1 ceph_node2 ceph_node3
@@ -86,7 +87,7 @@ tags:
 ```
 
 ```bash
-[root@ceph_node1 ~]# cat /etc/yum.repos.d/ceph.repo 
+[root@ceph_node1 ~]# cat /etc/yum.repos.d/ceph.repo
 [Ceph]
 name=Ceph packages for $basearch
 baseurl=http://mirrors.aliyun.com/ceph/rpm-nautilus/el7/\$basearch
@@ -117,7 +118,7 @@ gpgkey=https://mirrors.aliyun.com/ceph/keys/release.asc
 
 ## 原文（English）
 
-```
+````
 ---
 tags:
   - Ceph
@@ -136,16 +137,16 @@ tags:
     5  ifconfig
     6  ping baidu.com
     7  vim /etc/hosts
-    8  vim /etc/sysconfig/selinux 
+    8  vim /etc/sysconfig/selinux
     9  setenforce 0
    10  systemctl disable --now firewalld.service
-   11  for i in {1..3};do ssh-copy-id root@ceph_node$i;donw 
+   11  for i in {1..3};do ssh-copy-id root@ceph_node$i;donw
    12  for i in {1..3};do ssh-copy-id root@ceph_node$i;done
-   13  ssh-keygen 
+   13  ssh-keygen
    14  for i in {1..3};do ssh-copy-id root@ceph_node$i;done
    15  for i in {1..3};do ssh root@ceph_node$i "hostnamectl set-hostname ceph_node$i";done
    16  for i in {1..3};do ssh root@ceph_node$i "hostname -f";done
-   17  vim /etc/chrony.conf 
+   17  vim /etc/chrony.conf
    18  for i in {1..3};do scp /etc/chrony.conf root@ceph_node$i:/etc/;done
    19  for i in {1..3};do ssh root@ceph_node$i "systemctl enable --now chronyd";done
    20  for i in {1..3};do ssh root@ceph_node$i "chronyc sources";done
@@ -153,22 +154,22 @@ tags:
    22  lvremove /dev/ceph*
    23  lsblk
    24  vim /etc/yum.repos.d/ceph.repo
-   25  yum makecache 
+   25  yum makecache
    26  kill 2977
-   27  yum makecache 
+   27  yum makecache
    28  for i in {1..3};do scp /etc/yum.repos.d/ceph.repo root@ceph_node$i:/etc/yum.repos.d/;done
    29  for i in {1..3};do ssh root@ceph_node$i "yum makecache";done
    30  for i in {1..3};do ssh root@ceph_node$i "yum install -y Ceph";done
    31  wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
    32  for i in {1..3};do ssh root@ceph_node$i "wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo";done
    33  for i in {1..3};do ssh root@ceph_node$i "yum install -y Ceph";done
-   34  vim /etc/yum.repos.d/ceph.repo 
+   34  vim /etc/yum.repos.d/ceph.repo
    35  for i in {1..3};do ssh root@ceph_node$i "yum install -y Ceph";done
    36  for i in {1..3};do scp /etc/yum.repos.d/ceph.repo root@ceph_node$i:/etc/yum.repos.d/;done
    37  for i in {1..3};do ssh root@ceph_node$i "yum install -y Ceph";done
    38  yum install Ceph-deploy
-   39  getenforce 
-   40  systemctl status firewalld.service 
+   39  getenforce
+   40  systemctl status firewalld.service
    41  mkdir cluster
    42  cd cluster/
    43  Ceph-deploy new ceph_node1 ceph_node2 ceph_node3
@@ -189,7 +190,7 @@ tags:
    58  Ceph-deploy osd create --data /dev/sdd ceph_node3
    59  Ceph -s
    60  history
-```
+````
 
 ```bash
 [root@ceph_node1 ~]# cat /etc/hosts
@@ -203,7 +204,7 @@ tags:
 ```
 
 ```bash
-[root@ceph_node1 ~]# cat /etc/yum.repos.d/ceph.repo 
+[root@ceph_node1 ~]# cat /etc/yum.repos.d/ceph.repo
 [Ceph]
 name=Ceph packages for $basearch
 baseurl=http://mirrors.aliyun.com/ceph/rpm-nautilus/el7/\$basearch
@@ -229,4 +230,7 @@ type=rpm-md
 gpgkey=https://mirrors.aliyun.com/ceph/keys/release.asc
 
 ```
+
+```
+
 ```

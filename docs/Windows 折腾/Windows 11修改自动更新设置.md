@@ -6,6 +6,11 @@ tags:
 !!! warning "文档时效性说明"
     本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
 
+# Windows 11 修改自动更新设置
+
+原英文标题：Windows 11 change auto-update settings
+
+
 为了防止自动更新在不需要的时间重启，需要修改以下设置：
 
 1. **Administrative Templates** > **Windows Components** > **Windows Update** > **Legacy Policies** > **No auto-restart with logged on users for scheduled automatic updates installations**
