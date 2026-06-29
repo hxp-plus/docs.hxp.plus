@@ -87,7 +87,7 @@ nav:
           - AWX设置SAML认证用户为管理员: 运维开发/AWX/AWX设置SAML认证用户为管理员.md
           - AWX新增容器组: 运维开发/AWX/AWX新增容器组.md
           - 在k3s上搭建awx测试环境: 运维开发/AWX/在k3s上搭建awx测试环境.md
-          - 'AWX on k8s: Using external PostgreSQL database': 运维开发/AWX/AWX on k8s Using external PostgreSQL database.md
+          - 在 k8s 上使用外部 PostgreSQL 数据库运行 AWX: 运维开发/AWX/AWX on k8s Using external PostgreSQL database.md
           - AWX-ee执行环境容器镜像封装: 运维开发/AWX/AWX-ee执行环境容器镜像封装.md
           - AWX修改密码: 运维开发/AWX/AWX修改密码.md
           - AWX新增instance: 运维开发/AWX/AWX新增instance.md
@@ -248,7 +248,7 @@ nav:
               - 安装 Gentoo Linux CLI: 操作系统/Linux/Gentoo/Install Gentoo Linux CLI.md
               - 基于 CLI 安装 Gentoo Linux KDE: 操作系统/Linux/Gentoo/Install Gentoo Linux KDE.md
               - 在 Gentoo 上安装 VNC 服务器: 操作系统/Linux/Gentoo/Install VNC Server on Gentoo.md
-              - 'Ways to convert these notes to batch file, and then execute the commands line by line': '操作系统/Linux/Gentoo/Ways to convert these notes to batch file, and then execute the commands line by line.md'
+              - 将这些笔记转换为批处理文件并逐行执行命令的方法: '操作系统/Linux/Gentoo/Ways to convert these notes to batch file, and then execute the commands line by line.md'
           - OpenWrt:
               - OpenWrt安装WireGuard: 操作系统/Linux/OpenWrt/OpenWrt安装WireGuard.md
               - OpenWrt 安装 OpenVPN: 操作系统/Linux/OpenWrt/OpenWrt安装OpenVPN.md
