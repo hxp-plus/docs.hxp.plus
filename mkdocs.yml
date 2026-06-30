@@ -55,6 +55,7 @@ nav:
           - 优化 Kubernetes 集群以更快响应节点故障: 容器技术/Kubernetes/Tuning Kubernetes cluster to react faster on node failure.md
           - 使用 Ceph 作为 Kubernetes 存储后端: 容器技术/Kubernetes/kubernetes_ceph.md
           - 麒麟V10SP1高可用Kubernetes+Ceph集群部署: 容器技术/Kubernetes/麒麟V10SP1高可用Kubernetes+Ceph集群部署.md
+          - 安装三节点单主 Kubernetes 集群: 容器技术/Kubernetes/kube-install-single-master.md
       - Docker&Podman:
           - Dockerfile中不保留编译缓存: 容器技术/Docker&Podman/Dockerfile中不保留编译缓存.md
           - 基于eBPF的容器审计技术的实现: 容器技术/Docker&Podman/基于eBPF的容器审计技术的实现.md
@@ -95,6 +96,7 @@ nav:
           - 为 AWX 安装 CloudNativePG: 运维开发/AWX/Install CloudNativePG for AWX.md
           - RHEL8 k3s 与 AWX-23.9 安装: 运维开发/AWX/RHEL8 k3s 与 AWX-23.9 安装.md
           - 在k8s集群安装高可用AWX: 运维开发/AWX/在k8s集群安装高可用AWX.md
+          - AWX 在 Kubernetes 上使用私有仓库离线安装: 运维开发/AWX/awx-offline-install.md
       - Keycloak:
           - 使用openresty容器为k8s的服务提供Keycloak认证服务: 运维开发/Keycloak/使用openresty容器为k8s的服务提供Keycloak认证服务.md
           - k8s 集群 Keycloak 部署及负载配置: 运维开发/Keycloak/k8s集群Keycloak部署及负载配置.md
@@ -146,7 +148,8 @@ nav:
               - ES存数组并增删改查: 运维开发/工具/开发与办公/ES存数组并增删改查.md
               - LaTeX 强制表格定位于当前上下文: 运维开发/工具/开发与办公/LaTeX-Force-Table-Positioned-at-Current-Context.md
               - Obsidian插入图片: 运维开发/工具/开发与办公/Obsidian插入图片.md
-          - 系统配置:
+              - CTeX 中文显示问题解决: 运维开发/工具/开发与办公/font-error-in-evince.md
+      - 系统配置:
               - 通过软链接访问 webroot 文件时 403 Forbidden: 运维开发/工具/系统配置/403-Forbidden-Softlink-Nginx.md
               - 在 CentOS 中通过 firewall-cmd 添加仅本地端口: 运维开发/工具/系统配置/Add-Localhost-Only-Port-CentOS.md
               - ANSI 转义序列: 运维开发/工具/系统配置/ANSI.md
@@ -170,6 +173,9 @@ nav:
               - 注册 RHEL 订阅: 运维开发/工具/系统配置/register-rhel.md
               - 在 Linux 上自动设置时间: 运维开发/工具/系统配置/set-time-linux-auto.md
               - 删除旧内核并释放 /boot 磁盘空间: 运维开发/工具/系统配置/Delete_Old_Kernel.md
+              - i3wm 快捷键: 运维开发/工具/系统配置/i3wm.md
+              - Apache 使用 acme.sh 配置 SSL: 运维开发/工具/系统配置/apache-ssl-with-acme.sh.md
+              - CentOS 9 Apache HTTPS WebDAV 非标准端口配置: 运维开发/工具/系统配置/apache-webdav.md
       - 笔记及文档软件:
           - 思源笔记k8s部署: 运维开发/笔记及文档软件/思源笔记k8s部署.md
           - mkdocs 在 k8s 上的部署: 运维开发/笔记及文档软件/mkdocs在k8s上的部署.md
@@ -188,6 +194,7 @@ nav:
           - Python 升级所有依赖: 运维开发/Python/Python升级所有依赖.md
           - Python 限制内存和 CPU 使用: 运维开发/Python/Python限制内存和CPU使用.md
           - 数据类型（dtype）: 运维开发/Python/Numpy.md
+          - Arch Linux 手动修复 pip 依赖错误: 运维开发/Python/fix-pip.md
       - Java:
           - SpringBoot 2.5.1 对接Keycloak认证: 运维开发/Java/SpringBoot 2.5.1 对接Keycloak认证.md
           - 使用 OnlyOffice 官方 Spring 示例遇到的坑: 运维开发/Java/使用OnlyOffice官方Spring示例遇到的坑.md
@@ -201,6 +208,9 @@ nav:
           - 配置 NetworkManager 在接口重启时自动更改 MAC 地址: 运维开发/网络/network-manager-mac-auto-change.md
           - OpenVPN实验手册: 运维开发/网络/openvpn.md
           - 使用 Linux 作为 Miracast 接收器: 运维开发/网络/liunx-miracast-server.md
+          - IPSec VPN 教程: 运维开发/网络/ipsec-vpn.md
+          - V2Ray TLS WebSocket Nginx 教程: 运维开发/网络/v2ray.md
+          - Manjaro Linux 搭建 IPv6 OpenVPN 服务器: 运维开发/网络/openvpn-server-setup.md
   - 操作系统:
       - Linux:
           - Arch:
@@ -210,6 +220,9 @@ nav:
               - 在 Arch Linux 上安装 deb 包: 操作系统/Linux/Arch/install-deb-archlinux.md
               - 在 Arch Linux 上安装 Samba: 操作系统/Linux/Arch/install-samba-archlinux.md
               - 将现有 Arch Linux 迁移到 VMware: 操作系统/Linux/Arch/move-archlinux-to-vmware.md
+              - BlackArch Linux 升级笔记: 操作系统/Linux/Arch/blackarch.md
+              - Arch Linux 安装 VMware Workstation Pro: 操作系统/Linux/Arch/install-vmware.md
+              - Arch Linux 修复 GRUB: 操作系统/Linux/Arch/fix-grub.md
           - Fedora:
               - enable-repos-fedora: 操作系统/Linux/Fedora/enable-repos-fedora.md
               - Fedora 系统升级: 操作系统/Linux/Fedora/upgrade-fedora.md
@@ -236,6 +249,9 @@ nav:
               - Linux忽略某个磁盘: 操作系统/Linux/通用Linux/Linux忽略某个磁盘.md
               - 参考链接: 操作系统/Linux/通用Linux/Linux递归下载一个YUM源.md
               - 使用 Clover 实现 nvme 引导启动: 操作系统/Linux/通用Linux/Clover实现nvme启动.md
+              - Linux VPS 临时添加 Swap: 操作系统/Linux/通用Linux/add-swap-temporarily.md
+              - 从源码编译安装 GCC 12: 操作系统/Linux/通用Linux/compile-and-install-gcc-12.md
+              - RHEL 8/CentOS 8 连接 PPPoE 网络: 操作系统/Linux/通用Linux/pppoe-rhel8.md
           - Gentoo:
               - 在QEMU环境安装Gentoo: 操作系统/Linux/Gentoo/在QEMU环境安装Gentoo.md
               - 在 Hyper-V 环境安装 Gentoo: 操作系统/Linux/Gentoo/在Hyper-V环境安装Gentoo.md
@@ -303,6 +319,7 @@ nav:
           - 禁用 vCenter Server 更新通知横幅: 虚拟化技术/VMware/2023-04-01_How-to-disable-the-vCenter-Server-Update-Notification-banner.md
           - VMware 密钥: 虚拟化技术/VMware/2023-04-05-VMware-Key.md
           - 为 VMware 虚拟机分配静态 IP: 虚拟化技术/VMware/assign-static-ip-vmware.md
+          - 替换 ESXi 默认 SSL 证书并在 Windows 11 信任: 虚拟化技术/VMware/self-sign-and-trust-cert-esxi.md
       - 华为云:
           - 华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决: 虚拟化技术/华为云/华为HCS 8与银河麒麟V10SP4 cloud-init适配问题解决.md
 
