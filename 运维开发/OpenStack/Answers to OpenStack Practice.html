@@ -1,0 +1,3214 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="胡喜平">
+      
+      
+        <link rel="canonical" href="https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/OpenStack/Answers%20to%20OpenStack%20Practice.html">
+      
+      
+        <link rel="prev" href="../Keycloak/k3s%E6%90%AD%E5%BB%BA%E5%8D%95%E7%82%B9Keycloak.html">
+      
+      
+        <link rel="next" href="openstack-packstack-210610.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>OpenStack 练习答案 - hxp的文档库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="../../assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openstack" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="hxp的文档库" class="md-header__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hxp的文档库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OpenStack 练习答案
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-tabs__link">
+          
+  
+  
+  容器技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-tabs__link">
+          
+  
+  
+  前端开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-tabs__link">
+          
+  
+  
+  存储技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-tabs__link">
+          
+  
+  
+  运维开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Arch/arch-linux-bluetooth-audio.html" class="md-tabs__link">
+          
+  
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-tabs__link">
+          
+  
+  
+  虚拟化技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  文档分类
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="hxp的文档库" class="md-nav__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hxp的文档库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    容器技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维开发
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWX
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Keycloak/%E4%BD%BF%E7%94%A8openresty%E5%AE%B9%E5%99%A8%E4%B8%BAk8s%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9BKeycloak%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keycloak
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenStack
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OpenStack
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenStack 练习答案
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Answers%20to%20OpenStack%20Practice.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenStack 练习答案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 练习前准备
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-undercloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. UnderCloud 操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-overcloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OverCloud 操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 轮换 Fernet 密钥
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 查找 Redis 密码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 创建用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 创建资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 创建网络
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 运行实例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 创建卷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 挂载卷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 创建卷快照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-heat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 创建 Heat 栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 编辑镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-rabbitmq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 添加 RabbitMQ 用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 创建 Swift 容器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 检查网络命名空间
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-manila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 配置 Manila 共享
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-manila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 挂载 Manila 文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 原文（English）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openstack-packstack-210610.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 packstack 在 CentOS 8 Stream 上部署 OpenStack 集群
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openstack-packstack.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 packstack 在 CentOS 8 上部署 OpenStack 集群
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="aio-openstack.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安装 All-in-One OpenStack 平台
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openstack-aio.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 CentOS Stream 上安装 OpenStack All-in-one
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openstack-tenant-network.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenStack 租户网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%AE%89%E5%85%A8/generate-hash-for-linux-shadow.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安全
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%B7%A5%E5%85%B7/Change-Usermane-Windows-10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%B7%A5%E5%85%B7/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/403-Forbidden-Softlink-Nginx.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统配置
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E7%AC%94%E8%AE%B0%E5%8F%8A%E6%96%87%E6%A1%A3%E8%BD%AF%E4%BB%B6/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0k8s%E9%83%A8%E7%BD%B2.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    笔记及文档软件
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Git%E4%BD%BF%E7%94%A8/Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git使用
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Python/%E6%9E%84%E5%BB%BA%E8%A7%A3%E5%8E%8B%E5%8D%B3%E7%94%A8%E7%9A%84Python3.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Java/SpringBoot%202.5.1%20%E5%AF%B9%E6%8E%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Shell/Shell%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E6%9C%AA%E8%B5%8B%E5%80%BC%E6%88%96%E9%81%87%E5%88%B0%E9%94%99%E8%AF%AF%E7%AB%8B%E5%88%BB%E9%80%80%E5%87%BA.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Rust/Rust%E7%A6%BB%E7%BA%BF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E7%BD%91%E7%BB%9C/sharing-wireless-network.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Arch/arch-linux-bluetooth-audio.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟化技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档分类
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 练习前准备
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-undercloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. UnderCloud 操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-overcloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. OverCloud 操作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 轮换 Fernet 密钥
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 查找 Redis 密码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 创建用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 创建资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 创建网络
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 运行实例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 创建卷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 挂载卷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 创建卷快照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-heat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 创建 Heat 栈
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 编辑镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-rabbitmq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 添加 RabbitMQ 用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 创建 Swift 容器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 检查网络命名空间
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-manila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 配置 Manila 共享
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-manila" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 挂载 Manila 文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 原文（English）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+<!-- <a href="../../print_page.html" target="_blank" title="Print Site" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+</a> -->
+
+
+
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:openstack" class="md-tag">OpenStack</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="openstack">OpenStack 练习答案<a class="headerlink" href="#openstack" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p>原英文标题：Answers to OpenStack Practice</p>
+<h2 id="1">1. 练习前准备<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>将系统时间调整为 2020/06/25</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>[kiosk@foundation0 ~]$ su
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>Password: Asimov
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>[root@foundation0 kiosk]# date --set 2020/06/25
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>[root@foundation0 kiosk]# exit
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>[kiosk@foundation0 ~]$ rht-vmctl reset classroom
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>[kiosk@foundation0 ~]$ rht-vmctl fullreset all
+</span></code></pre></div></td></tr></table></div>
+<h2 id="2-undercloud">2. UnderCloud 操作<a class="headerlink" href="#2-undercloud" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>(undercloud) [stack@director ~]$ openstack subnet list
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>(undercloud) [stack@director ~]$ openstack subnet show management_subnet
+</span></code></pre></div></td></tr></table></div>
+<h2 id="3-overcloud">3. OverCloud 操作<a class="headerlink" href="#3-overcloud" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0 ovs-vsctl list-ports br-int
+</span></code></pre></div></td></tr></table></div>
+<h2 id="4-fernet">4. 轮换 Fernet 密钥<a class="headerlink" href="#4-fernet" title="Permanent link">&para;</a></h2>
+<p>访问 <a href="http://content.example.com/rhosp13.0/x86_64/dvd/docs/">http://content.example.com/rhosp13.0/x86_64/dvd/docs/</a>，搜索 "fernet"。</p>
+<h2 id="5-redis">5. 查找 Redis 密码<a class="headerlink" href="#5-redis" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>[root@controller0 ~]# grep requirepass &quot;/var/lib/config-data/puppet-generated/redis/etc/redis.conf&quot;
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="6">6. 创建用户<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>(undercloud) [stack@director ~]$ source overcloudrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>(overcloud) [stack@director ~]$ openstack domain create 210Demo
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>(overcloud) [stack@director ~]$ openstack project create Engineering --domain 210Demo
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>(overcloud) [stack@director ~]$ openstack project create Production --domain 210Demo
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>(overcloud) [stack@director ~]$ openstack group create --domain 210Demo Devops
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Engineering --email Robert@lab.example.com Robert
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Engineering --email George@lab.example.com George
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Production --email William@lab.example.com William
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Production --email John@lab.example.com John
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops Robert
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops George
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops William
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops John
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210D
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>emo --project Engineering --user Robert admin
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Engineering --user Robert _member_
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Engineering --user George _member_
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user William admin
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user William _member_
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user John _member_
+</span></code></pre></div></td></tr></table></div>
+<h2 id="7">7. 创建资源<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>[root@controller0 ~]# vim /var/lib/config-data/puppet-generated/horizon/etc/openstack-dashboard/local_settings
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a># Set this to True if running on multi-domain model. When this is enabled, it
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a># will require user to enter the Domain name in addition to username for login.
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>#OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>[root@controller0 ~]# vim /var/lib/config-data/puppet-generated/keystone/etc/keystone/keystone.conf
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span>
+<span class="normal"><a href="#__codelineno-13-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a># A subset (or all) of domains can have their own identity driver, each with
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a># their own partial configuration options, stored in either the resource
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a># backend or in a file in a domain configuration directory (depending on the
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a># setting of `[identity] domain_configurations_from_database`). Only values
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a># specific to the domain need to be specified in this manner. This feature is
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a># disabled by default, but may be enabled by default in a future release; set
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a># to true to enable. (boolean value)
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a>#domain_specific_drivers_enabled = false
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a>domain_specific_drivers_enabled=True
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>[root@controller0 ~]# docker restart keystone
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>[root@controller0 ~]# docker restart horizon
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a>(overcloud) [stack@director ~]$ cp overcloudrc robertrc
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>(overcloud) [stack@director ~]$ vim robertrc
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a>(overcloud) [stack@director ~]$ source robertrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>(overcloud) [stack@director ~]$ openstack flavor create --public --ram 1024 --vcpus 1 --disk 10 m1.petite
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a>(overcloud) [stack@director ~]$ wget http://materials.example.com/osp-small.qcow2
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a>(overcloud) [stack@director ~]$ openstack image create --disk-format qcow2 --public --file osp-small.qcow2 web
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a>(overcloud) [stack@director ~]$ openstack security group create ssh
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a>(overcloud) [stack@director ~]$ openstack security group create web
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol icmp ssh
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol tcp --dst-port 22 ssh
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol tcp --dst-port 80 web
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a>(overcloud) [stack@director ~]$ openstack keypair create webkey &gt; /home/stack/webkey.pem
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2"></a>(overcloud) [stack@director ~]$ chmod 600 /home/stack/webkey.pem
+</span></code></pre></div></td></tr></table></div>
+<h2 id="8">8. 创建网络<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a>(overcloud) [stack@director ~]$ openstack network create engnet
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a>(overcloud) [stack@director ~]$ openstack subnet create --subnet-range 192.168.101.0/24 --dhcp --network engnet engsubnet
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a>(overcloud) [stack@director ~]$ openstack network create --provider-network-type flat --provider-physical-network datacentre --external public
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a>(overcloud) [stack@director ~]$ ssh root@controller0 cat /etc/resolv.conf;route -n
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a>(overcloud) [stack@director ~]$ openstack subnet create --network public --subnet-range 172.25.250.0/24 --allocation-pool start=172.25.250.101,end=172.25.250.109 --no-dhcp --dns-nameserver 172.25.250.254 --gateway 172.25.250.254 external
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a>(overcloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a>[root@controller0 ~]# grep storage /var/lib/config-data/puppet-generated/neutron/etc/neutron/plugins/ml2/ml2_conf.ini
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a>(overcloud) [stack@director ~]$ openstack network create --external --provider-network-type vlan --provider-segment 30 --provider-physical-network storage storagenet
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2"></a>(overcloud) [stack@director ~]$ openstack subnet create --subnet-range 172.24.3.0/24 --allocation-pool start=172.24.3.200,end=172.24.3.220 --dhcp --network storagenet storage-subnet
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a>(overcloud) [stack@director ~]$ openstack router create 210-router
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2"></a>(overcloud) [stack@director ~]$ openstack router set --external-gateway public 210-router
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3"></a>(overcloud) [stack@director ~]$ openstack router add subnet 210-router engsubnet
+</span></code></pre></div></td></tr></table></div>
+<h2 id="9">9. 运行实例<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a>(overcloud) [stack@director ~]$ mkdir files
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2"></a>(overcloud) [stack@director ~]$ vim  files/cloud-init.sh
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span>
+<span class="normal"><a href="#__codelineno-28-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a>#!/usr/bin/bash
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a>HOSTNAME=$(hostname -s)
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a>yum -y install httpd
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a>yum -y install python2-openstackclient
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a>echo &quot;Hello OpenStack&quot; &gt; /var/www/html/index.html
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6"></a>systemctl enable httpd --now
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
+<span class="normal"><a href="#__codelineno-29-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2"></a>(overcloud) [stack@director ~]$ openstack server create --image web --flavor m1.petite --network engnet --security-group ssh --security-group web --key-name webkey --user-data files/cloud-init.sh webserver
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a>(overcloud) [stack@director ~]$ openstack server add floating ip webserver 172.25.250.108
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span>
+<span class="normal"><a href="#__codelineno-31-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a>(overcloud) [stack@director ~]$ ping 172.25.250.108
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2"></a>(overcloud) [stack@director ~]$ ssh -i webkey.pem cloud-user@172.25.250.108
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a>[cloud-user@webserver ~]$ exit
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4"></a>[cloud-user@webserver ~]$ curl http://172.25.250.108/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="10">10. 创建卷<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2"></a>(overcloud) [stack@director ~]$ openstack volume create --size 2 storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="11">11. 挂载卷<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2"></a>(overcloud) [stack@director ~]$ openstack server add volume webserver storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="12">12. 创建卷快照<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2"></a>(overcloud) [stack@director ~]$ openstack server remove volume webserver storage
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3"></a>(overcloud) [stack@director ~]$ openstack volume snapshot create storage
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4"></a>(overcloud) [stack@director ~]$ openstack server add volume webserver storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="13-heat">13. 创建 Heat 栈<a class="headerlink" href="#13-heat" title="Permanent link">&para;</a></h2>
+<p>参见工作手册第 420 页</p>
+<h2 id="14">14. 编辑镜像<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-35-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-35-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-35-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-35-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-35-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-35-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-35-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-35-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-35-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1"></a>(undercloud) [stack@director ~]$ wget http://materials.example.com/osp-small.qcow2
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2"></a>(undercloud) [stack@director ~]$ sudo yum install -y guestfish
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3"></a>(undercloud) [stack@director ~]$ guestfish -i --network -a osp-small.qcow2
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4"></a>&gt;&lt;fs&gt; command &quot;yum install -y httpd&quot;
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5"></a>&gt;&lt;fs&gt; touch /var/www/html/index.html
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6"></a>&gt;&lt;fs&gt; vi /var/www/html/index.html
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7"></a>&gt;&lt;fs&gt; command &quot;systemctl enable httpd&quot;
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8"></a>&gt;&lt;fs&gt; command &quot;useradd testuser&quot;
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9"></a>&gt;&lt;fs&gt; selinux-relabel /etc/selinux/targeted/contexts/files/file_contexts /
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10"></a>&gt;&lt;fs&gt; exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span>
+<span class="normal"><a href="#__codelineno-36-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2"></a>(overcloud) [stack@director ~]$ openstack image create --min-ram 1024 --min-disk 10 --disk-format qcow2 --file osp-small.qcow2 webserver
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-37-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-37-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-37-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-37-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-37-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-37-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-37-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-37-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-37-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2"></a>(overcloud) [stack@director ~]$ openstack flavor create --ram 1024 --disk 10 m1.web
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3"></a>(overcloud) [stack@director ~]$ openstack keypair create east &gt; /home/stack/hello.pem
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4"></a>(overcloud) [stack@director ~]$ chmod 600 /home/stack/hello.pem
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5"></a>(overcloud) [stack@director ~]$ openstack server create --flavor m1.web --image webserver --key-name east --network engnet --security-group ssh --security-group web custom-web-server
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7"></a>(overcloud) [stack@director ~]$ openstack server add floating ip custom-web-server 172.25.250.106
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8"></a>(overcloud) [stack@director ~]$ ping 172.25.250.106
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9"></a>(overcloud) [stack@director ~]$ ssh -i /home/stack/hello.pem cloud-user@172.25.250.106 id testuser
+</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10"></a>(undercloud) [stack@director ~]$ curl 172.25.250.106
+</span></code></pre></div></td></tr></table></div>
+<h2 id="15-rabbitmq">15. 添加 RabbitMQ 用户<a class="headerlink" href="#15-rabbitmq" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span>
+<span class="normal"><a href="#__codelineno-38-2">2</a></span>
+<span class="normal"><a href="#__codelineno-38-3">3</a></span>
+<span class="normal"><a href="#__codelineno-38-4">4</a></span>
+<span class="normal"><a href="#__codelineno-38-5">5</a></span>
+<span class="normal"><a href="#__codelineno-38-6">6</a></span>
+<span class="normal"><a href="#__codelineno-38-7">7</a></span>
+<span class="normal"><a href="#__codelineno-38-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2"></a>[root@controller0 ~]# docker exec -it rabbitmq-bundle-docker-0 /bin/bash
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3"></a>()[root@controller0 /]# rabbitmqctl add_user test redhat
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4"></a>()[root@controller0 /]# rabbitmqctl set_permissions test &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5"></a>()[root@controller0 /]# rabbitmqctl set_user_tags test administrator
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6"></a>()[root@controller0 /]# rabbitmqctl trace_on
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7"></a>()[root@controller0 /]# exit
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="16-swift">16. 创建 Swift 容器<a class="headerlink" href="#16-swift" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span>
+<span class="normal"><a href="#__codelineno-39-2">2</a></span>
+<span class="normal"><a href="#__codelineno-39-3">3</a></span>
+<span class="normal"><a href="#__codelineno-39-4">4</a></span>
+<span class="normal"><a href="#__codelineno-39-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2"></a>(overcloud) [stack@director ~]$ cd /tmp/
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3"></a>(overcloud) [stack@director tmp]$ tar zcvf etc.tar.gz /etc
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4"></a>(overcloud) [stack@director tmp]$ openstack container create warehouse
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5"></a>(overcloud) [stack@director tmp]$ openstack object create warehouse etc.tar.gz
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span>
+<span class="normal"><a href="#__codelineno-40-2">2</a></span>
+<span class="normal"><a href="#__codelineno-40-3">3</a></span>
+<span class="normal"><a href="#__codelineno-40-4">4</a></span>
+<span class="normal"><a href="#__codelineno-40-5">5</a></span>
+<span class="normal"><a href="#__codelineno-40-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1"></a>(overcloud) [stack@director tmp]$ scp -i /home/stack/webkey.pem /home/stack/robertrc cloud-user@172.25.250.108:~
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2"></a>(overcloud) [stack@director tmp]$ ssh -i /home/stack/webkey.pem cloud-user@172.25.250.108
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3"></a>[cloud-user@custom-web-server ~]$ source robertrc
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4"></a>(overcloud) [cloud-user@webserver ~]$ openstack object list warehouse
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5"></a>(overcloud) [cloud-user@webserver ~]$ openstack object save warehouse etc.tar.gz
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6"></a>(overcloud) [cloud-user@webserver ~]$ exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="17">17. 检查网络命名空间<a class="headerlink" href="#17" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span>
+<span class="normal"><a href="#__codelineno-41-2">2</a></span>
+<span class="normal"><a href="#__codelineno-41-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1"></a>(undercloud) [stack@director ~]$ ssh root@compute1
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2"></a>[root@compute1 ~]# ip netns list
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3"></a>[root@compute1 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="18-manila">18. 配置 Manila 共享<a class="headerlink" href="#18-manila" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1">1</a></span>
+<span class="normal"><a href="#__codelineno-42-2">2</a></span>
+<span class="normal"><a href="#__codelineno-42-3">3</a></span>
+<span class="normal"><a href="#__codelineno-42-4">4</a></span>
+<span class="normal"><a href="#__codelineno-42-5">5</a></span>
+<span class="normal"><a href="#__codelineno-42-6">6</a></span>
+<span class="normal"><a href="#__codelineno-42-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2"></a>(overcloud) [stack@director ~]$ manila type-create cephfstype false
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3"></a>(overcloud) [stack@director ~]$ manila create --name engineering_share --share-type cephfstype cephfs 1
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5"></a>[root@controller0 ~]# ceph auth get-or-create --name=client.manila --keyring=/etc/ceph/ceph.client.manila.keyring client.cloud-user &gt; /root/cloud-user.keyring
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6"></a>[root@controller0 ~]# exit
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7"></a>(overcloud) [stack@director ~]$ manila access-allow engineering_share cephx cloud-user
+</span></code></pre></div></td></tr></table></div>
+<h2 id="19-manila">19. 挂载 Manila 文件系统<a class="headerlink" href="#19-manila" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1"></a>(undercloud) [stack@director ~]$ vim files/manila.sh
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-44-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-44-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-44-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-44-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-44-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-44-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-44-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-44-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-44-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1"></a>#!/usr/bin/bash
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2"></a>cat &gt; /etc/sysconfig/network-scripts/ifcfg-eth1 &lt;&lt;eof
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3"></a>DEVICE=eth1
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4"></a>BOOTPROTO=dhcp
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5"></a>ONBOOT=yes
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6"></a>eof
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7"></a>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8"></a>ifup eth1
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9"></a>curl -s -f -o /etc/yum.repos.d/ceph.repo http://materials.example.com/ceph.repo
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10"></a>yum install -y ceph-fuse
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span>
+<span class="normal"><a href="#__codelineno-45-2">2</a></span>
+<span class="normal"><a href="#__codelineno-45-3">3</a></span>
+<span class="normal"><a href="#__codelineno-45-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2"></a>(overcloud) [stack@director ~]$ openstack server create --image web --flavor m1.petite --security-group ssh --security-group web --key-name webkey --user-data files/manila.sh --network engnet --network storagenet eng_server1
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4"></a>(overcloud) [stack@director ~]$ openstack server add floating ip eng_server1 172.25.250.105
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span>
+<span class="normal"><a href="#__codelineno-46-2">2</a></span>
+<span class="normal"><a href="#__codelineno-46-3">3</a></span>
+<span class="normal"><a href="#__codelineno-46-4">4</a></span>
+<span class="normal"><a href="#__codelineno-46-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1"></a>(overcloud) [stack@director ~]$ scp /home/stack/webkey.pem root@controller0:~
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2"></a>(overcloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3"></a>[root@controller0 ~]# scp -i webkey.pem /etc/ceph/ceph.conf cloud-user@172.25.250.105:~
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4"></a>[root@controller0 ~]# scp -i webkey.pem /root/cloud-user.keyring cloud-user@172.25.250.105:~
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span>
+<span class="normal"><a href="#__codelineno-47-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2"></a>(overcloud) [stack@director ~]$ manila share-export-location-list engineering_share
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span>
+<span class="normal"><a href="#__codelineno-48-2">2</a></span>
+<span class="normal"><a href="#__codelineno-48-3">3</a></span>
+<span class="normal"><a href="#__codelineno-48-4">4</a></span>
+<span class="normal"><a href="#__codelineno-48-5">5</a></span>
+<span class="normal"><a href="#__codelineno-48-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1"></a>(overcloud) [stack@director ~]$ ssh -i /home/stack/webkey.pem cloud-user@172.25.250.105
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2"></a>[cloud-user@eng-server1 ~]$ sudo mkdir /mnt/ceph
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3"></a>[cloud-user@eng-server1 ~]$ sudo -i
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4"></a>[root@eng-server1 ~]# ceph-fuse --conf=/home/cloud-user/ceph.conf --name=client.cloud-user --keyring=/home/cloud-user/cloud-user.keyring --client-mountpoint=/volumes/_nogroup/308d8da3-f29d-4aad-8ba8-12cb00969c0f /mnt/ceph
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5"></a>[root@eng-server1 ceph]# exit
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6"></a>[cloud-user@eng-server1 ~]$ exit
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="20-english">20. 原文（English）<a class="headerlink" href="#20-english" title="Permanent link">&para;</a></h2>
+<h1 id="1-answers-to-openstack-practice">1. Answers to OpenStack Practice<a class="headerlink" href="#1-answers-to-openstack-practice" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<h2 id="11-before-practice">1.1 Before Practice<a class="headerlink" href="#11-before-practice" title="Permanent link">&para;</a></h2>
+<p>Change your time to 2020/06/25</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span>
+<span class="normal"><a href="#__codelineno-49-2">2</a></span>
+<span class="normal"><a href="#__codelineno-49-3">3</a></span>
+<span class="normal"><a href="#__codelineno-49-4">4</a></span>
+<span class="normal"><a href="#__codelineno-49-5">5</a></span>
+<span class="normal"><a href="#__codelineno-49-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1"></a>[kiosk@foundation0 ~]$ su
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2"></a>Password: Asimov
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3"></a>[root@foundation0 kiosk]# date --set 2020/06/25
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4"></a>[root@foundation0 kiosk]# exit
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5"></a>[kiosk@foundation0 ~]$ rht-vmctl reset classroom
+</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6"></a>[kiosk@foundation0 ~]$ rht-vmctl fullreset all
+</span></code></pre></div></td></tr></table></div>
+<h2 id="12-operating-on-undercloud">1.2 Operating on UnderCloud<a class="headerlink" href="#12-operating-on-undercloud" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span>
+<span class="normal"><a href="#__codelineno-50-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1"></a>(undercloud) [stack@director ~]$ openstack subnet list
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2"></a>(undercloud) [stack@director ~]$ openstack subnet show management_subnet
+</span></code></pre></div></td></tr></table></div>
+<h2 id="13-operating-on-overcloud">1.3 Operating on OverCloud<a class="headerlink" href="#13-operating-on-overcloud" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0 ovs-vsctl list-ports br-int
+</span></code></pre></div></td></tr></table></div>
+<h2 id="14-rotate-fernet-keys">1.4 Rotate Fernet Keys<a class="headerlink" href="#14-rotate-fernet-keys" title="Permanent link">&para;</a></h2>
+<p>Visit <a href="http://content.example.com/rhosp13.0/x86_64/dvd/docs/">http://content.example.com/rhosp13.0/x86_64/dvd/docs/</a>, search for "fernet".</p>
+<h2 id="15-find-redis-password">1.5 Find Redis Password<a class="headerlink" href="#15-find-redis-password" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1">1</a></span>
+<span class="normal"><a href="#__codelineno-52-2">2</a></span>
+<span class="normal"><a href="#__codelineno-52-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2"></a>[root@controller0 ~]# grep requirepass &quot;/var/lib/config-data/puppet-generated/redis/etc/redis.conf&quot;
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="16-create-users">1.6 Create Users<a class="headerlink" href="#16-create-users" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1"></a>(undercloud) [stack@director ~]$ source overcloudrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span>
+<span class="normal"><a href="#__codelineno-54-2">2</a></span>
+<span class="normal"><a href="#__codelineno-54-3">3</a></span>
+<span class="normal"><a href="#__codelineno-54-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1"></a>(overcloud) [stack@director ~]$ openstack domain create 210Demo
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2"></a>(overcloud) [stack@director ~]$ openstack project create Engineering --domain 210Demo
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3"></a>(overcloud) [stack@director ~]$ openstack project create Production --domain 210Demo
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4"></a>(overcloud) [stack@director ~]$ openstack group create --domain 210Demo Devops
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span>
+<span class="normal"><a href="#__codelineno-55-2">2</a></span>
+<span class="normal"><a href="#__codelineno-55-3">3</a></span>
+<span class="normal"><a href="#__codelineno-55-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Engineering --email Robert@lab.example.com Robert
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Engineering --email George@lab.example.com George
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Production --email William@lab.example.com William
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4"></a>(overcloud) [stack@director ~]$ openstack user create --domain 210Demo --project-domain 210Demo --password redhat --project Production --email John@lab.example.com John
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span>
+<span class="normal"><a href="#__codelineno-56-2">2</a></span>
+<span class="normal"><a href="#__codelineno-56-3">3</a></span>
+<span class="normal"><a href="#__codelineno-56-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops Robert
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops George
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops William
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4"></a>(overcloud) [stack@director ~]$ openstack group add user --user-domain 210Demo --group-domain 210Demo Devops John
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span>
+<span class="normal"><a href="#__codelineno-57-2">2</a></span>
+<span class="normal"><a href="#__codelineno-57-3">3</a></span>
+<span class="normal"><a href="#__codelineno-57-4">4</a></span>
+<span class="normal"><a href="#__codelineno-57-5">5</a></span>
+<span class="normal"><a href="#__codelineno-57-6">6</a></span>
+<span class="normal"><a href="#__codelineno-57-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210D
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2"></a>emo --project Engineering --user Robert admin
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Engineering --user Robert _member_
+</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Engineering --user George _member_
+</span><span id="__span-57-5"><a id="__codelineno-57-5" name="__codelineno-57-5"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user William admin
+</span><span id="__span-57-6"><a id="__codelineno-57-6" name="__codelineno-57-6"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user William _member_
+</span><span id="__span-57-7"><a id="__codelineno-57-7" name="__codelineno-57-7"></a>(overcloud) [stack@director ~]$ openstack role add --user-domain 210Demo --project-domain 210Demo --project Production --user John _member_
+</span></code></pre></div></td></tr></table></div>
+<h2 id="17-create-resources">1.7 Create Resources<a class="headerlink" href="#17-create-resources" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1"></a>[root@controller0 ~]# vim /var/lib/config-data/puppet-generated/horizon/etc/openstack-dashboard/local_settings
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-60-1">1</a></span>
+<span class="normal"><a href="#__codelineno-60-2">2</a></span>
+<span class="normal"><a href="#__codelineno-60-3">3</a></span>
+<span class="normal"><a href="#__codelineno-60-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1"></a># Set this to True if running on multi-domain model. When this is enabled, it
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2"></a># will require user to enter the Domain name in addition to username for login.
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3"></a>#OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = False
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4"></a>OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-61-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1"></a>[root@controller0 ~]# vim /var/lib/config-data/puppet-generated/keystone/etc/keystone/keystone.conf
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-62-1">1</a></span>
+<span class="normal"><a href="#__codelineno-62-2">2</a></span>
+<span class="normal"><a href="#__codelineno-62-3">3</a></span>
+<span class="normal"><a href="#__codelineno-62-4">4</a></span>
+<span class="normal"><a href="#__codelineno-62-5">5</a></span>
+<span class="normal"><a href="#__codelineno-62-6">6</a></span>
+<span class="normal"><a href="#__codelineno-62-7">7</a></span>
+<span class="normal"><a href="#__codelineno-62-8">8</a></span>
+<span class="normal"><a href="#__codelineno-62-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1"></a># A subset (or all) of domains can have their own identity driver, each with
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2"></a># their own partial configuration options, stored in either the resource
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3"></a># backend or in a file in a domain configuration directory (depending on the
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4"></a># setting of `[identity] domain_configurations_from_database`). Only values
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5"></a># specific to the domain need to be specified in this manner. This feature is
+</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6"></a># disabled by default, but may be enabled by default in a future release; set
+</span><span id="__span-62-7"><a id="__codelineno-62-7" name="__codelineno-62-7"></a># to true to enable. (boolean value)
+</span><span id="__span-62-8"><a id="__codelineno-62-8" name="__codelineno-62-8"></a>#domain_specific_drivers_enabled = false
+</span><span id="__span-62-9"><a id="__codelineno-62-9" name="__codelineno-62-9"></a>domain_specific_drivers_enabled=True
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-63-1">1</a></span>
+<span class="normal"><a href="#__codelineno-63-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1"></a>[root@controller0 ~]# docker restart keystone
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2"></a>[root@controller0 ~]# docker restart horizon
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-64-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-65-1">1</a></span>
+<span class="normal"><a href="#__codelineno-65-2">2</a></span>
+<span class="normal"><a href="#__codelineno-65-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1"></a>(overcloud) [stack@director ~]$ cp overcloudrc robertrc
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2"></a>(overcloud) [stack@director ~]$ vim robertrc
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3"></a>(overcloud) [stack@director ~]$ source robertrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-66-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1"></a>(overcloud) [stack@director ~]$ openstack flavor create --public --ram 1024 --vcpus 1 --disk 10 m1.petite
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-67-1">1</a></span>
+<span class="normal"><a href="#__codelineno-67-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1"></a>(overcloud) [stack@director ~]$ wget http://materials.example.com/osp-small.qcow2
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2"></a>(overcloud) [stack@director ~]$ openstack image create --disk-format qcow2 --public --file osp-small.qcow2 web
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-68-1">1</a></span>
+<span class="normal"><a href="#__codelineno-68-2">2</a></span>
+<span class="normal"><a href="#__codelineno-68-3">3</a></span>
+<span class="normal"><a href="#__codelineno-68-4">4</a></span>
+<span class="normal"><a href="#__codelineno-68-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1"></a>(overcloud) [stack@director ~]$ openstack security group create ssh
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2"></a>(overcloud) [stack@director ~]$ openstack security group create web
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol icmp ssh
+</span><span id="__span-68-4"><a id="__codelineno-68-4" name="__codelineno-68-4"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol tcp --dst-port 22 ssh
+</span><span id="__span-68-5"><a id="__codelineno-68-5" name="__codelineno-68-5"></a>(overcloud) [stack@director ~]$ openstack security group rule create --ingress --protocol tcp --dst-port 80 web
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-69-1">1</a></span>
+<span class="normal"><a href="#__codelineno-69-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1"></a>(overcloud) [stack@director ~]$ openstack keypair create webkey &gt; /home/stack/webkey.pem
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2"></a>(overcloud) [stack@director ~]$ chmod 600 /home/stack/webkey.pem
+</span></code></pre></div></td></tr></table></div>
+<h2 id="18-create-network">1.8 Create Network<a class="headerlink" href="#18-create-network" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-70-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-71-1">1</a></span>
+<span class="normal"><a href="#__codelineno-71-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1"></a>(overcloud) [stack@director ~]$ openstack network create engnet
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2"></a>(overcloud) [stack@director ~]$ openstack subnet create --subnet-range 192.168.101.0/24 --dhcp --network engnet engsubnet
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-72-1">1</a></span>
+<span class="normal"><a href="#__codelineno-72-2">2</a></span>
+<span class="normal"><a href="#__codelineno-72-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1"></a>(overcloud) [stack@director ~]$ openstack network create --provider-network-type flat --provider-physical-network datacentre --external public
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2"></a>(overcloud) [stack@director ~]$ ssh root@controller0 cat /etc/resolv.conf;route -n
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3"></a>(overcloud) [stack@director ~]$ openstack subnet create --network public --subnet-range 172.25.250.0/24 --allocation-pool start=172.25.250.101,end=172.25.250.109 --no-dhcp --dns-nameserver 172.25.250.254 --gateway 172.25.250.254 external
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-73-1">1</a></span>
+<span class="normal"><a href="#__codelineno-73-2">2</a></span>
+<span class="normal"><a href="#__codelineno-73-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1"></a>(overcloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2"></a>[root@controller0 ~]# grep storage /var/lib/config-data/puppet-generated/neutron/etc/neutron/plugins/ml2/ml2_conf.ini
+</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-74-1">1</a></span>
+<span class="normal"><a href="#__codelineno-74-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1"></a>(overcloud) [stack@director ~]$ openstack network create --external --provider-network-type vlan --provider-segment 30 --provider-physical-network storage storagenet
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2"></a>(overcloud) [stack@director ~]$ openstack subnet create --subnet-range 172.24.3.0/24 --allocation-pool start=172.24.3.200,end=172.24.3.220 --dhcp --network storagenet storage-subnet
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-75-1">1</a></span>
+<span class="normal"><a href="#__codelineno-75-2">2</a></span>
+<span class="normal"><a href="#__codelineno-75-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1"></a>(overcloud) [stack@director ~]$ openstack router create 210-router
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2"></a>(overcloud) [stack@director ~]$ openstack router set --external-gateway public 210-router
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3"></a>(overcloud) [stack@director ~]$ openstack router add subnet 210-router engsubnet
+</span></code></pre></div></td></tr></table></div>
+<h2 id="19-run-instance">1.9 Run Instance<a class="headerlink" href="#19-run-instance" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-76-1">1</a></span>
+<span class="normal"><a href="#__codelineno-76-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1"></a>(overcloud) [stack@director ~]$ mkdir files
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2"></a>(overcloud) [stack@director ~]$ vim  files/cloud-init.sh
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-77-1">1</a></span>
+<span class="normal"><a href="#__codelineno-77-2">2</a></span>
+<span class="normal"><a href="#__codelineno-77-3">3</a></span>
+<span class="normal"><a href="#__codelineno-77-4">4</a></span>
+<span class="normal"><a href="#__codelineno-77-5">5</a></span>
+<span class="normal"><a href="#__codelineno-77-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1"></a>#!/usr/bin/bash
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2"></a>HOSTNAME=$(hostname -s)
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3"></a>yum -y install httpd
+</span><span id="__span-77-4"><a id="__codelineno-77-4" name="__codelineno-77-4"></a>yum -y install python2-openstackclient
+</span><span id="__span-77-5"><a id="__codelineno-77-5" name="__codelineno-77-5"></a>echo &quot;Hello OpenStack&quot; &gt; /var/www/html/index.html
+</span><span id="__span-77-6"><a id="__codelineno-77-6" name="__codelineno-77-6"></a>systemctl enable httpd --now
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-78-1">1</a></span>
+<span class="normal"><a href="#__codelineno-78-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2"></a>(overcloud) [stack@director ~]$ openstack server create --image web --flavor m1.petite --network engnet --security-group ssh --security-group web --key-name webkey --user-data files/cloud-init.sh webserver
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-79-1">1</a></span>
+<span class="normal"><a href="#__codelineno-79-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2"></a>(overcloud) [stack@director ~]$ openstack server add floating ip webserver 172.25.250.108
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-80-1">1</a></span>
+<span class="normal"><a href="#__codelineno-80-2">2</a></span>
+<span class="normal"><a href="#__codelineno-80-3">3</a></span>
+<span class="normal"><a href="#__codelineno-80-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1"></a>(overcloud) [stack@director ~]$ ping 172.25.250.108
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2"></a>(overcloud) [stack@director ~]$ ssh -i webkey.pem cloud-user@172.25.250.108
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3"></a>[cloud-user@webserver ~]$ exit
+</span><span id="__span-80-4"><a id="__codelineno-80-4" name="__codelineno-80-4"></a>[cloud-user@webserver ~]$ curl http://172.25.250.108/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="110-create-volume">1.10 Create Volume<a class="headerlink" href="#110-create-volume" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-81-1">1</a></span>
+<span class="normal"><a href="#__codelineno-81-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2"></a>(overcloud) [stack@director ~]$ openstack volume create --size 2 storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="111-attach-volume">1.11 Attach Volume<a class="headerlink" href="#111-attach-volume" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-82-1">1</a></span>
+<span class="normal"><a href="#__codelineno-82-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2"></a>(overcloud) [stack@director ~]$ openstack server add volume webserver storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="112-create-volume-snapshot">1.12 Create Volume Snapshot<a class="headerlink" href="#112-create-volume-snapshot" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-83-1">1</a></span>
+<span class="normal"><a href="#__codelineno-83-2">2</a></span>
+<span class="normal"><a href="#__codelineno-83-3">3</a></span>
+<span class="normal"><a href="#__codelineno-83-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2"></a>(overcloud) [stack@director ~]$ openstack server remove volume webserver storage
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3"></a>(overcloud) [stack@director ~]$ openstack volume snapshot create storage
+</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4"></a>(overcloud) [stack@director ~]$ openstack server add volume webserver storage
+</span></code></pre></div></td></tr></table></div>
+<h2 id="113-create-heat-stack">1.13 Create Heat Stack<a class="headerlink" href="#113-create-heat-stack" title="Permanent link">&para;</a></h2>
+<p>See workbook page 420</p>
+<h2 id="114-edit-image">1.14 Edit Image<a class="headerlink" href="#114-edit-image" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-84-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-84-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-84-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-84-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-84-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-84-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-84-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-84-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-84-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-84-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1"></a>(undercloud) [stack@director ~]$ wget http://materials.example.com/osp-small.qcow2
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2"></a>(undercloud) [stack@director ~]$ sudo yum install -y guestfish
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3"></a>(undercloud) [stack@director ~]$ guestfish -i --network -a osp-small.qcow2
+</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4"></a>&gt;&lt;fs&gt; command &quot;yum install -y httpd&quot;
+</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5"></a>&gt;&lt;fs&gt; touch /var/www/html/index.html
+</span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6"></a>&gt;&lt;fs&gt; vi /var/www/html/index.html
+</span><span id="__span-84-7"><a id="__codelineno-84-7" name="__codelineno-84-7"></a>&gt;&lt;fs&gt; command &quot;systemctl enable httpd&quot;
+</span><span id="__span-84-8"><a id="__codelineno-84-8" name="__codelineno-84-8"></a>&gt;&lt;fs&gt; command &quot;useradd testuser&quot;
+</span><span id="__span-84-9"><a id="__codelineno-84-9" name="__codelineno-84-9"></a>&gt;&lt;fs&gt; selinux-relabel /etc/selinux/targeted/contexts/files/file_contexts /
+</span><span id="__span-84-10"><a id="__codelineno-84-10" name="__codelineno-84-10"></a>&gt;&lt;fs&gt; exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-85-1">1</a></span>
+<span class="normal"><a href="#__codelineno-85-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2"></a>(overcloud) [stack@director ~]$ openstack image create --min-ram 1024 --min-disk 10 --disk-format qcow2 --file osp-small.qcow2 webserver
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-86-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-86-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-86-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-86-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-86-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-86-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-86-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-86-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-86-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-86-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2"></a>(overcloud) [stack@director ~]$ openstack flavor create --ram 1024 --disk 10 m1.web
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3"></a>(overcloud) [stack@director ~]$ openstack keypair create east &gt; /home/stack/hello.pem
+</span><span id="__span-86-4"><a id="__codelineno-86-4" name="__codelineno-86-4"></a>(overcloud) [stack@director ~]$ chmod 600 /home/stack/hello.pem
+</span><span id="__span-86-5"><a id="__codelineno-86-5" name="__codelineno-86-5"></a>(overcloud) [stack@director ~]$ openstack server create --flavor m1.web --image webserver --key-name east --network engnet --security-group ssh --security-group web custom-web-server
+</span><span id="__span-86-6"><a id="__codelineno-86-6" name="__codelineno-86-6"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-86-7"><a id="__codelineno-86-7" name="__codelineno-86-7"></a>(overcloud) [stack@director ~]$ openstack server add floating ip custom-web-server 172.25.250.106
+</span><span id="__span-86-8"><a id="__codelineno-86-8" name="__codelineno-86-8"></a>(overcloud) [stack@director ~]$ ping 172.25.250.106
+</span><span id="__span-86-9"><a id="__codelineno-86-9" name="__codelineno-86-9"></a>(overcloud) [stack@director ~]$ ssh -i /home/stack/hello.pem cloud-user@172.25.250.106 id testuser
+</span><span id="__span-86-10"><a id="__codelineno-86-10" name="__codelineno-86-10"></a>(undercloud) [stack@director ~]$ curl 172.25.250.106
+</span></code></pre></div></td></tr></table></div>
+<h2 id="115-rabbitmq-user-adding">1.15 RabbitMQ User Adding<a class="headerlink" href="#115-rabbitmq-user-adding" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-87-1">1</a></span>
+<span class="normal"><a href="#__codelineno-87-2">2</a></span>
+<span class="normal"><a href="#__codelineno-87-3">3</a></span>
+<span class="normal"><a href="#__codelineno-87-4">4</a></span>
+<span class="normal"><a href="#__codelineno-87-5">5</a></span>
+<span class="normal"><a href="#__codelineno-87-6">6</a></span>
+<span class="normal"><a href="#__codelineno-87-7">7</a></span>
+<span class="normal"><a href="#__codelineno-87-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2"></a>[root@controller0 ~]# docker exec -it rabbitmq-bundle-docker-0 /bin/bash
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3"></a>()[root@controller0 /]# rabbitmqctl add_user test redhat
+</span><span id="__span-87-4"><a id="__codelineno-87-4" name="__codelineno-87-4"></a>()[root@controller0 /]# rabbitmqctl set_permissions test &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;
+</span><span id="__span-87-5"><a id="__codelineno-87-5" name="__codelineno-87-5"></a>()[root@controller0 /]# rabbitmqctl set_user_tags test administrator
+</span><span id="__span-87-6"><a id="__codelineno-87-6" name="__codelineno-87-6"></a>()[root@controller0 /]# rabbitmqctl trace_on
+</span><span id="__span-87-7"><a id="__codelineno-87-7" name="__codelineno-87-7"></a>()[root@controller0 /]# exit
+</span><span id="__span-87-8"><a id="__codelineno-87-8" name="__codelineno-87-8"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="116-creating-swift-containers">1.16 Creating Swift Containers<a class="headerlink" href="#116-creating-swift-containers" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-88-1">1</a></span>
+<span class="normal"><a href="#__codelineno-88-2">2</a></span>
+<span class="normal"><a href="#__codelineno-88-3">3</a></span>
+<span class="normal"><a href="#__codelineno-88-4">4</a></span>
+<span class="normal"><a href="#__codelineno-88-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2"></a>(overcloud) [stack@director ~]$ cd /tmp/
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3"></a>(overcloud) [stack@director tmp]$ tar zcvf etc.tar.gz /etc
+</span><span id="__span-88-4"><a id="__codelineno-88-4" name="__codelineno-88-4"></a>(overcloud) [stack@director tmp]$ openstack container create warehouse
+</span><span id="__span-88-5"><a id="__codelineno-88-5" name="__codelineno-88-5"></a>(overcloud) [stack@director tmp]$ openstack object create warehouse etc.tar.gz
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-89-1">1</a></span>
+<span class="normal"><a href="#__codelineno-89-2">2</a></span>
+<span class="normal"><a href="#__codelineno-89-3">3</a></span>
+<span class="normal"><a href="#__codelineno-89-4">4</a></span>
+<span class="normal"><a href="#__codelineno-89-5">5</a></span>
+<span class="normal"><a href="#__codelineno-89-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1"></a>(overcloud) [stack@director tmp]$ scp -i /home/stack/webkey.pem /home/stack/robertrc cloud-user@172.25.250.108:~
+</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2"></a>(overcloud) [stack@director tmp]$ ssh -i /home/stack/webkey.pem cloud-user@172.25.250.108
+</span><span id="__span-89-3"><a id="__codelineno-89-3" name="__codelineno-89-3"></a>[cloud-user@custom-web-server ~]$ source robertrc
+</span><span id="__span-89-4"><a id="__codelineno-89-4" name="__codelineno-89-4"></a>(overcloud) [cloud-user@webserver ~]$ openstack object list warehouse
+</span><span id="__span-89-5"><a id="__codelineno-89-5" name="__codelineno-89-5"></a>(overcloud) [cloud-user@webserver ~]$ openstack object save warehouse etc.tar.gz
+</span><span id="__span-89-6"><a id="__codelineno-89-6" name="__codelineno-89-6"></a>(overcloud) [cloud-user@webserver ~]$ exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="117-check-network-namespace">1.17 Check Network Namespace<a class="headerlink" href="#117-check-network-namespace" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-90-1">1</a></span>
+<span class="normal"><a href="#__codelineno-90-2">2</a></span>
+<span class="normal"><a href="#__codelineno-90-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1"></a>(undercloud) [stack@director ~]$ ssh root@compute1
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2"></a>[root@compute1 ~]# ip netns list
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3"></a>[root@compute1 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<h2 id="118-set-up-manila-share">1.18 Set Up Manila Share<a class="headerlink" href="#118-set-up-manila-share" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-91-1">1</a></span>
+<span class="normal"><a href="#__codelineno-91-2">2</a></span>
+<span class="normal"><a href="#__codelineno-91-3">3</a></span>
+<span class="normal"><a href="#__codelineno-91-4">4</a></span>
+<span class="normal"><a href="#__codelineno-91-5">5</a></span>
+<span class="normal"><a href="#__codelineno-91-6">6</a></span>
+<span class="normal"><a href="#__codelineno-91-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2"></a>(overcloud) [stack@director ~]$ manila type-create cephfstype false
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3"></a>(overcloud) [stack@director ~]$ manila create --name engineering_share --share-type cephfstype cephfs 1
+</span><span id="__span-91-4"><a id="__codelineno-91-4" name="__codelineno-91-4"></a>(undercloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-91-5"><a id="__codelineno-91-5" name="__codelineno-91-5"></a>[root@controller0 ~]# ceph auth get-or-create --name=client.manila --keyring=/etc/ceph/ceph.client.manila.keyring client.cloud-user &gt; /root/cloud-user.keyring
+</span><span id="__span-91-6"><a id="__codelineno-91-6" name="__codelineno-91-6"></a>[root@controller0 ~]# exit
+</span><span id="__span-91-7"><a id="__codelineno-91-7" name="__codelineno-91-7"></a>(overcloud) [stack@director ~]$ manila access-allow engineering_share cephx cloud-user
+</span></code></pre></div></td></tr></table></div>
+<h2 id="119-mount-manila-filesystem">1.19 Mount Manila Filesystem<a class="headerlink" href="#119-mount-manila-filesystem" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-92-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1"></a>(undercloud) [stack@director ~]$ vim files/manila.sh
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-93-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-93-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-93-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-93-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-93-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-93-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-93-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-93-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-93-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-93-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1"></a>#!/usr/bin/bash
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2"></a>cat &gt; /etc/sysconfig/network-scripts/ifcfg-eth1 &lt;&lt;eof
+</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3"></a>DEVICE=eth1
+</span><span id="__span-93-4"><a id="__codelineno-93-4" name="__codelineno-93-4"></a>BOOTPROTO=dhcp
+</span><span id="__span-93-5"><a id="__codelineno-93-5" name="__codelineno-93-5"></a>ONBOOT=yes
+</span><span id="__span-93-6"><a id="__codelineno-93-6" name="__codelineno-93-6"></a>eof
+</span><span id="__span-93-7"><a id="__codelineno-93-7" name="__codelineno-93-7"></a>
+</span><span id="__span-93-8"><a id="__codelineno-93-8" name="__codelineno-93-8"></a>ifup eth1
+</span><span id="__span-93-9"><a id="__codelineno-93-9" name="__codelineno-93-9"></a>curl -s -f -o /etc/yum.repos.d/ceph.repo http://materials.example.com/ceph.repo
+</span><span id="__span-93-10"><a id="__codelineno-93-10" name="__codelineno-93-10"></a>yum install -y ceph-fuse
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-94-1">1</a></span>
+<span class="normal"><a href="#__codelineno-94-2">2</a></span>
+<span class="normal"><a href="#__codelineno-94-3">3</a></span>
+<span class="normal"><a href="#__codelineno-94-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1"></a>(undercloud) [stack@director ~]$ source robertrc
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2"></a>(overcloud) [stack@director ~]$ openstack server create --image web --flavor m1.petite --security-group ssh --security-group web --key-name webkey --user-data files/manila.sh --network engnet --network storagenet eng_server1
+</span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3"></a>(overcloud) [stack@director ~]$ openstack floating ip create public
+</span><span id="__span-94-4"><a id="__codelineno-94-4" name="__codelineno-94-4"></a>(overcloud) [stack@director ~]$ openstack server add floating ip eng_server1 172.25.250.105
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-95-1">1</a></span>
+<span class="normal"><a href="#__codelineno-95-2">2</a></span>
+<span class="normal"><a href="#__codelineno-95-3">3</a></span>
+<span class="normal"><a href="#__codelineno-95-4">4</a></span>
+<span class="normal"><a href="#__codelineno-95-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1"></a>(overcloud) [stack@director ~]$ scp /home/stack/webkey.pem root@controller0:~
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2"></a>(overcloud) [stack@director ~]$ ssh root@controller0
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3"></a>[root@controller0 ~]# scp -i webkey.pem /etc/ceph/ceph.conf cloud-user@172.25.250.105:~
+</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4"></a>[root@controller0 ~]# scp -i webkey.pem /root/cloud-user.keyring cloud-user@172.25.250.105:~
+</span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5"></a>[root@controller0 ~]# exit
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-96-1">1</a></span>
+<span class="normal"><a href="#__codelineno-96-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1"></a>(overcloud) [stack@director ~]$ source robertrc
+</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2"></a>(overcloud) [stack@director ~]$ manila share-export-location-list engineering_share
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-97-1">1</a></span>
+<span class="normal"><a href="#__codelineno-97-2">2</a></span>
+<span class="normal"><a href="#__codelineno-97-3">3</a></span>
+<span class="normal"><a href="#__codelineno-97-4">4</a></span>
+<span class="normal"><a href="#__codelineno-97-5">5</a></span>
+<span class="normal"><a href="#__codelineno-97-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1"></a>(overcloud) [stack@director ~]$ ssh -i /home/stack/webkey.pem cloud-user@172.25.250.105
+</span><span id="__span-97-2"><a id="__codelineno-97-2" name="__codelineno-97-2"></a>[cloud-user@eng-server1 ~]$ sudo mkdir /mnt/ceph
+</span><span id="__span-97-3"><a id="__codelineno-97-3" name="__codelineno-97-3"></a>[cloud-user@eng-server1 ~]$ sudo -i
+</span><span id="__span-97-4"><a id="__codelineno-97-4" name="__codelineno-97-4"></a>[root@eng-server1 ~]# ceph-fuse --conf=/home/cloud-user/ceph.conf --name=client.cloud-user --keyring=/home/cloud-user/cloud-user.keyring --client-mountpoint=/volumes/_nogroup/308d8da3-f29d-4aad-8ba8-12cb00969c0f /mnt/ceph
+</span><span id="__span-97-5"><a id="__codelineno-97-5" name="__codelineno-97-5"></a>[root@eng-server1 ceph]# exit
+</span><span id="__span-97-6"><a id="__codelineno-97-6" name="__codelineno-97-6"></a>[cloud-user@eng-server1 ~]$ exit
+</span></code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../Keycloak/k3s%E6%90%AD%E5%BB%BA%E5%8D%95%E7%82%B9Keycloak.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: k3s 搭建单点 keycloak">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                k3s 搭建单点 keycloak
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="openstack-packstack-210610.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 使用 packstack 在 CentOS 8 Stream 上部署 OpenStack 集群">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                使用 packstack 在 CentOS 8 Stream 上部署 OpenStack 集群
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.top", "navigation.footer", "navigation.prune", "search.suggest", "search.highlight", "search.share", "header.autohide", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

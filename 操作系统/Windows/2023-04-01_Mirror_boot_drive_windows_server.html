@@ -1,0 +1,2641 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="胡喜平">
+      
+      
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/2023-04-01_Mirror_boot_drive_windows_server.html">
+      
+      
+        <link rel="prev" href="2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....html">
+      
+      
+        <link rel="next" href="2023-04-01_Windows-Server-Software-RAID.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>在 Windows Server 上镜像启动驱动器 - hxp的文档库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="../../assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#windows-server" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="hxp的文档库" class="md-header__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hxp的文档库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              在 Windows Server 上镜像启动驱动器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-tabs__link">
+          
+  
+  
+  容器技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-tabs__link">
+          
+  
+  
+  前端开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-tabs__link">
+          
+  
+  
+  存储技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-tabs__link">
+          
+  
+  
+  运维开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Linux/Arch/arch-linux-bluetooth-audio.html" class="md-tabs__link">
+          
+  
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-tabs__link">
+          
+  
+  
+  虚拟化技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  文档分类
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="hxp的文档库" class="md-nav__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hxp的文档库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    容器技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../Linux/Arch/arch-linux-bluetooth-audio.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-26-Activate-Windows-using-KMS-server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 KMS 服务器激活 Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-28_Completely-Remove-ADs-from-Windows-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows 11 上完全卸载小组件功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-29_win10-chinese-font-patch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 10 中文显示错误的注册表补丁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intel 以太网控制器 Code 10 错误解决方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="2023-04-01_Mirror_boot_drive_windows_server.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows Server 上镜像启动驱动器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-04-01_Windows-Server-Software-RAID.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows Server 上配置软件 RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-04-04-Hyper-V-daily-backup-script.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V 每日备份脚本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Fix-for-Windows-Git-SSH-key-invalid-format.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 上 Git SSH 密钥格式无效错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Uninstall-Onedrive-Completely-Windows-10-Pro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows 10 Pro 上完全卸载 OneDrive 的步骤
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2010%20not%20connect%20to%20wifi%20automatically%20when%20an%20ethernet%20connection%20is%20present.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 10 在有以太网连接时不自动连接 WiFi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2011%E4%BF%AE%E6%94%B9%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AE%BE%E7%BD%AE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 11 修改自动更新设置
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2011%E5%AE%B6%E5%BA%AD%E7%89%88%E5%8D%87%E7%BA%A7%E5%88%B0%E4%B8%93%E4%B8%9A%E7%89%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 11 家庭版升级到专业版
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="windows-hdd-sleep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 10 外置硬盘空闲时自动休眠问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟化技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档分类
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+<!-- <a href="../../print_page.html" target="_blank" title="Print Site" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+</a> -->
+
+
+
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:windows" class="md-tag">Windows</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="windows-server">在 Windows Server 上镜像启动驱动器<a class="headerlink" href="#windows-server" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p>原英文标题：Prequisites</p>
+<p><strong>操作系统：</strong> Windows Server 2022</p>
+<p><strong>磁盘配置：</strong> 2 块 32GB vmdk 虚拟磁盘，Windows Server 操作系统安装在 Disk 0 上，Disk 1 为空。</p>
+<h1 id="1-activate-disk-1-in-disk-management">1. Activate Disk 1 in Disk Management<a class="headerlink" href="#1-activate-disk-1-in-disk-management" title="Permanent link">&para;</a></h1>
+<p>打开磁盘管理（右键点击屏幕左下角的 Windows 图标，然后点击“磁盘管理”），右键点击 Disk 1 并将其设为联机。</p>
+<p><img alt="Activate Disk 1 in Disk Management" src="images/Activate%20Disk%201%20in%20Disk%20Management.png" /></p>
+<h1 id="2-create-gpt-partition-table-on-disk-1">2. Create GPT partition table on Disk 1<a class="headerlink" href="#2-create-gpt-partition-table-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>以管理员身份打开 PowerShell，使用 diskpart 工具在 Disk 1 上创建 GPT 分区表，Disk 1 在磁盘管理中显示为“未初始化”。</p>
+<p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>PS C:\Users\Administrator&gt; diskpart
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>DISKPART&gt; select disk 1
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>Disk 1 is now the selected disk.
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>DISKPART&gt; clean
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>DiskPart succeeded in cleaning the disk.
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>DISKPART&gt; convert gpt
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>DiskPart successfully converted the selected disk to GPT format.
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>DISKPART&gt; list part
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>  Partition 1    Reserved            15 MB    17 KB
+</span></code></pre></div></td></tr></table></div>
+在创建 GPT 分区表时会生成一个默认分区，我们不需要它，需要将其删除。
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>DISKPART&gt; select partition 1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>Partition 1 is now the selected partition.
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>DISKPART&gt; delete partition override
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>DiskPart successfully deleted the selected partition.
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="3-gather-partition-information-on-disk-0">3. Gather partition information on Disk 0<a class="headerlink" href="#3-gather-partition-information-on-disk-0" title="Permanent link">&para;</a></h1>
+<p>下一步是收集 Disk 0 上的分区信息，以便在 Disk 1 上创建合适的分区。打开另一个 PowerShell 窗口，启动 diskpart 工具并选择 Disk 0：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>DISKPART&gt; list partition
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>  Partition 3    Primary             31 GB   117 MB
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>  Partition 4    Recovery           524 MB    31 GB
+</span></code></pre></div></td></tr></table></div>
+<p>我的操作系统是 Windows Server 2022，默认情况下安装时创建了四个分区。我们需要在 Disk 1 上创建相同的分区。</p>
+<h1 id="4-create-partitions-on-disk-1">4. Create partitions on Disk 1<a class="headerlink" href="#4-create-partitions-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>创建 100MB 的 System EFI 分区：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>DISKPART&gt; list partition
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>There are no partitions on this disk to show.
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>DISKPART&gt; create partition EFI size=100
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>DISKPART&gt; list partition
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>* Partition 1    System             100 MB  1024 KB
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a>DISKPART&gt; format fs=fat32 quick
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a>  100 percent completed
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a>DiskPart successfully formatted the volume.
+</span></code></pre></div></td></tr></table></div>
+然后创建 16MB 的 Reserved 分区：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>DISKPART&gt; create partition MSR size=16
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>DISKPART&gt; list partition
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>* Partition 2    Reserved            16 MB   101 MB
+</span></code></pre></div></td></tr></table></div>
+然后是 Primary 分区，在创建该分区之前，我们需要准确知道其大小（以 MB 为单位）。一种获取该大小的方法是对字节偏移量进行计算。首先获取 Disk 0 上 partition 3 和 partition 4 的字节偏移量：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span>
+<span class="normal"><a href="#__codelineno-5-29">29</a></span>
+<span class="normal"><a href="#__codelineno-5-30">30</a></span>
+<span class="normal"><a href="#__codelineno-5-31">31</a></span>
+<span class="normal"><a href="#__codelineno-5-32">32</a></span>
+<span class="normal"><a href="#__codelineno-5-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>DISKPART&gt; list partition
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>  Partition 3    Primary             31 GB   117 MB
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>  Partition 4    Recovery           524 MB    31 GB
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>DISKPART&gt; select partition 3
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>Partition 3 is now the selected partition.
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>DISKPART&gt; detail partition
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>Partition 3
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a>Type    : ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a>Hidden  : No
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a>Required: No
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a>Attrib  : 0X8000000000000000
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a>Offset in Bytes: 122683392
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a>* Volume 0     C                NTFS   Partition     31 GB  Healthy    Boot
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a>DISKPART&gt; select partition 4
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a>Partition 4 is now the selected partition.
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a>DISKPART&gt; detail partition
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a>Partition 4
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27"></a>Hidden  : Yes
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28"></a>Required: Yes
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29"></a>Attrib  : 0X8000000000000001
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30"></a>Offset in Bytes: 33808187392
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33"></a>* Volume 2                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div>
+partition 3 的大小（字节）等于 partition 4 的偏移量减去 partition 3 的偏移量，即 33808187392 - 122683392 = 33685504000 字节，除以 1024 得到 32896000 千字节，再除以 1024 得到 32125 兆字节。因此 partition 3 的大小为 32125 MB。通过以下命令创建该分区：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>DISKPART&gt; create partition PRIMARY size=32125
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>DISKPART&gt; format quick fs=ntfs
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a>  100 percent completed
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>DiskPart successfully formatted the volume.
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a>DISKPART&gt; list partition
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a>* Partition 3    Primary             31 GB   117 MB
+</span></code></pre></div></td></tr></table></div>
+最后，创建 Recovery 分区：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>DISKPART&gt; create partition PRIMARY size=524
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>DISKPART&gt; format quick fs=ntfs
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>  100 percent completed
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a>DiskPart successfully formatted the volume.
+</span></code></pre></div></td></tr></table></div>
+Windows 使用 ID 来区分 Recovery 分区和普通 NTFS 分区，因此需要将该分区的 ID 设置为表示恢复驱动器的 ID。首先从 Disk 0 上的 recovery 分区获取 ID：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>DISKPART&gt; detail partition
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>Partition 4
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>Hidden  : Yes
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a>Required: Yes
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a>Attrib  : 0X8000000000000001
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a>Offset in Bytes: 33808187392
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>* Volume 2                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div>
+复制该分区的 UUID（即“TYPE”字段），在 Windows Server 2022 上它应为 de94bba4-06d1-4d40-a16a-bfd50179d6ac，但可能有所不同。然后设置 Disk 1 上 recovery 分区的 UUID：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>DISKPART&gt; set id=de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>DiskPart successfully set the partition ID.
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a>DISKPART&gt; detail partition
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>Partition 4
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a>Hidden  : Yes
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>Required: No
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>Attrib  : 0000000000000000
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a>Offset in Bytes: 33808187392
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>* Volume 4                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="5-convert-disk-0-and-disk-1-to-dynamic-disk">5. Convert Disk 0 and Disk 1 to Dynamic Disk<a class="headerlink" href="#5-convert-disk-0-and-disk-1-to-dynamic-disk" title="Permanent link">&para;</a></h1>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span>
+<span class="normal"><a href="#__codelineno-10-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>DISKPART&gt; convert dynamic
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>DiskPart successfully converted the selected disk to dynamic format.
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>DISKPART&gt; select disk 1
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>Disk 1 is now the selected disk.
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>DISKPART&gt; convert dynamic
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>DiskPart successfully converted the selected disk to dynamic format.
+</span></code></pre></div></td></tr></table></div>
+<h1 id="6-mirror-c-drive-on-disk-1">6. Mirror C Drive on Disk 1<a class="headerlink" href="#6-mirror-c-drive-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>首先删除 Disk 1 上的分区：</p>
+<p><img alt="" src="images/Delete%20partition%20on%20Disk%201.png" /></p>
+<p>点击添加镜像：</p>
+<p><img alt="" src="images/Add%20mirror%201.png" /></p>
+<p><img alt="" src="images/Add%20mirror%202.png" /></p>
+<p>然后两个分区应该开始同步：</p>
+<p><img alt="" src="images/Mirror%20sync.png" /></p>
+<h1 id="7-clone-the-recovery-partition">7. Clone the Recovery partition<a class="headerlink" href="#7-clone-the-recovery-partition" title="Permanent link">&para;</a></h1>
+<p>为两个 recovery 分区分配驱动器号：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>DISKPART&gt; assign letter=q
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>DiskPart successfully assigned the drive letter or mount point.
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>DISKPART&gt; select partition 4
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>Partition 4 is now the selected partition.
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>DISKPART&gt; assign letter=z
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>DiskPart successfully assigned the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div>
+打开另一个 PowerShell 窗口并运行：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>PS C:\Users\Administrator&gt; robocopy.exe q:\ z:\ * /e /copyall /dcopy:t /xd &quot;System Volume Information&quot;
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>...Output omitted...
+</span></code></pre></div></td></tr></table></div>
+然后移除驱动器号（在 DISKPART PowerShell 窗口中）：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a>DISKPART&gt; remove
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>DiskPart successfully removed the drive letter or mount point.
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a>DISKPART&gt; select partition 4
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a>Partition 4 is now the selected partition.
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a>DISKPART&gt; remove
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a>DiskPart successfully removed the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="8-clone-the-efi-partition">8. Clone the EFI partition<a class="headerlink" href="#8-clone-the-efi-partition" title="Permanent link">&para;</a></h1>
+<p>分配驱动器号：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>DISKPART&gt; select partition 1
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>Partition 1 is now the selected partition.
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a>DISKPART&gt; assign letter=p
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>DiskPart successfully assigned the drive letter or mount point.
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a>DISKPART&gt; select partition 1
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>Partition 1 is now the selected partition.
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a>DISKPART&gt; assign letter=s
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a>DiskPart successfully assigned the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div>
+使用以下命令显示当前的 BCD 引导加载程序配置：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span>
+<span class="normal"><a href="#__codelineno-15-19">19</a></span>
+<span class="normal"><a href="#__codelineno-15-20">20</a></span>
+<span class="normal"><a href="#__codelineno-15-21">21</a></span>
+<span class="normal"><a href="#__codelineno-15-22">22</a></span>
+<span class="normal"><a href="#__codelineno-15-23">23</a></span>
+<span class="normal"><a href="#__codelineno-15-24">24</a></span>
+<span class="normal"><a href="#__codelineno-15-25">25</a></span>
+<span class="normal"><a href="#__codelineno-15-26">26</a></span>
+<span class="normal"><a href="#__codelineno-15-27">27</a></span>
+<span class="normal"><a href="#__codelineno-15-28">28</a></span>
+<span class="normal"><a href="#__codelineno-15-29">29</a></span>
+<span class="normal"><a href="#__codelineno-15-30">30</a></span>
+<span class="normal"><a href="#__codelineno-15-31">31</a></span>
+<span class="normal"><a href="#__codelineno-15-32">32</a></span>
+<span class="normal"><a href="#__codelineno-15-33">33</a></span>
+<span class="normal"><a href="#__codelineno-15-34">34</a></span>
+<span class="normal"><a href="#__codelineno-15-35">35</a></span>
+<span class="normal"><a href="#__codelineno-15-36">36</a></span>
+<span class="normal"><a href="#__codelineno-15-37">37</a></span>
+<span class="normal"><a href="#__codelineno-15-38">38</a></span>
+<span class="normal"><a href="#__codelineno-15-39">39</a></span>
+<span class="normal"><a href="#__codelineno-15-40">40</a></span>
+<span class="normal"><a href="#__codelineno-15-41">41</a></span>
+<span class="normal"><a href="#__codelineno-15-42">42</a></span>
+<span class="normal"><a href="#__codelineno-15-43">43</a></span>
+<span class="normal"><a href="#__codelineno-15-44">44</a></span>
+<span class="normal"><a href="#__codelineno-15-45">45</a></span>
+<span class="normal"><a href="#__codelineno-15-46">46</a></span>
+<span class="normal"><a href="#__codelineno-15-47">47</a></span>
+<span class="normal"><a href="#__codelineno-15-48">48</a></span>
+<span class="normal"><a href="#__codelineno-15-49">49</a></span>
+<span class="normal"><a href="#__codelineno-15-50">50</a></span>
+<span class="normal"><a href="#__codelineno-15-51">51</a></span>
+<span class="normal"><a href="#__codelineno-15-52">52</a></span>
+<span class="normal"><a href="#__codelineno-15-53">53</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a>PS C:\Users\Administrator&gt; bcdedit /enum
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a>Windows Boot Manager
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a>--------------------
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a>identifier              {bootmgr}
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a>device                  partition=P:
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a>path                    \EFI\Microsoft\Boot\bootmgfw.efi
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a>description             Windows Boot Manager
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a>locale                  en-US
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a>inherit                 {globalsettings}
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a>bootshutdowndisabled    Yes
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a>default                 {current}
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>displayorder            {current}
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a>                        {063973c4-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a>toolsdisplayorder       {memdiag}
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a>timeout                 30
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19"></a>Windows Boot Loader
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20"></a>-------------------
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21"></a>identifier              {current}
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22"></a>device                  partition=C:
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23"></a>path                    \Windows\system32\winload.efi
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24"></a>description             Windows Server
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25"></a>locale                  en-US
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26"></a>inherit                 {bootloadersettings}
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27"></a>recoverysequence        {063973c1-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28"></a>displaymessageoverride  Recovery
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29"></a>recoveryenabled         Yes
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30"></a>isolatedcontext         Yes
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31"></a>allowedinmemorysettings 0x15000075
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32"></a>osdevice                partition=C:
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33"></a>systemroot              \Windows
+</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35"></a>nx                      OptOut
+</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36"></a>
+</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37"></a>Windows Boot Loader
+</span><span id="__span-15-38"><a id="__codelineno-15-38" name="__codelineno-15-38"></a>-------------------
+</span><span id="__span-15-39"><a id="__codelineno-15-39" name="__codelineno-15-39"></a>identifier              {063973c4-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-40"><a id="__codelineno-15-40" name="__codelineno-15-40"></a>device                  partition=C:
+</span><span id="__span-15-41"><a id="__codelineno-15-41" name="__codelineno-15-41"></a>path                    \Windows\system32\winload.efi
+</span><span id="__span-15-42"><a id="__codelineno-15-42" name="__codelineno-15-42"></a>description             Windows Server - secondary plex
+</span><span id="__span-15-43"><a id="__codelineno-15-43" name="__codelineno-15-43"></a>locale                  en-US
+</span><span id="__span-15-44"><a id="__codelineno-15-44" name="__codelineno-15-44"></a>inherit                 {bootloadersettings}
+</span><span id="__span-15-45"><a id="__codelineno-15-45" name="__codelineno-15-45"></a>recoverysequence        {063973c1-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-46"><a id="__codelineno-15-46" name="__codelineno-15-46"></a>displaymessageoverride  Recovery
+</span><span id="__span-15-47"><a id="__codelineno-15-47" name="__codelineno-15-47"></a>recoveryenabled         Yes
+</span><span id="__span-15-48"><a id="__codelineno-15-48" name="__codelineno-15-48"></a>isolatedcontext         Yes
+</span><span id="__span-15-49"><a id="__codelineno-15-49" name="__codelineno-15-49"></a>allowedinmemorysettings 0x15000075
+</span><span id="__span-15-50"><a id="__codelineno-15-50" name="__codelineno-15-50"></a>osdevice                partition=C:
+</span><span id="__span-15-51"><a id="__codelineno-15-51" name="__codelineno-15-51"></a>systemroot              \Windows
+</span><span id="__span-15-52"><a id="__codelineno-15-52" name="__codelineno-15-52"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-15-53"><a id="__codelineno-15-53" name="__codelineno-15-53"></a>nx                      OptOut
+</span></code></pre></div></td></tr></table></div>
+创建镜像时，VDS 服务已自动为第二块镜像磁盘添加了 BCD 条目（标记为“Windows Server 2022 – secondary plex”）。为了在第一块磁盘故障时能够从第二块磁盘上的 EFI 分区启动，必须修改 BCD 配置。为此，复制当前的 Windows Boot Manager 配置：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a>PS C:\Users\Administrator&gt; bcdedit /copy &quot;{bootmgr}&quot; /d &quot;Windows Boot Manager Cloned&quot;
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>The entry was successfully copied to {063973c5-d0ac-11ed-b884-cfa59b967f58}.
+</span></code></pre></div></td></tr></table></div>
+然后复制配置 ID，并在以下命令中使用它，将配置复制到 Disk 1：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>PS C:\Users\Administrator&gt; bcdedit /set &quot;{063973c5-d0ac-11ed-b884-cfa59b967f58}&quot; device partition=s:
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a>The operation completed successfully.
+</span></code></pre></div></td></tr></table></div>
+然后必须将 BCD 存储从 Disk 0 上的 EFI 分区复制到 Disk 1：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a>PS C:\Users\Administrator&gt; bcdedit /export P:\EFI\Microsoft\Boot\BCD2
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a>The operation completed successfully.
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a>PS C:\Users\Administrator&gt; robocopy p:\ s:\ /e /r:0
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a>...Output omitted...
+</span></code></pre></div></td></tr></table></div>
+重命名 Disk 1 上的 BCD 存储：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a>PS C:\Users\Administrator&gt; Rename-Item -Path &quot;S:\EFI\Microsoft\Boot\BCD2&quot; -NewName &quot;BCD&quot;
+</span></code></pre></div></td></tr></table></div>
+并删除 Disk 0 上的副本：
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a>PS C:\Users\Administrator&gt; Remove-Item &quot;P:\EFI\Microsoft\Boot\BCD2&quot;
+</span></code></pre></div></td></tr></table></div>
+然后重启并验证 BIOS 启动设备列表中是否出现“Windows Boot Manager Cloned”。
+<img alt="" src="images/Windows%20mirror%20verify%201.png" />
+并检查启动选项“Windows Server 2022 – secondary plex”是否可以启动。
+<img alt="" src="images/Windows%20mirror%20verify%202.png" /></p>
+<h1 id="9-references">9. References<a class="headerlink" href="#9-references" title="Permanent link">&para;</a></h1>
+<p><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/create-partition-primary">https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/create-partition-primary</a></p>
+<p><a href="https://www.clouvider.com/knowledge_base/how-to-make-raid-1-on-windows-server/">https://www.clouvider.com/knowledge_base/how-to-make-raid-1-on-windows-server/</a></p>
+<p><a href="https://www.thewindowsclub.com/mirror-boot-hard-drive-windows-10">https://www.thewindowsclub.com/mirror-boot-hard-drive-windows-10</a></p>
+<p><a href="https://woshub.com/software-boot-mirror-gpt-windows/">https://woshub.com/software-boot-mirror-gpt-windows/</a></p>
+<hr />
+<h2 id="91-english">9.1 原文（English）<a class="headerlink" href="#91-english" title="Permanent link">&para;</a></h2>
+<hr />
+<p>tags:
+  - Windows</p>
+<hr />
+<h1 id="10-prequisites">10. Prequisites<a class="headerlink" href="#10-prequisites" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p><strong>Operating System:</strong> Windows Server 2022</p>
+<p><strong>Disk configuration:</strong> 32GB vmdk virtual disks * 2, Windows Server OS installed on Disk 0 while Disk 1 is empty.</p>
+<h1 id="11-activate-disk-1-in-disk-management">11. Activate Disk 1 in Disk Management<a class="headerlink" href="#11-activate-disk-1-in-disk-management" title="Permanent link">&para;</a></h1>
+<p>Open Disk Management (Right click the Windows icon on the bottom left corner of screen, and click "Disk Management"), right click on Disk 1 and make it Online.</p>
+<p><img alt="Activate Disk 1 in Disk Management" src="images/Activate%20Disk%201%20in%20Disk%20Management.png" /></p>
+<h1 id="12-create-gpt-partition-table-on-disk-1">12. Create GPT partition table on Disk 1<a class="headerlink" href="#12-create-gpt-partition-table-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>Open PowerShell as Administrator, and use the diskpart utility to create GPT partition table on Disk 1, which is shown as "Not initialized" in Disk Management.</p>
+<p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a>PS C:\Users\Administrator&gt; diskpart
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2"></a>DISKPART&gt; select disk 1
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3"></a>Disk 1 is now the selected disk.
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4"></a>DISKPART&gt; clean
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5"></a>DiskPart succeeded in cleaning the disk.
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6"></a>DISKPART&gt; convert gpt
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7"></a>DiskPart successfully converted the selected disk to GPT format.
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8"></a>DISKPART&gt; list part
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11"></a>  Partition 1    Reserved            15 MB    17 KB
+</span></code></pre></div></td></tr></table></div>
+A default partition is created during GPT partition table creating, we do not need this and this partition needs to be deleted.
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a>DISKPART&gt; select partition 1
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a>Partition 1 is now the selected partition.
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3"></a>DISKPART&gt; delete partition override
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4"></a>DiskPart successfully deleted the selected partition.
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="13-gather-partition-information-on-disk-0">13. Gather partition information on Disk 0<a class="headerlink" href="#13-gather-partition-information-on-disk-0" title="Permanent link">&para;</a></h1>
+<p>The next step is to gather partition information on Disk 0, so that the proper partitions can be created on Disk 1. Open another PowerShell window, and start the diskpart utility then select Disk 0:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span>
+<span class="normal"><a href="#__codelineno-23-5">5</a></span>
+<span class="normal"><a href="#__codelineno-23-6">6</a></span>
+<span class="normal"><a href="#__codelineno-23-7">7</a></span>
+<span class="normal"><a href="#__codelineno-23-8">8</a></span>
+<span class="normal"><a href="#__codelineno-23-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3"></a>DISKPART&gt; list partition
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8"></a>  Partition 3    Primary             31 GB   117 MB
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9"></a>  Partition 4    Recovery           524 MB    31 GB
+</span></code></pre></div></td></tr></table></div>
+<p>My OS is Windows Server 2022, and by default, four partitions was created during installation. We need to create identical partition on Disk 1.</p>
+<h1 id="14-create-partitions-on-disk-1">14. Create partitions on Disk 1<a class="headerlink" href="#14-create-partitions-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>Create the 100MB System EFI partition:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-24-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-24-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-24-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-24-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-24-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-24-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-24-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-24-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-24-10">10</a></span>
+<span class="normal"><a href="#__codelineno-24-11">11</a></span>
+<span class="normal"><a href="#__codelineno-24-12">12</a></span>
+<span class="normal"><a href="#__codelineno-24-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a>DISKPART&gt; list partition
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a>There are no partitions on this disk to show.
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5"></a>DISKPART&gt; create partition EFI size=100
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7"></a>DISKPART&gt; list partition
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10"></a>* Partition 1    System             100 MB  1024 KB
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11"></a>DISKPART&gt; format fs=fat32 quick
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12"></a>  100 percent completed
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13"></a>DiskPart successfully formatted the volume.
+</span></code></pre></div></td></tr></table></div>
+Then create 16MB Reserved partition:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span>
+<span class="normal"><a href="#__codelineno-25-5">5</a></span>
+<span class="normal"><a href="#__codelineno-25-6">6</a></span>
+<span class="normal"><a href="#__codelineno-25-7">7</a></span>
+<span class="normal"><a href="#__codelineno-25-8">8</a></span>
+<span class="normal"><a href="#__codelineno-25-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3"></a>DISKPART&gt; create partition MSR size=16
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5"></a>DISKPART&gt; list partition
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9"></a>* Partition 2    Reserved            16 MB   101 MB
+</span></code></pre></div></td></tr></table></div>
+And the Primary Partition, before creating the partition, we need to know exactly the size of the partition in MB. One way to get this size in MB is to do some calculation on offset in bytes. First get the offset in bytes of partition 3 and 4 on Disk 0:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-26-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-26-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-26-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-26-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-26-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-26-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-26-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-26-10">10</a></span>
+<span class="normal"><a href="#__codelineno-26-11">11</a></span>
+<span class="normal"><a href="#__codelineno-26-12">12</a></span>
+<span class="normal"><a href="#__codelineno-26-13">13</a></span>
+<span class="normal"><a href="#__codelineno-26-14">14</a></span>
+<span class="normal"><a href="#__codelineno-26-15">15</a></span>
+<span class="normal"><a href="#__codelineno-26-16">16</a></span>
+<span class="normal"><a href="#__codelineno-26-17">17</a></span>
+<span class="normal"><a href="#__codelineno-26-18">18</a></span>
+<span class="normal"><a href="#__codelineno-26-19">19</a></span>
+<span class="normal"><a href="#__codelineno-26-20">20</a></span>
+<span class="normal"><a href="#__codelineno-26-21">21</a></span>
+<span class="normal"><a href="#__codelineno-26-22">22</a></span>
+<span class="normal"><a href="#__codelineno-26-23">23</a></span>
+<span class="normal"><a href="#__codelineno-26-24">24</a></span>
+<span class="normal"><a href="#__codelineno-26-25">25</a></span>
+<span class="normal"><a href="#__codelineno-26-26">26</a></span>
+<span class="normal"><a href="#__codelineno-26-27">27</a></span>
+<span class="normal"><a href="#__codelineno-26-28">28</a></span>
+<span class="normal"><a href="#__codelineno-26-29">29</a></span>
+<span class="normal"><a href="#__codelineno-26-30">30</a></span>
+<span class="normal"><a href="#__codelineno-26-31">31</a></span>
+<span class="normal"><a href="#__codelineno-26-32">32</a></span>
+<span class="normal"><a href="#__codelineno-26-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3"></a>DISKPART&gt; list partition
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8"></a>  Partition 3    Primary             31 GB   117 MB
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9"></a>  Partition 4    Recovery           524 MB    31 GB
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10"></a>DISKPART&gt; select partition 3
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11"></a>Partition 3 is now the selected partition.
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12"></a>DISKPART&gt; detail partition
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13"></a>Partition 3
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14"></a>Type    : ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15"></a>Hidden  : No
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16"></a>Required: No
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17"></a>Attrib  : 0X8000000000000000
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18"></a>Offset in Bytes: 122683392
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-26-21"><a id="__codelineno-26-21" name="__codelineno-26-21"></a>* Volume 0     C                NTFS   Partition     31 GB  Healthy    Boot
+</span><span id="__span-26-22"><a id="__codelineno-26-22" name="__codelineno-26-22"></a>DISKPART&gt; select partition 4
+</span><span id="__span-26-23"><a id="__codelineno-26-23" name="__codelineno-26-23"></a>Partition 4 is now the selected partition.
+</span><span id="__span-26-24"><a id="__codelineno-26-24" name="__codelineno-26-24"></a>DISKPART&gt; detail partition
+</span><span id="__span-26-25"><a id="__codelineno-26-25" name="__codelineno-26-25"></a>Partition 4
+</span><span id="__span-26-26"><a id="__codelineno-26-26" name="__codelineno-26-26"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-26-27"><a id="__codelineno-26-27" name="__codelineno-26-27"></a>Hidden  : Yes
+</span><span id="__span-26-28"><a id="__codelineno-26-28" name="__codelineno-26-28"></a>Required: Yes
+</span><span id="__span-26-29"><a id="__codelineno-26-29" name="__codelineno-26-29"></a>Attrib  : 0X8000000000000001
+</span><span id="__span-26-30"><a id="__codelineno-26-30" name="__codelineno-26-30"></a>Offset in Bytes: 33808187392
+</span><span id="__span-26-31"><a id="__codelineno-26-31" name="__codelineno-26-31"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-26-32"><a id="__codelineno-26-32" name="__codelineno-26-32"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-26-33"><a id="__codelineno-26-33" name="__codelineno-26-33"></a>* Volume 2                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div>
+The size of partition 3 in bytes is the offset of partition 4 minus the offset of partition 3, which is 33808187392 - 122683392 = 33685504000 bytes, divide by 1024 we get 32896000 kilobytes, and divide again we get 32125 megabytes. So the size of partition 3 is 32125 MB. Create the partition by:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-27-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-27-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-27-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-27-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-27-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-27-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-27-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-27-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-27-10">10</a></span>
+<span class="normal"><a href="#__codelineno-27-11">11</a></span>
+<span class="normal"><a href="#__codelineno-27-12">12</a></span>
+<span class="normal"><a href="#__codelineno-27-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3"></a>DISKPART&gt; create partition PRIMARY size=32125
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5"></a>DISKPART&gt; format quick fs=ntfs
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6"></a>  100 percent completed
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7"></a>DiskPart successfully formatted the volume.
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8"></a>DISKPART&gt; list partition
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9"></a>  Partition ###  Type              Size     Offset
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10"></a>  -------------  ----------------  -------  -------
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11"></a>  Partition 1    System             100 MB  1024 KB
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12"></a>  Partition 2    Reserved            16 MB   101 MB
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13"></a>* Partition 3    Primary             31 GB   117 MB
+</span></code></pre></div></td></tr></table></div>
+At last, the Recovery partition:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span>
+<span class="normal"><a href="#__codelineno-28-6">6</a></span>
+<span class="normal"><a href="#__codelineno-28-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a>DISKPART&gt; create partition PRIMARY size=524
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a>DiskPart succeeded in creating the specified partition.
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a>DISKPART&gt; format quick fs=ntfs
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6"></a>  100 percent completed
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7"></a>DiskPart successfully formatted the volume.
+</span></code></pre></div></td></tr></table></div>
+Windows uses an id to identify Recovery partitions from normal NTFS partition, so we need to set the id of this partition to the id which represents a recovery drive. First get the id from the recovery partition on Disk 0:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-29-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-29-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-29-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-29-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-29-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-29-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-29-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-29-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-29-10">10</a></span>
+<span class="normal"><a href="#__codelineno-29-11">11</a></span>
+<span class="normal"><a href="#__codelineno-29-12">12</a></span>
+<span class="normal"><a href="#__codelineno-29-13">13</a></span>
+<span class="normal"><a href="#__codelineno-29-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5"></a>DISKPART&gt; detail partition
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6"></a>Partition 4
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8"></a>Hidden  : Yes
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9"></a>Required: Yes
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10"></a>Attrib  : 0X8000000000000001
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11"></a>Offset in Bytes: 33808187392
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14"></a>* Volume 2                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div>
+Copy the UUID which is the "TYPE" of the partition, it should be de94bba4-06d1-4d40-a16a-bfd50179d6ac on Windows Server 2022 but may be different. Then set the UUID of the recovery partition on Disk 1:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-30-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-30-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-30-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-30-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-30-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-30-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-30-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-30-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-30-10">10</a></span>
+<span class="normal"><a href="#__codelineno-30-11">11</a></span>
+<span class="normal"><a href="#__codelineno-30-12">12</a></span>
+<span class="normal"><a href="#__codelineno-30-13">13</a></span>
+<span class="normal"><a href="#__codelineno-30-14">14</a></span>
+<span class="normal"><a href="#__codelineno-30-15">15</a></span>
+<span class="normal"><a href="#__codelineno-30-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a>DISKPART&gt; select disk 1
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a>Disk 1 is now the selected disk.
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5"></a>DISKPART&gt; set id=de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6"></a>DiskPart successfully set the partition ID.
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7"></a>DISKPART&gt; detail partition
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8"></a>Partition 4
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9"></a>Type    : de94bba4-06d1-4d40-a16a-bfd50179d6ac
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10"></a>Hidden  : Yes
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11"></a>Required: No
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12"></a>Attrib  : 0000000000000000
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13"></a>Offset in Bytes: 33808187392
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14"></a>  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15"></a>  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16"></a>* Volume 4                      NTFS   Partition    524 MB  Healthy    Hidden
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="15-convert-disk-0-and-disk-1-to-dynamic-disk">15. Convert Disk 0 and Disk 1 to Dynamic Disk<a class="headerlink" href="#15-convert-disk-0-and-disk-1-to-dynamic-disk" title="Permanent link">&para;</a></h1>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span>
+<span class="normal"><a href="#__codelineno-31-4">4</a></span>
+<span class="normal"><a href="#__codelineno-31-5">5</a></span>
+<span class="normal"><a href="#__codelineno-31-6">6</a></span>
+<span class="normal"><a href="#__codelineno-31-7">7</a></span>
+<span class="normal"><a href="#__codelineno-31-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a>DISKPART&gt; convert dynamic
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4"></a>DiskPart successfully converted the selected disk to dynamic format.
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5"></a>DISKPART&gt; select disk 1
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6"></a>Disk 1 is now the selected disk.
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7"></a>DISKPART&gt; convert dynamic
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8"></a>DiskPart successfully converted the selected disk to dynamic format.
+</span></code></pre></div></td></tr></table></div>
+<h1 id="16-mirror-c-drive-on-disk-1">16. Mirror C Drive on Disk 1<a class="headerlink" href="#16-mirror-c-drive-on-disk-1" title="Permanent link">&para;</a></h1>
+<p>First Delete the partition on Disk 1:</p>
+<p><img alt="" src="images/Delete%20partition%20on%20Disk%201.png" /></p>
+<p>Click add mirror:</p>
+<p><img alt="" src="images/Add%20mirror%201.png" /></p>
+<p><img alt="" src="images/Add%20mirror%202.png" /></p>
+<p>Then the two partitions should start syncing:</p>
+<p><img alt="" src="images/Mirror%20sync.png" /></p>
+<h1 id="17-clone-the-recovery-partition">17. Clone the Recovery partition<a class="headerlink" href="#17-clone-the-recovery-partition" title="Permanent link">&para;</a></h1>
+<p>Assign drive letter for two recovery partitions:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5"></a>DISKPART&gt; assign letter=q
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6"></a>DiskPart successfully assigned the drive letter or mount point.
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9"></a>DISKPART&gt; select partition 4
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10"></a>Partition 4 is now the selected partition.
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11"></a>DISKPART&gt; assign letter=z
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12"></a>DiskPart successfully assigned the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div>
+Open another PowerShell window and run:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1"></a>PS C:\Users\Administrator&gt; robocopy.exe q:\ z:\ * /e /copyall /dcopy:t /xd &quot;System Volume Information&quot;
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2"></a>...Output omitted...
+</span></code></pre></div></td></tr></table></div>
+Then remove the drive letters (on DISKPART PowerShell window):
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-34-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-34-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-34-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-34-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-34-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-34-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-34-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-34-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-34-10">10</a></span>
+<span class="normal"><a href="#__codelineno-34-11">11</a></span>
+<span class="normal"><a href="#__codelineno-34-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3"></a>DISKPART&gt; select partition 4
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4"></a>Partition 4 is now the selected partition.
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5"></a>DISKPART&gt; remove
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6"></a>DiskPart successfully removed the drive letter or mount point.
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9"></a>DISKPART&gt; select partition 4
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10"></a>Partition 4 is now the selected partition.
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11"></a>DISKPART&gt; remove
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12"></a>DiskPart successfully removed the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div></p>
+<h1 id="18-clone-the-efi-partition">18. Clone the EFI partition<a class="headerlink" href="#18-clone-the-efi-partition" title="Permanent link">&para;</a></h1>
+<p>Assign drive letters:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-35-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-35-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-35-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-35-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-35-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-35-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-35-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-35-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-35-10">10</a></span>
+<span class="normal"><a href="#__codelineno-35-11">11</a></span>
+<span class="normal"><a href="#__codelineno-35-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1"></a>DISKPART&gt; select disk 0
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2"></a>Disk 0 is now the selected disk.
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3"></a>DISKPART&gt; select partition 1
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4"></a>Partition 1 is now the selected partition.
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5"></a>DISKPART&gt; assign letter=p
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6"></a>DiskPart successfully assigned the drive letter or mount point.
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7"></a>DISKPART&gt; select disk 1
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8"></a>Disk 1 is now the selected disk.
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9"></a>DISKPART&gt; select partition 1
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10"></a>Partition 1 is now the selected partition.
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11"></a>DISKPART&gt; assign letter=s
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12"></a>DiskPart successfully assigned the drive letter or mount point.
+</span></code></pre></div></td></tr></table></div>
+Display the current BCD bootloader configuration using the following command:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-36-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-36-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-36-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-36-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-36-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-36-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-36-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-36-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-36-10">10</a></span>
+<span class="normal"><a href="#__codelineno-36-11">11</a></span>
+<span class="normal"><a href="#__codelineno-36-12">12</a></span>
+<span class="normal"><a href="#__codelineno-36-13">13</a></span>
+<span class="normal"><a href="#__codelineno-36-14">14</a></span>
+<span class="normal"><a href="#__codelineno-36-15">15</a></span>
+<span class="normal"><a href="#__codelineno-36-16">16</a></span>
+<span class="normal"><a href="#__codelineno-36-17">17</a></span>
+<span class="normal"><a href="#__codelineno-36-18">18</a></span>
+<span class="normal"><a href="#__codelineno-36-19">19</a></span>
+<span class="normal"><a href="#__codelineno-36-20">20</a></span>
+<span class="normal"><a href="#__codelineno-36-21">21</a></span>
+<span class="normal"><a href="#__codelineno-36-22">22</a></span>
+<span class="normal"><a href="#__codelineno-36-23">23</a></span>
+<span class="normal"><a href="#__codelineno-36-24">24</a></span>
+<span class="normal"><a href="#__codelineno-36-25">25</a></span>
+<span class="normal"><a href="#__codelineno-36-26">26</a></span>
+<span class="normal"><a href="#__codelineno-36-27">27</a></span>
+<span class="normal"><a href="#__codelineno-36-28">28</a></span>
+<span class="normal"><a href="#__codelineno-36-29">29</a></span>
+<span class="normal"><a href="#__codelineno-36-30">30</a></span>
+<span class="normal"><a href="#__codelineno-36-31">31</a></span>
+<span class="normal"><a href="#__codelineno-36-32">32</a></span>
+<span class="normal"><a href="#__codelineno-36-33">33</a></span>
+<span class="normal"><a href="#__codelineno-36-34">34</a></span>
+<span class="normal"><a href="#__codelineno-36-35">35</a></span>
+<span class="normal"><a href="#__codelineno-36-36">36</a></span>
+<span class="normal"><a href="#__codelineno-36-37">37</a></span>
+<span class="normal"><a href="#__codelineno-36-38">38</a></span>
+<span class="normal"><a href="#__codelineno-36-39">39</a></span>
+<span class="normal"><a href="#__codelineno-36-40">40</a></span>
+<span class="normal"><a href="#__codelineno-36-41">41</a></span>
+<span class="normal"><a href="#__codelineno-36-42">42</a></span>
+<span class="normal"><a href="#__codelineno-36-43">43</a></span>
+<span class="normal"><a href="#__codelineno-36-44">44</a></span>
+<span class="normal"><a href="#__codelineno-36-45">45</a></span>
+<span class="normal"><a href="#__codelineno-36-46">46</a></span>
+<span class="normal"><a href="#__codelineno-36-47">47</a></span>
+<span class="normal"><a href="#__codelineno-36-48">48</a></span>
+<span class="normal"><a href="#__codelineno-36-49">49</a></span>
+<span class="normal"><a href="#__codelineno-36-50">50</a></span>
+<span class="normal"><a href="#__codelineno-36-51">51</a></span>
+<span class="normal"><a href="#__codelineno-36-52">52</a></span>
+<span class="normal"><a href="#__codelineno-36-53">53</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1"></a>PS C:\Users\Administrator&gt; bcdedit /enum
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2"></a>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3"></a>Windows Boot Manager
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4"></a>--------------------
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5"></a>identifier              {bootmgr}
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6"></a>device                  partition=P:
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7"></a>path                    \EFI\Microsoft\Boot\bootmgfw.efi
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8"></a>description             Windows Boot Manager
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9"></a>locale                  en-US
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10"></a>inherit                 {globalsettings}
+</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11"></a>bootshutdowndisabled    Yes
+</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12"></a>default                 {current}
+</span><span id="__span-36-13"><a id="__codelineno-36-13" name="__codelineno-36-13"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-14"><a id="__codelineno-36-14" name="__codelineno-36-14"></a>displayorder            {current}
+</span><span id="__span-36-15"><a id="__codelineno-36-15" name="__codelineno-36-15"></a>                        {063973c4-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-16"><a id="__codelineno-36-16" name="__codelineno-36-16"></a>toolsdisplayorder       {memdiag}
+</span><span id="__span-36-17"><a id="__codelineno-36-17" name="__codelineno-36-17"></a>timeout                 30
+</span><span id="__span-36-18"><a id="__codelineno-36-18" name="__codelineno-36-18"></a>
+</span><span id="__span-36-19"><a id="__codelineno-36-19" name="__codelineno-36-19"></a>Windows Boot Loader
+</span><span id="__span-36-20"><a id="__codelineno-36-20" name="__codelineno-36-20"></a>-------------------
+</span><span id="__span-36-21"><a id="__codelineno-36-21" name="__codelineno-36-21"></a>identifier              {current}
+</span><span id="__span-36-22"><a id="__codelineno-36-22" name="__codelineno-36-22"></a>device                  partition=C:
+</span><span id="__span-36-23"><a id="__codelineno-36-23" name="__codelineno-36-23"></a>path                    \Windows\system32\winload.efi
+</span><span id="__span-36-24"><a id="__codelineno-36-24" name="__codelineno-36-24"></a>description             Windows Server
+</span><span id="__span-36-25"><a id="__codelineno-36-25" name="__codelineno-36-25"></a>locale                  en-US
+</span><span id="__span-36-26"><a id="__codelineno-36-26" name="__codelineno-36-26"></a>inherit                 {bootloadersettings}
+</span><span id="__span-36-27"><a id="__codelineno-36-27" name="__codelineno-36-27"></a>recoverysequence        {063973c1-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-28"><a id="__codelineno-36-28" name="__codelineno-36-28"></a>displaymessageoverride  Recovery
+</span><span id="__span-36-29"><a id="__codelineno-36-29" name="__codelineno-36-29"></a>recoveryenabled         Yes
+</span><span id="__span-36-30"><a id="__codelineno-36-30" name="__codelineno-36-30"></a>isolatedcontext         Yes
+</span><span id="__span-36-31"><a id="__codelineno-36-31" name="__codelineno-36-31"></a>allowedinmemorysettings 0x15000075
+</span><span id="__span-36-32"><a id="__codelineno-36-32" name="__codelineno-36-32"></a>osdevice                partition=C:
+</span><span id="__span-36-33"><a id="__codelineno-36-33" name="__codelineno-36-33"></a>systemroot              \Windows
+</span><span id="__span-36-34"><a id="__codelineno-36-34" name="__codelineno-36-34"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-35"><a id="__codelineno-36-35" name="__codelineno-36-35"></a>nx                      OptOut
+</span><span id="__span-36-36"><a id="__codelineno-36-36" name="__codelineno-36-36"></a>
+</span><span id="__span-36-37"><a id="__codelineno-36-37" name="__codelineno-36-37"></a>Windows Boot Loader
+</span><span id="__span-36-38"><a id="__codelineno-36-38" name="__codelineno-36-38"></a>-------------------
+</span><span id="__span-36-39"><a id="__codelineno-36-39" name="__codelineno-36-39"></a>identifier              {063973c4-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-40"><a id="__codelineno-36-40" name="__codelineno-36-40"></a>device                  partition=C:
+</span><span id="__span-36-41"><a id="__codelineno-36-41" name="__codelineno-36-41"></a>path                    \Windows\system32\winload.efi
+</span><span id="__span-36-42"><a id="__codelineno-36-42" name="__codelineno-36-42"></a>description             Windows Server - secondary plex
+</span><span id="__span-36-43"><a id="__codelineno-36-43" name="__codelineno-36-43"></a>locale                  en-US
+</span><span id="__span-36-44"><a id="__codelineno-36-44" name="__codelineno-36-44"></a>inherit                 {bootloadersettings}
+</span><span id="__span-36-45"><a id="__codelineno-36-45" name="__codelineno-36-45"></a>recoverysequence        {063973c1-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-46"><a id="__codelineno-36-46" name="__codelineno-36-46"></a>displaymessageoverride  Recovery
+</span><span id="__span-36-47"><a id="__codelineno-36-47" name="__codelineno-36-47"></a>recoveryenabled         Yes
+</span><span id="__span-36-48"><a id="__codelineno-36-48" name="__codelineno-36-48"></a>isolatedcontext         Yes
+</span><span id="__span-36-49"><a id="__codelineno-36-49" name="__codelineno-36-49"></a>allowedinmemorysettings 0x15000075
+</span><span id="__span-36-50"><a id="__codelineno-36-50" name="__codelineno-36-50"></a>osdevice                partition=C:
+</span><span id="__span-36-51"><a id="__codelineno-36-51" name="__codelineno-36-51"></a>systemroot              \Windows
+</span><span id="__span-36-52"><a id="__codelineno-36-52" name="__codelineno-36-52"></a>resumeobject            {063973bf-d0ac-11ed-b884-cfa59b967f58}
+</span><span id="__span-36-53"><a id="__codelineno-36-53" name="__codelineno-36-53"></a>nx                      OptOut
+</span></code></pre></div></td></tr></table></div>
+When creating a mirror, VDS service has automatically added the BCD entry for the second mirror disk (labeled "Windows Server 2022 – secondary plex"). In order to allow booting from EFI partition on the second disk if first disk failure, you must change your BCD configuration. To do it, copy the current Windows Boot Manager configuration:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span>
+<span class="normal"><a href="#__codelineno-37-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1"></a>PS C:\Users\Administrator&gt; bcdedit /copy &quot;{bootmgr}&quot; /d &quot;Windows Boot Manager Cloned&quot;
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2"></a>The entry was successfully copied to {063973c5-d0ac-11ed-b884-cfa59b967f58}.
+</span></code></pre></div></td></tr></table></div>
+Then copy the configuration ID and use it in the following command to copy the configuration to Disk 1:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span>
+<span class="normal"><a href="#__codelineno-38-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1"></a>PS C:\Users\Administrator&gt; bcdedit /set &quot;{063973c5-d0ac-11ed-b884-cfa59b967f58}&quot; device partition=s:
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2"></a>The operation completed successfully.
+</span></code></pre></div></td></tr></table></div>
+Then you must copy your BCD store from the EFI partition on Disk 0 to Disk 1:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span>
+<span class="normal"><a href="#__codelineno-39-2">2</a></span>
+<span class="normal"><a href="#__codelineno-39-3">3</a></span>
+<span class="normal"><a href="#__codelineno-39-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1"></a>PS C:\Users\Administrator&gt; bcdedit /export P:\EFI\Microsoft\Boot\BCD2
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2"></a>The operation completed successfully.
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3"></a>PS C:\Users\Administrator&gt; robocopy p:\ s:\ /e /r:0
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4"></a>...Output omitted...
+</span></code></pre></div></td></tr></table></div>
+Rename the BCD store on Disk 1:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1"></a>PS C:\Users\Administrator&gt; Rename-Item -Path &quot;S:\EFI\Microsoft\Boot\BCD2&quot; -NewName &quot;BCD&quot;
+</span></code></pre></div></td></tr></table></div>
+And delete the copy on Disk 0:
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1"></a>PS C:\Users\Administrator&gt; Remove-Item &quot;P:\EFI\Microsoft\Boot\BCD2&quot;
+</span></code></pre></div></td></tr></table></div>
+Then reboot and verify if there is a 'Windows Boot Manager Cloned' in your BIOS boot device list.
+<img alt="" src="images/Windows%20mirror%20verify%201.png" />
+And check if boot option "Windows Server 2022 – secondary plex" boots.
+<img alt="" src="images/Windows%20mirror%20verify%202.png" /></p>
+<h1 id="19-references">19. References<a class="headerlink" href="#19-references" title="Permanent link">&para;</a></h1>
+<p><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/create-partition-primary">https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/create-partition-primary</a></p>
+<p><a href="https://www.clouvider.com/knowledge_base/how-to-make-raid-1-on-windows-server/">https://www.clouvider.com/knowledge_base/how-to-make-raid-1-on-windows-server/</a></p>
+<p><a href="https://www.thewindowsclub.com/mirror-boot-hard-drive-windows-10">https://www.thewindowsclub.com/mirror-boot-hard-drive-windows-10</a></p>
+<p><a href="https://woshub.com/software-boot-mirror-gpt-windows/">https://woshub.com/software-boot-mirror-gpt-windows/</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....html" class="md-footer__link md-footer__link--prev" aria-label="上一页: Intel 以太网控制器 Code 10 错误解决方法">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                Intel 以太网控制器 Code 10 错误解决方法
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="2023-04-01_Windows-Server-Software-RAID.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 在 Windows Server 上配置软件 RAID">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                在 Windows Server 上配置软件 RAID
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.top", "navigation.footer", "navigation.prune", "search.suggest", "search.highlight", "search.share", "header.autohide", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

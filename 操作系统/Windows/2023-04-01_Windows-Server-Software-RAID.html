@@ -1,0 +1,2055 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="胡喜平">
+      
+      
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/2023-04-01_Windows-Server-Software-RAID.html">
+      
+      
+        <link rel="prev" href="2023-04-01_Mirror_boot_drive_windows_server.html">
+      
+      
+        <link rel="next" href="2023-04-04-Hyper-V-daily-backup-script.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>在 Windows Server 上配置软件 RAID - hxp的文档库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="../../assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#windows-server-raid" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="hxp的文档库" class="md-header__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hxp的文档库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              在 Windows Server 上配置软件 RAID
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-tabs__link">
+          
+  
+  
+  容器技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-tabs__link">
+          
+  
+  
+  前端开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-tabs__link">
+          
+  
+  
+  存储技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-tabs__link">
+          
+  
+  
+  运维开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Linux/Arch/arch-linux-bluetooth-audio.html" class="md-tabs__link">
+          
+  
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-tabs__link">
+          
+  
+  
+  虚拟化技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  文档分类
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="hxp的文档库" class="md-nav__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hxp的文档库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    容器技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../Linux/Arch/arch-linux-bluetooth-audio.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-26-Activate-Windows-using-KMS-server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 KMS 服务器激活 Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-28_Completely-Remove-ADs-from-Windows-11.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows 11 上完全卸载小组件功能
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-29_win10-chinese-font-patch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 10 中文显示错误的注册表补丁
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-03-30_How-to-Address-Code-10-Error-on-the-Intel-Ethernet-Controllers....html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intel 以太网控制器 Code 10 错误解决方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-04-01_Mirror_boot_drive_windows_server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows Server 上镜像启动驱动器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows Server 上配置软件 RAID
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2023-04-01_Windows-Server-Software-RAID.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows Server 上配置软件 RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 介绍
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 准备
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Legacy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UEFI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2023-04-04-Hyper-V-daily-backup-script.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V 每日备份脚本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Fix-for-Windows-Git-SSH-key-invalid-format.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 上 Git SSH 密钥格式无效错误
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Uninstall-Onedrive-Completely-Windows-10-Pro.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Windows 10 Pro 上完全卸载 OneDrive 的步骤
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2010%20not%20connect%20to%20wifi%20automatically%20when%20an%20ethernet%20connection%20is%20present.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 10 在有以太网连接时不自动连接 WiFi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2011%E4%BF%AE%E6%94%B9%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AE%BE%E7%BD%AE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 11 修改自动更新设置
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows%2011%E5%AE%B6%E5%BA%AD%E7%89%88%E5%8D%87%E7%BA%A7%E5%88%B0%E4%B8%93%E4%B8%9A%E7%89%88.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 11 家庭版升级到专业版
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="windows-hdd-sleep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    修复 Windows 10 外置硬盘空闲时自动休眠问题
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟化技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档分类
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 介绍
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 准备
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Legacy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-uefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. UEFI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+<!-- <a href="../../print_page.html" target="_blank" title="Print Site" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+</a> -->
+
+
+
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:windows" class="md-tag">Windows</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="windows-server-raid">在 Windows Server 上配置软件 RAID<a class="headerlink" href="#windows-server-raid" title="Permanent link">&para;</a></h1>
+<p>原英文标题：Windows Server Software RAID
+最后修改于 2021-05-09 • 创建于 2020-03-18 • ID: RO-8FB01</p>
+<h2 id="1">1. 介绍<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>本指南介绍如何在 Windows 操作系统中手动设置磁盘镜像（RAID1）。</p>
+<p>通过我们的自动 Windows 安装（可通过 <a href="https://docs.hetzner.com/robot">Robot</a> 获取）安装的服务器，或订购了 Windows 附加组件的服务器，已经配置并运行了 RAID 1。因此，本指南仅适用于自定义 Windows 安装。</p>
+<h2 id="2">2. 准备<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>首先，请点击左下角的 Windows 图标，或按 Windows 或 Super 键。</p>
+</li>
+<li>
+<p>输入 <code>diskmgmt.msc</code> 并按回车键打开磁盘管理工具。</p>
+<p>以下是该工具的简要概览：<img alt="Disk Management Utility Legend" src="images/disk_management_utility.jpg" title="Disk Management Utility Legend" /></p>
+<p>-   <strong>A:</strong> 主磁盘，包含操作系统
+  -   <strong>B:</strong> 第二块磁盘，用于 RAID1 镜像
+  -   <strong>C:</strong> 主磁盘上的卷（在 Windows 中即分区）
+  -   <strong>D:</strong> 第二块磁盘上的未分配空间
+3.  如果第二块磁盘上已有卷，请右键点击它们并选择“删除卷”。</p>
+</li>
+<li>
+<p>右键点击当前包含操作系统的磁盘，然后点击“转换为动态磁盘”。</p>
+</li>
+<li>
+<p>在随后出现的对话框中，主驱动器应该已经被选中。请同时选择要用于 RAID1 的另一块驱动器。点击“确定”并确认。</p>
+</li>
+<li>
+<p>现在需要确定系统是以 Legacy 模式还是 UEFI 模式安装的。为此，请点击左下角的 Windows 图标，或按 Windows 或 Super 键。</p>
+</li>
+<li>
+<p>输入 <code>msinfo32.exe</code> 并按回车键打开系统信息窗口。</p>
+</li>
+<li>
+<p>在窗口右侧，你应该能看到 <code>BIOS MODE</code> 条目，其值即为正确的模式（<code>Legacy</code> 或 <code>UEFI</code>）。如果找不到该条目，则系统是以 <code>Legacy</code> 模式安装的。现在，根据情况继续阅读下方的“Legacy”或“UEFI”部分。</p>
+</li>
+</ol>
+<h2 id="3-legacy">3. Legacy<a class="headerlink" href="#3-legacy" title="Permanent link">&para;</a></h2>
+<p>如果系统以 Legacy 模式运行，应该对主磁盘上的所有卷执行以下步骤。从左到右依次处理卷：</p>
+<ol>
+<li>
+<p>右键点击某个卷，然后从上下文菜单中选择“添加镜像”。</p>
+</li>
+<li>
+<p>在出现的菜单中，选择要用于 RAID1 的第二块驱动器。然后点击“添加镜像”确认。</p>
+</li>
+</ol>
+<p>请确认已将所有卷正确添加到镜像中。同时检查同步是否正在运行，这可以通过卷的红色状态及其状态信息来判断。</p>
+<h2 id="4-uefi">4. UEFI<a class="headerlink" href="#4-uefi" title="Permanent link">&para;</a></h2>
+<p>每个 UEFI 系统都有一个 UEFI 系统卷。Windows 无法自动镜像此分区；你需要手动将其复制并配置到第二块驱动器上。与 Legacy 模式一样，从左到右依次逐个为卷添加镜像。</p>
+<ul>
+<li>对于所有没有 <code>EFI</code> 标签的卷，请执行以下步骤：<p>1.  右键点击某个卷，然后从上下文菜单中选择“添加镜像”。</p>
+<p>2.  在出现的菜单中，选择要用于 RAID1 的第二块驱动器。然后点击“添加镜像”确认。</p>
+</li>
+</ul>
+<ul>
+<li>对于 UEFI 系统卷，请使用以下步骤：<p>1.  在第二块驱动器上创建一个相同大小的 UEFI 系统卷，并将其格式化为 <a href="https://en.wikipedia.org/wiki/File_Allocation_Table">FAT32</a>。为此，只需右键点击第二块驱动器的未分配空间，选择“新建简单卷”，然后按照对话框操作。</p>
+<p>2.  将 UEFI 系统卷的数据从第一块驱动器复制到第二块。为此，建议将服务器启动到 <a href="https://docs.hetzner.com/robot/dedicated-server/troubleshooting/hetzner-rescue-system/">Rescue System</a>，并通过 SSH 连接：</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code>  -   定位正确的分区：
+
+      此命令会列出所有驱动器的分区。请在其中查找两块驱动器上的两个 UEFI 分区，可以根据它们的大小和文件系统（[FAT32](https://en.wikipedia.org/wiki/File_Allocation_Table)）来识别，并将磁盘标识符（ 0 ）与正确的分区编号组合。
+
+      _示例：_
+
+      ```
+      parted -l
+      Model: WD Enterprise P20691
+      Disk /dev/sda: 2000GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+       1      1049kB  101MB   100MB   primary  fat32
+       2      102MB   2000GB  1999GB  primary  ntfs
+
+      Model: WD Enterprise P20691
+      Disk /dev/sda: 2000GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+       1      1049kB  101MB   100MB   primary  fat32
+       2      102MB   2000GB  1999GB  primary  ntfs
+      ```
+
+      在本例中，分区为 `/dev/sda1` 和 `/dev/sdb1`。
+
+  -   创建挂载点文件夹：
+
+      ```
+      mkdir /mnt/main
+      mkdir /mnt/second
+      ```
+
+  -   挂载正确的 UEFI 系统分区。（将分区替换为你找到的分区）：
+
+      ```
+      mount -t vfat /dev/sda1 /mnt/main -o rw,umask=0000
+      mount -t vfat /dev/sdb1 /mnt/second -o rw,umask=0000
+      ```
+
+  -   接下来，将当前 UEFI 系统分区中的所有文件复制到新的分区：
+
+      ```
+      cp -ar /mnt/main/ /mnt/second/
+      ```
+
+  -   完成后，将服务器重新启动回已安装的系统：
+</code></pre></div></td></tr></table></div>
+</li>
+</ul>
+<p>重要提示：UEFI 系统分区无法被镜像。因此，如果你更换驱动器或修改引导加载程序配置，上述过程始终是必需的。</p>
+<p>请确保已将所有其他卷添加到镜像中。同时检查同步是否正在运行，这可以通过卷的红色状态及其状态信息来判断。</p>
+<p>如果某些卷遇到问题，或者第二个 Plex（镜像 Microsoft 卷的一部分）无法启动，请参阅官方<a href="https://support.microsoft.com/en-us/help/814070/how-to-establish-and-boot-to-gpt-mirrors-on-64-bit-windows">文档</a>。</p>
+<h1 id="1-references">1. References<a class="headerlink" href="#1-references" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p><a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/">https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/</a></p>
+<hr />
+<h2 id="11-english">1.1 原文（English）<a class="headerlink" href="#11-english" title="Permanent link">&para;</a></h2>
+<hr />
+<p>tags:
+  - Windows</p>
+<hr />
+<p>Last change on 2021-05-09 • Created on 2020-03-18 • ID: RO-8FB01</p>
+<h2 id="12-introduction">1.2 <a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/#introduction"></a>Introduction<a class="headerlink" href="#12-introduction" title="Permanent link">&para;</a></h2>
+<p>The following guide describes how to manually setup a drive mirroring (RAID1) in a Windows operating system.</p>
+<p>Servers which have been installed using our automatic Windows installation (available via <a href="https://docs.hetzner.com/robot">Robot</a>), or ordered with the Windows addon, already have a RAID level 1 configured and running on them. So this guide is just intended for custom Windows installations.</p>
+<h2 id="13-preparation">1.3 <a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/#preparation"></a>Preparation<a class="headerlink" href="#13-preparation" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>First, please click on the <code>Windows symbol</code> in the bottom left corner, or press the <code>Windows</code> or <code>Super</code> key.</p>
+</li>
+<li>
+<p>Type <code>diskmgmt.msc</code> and press the <code>Enter</code> key to open the Disk Management Utility.</p>
+<p>Please find a quick overview of the utility below: <img alt="Disk Management Utility Legend" src="images/disk_management_utility.jpg" title="Disk Management Utility Legend" /></p>
+<p>-   <strong>A:</strong> Main disk, which contains the operating system
+  -   <strong>B:</strong> Second disk, intended to be used for the RAID1 mirroring
+  -   <strong>C:</strong> Volumes (means partitions under Windows) on the main disk
+  -   <strong>D:</strong> Unallocated space on the second disk
+3.  If your second disk already has Volumes on it, please right-click on them and choose <code>Delete Volume</code> on all of them.</p>
+</li>
+<li>
+<p>Right-click on the disk which currently contains the operating system and click on <code>Convert to dynamic disk</code>.</p>
+</li>
+<li>
+<p>In the dialog that then appears, the main drive should already be selected. Please also select the other drive which you would like to use for the RAID1. Click on <code>Ok</code> and confirm.</p>
+</li>
+<li>
+<p>Now you have to determine if your system has been installed in Legacy Mode, or in UEFI Mode. To do this, please click on the <code>Windows symbol</code> in the bottom left corner, or press the <code>Windows</code> or <code>Super</code> key.</p>
+</li>
+<li>
+<p>Type <code>msinfo32.exe</code> and press the <code>Enter</code> key to open the System Information window.</p>
+</li>
+<li>
+<p>In the right side of the window, you should see the <code>BIOS MODE</code> entry, which has the correct mode (<code>Legacy</code> or <code>UEFI</code>) as its value. If you cannot find this entry, the system is installed in the <code>Legacy</code> mode. Now, continue below to either "Legacy" or "UEFI".</p>
+</li>
+</ol>
+<h2 id="14-legacy">1.4 <a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/#legacy"></a>Legacy<a class="headerlink" href="#14-legacy" title="Permanent link">&para;</a></h2>
+<p>If your system is running in Legacy mode, you should do the following steps on all the Volumes of the main disk. Work on the Volumes from left to right:</p>
+<ol>
+<li>
+<p>Right-click on a Volume and choose <code>Add mirroring</code> from the context menu.</p>
+</li>
+<li>
+<p>In the menu that appears, choose the second drive you would like for the RAID1. Then confirm by clicking on <code>Add mirroring</code>.</p>
+</li>
+</ol>
+<p>Please check that you have correctly added all the Volumes to the mirroring. Also check that the synchronization is running, which is indicated by the reddish colored Volumes and their status information.</p>
+<h2 id="15-uefi">1.5 <a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/#uefi"></a>UEFI<a class="headerlink" href="#15-uefi" title="Permanent link">&para;</a></h2>
+<p>Every UEFI system has a UEFI System Volume. This partition cannot be mirrored automatically by Windows; you need to manually copy and configure it on the second drive. Like with Legacy, add the mirroring for the Volumes one by one, from left to right.</p>
+<ul>
+<li>For all Volumes, that do <strong>not</strong> have the <code>EFI</code> label, follow those steps:<p>1.  Right-click on a Volume and choose <code>Add mirroring</code> from the context menu.</p>
+<p>2.  In the menu that appears, choose the second drive you would like for the RAID1. Then confirm this by clicking on <code>Add mirroring</code>.</p>
+</li>
+</ul>
+<ul>
+<li>For the UEFI System Volume, please use the following steps:<p>1.  Create an UEFI System Volume with the same size on the second drive and format it with <a href="https://en.wikipedia.org/wiki/File_Allocation_Table">FAT32</a>. To do this, just right-click on the unallocated space of the second drive, select <code>New Simple Volume</code> and follow the dialog.</p>
+<p>2.  Copy the UEFI System Volume data from the first drive to the second. To do that, we recommend that you boot the server to the <a href="https://docs.hetzner.com/robot/dedicated-server/troubleshooting/hetzner-rescue-system/">Rescue System</a> and connect to it via SSH:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code>  -   Locate the correct partitions:
+
+      This command will list the partitions of all drives. There, please search for two UEFI partitions on both drives which you might identify by their sizes and filesystem ([FAT32](https://en.wikipedia.org/wiki/File_Allocation_Table)) and combine the disk identifiers (`/dev/sdX`) with the correct numbers of the partitions.
+
+      _Example:_
+
+      ```
+      parted -l
+      Model: WD Enterprise P20691
+      Disk /dev/sda: 2000GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+       1      1049kB  101MB   100MB   primary  fat32
+       2      102MB   2000GB  1999GB  primary  ntfs
+
+      Model: WD Enterprise P20691
+      Disk /dev/sda: 2000GB
+      Sector size (logical/physical): 512B/512B
+      Partition Table: msdos
+      Disk Flags:
+
+      Number  Start   End     Size    Type     File system  Flags
+       1      1049kB  101MB   100MB   primary  fat32
+       2      102MB   2000GB  1999GB  primary  ntfs
+      ```
+
+      In this case, the partitions are `/dev/sda1` and `/dev/sdb1`.
+
+  -   Create mount point folders:
+
+      ```
+      mkdir /mnt/main
+      mkdir /mnt/second
+      ```
+
+  -   Mount the correct UEFI System partitions. (Replace the partitions with the ones you have found):
+
+      ```
+      mount -t vfat /dev/sda1 /mnt/main -o rw,umask=0000
+      mount -t vfat /dev/sdb1 /mnt/second -o rw,umask=0000
+      ```
+
+  -   Next, copy all the files from the current UEFI System partition to the new one:
+
+      ```
+      cp -ar /mnt/main/ /mnt/second/
+      ```
+
+  -   Once you&#39;re finished, boot the server back to the installed system:
+</code></pre></div></td></tr></table></div>
+</li>
+</ul>
+<p>Important note: The UEFI System partition can't be mirrored. The process as described above is therefore always required if you replace a drive or if you have make changes to the bootloader configuration.</p>
+<p>Please ensure that you have added all other Volumes to the mirroring. And check that the synchronization is running, which is indicated by the reddish colored Volumes and their status information.</p>
+<p>If you face any issues with certain Volumes, or the second Plex (which is a part of a mirrored Microsoft Volume) is not bootable, please see the official <a href="https://support.microsoft.com/en-us/help/814070/how-to-establish-and-boot-to-gpt-mirrors-on-64-bit-windows">documentation</a>.</p>
+<h1 id="2-references">2. References<a class="headerlink" href="#2-references" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p><a href="https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/">https://docs.hetzner.com/robot/dedicated-server/raid/windows-server-software-raid/</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="2023-04-01_Mirror_boot_drive_windows_server.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 在 Windows Server 上镜像启动驱动器">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                在 Windows Server 上镜像启动驱动器
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="2023-04-04-Hyper-V-daily-backup-script.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Hyper-V 每日备份脚本">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Hyper-V 每日备份脚本
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.top", "navigation.footer", "navigation.prune", "search.suggest", "search.highlight", "search.share", "header.autohide", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

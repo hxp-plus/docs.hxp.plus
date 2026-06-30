@@ -1,0 +1,2338 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="胡喜平">
+      
+      
+        <link rel="canonical" href="https://docs.hxp.plus/%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C/v2ray.html">
+      
+      
+        <link rel="prev" href="ipsec-vpn.html">
+      
+      
+        <link rel="next" href="openvpn-server-setup.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>V2Ray TLS WebSocket Nginx 教程 - hxp的文档库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="../../assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#v2ray-tls-websocket-nginx" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="hxp的文档库" class="md-header__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hxp的文档库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              V2Ray TLS WebSocket Nginx 教程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-tabs__link">
+          
+  
+  
+  容器技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-tabs__link">
+          
+  
+  
+  前端开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-tabs__link">
+          
+  
+  
+  存储技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-tabs__link">
+          
+  
+  
+  运维开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Arch/arch-linux-bluetooth-audio.html" class="md-tabs__link">
+          
+  
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-tabs__link">
+          
+  
+  
+  虚拟化技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  文档分类
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="hxp的文档库" class="md-nav__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hxp的文档库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    容器技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维开发
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    运维开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWX
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Keycloak/%E4%BD%BF%E7%94%A8openresty%E5%AE%B9%E5%99%A8%E4%B8%BAk8s%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9BKeycloak%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keycloak
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../OpenStack/Answers%20to%20OpenStack%20Practice.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenStack
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%AE%89%E5%85%A8/generate-hash-for-linux-shadow.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安全
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%B7%A5%E5%85%B7/Change-Usermane-Windows-10.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E5%B7%A5%E5%85%B7/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/403-Forbidden-Softlink-Nginx.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统配置
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E7%AC%94%E8%AE%B0%E5%8F%8A%E6%96%87%E6%A1%A3%E8%BD%AF%E4%BB%B6/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0k8s%E9%83%A8%E7%BD%B2.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    笔记及文档软件
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Git%E4%BD%BF%E7%94%A8/Git%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git使用
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Python/%E6%9E%84%E5%BB%BA%E8%A7%A3%E5%8E%8B%E5%8D%B3%E7%94%A8%E7%9A%84Python3.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Java/SpringBoot%202.5.1%20%E5%AF%B9%E6%8E%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Shell/Shell%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E6%9C%AA%E8%B5%8B%E5%80%BC%E6%88%96%E9%81%87%E5%88%B0%E9%94%99%E8%AF%AF%E7%AB%8B%E5%88%BB%E9%80%80%E5%87%BA.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Rust/Rust%E7%A6%BB%E7%BA%BF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    网络
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sharing-wireless-network.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用两张无线网卡桥接 WLAN 网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="network-manager-mac-auto-change.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    配置 NetworkManager 在接口重启时自动更改 MAC 地址
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openvpn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenVPN实验手册
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="liunx-miracast-server.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用 Linux 作为 Miracast 接收器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ipsec-vpn.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPSec VPN 教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="v2ray.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    V2Ray TLS WebSocket Nginx 教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openvpn-server-setup.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manjaro Linux 搭建 IPv6 OpenVPN 服务器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Arch/arch-linux-bluetooth-audio.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟化技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档分类
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+<!-- <a href="../../print_page.html" target="_blank" title="Print Site" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+</a> -->
+
+
+
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:nginx" class="md-tag">Nginx</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:v2ray" class="md-tag">V2Ray</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags.html#tag:vpn" class="md-tag">VPN</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="v2ray-tls-websocket-nginx">V2Ray (TLS + WebSocket) + Nginx 教程<a class="headerlink" href="#v2ray-tls-websocket-nginx" title="Permanent link">&para;</a></h1>
+<h1 id="1-install-v2ray">1. Install v2ray<a class="headerlink" href="#1-install-v2ray" title="Permanent link">&para;</a></h1>
+<p>To deploy V2Ray on CentOS, we use the <a href="https://www.v2ray.com/en/welcome/install.html">installation instruction</a> on V2Ray official site.</p>
+<p>run</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>curl<span class="w"> </span>-Ls<span class="w"> </span>https://install.direct/go.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
+</span></code></pre></div></td></tr></table></div>
+<p>and wait the installation process to complete.</p>
+<h1 id="2-install-nginx">2. Install Nginx<a class="headerlink" href="#2-install-nginx" title="Permanent link">&para;</a></h1>
+<p>Install via yum</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>yum<span class="w"> </span>install<span class="w"> </span>nginx
+</span></code></pre></div></td></tr></table></div>
+<h1 id="3-write-the-v2ray-config-file">3. Write the V2Ray config file<a class="headerlink" href="#3-write-the-v2ray-config-file" title="Permanent link">&para;</a></h1>
+<p>The V2Ray config file is located in <code>/etc/v2ray/config.json</code></p>
+<p>Edit the config file</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>nano<span class="w"> </span>/etc/v2ray/config.json
+</span></code></pre></div></td></tr></table></div>
+<p>For starters, I would suggest using <a href="https://www.veekxt.com/utils/v2ray_gen">v2ray config generator</a> to generate config.</p>
+<p>Here is a sample config, which I am currently using. I put it here for reference. <strong>Change uuid for your own security</strong></p>
+<p>You may get a random uuid here: <a href="https://www.uuidgenerator.net/">Online UUID Generator</a></p>
+<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;inbounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">      </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;listen&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">      </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vmess&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">      </span><span class="nt">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="nt">&quot;clients&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">          </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cd6e4579-7a1f-4784-91dd-e0e9e788c7ee&quot;</span><span class="p">,</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">            </span><span class="nt">&quot;alterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">          </span><span class="p">}</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">        </span><span class="p">]</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">      </span><span class="p">},</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">      </span><span class="nt">&quot;streamSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">        </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ws&quot;</span><span class="p">,</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">        </span><span class="nt">&quot;wsSettings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">          </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/ray&quot;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">  </span><span class="nt">&quot;outbounds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">      </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;freedom&quot;</span><span class="p">,</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">      </span><span class="nt">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>For this config we can see that V2Ray listens on localhost, so that V2Ray ports cannot be connected or detected from the outside web.</p>
+<p>Reload the V2Ray service.</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>v2ray
+</span></code></pre></div></td></tr></table></div>
+<p>To determine whether v2ray runs correctly, run</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>v2ray
+</span></code></pre></div></td></tr></table></div>
+<p>If on errors occurred, enable v2ray service so that it can start automatically on server startup.</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>v2ray
+</span></code></pre></div></td></tr></table></div>
+<h1 id="4-using-acmesh-to-install-ssl-cert-for-nginx">4. Using acme.sh to install SSL cert for nginx<a class="headerlink" href="#4-using-acmesh-to-install-ssl-cert-for-nginx" title="Permanent link">&para;</a></h1>
+<p>In this tutorial we install cert in default location. Firstly, make directories and install acme.sh</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>curl<span class="w"> </span>https://get.acme.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>mkdir<span class="w"> </span>/etc/pki/nginx/
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>mkdir<span class="w"> </span>/etc/pki/nginx/private/
+</span></code></pre></div></td></tr></table></div>
+<p>Then we can use acme.sh to issue and renew certs automatically.</p>
+<p>acme.sh requires <code>socat</code></p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>yum<span class="w"> </span>install<span class="w"> </span>socat
+</span></code></pre></div></td></tr></table></div>
+<p>You need to stop nginx before these following steps.</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>nginx
+</span></code></pre></div></td></tr></table></div>
+<p>I assume your domain name is <code>yourdomain.com</code></p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>~/.acme.sh/acme.sh<span class="w"> </span>--issue<span class="w"> </span>-d<span class="w"> </span>yourdomain.com<span class="w"> </span>--standalone<span class="w"> </span>-k<span class="w"> </span>ec-256
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>~/.acme.sh/acme.sh<span class="w"> </span>--renew<span class="w"> </span>-d<span class="w"> </span>yourdamain.com<span class="w"> </span>--force<span class="w"> </span>--ecc
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>sudo<span class="w"> </span>~/.acme.sh/acme.sh<span class="w"> </span>--installcert<span class="w"> </span>-d<span class="w"> </span>yourdomain.com<span class="w"> </span>--fullchainpath<span class="w"> </span>/etc/pki/nginx/server.crt<span class="w"> </span>--keypath<span class="w"> </span>/etc/pki/nginx/private/server.key<span class="w"> </span>--ecc
+</span></code></pre></div></td></tr></table></div>
+<h1 id="5-use-nginx-to-forward-port-443-to-v2ray">5. Use Nginx to forward port 443 to v2ray<a class="headerlink" href="#5-use-nginx-to-forward-port-443-to-v2ray" title="Permanent link">&para;</a></h1>
+<p>Edit <code>/etc/nginx/nginx.conf</code></p>
+<p>One possible version (compatible with the v2ray config above, <em>Remember to change server_name to your domain name</em>)</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-11-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-11-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-11-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-11-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-11-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-11-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-11-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-11-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-11-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-11-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-11-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-11-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-11-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-11-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-11-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-11-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-11-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-11-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-11-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-11-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-11-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-11-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-11-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-11-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-11-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-11-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-11-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-11-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-11-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-11-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-11-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-11-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-11-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-11-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-11-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-11-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-11-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-11-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-11-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-11-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-11-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-11-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-11-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-11-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-11-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-11-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-11-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-11-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-11-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-11-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-11-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-11-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-11-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-11-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-11-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-11-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-11-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-11-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-11-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-11-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-11-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-11-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-11-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-11-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-11-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-11-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-11-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-11-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-11-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-11-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-11-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-11-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-11-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-11-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-11-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-11-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-11-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-11-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-11-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-11-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-11-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-11-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-11-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-11-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-11-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-11-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-11-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-11-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-11-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-11-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-11-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-11-100">100</a></span>
+<span class="normal"><a href="#__codelineno-11-101">101</a></span>
+<span class="normal"><a href="#__codelineno-11-102">102</a></span>
+<span class="normal"><a href="#__codelineno-11-103">103</a></span>
+<span class="normal"><a href="#__codelineno-11-104">104</a></span>
+<span class="normal"><a href="#__codelineno-11-105">105</a></span>
+<span class="normal"><a href="#__codelineno-11-106">106</a></span>
+<span class="normal"><a href="#__codelineno-11-107">107</a></span>
+<span class="normal"><a href="#__codelineno-11-108">108</a></span>
+<span class="normal"><a href="#__codelineno-11-109">109</a></span>
+<span class="normal"><a href="#__codelineno-11-110">110</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a># For more information on configuration, see:
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>#   * Official English Documentation: http://nginx.org/en/docs/
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>#   * Official Russian Documentation: http://nginx.org/ru/docs/
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>user nginx;
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>worker_processes auto;
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>error_log /var/log/nginx/error.log;
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>pid /run/nginx.pid;
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>include /usr/share/nginx/modules/*.conf;
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a>events {
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a>    worker_connections 1024;
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a>}
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a>http {
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a>    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a>                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a>                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a>    access_log  /var/log/nginx/access.log  main;
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a>    sendfile            on;
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>    tcp_nopush          on;
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a>    tcp_nodelay         on;
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>    keepalive_timeout   65;
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a>    types_hash_max_size 2048;
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a>    include             /etc/nginx/mime.types;
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a>    default_type        application/octet-stream;
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33"></a>    # Load modular configuration files from the /etc/nginx/conf.d directory.
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34"></a>    # See http://nginx.org/en/docs/ngx_core_module.html#include
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35"></a>    # for more information.
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36"></a>    include /etc/nginx/conf.d/*.conf;
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37"></a>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38"></a>    server {
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39"></a>        listen       80 default_server;
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40"></a>        listen       [::]:80 default_server;
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41"></a>        server_name  yourdomain.com;
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42"></a>        root         /usr/share/nginx/html;
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43"></a>
+</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44"></a>        # Load configuration files for the default server block.
+</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45"></a>        include /etc/nginx/default.d/*.conf;
+</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46"></a>
+</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47"></a>        location / {
+</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48"></a>         proxy_pass         https://dev-hxp.github.io;
+</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49"></a>         proxy_redirect     off;
+</span><span id="__span-11-50"><a id="__codelineno-11-50" name="__codelineno-11-50"></a>         proxy_set_header   User-Agent &quot;Mozilla/5.0&quot;;
+</span><span id="__span-11-51"><a id="__codelineno-11-51" name="__codelineno-11-51"></a>         proxy_set_header   Host                        $host;
+</span><span id="__span-11-52"><a id="__codelineno-11-52" name="__codelineno-11-52"></a>         proxy_set_header   X-Real-IP                $remote_addr;
+</span><span id="__span-11-53"><a id="__codelineno-11-53" name="__codelineno-11-53"></a>         proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+</span><span id="__span-11-54"><a id="__codelineno-11-54" name="__codelineno-11-54"></a>        }
+</span><span id="__span-11-55"><a id="__codelineno-11-55" name="__codelineno-11-55"></a>
+</span><span id="__span-11-56"><a id="__codelineno-11-56" name="__codelineno-11-56"></a>        error_page 404 /404.html;
+</span><span id="__span-11-57"><a id="__codelineno-11-57" name="__codelineno-11-57"></a>            location = /40x.html {
+</span><span id="__span-11-58"><a id="__codelineno-11-58" name="__codelineno-11-58"></a>        }
+</span><span id="__span-11-59"><a id="__codelineno-11-59" name="__codelineno-11-59"></a>
+</span><span id="__span-11-60"><a id="__codelineno-11-60" name="__codelineno-11-60"></a>        error_page 500 502 503 504 /50x.html;
+</span><span id="__span-11-61"><a id="__codelineno-11-61" name="__codelineno-11-61"></a>            location = /50x.html {
+</span><span id="__span-11-62"><a id="__codelineno-11-62" name="__codelineno-11-62"></a>        }
+</span><span id="__span-11-63"><a id="__codelineno-11-63" name="__codelineno-11-63"></a>    }
+</span><span id="__span-11-64"><a id="__codelineno-11-64" name="__codelineno-11-64"></a>
+</span><span id="__span-11-65"><a id="__codelineno-11-65" name="__codelineno-11-65"></a># Settings for a TLS enabled server.
+</span><span id="__span-11-66"><a id="__codelineno-11-66" name="__codelineno-11-66"></a>
+</span><span id="__span-11-67"><a id="__codelineno-11-67" name="__codelineno-11-67"></a>    server {
+</span><span id="__span-11-68"><a id="__codelineno-11-68" name="__codelineno-11-68"></a>        listen       443 ssl;
+</span><span id="__span-11-69"><a id="__codelineno-11-69" name="__codelineno-11-69"></a>    ssl on;
+</span><span id="__span-11-70"><a id="__codelineno-11-70" name="__codelineno-11-70"></a>        server_name  yourdomain.com;
+</span><span id="__span-11-71"><a id="__codelineno-11-71" name="__codelineno-11-71"></a>        ssl_certificate &quot;/etc/pki/nginx/server.crt&quot;;
+</span><span id="__span-11-72"><a id="__codelineno-11-72" name="__codelineno-11-72"></a>        ssl_certificate_key &quot;/etc/pki/nginx/private/server.key&quot;;
+</span><span id="__span-11-73"><a id="__codelineno-11-73" name="__codelineno-11-73"></a>    ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
+</span><span id="__span-11-74"><a id="__codelineno-11-74" name="__codelineno-11-74"></a>    ssl_ciphers           HIGH:!aNULL:!MD5;
+</span><span id="__span-11-75"><a id="__codelineno-11-75" name="__codelineno-11-75"></a>
+</span><span id="__span-11-76"><a id="__codelineno-11-76" name="__codelineno-11-76"></a>        # Load configuration files for the default server block.
+</span><span id="__span-11-77"><a id="__codelineno-11-77" name="__codelineno-11-77"></a>        include /etc/nginx/default.d/*.conf;
+</span><span id="__span-11-78"><a id="__codelineno-11-78" name="__codelineno-11-78"></a>
+</span><span id="__span-11-79"><a id="__codelineno-11-79" name="__codelineno-11-79"></a>    location /ray {
+</span><span id="__span-11-80"><a id="__codelineno-11-80" name="__codelineno-11-80"></a>             proxy_redirect off;
+</span><span id="__span-11-81"><a id="__codelineno-11-81" name="__codelineno-11-81"></a>             proxy_pass http://127.0.0.1:10000;
+</span><span id="__span-11-82"><a id="__codelineno-11-82" name="__codelineno-11-82"></a>             proxy_http_version 1.1;
+</span><span id="__span-11-83"><a id="__codelineno-11-83" name="__codelineno-11-83"></a>             proxy_set_header Upgrade $http_upgrade;
+</span><span id="__span-11-84"><a id="__codelineno-11-84" name="__codelineno-11-84"></a>             proxy_set_header Connection &quot;upgrade&quot;;
+</span><span id="__span-11-85"><a id="__codelineno-11-85" name="__codelineno-11-85"></a>             proxy_set_header Host $http_host;
+</span><span id="__span-11-86"><a id="__codelineno-11-86" name="__codelineno-11-86"></a>
+</span><span id="__span-11-87"><a id="__codelineno-11-87" name="__codelineno-11-87"></a>             # Show realip in v2ray access.log
+</span><span id="__span-11-88"><a id="__codelineno-11-88" name="__codelineno-11-88"></a>             proxy_set_header X-Real-IP $remote_addr;
+</span><span id="__span-11-89"><a id="__codelineno-11-89" name="__codelineno-11-89"></a>             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span id="__span-11-90"><a id="__codelineno-11-90" name="__codelineno-11-90"></a>        }
+</span><span id="__span-11-91"><a id="__codelineno-11-91" name="__codelineno-11-91"></a>
+</span><span id="__span-11-92"><a id="__codelineno-11-92" name="__codelineno-11-92"></a>        location / {
+</span><span id="__span-11-93"><a id="__codelineno-11-93" name="__codelineno-11-93"></a>         proxy_pass         https://dev-hxp.github.io;
+</span><span id="__span-11-94"><a id="__codelineno-11-94" name="__codelineno-11-94"></a>         proxy_redirect     off;
+</span><span id="__span-11-95"><a id="__codelineno-11-95" name="__codelineno-11-95"></a>         proxy_set_header   User-Agent &quot;Mozilla/5.0&quot;;
+</span><span id="__span-11-96"><a id="__codelineno-11-96" name="__codelineno-11-96"></a>         proxy_set_header   Host                        $host;
+</span><span id="__span-11-97"><a id="__codelineno-11-97" name="__codelineno-11-97"></a>         proxy_set_header   X-Real-IP                $remote_addr;
+</span><span id="__span-11-98"><a id="__codelineno-11-98" name="__codelineno-11-98"></a>         proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+</span><span id="__span-11-99"><a id="__codelineno-11-99" name="__codelineno-11-99"></a>        }
+</span><span id="__span-11-100"><a id="__codelineno-11-100" name="__codelineno-11-100"></a>
+</span><span id="__span-11-101"><a id="__codelineno-11-101" name="__codelineno-11-101"></a>        error_page 404 /404.html;
+</span><span id="__span-11-102"><a id="__codelineno-11-102" name="__codelineno-11-102"></a>            location = /40x.html {
+</span><span id="__span-11-103"><a id="__codelineno-11-103" name="__codelineno-11-103"></a>        }
+</span><span id="__span-11-104"><a id="__codelineno-11-104" name="__codelineno-11-104"></a>
+</span><span id="__span-11-105"><a id="__codelineno-11-105" name="__codelineno-11-105"></a>        error_page 500 502 503 504 /50x.html;
+</span><span id="__span-11-106"><a id="__codelineno-11-106" name="__codelineno-11-106"></a>            location = /50x.html {
+</span><span id="__span-11-107"><a id="__codelineno-11-107" name="__codelineno-11-107"></a>        }
+</span><span id="__span-11-108"><a id="__codelineno-11-108" name="__codelineno-11-108"></a>    }
+</span><span id="__span-11-109"><a id="__codelineno-11-109" name="__codelineno-11-109"></a>
+</span><span id="__span-11-110"><a id="__codelineno-11-110" name="__codelineno-11-110"></a>}
+</span></code></pre></div></td></tr></table></div>
+<p>And I forwarded port 80 to my blog. So that if someone visits the server in web browser, he will certainly see my blog.</p>
+<p>Restart Nginx to load the config</p>
+<div class="language-shell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nginx
+</span></code></pre></div></td></tr></table></div>
+<h1 id="6-firewall-configuration">6. Firewall configuration<a class="headerlink" href="#6-firewall-configuration" title="Permanent link">&para;</a></h1>
+<p>Allow port 80 and 443 for your server. For CentOS, you may use <code>firewallcmd</code>. But I use Alibaba Cloud server. So as for me, I use the Alibaba Cloud Console to allow the ports.</p>
+<p>Then connect your clients to your server and have fun.</p>
+<h1 id="7-congrats-you-are-done">7. Congrats, you are done!<a class="headerlink" href="#7-congrats-you-are-done" title="Permanent link">&para;</a></h1>
+<p>But there are 3 things to remember:</p>
+<ul>
+<li>Connect V2Ray through port 443 instead of 10000</li>
+<li>Enable TLS in V2Ray</li>
+<li>Enable WebSocket and the path of websocket should be /ray</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="ipsec-vpn.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: IPSec VPN 教程">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                IPSec VPN 教程
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="openvpn-server-setup.html" class="md-footer__link md-footer__link--next" aria-label="下一页: Manjaro Linux 搭建 IPv6 OpenVPN 服务器">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Manjaro Linux 搭建 IPv6 OpenVPN 服务器
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.top", "navigation.footer", "navigation.prune", "search.suggest", "search.highlight", "search.share", "header.autohide", "toc.follow", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../js/print-site.js"></script>
+      
+        <script src="../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

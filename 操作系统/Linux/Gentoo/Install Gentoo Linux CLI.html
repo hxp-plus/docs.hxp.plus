@@ -1,0 +1,3834 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="胡喜平">
+      
+      
+        <link rel="canonical" href="https://docs.hxp.plus/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Gentoo/Install%20Gentoo%20Linux%20CLI.html">
+      
+      
+        <link rel="prev" href="Install%20Chinese%20Support%20based%20on%20KDE.html">
+      
+      
+        <link rel="next" href="Install%20Gentoo%20Linux%20KDE.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>安装 Gentoo Linux CLI - hxp的文档库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="../../../assets/external/unpkg.com/iframe-worker/shim.js"></script>
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/print-site.css">
+    
+      <link rel="stylesheet" href="../../../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gentoo-linux-cli" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../index.html" title="hxp的文档库" class="md-header__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hxp的文档库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              安装 Gentoo Linux CLI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-tabs__link">
+          
+  
+  
+  容器技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-tabs__link">
+          
+  
+  
+  前端开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-tabs__link">
+          
+  
+  
+  存储技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-tabs__link">
+          
+  
+  
+  运维开发
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Arch/arch-linux-bluetooth-audio.html" class="md-tabs__link">
+          
+  
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-tabs__link">
+          
+  
+  
+  虚拟化技术
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tags.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  文档分类
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="hxp的文档库" class="md-nav__button md-logo" aria-label="hxp的文档库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hxp的文档库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hxp-plus/docs.hxp.plus.git" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    docs.hxp.plus
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../../%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Kubernetes.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    容器技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/Vue3/Geeker-Admin%E6%8E%A5%E5%85%A5Keycloak%E8%AE%A4%E8%AF%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../../%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/Ceph/%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10%E5%AE%89%E8%A3%85Ceph.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../../%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91/AWX/AWX%E5%92%8Cstolon%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B0%83%E4%BC%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    运维开发
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    操作系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Arch/arch-linux-bluetooth-audio.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arch
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Fedora/enable-repos-fedora.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fedora
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Manjaro/Install%20and%20Configure%20SMB%20service%20Manjaro%20KDE.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manjaro
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E9%80%9A%E7%94%A8Linux/Linux%E4%B8%8B%E8%BD%BDyum%E6%BA%90.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通用Linux
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_1_5" id="__nav_6_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gentoo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gentoo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%9C%A8QEMU%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在QEMU环境安装Gentoo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%9C%A8Hyper-V%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Gentoo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Hyper-V 环境安装 Gentoo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="emerge%E8%A3%85%E5%8C%85ninja%E6%8A%A5%E9%94%99%E2%80%9Cmanifest%20%27build.ninja%27%20still%20dirty%20after%20100%20tries%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    emerge装包ninja报错“manifest 'build.ninja' still dirty after 100 tries”解决方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Gentoo%E5%90%AF%E5%8A%A8%E6%97%B6%E6%8C%82%E8%BD%BDcifs%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gentoo启动时挂载cifs失败解决方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Hyper-V%E7%8E%AF%E5%A2%83%E4%B8%8Bsddm%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V环境下sddm无法启动图形界面问题解决
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="%E5%AE%89%E8%A3%85xfce%E5%90%8Efcitx%E5%8F%B3%E4%B8%8A%E8%A7%92%E6%98%BE%E7%A4%BA%E4%BD%86%E6%97%A0%E6%B3%95%E9%80%89%E6%8B%A9%E8%BE%93%E5%85%A5%E6%B3%95%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安装xfce后fcitx右上角显示但无法选择输入法问题解决
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="How%20to%20see%20which%20flags%20-march%3Dnative%20will%20activate.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [How to see which flags -march=native will activate?](https://stackoverflow.com/questions/5470257/how-to-see-which-flags-march-native-will-activate)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Install%20Chinese%20Support%20based%20on%20KDE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 KDE 安装中文支持
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安装 Gentoo Linux CLI
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Install%20Gentoo%20Linux%20CLI.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    安装 Gentoo Linux CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 分区磁盘
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 挂载文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-stage3-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 下载并解压 stage3 tarball
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置编译选项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gentoo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 设置 Gentoo 镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 配置 eBuild 仓库
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 复制 DNS 信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 挂载必要的文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 进入新环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 挂载 boot 分区
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-gentoo-ebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 从网络安装 Gentoo ebuild 仓库快照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 选择正确的 profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 更新 @world 集合
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 接受所有许可
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 时区
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 配置 locales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 安装内核源码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 内核配置和编译
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 主机和域名信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 设置 root 密码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 系统日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Cron 守护进程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 文件索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 远程访问
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 文件系统工具
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 安装 DHCP 客户端
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-grub2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 安装 GRUB2 引导加载器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 添加日常使用用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 重启系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 原文（English）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mount filesystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-unpack-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download and unpack tarball
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-compile-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring compile options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-gentoo-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Gentoo mirror
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-ebuild-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure eBuild repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-dns-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy DNS info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-necessary-filesystems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mount necessary filesystems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entering-the-new-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entering the new environment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mounting-the-boot-partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mounting the boot partition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-gentoo-ebuild-repository-snapshot-from-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a Gentoo ebuild repository snapshot from the web
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-the-right-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing the right profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-world-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the @world set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accept-all-license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept all license
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timezone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timezone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure locales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing the sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-configuration-and-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel configuration and compilation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-and-domain-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host and domain information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-root-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set root password
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System logger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cron daemon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File indexing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-dhcp-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a DHCP client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-grub2-boot-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install GRUB2 boot loader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-user-for-daily-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a user for daily use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebooting-the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebooting the system
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Install%20Gentoo%20Linux%20KDE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基于 CLI 安装 Gentoo Linux KDE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Install%20VNC%20Server%20on%20Gentoo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    在 Gentoo 上安装 VNC 服务器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Ways%20to%20convert%20these%20notes%20to%20batch%20file%2C%20and%20then%20execute%20the%20commands%20line%20by%20line.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    将这些笔记转换为批处理文件并逐行执行命令的方法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../OpenWrt/OpenWrt%E5%AE%89%E8%A3%85WireGuard.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenWrt
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../Ubuntu/Ubuntu%E5%AE%89%E8%A3%85Hyper-V%E5%B7%A5%E5%85%B7.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../RHEL6/%E8%AE%B0%E6%9F%90%E6%AC%A1%E8%AF%AF%E6%93%8D%E4%BD%9Cyum%20update%E5%90%8Ejboss%E5%BA%94%E7%94%A8%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E5%8F%8A%E9%87%8D%E5%90%AF%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%ABvg%E9%97%AE%E9%A2%98.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RHEL6
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E4%B8%AD%E6%A0%87%E9%BA%92%E9%BA%9FV7/%E6%9B%99%E5%85%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A3%85%E6%9C%BA%E6%97%A0RAID%E5%8D%A1%E9%A9%B1%E5%8A%A8%E5%AF%BC%E8%87%B4%E4%B8%8D%E8%83%BD%E8%AF%86%E5%88%AB%E7%A1%AC%E7%9B%98%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    中标麒麟V7
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../%E9%93%B6%E6%B2%B3%E9%BA%92%E9%BA%9FV10/%E9%BA%92%E9%BA%9FV10SP4%E5%A2%9E%E5%8A%A0VSCode%E6%94%AF%E6%8C%81.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    银河麒麟V10
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Windows/2023-03-26-Activate-Windows-using-KMS-server.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../../%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/Hyper-V/Hyper-V%E4%BF%AE%E6%94%B9%E8%B0%83%E5%BA%A6%E5%99%A8.html" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟化技术
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tags.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文档分类
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 分区磁盘
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 挂载文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-stage3-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 下载并解压 stage3 tarball
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置编译选项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gentoo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 设置 Gentoo 镜像
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 配置 eBuild 仓库
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 复制 DNS 信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 挂载必要的文件系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 进入新环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 挂载 boot 分区
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-gentoo-ebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 从网络安装 Gentoo ebuild 仓库快照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 选择正确的 profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 更新 @world 集合
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 接受所有许可
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 时区
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 配置 locales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 安装内核源码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 内核配置和编译
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 主机和域名信息
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 设置 root 密码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 系统日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Cron 守护进程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 文件索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 远程访问
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 文件系统工具
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 安装 DHCP 客户端
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-grub2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 安装 GRUB2 引导加载器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 添加日常使用用户
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 重启系统
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-english" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. 原文（English）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mount filesystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-and-unpack-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download and unpack tarball
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-compile-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring compile options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-gentoo-mirror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Gentoo mirror
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-ebuild-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure eBuild repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#copy-dns-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy DNS info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mount-necessary-filesystems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mount necessary filesystems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entering-the-new-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entering the new environment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mounting-the-boot-partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mounting the boot partition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-gentoo-ebuild-repository-snapshot-from-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a Gentoo ebuild repository snapshot from the web
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-the-right-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing the right profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-world-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the @world set
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accept-all-license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept all license
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timezone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timezone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-locales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure locales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-the-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing the sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-configuration-and-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel configuration and compilation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#host-and-domain-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host and domain information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-root-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set root password
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System logger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cron-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cron daemon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File indexing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-dhcp-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a DHCP client
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-grub2-boot-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install GRUB2 boot loader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-user-for-daily-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a user for daily use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebooting-the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebooting the system
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+<!-- <a href="../../../print_page.html" target="_blank" title="Print Site" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3"/></svg>
+</a> -->
+
+
+
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../tags.html#tag:gentoo" class="md-tag">Gentoo</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../tags.html#tag:linux" class="md-tag">Linux</a>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="gentoo-linux-cli">安装 Gentoo Linux CLI<a class="headerlink" href="#gentoo-linux-cli" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">文档时效性说明</p>
+<p>本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。</p>
+</div>
+<p>原英文标题：Install Gentoo Linux CLI</p>
+<h2 id="1">1. 分区磁盘<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;g\nn\n1\n\n+256M\nt\nuefi\nn\n2\n\n+4G\nt\n2\nswap\nn\n3\n\n\nt\n3\nlinux\np\nw\n&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>fdisk<span class="w"> </span>/dev/sda
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>sync
+</span></code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>mkfs.vfat<span class="w"> </span>-F<span class="w"> </span><span class="m">32</span><span class="w"> </span>/dev/sda1
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>mkswap<span class="w"> </span>/dev/sda2
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>mkfs.ext4<span class="w"> </span>-F<span class="w"> </span>/dev/sda3
+</span></code></pre></div></td></tr></table></div>
+<h2 id="2">2. 挂载文件系统<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>swapon<span class="w"> </span>/dev/sda2
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/gentoo
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>mount<span class="w"> </span>/dev/sda3<span class="w"> </span>/mnt/gentoo/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="3-stage3-tarball">3. 下载并解压 stage3 tarball<a class="headerlink" href="#3-stage3-tarball" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>ntpd<span class="w"> </span>-q<span class="w"> </span>-g
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>/mnt/gentoo
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>wget<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/gentoo/releases/amd64/autobuilds/20211010T170540Z/stage3-amd64-openrc-20211010T170540Z.tar.xz
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>tar<span class="w"> </span>xpvf<span class="w"> </span>stage3-*.tar.xz<span class="w"> </span>--xattrs-include<span class="o">=</span><span class="s1">&#39;*.*&#39;</span><span class="w"> </span>--numeric-owner
+</span></code></pre></div></td></tr></table></div>
+<h2 id="4">4. 配置编译选项<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/COMMON_FLAGS=&quot;-O2 -pipe&quot;/COMMON_FLAGS=&quot;-march=x86-64 -O2 -pipe&quot;/&#39;</span><span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">MAKEOPTS</span><span class="o">=</span><span class="s2">&quot;\&quot;-j</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="5-gentoo">5. 设置 Gentoo 镜像<a class="headerlink" href="#5-gentoo" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;GENTOO_MIRRORS=&quot;https://mirrors.tuna.tsinghua.edu.cn/gentoo&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="6-ebuild">6. 配置 eBuild 仓库<a class="headerlink" href="#6-ebuild" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>mkdir<span class="w"> </span>--parents<span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>cp<span class="w"> </span>/mnt/gentoo/usr/share/portage/config/repos.conf<span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/sync-uri = rsync:\/\/rsync.gentoo.org\/gentoo-portage/sync-uri = rsync:\/\/mirrors.tuna.tsinghua.edu.cn\/gentoo-portage/&#39;</span><span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="7-dns">7. 复制 DNS 信息<a class="headerlink" href="#7-dns" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>cp<span class="w"> </span>--dereference<span class="w"> </span>/etc/resolv.conf<span class="w"> </span>/mnt/gentoo/etc/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="8">8. 挂载必要的文件系统<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>mount<span class="w"> </span>--types<span class="w"> </span>proc<span class="w"> </span>/proc<span class="w"> </span>/mnt/gentoo/proc
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>mount<span class="w"> </span>--rbind<span class="w"> </span>/sys<span class="w"> </span>/mnt/gentoo/sys
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>mount<span class="w"> </span>--make-rslave<span class="w"> </span>/mnt/gentoo/sys
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>mount<span class="w"> </span>--rbind<span class="w"> </span>/dev<span class="w"> </span>/mnt/gentoo/dev
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>mount<span class="w"> </span>--make-rslave<span class="w"> </span>/mnt/gentoo/dev
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>mount<span class="w"> </span>--bind<span class="w"> </span>/run<span class="w"> </span>/mnt/gentoo/run
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a>mount<span class="w"> </span>--make-slave<span class="w"> </span>/mnt/gentoo/run
+</span></code></pre></div></td></tr></table></div>
+<h2 id="9">9. 进入新环境<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>chroot<span class="w"> </span>/mnt/gentoo<span class="w"> </span>/bin/bash
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>source /etc/profile
+</span></code></pre></div></td></tr></table></div>
+<h2 id="10-boot">10. 挂载 boot 分区<a class="headerlink" href="#10-boot" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/boot
+</span></code></pre></div></td></tr></table></div>
+<h2 id="11-gentoo-ebuild">11. 从网络安装 Gentoo ebuild 仓库快照<a class="headerlink" href="#11-gentoo-ebuild" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>emerge-webrsync
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>emerge<span class="w"> </span>--sync
+</span></code></pre></div></td></tr></table></div>
+<h2 id="12-profile">12. 选择正确的 profile<a class="headerlink" href="#12-profile" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>eeselect<span class="w"> </span>profile<span class="w"> </span>list
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>eeselect<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="13-world">13. 更新 @world 集合<a class="headerlink" href="#13-world" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>emerge<span class="w"> </span>--verbose<span class="w"> </span>--update<span class="w"> </span>--deep<span class="w"> </span>--newuse<span class="w"> </span>@world
+</span></code></pre></div></td></tr></table></div>
+<h2 id="14">14. 接受所有许可<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ACCEPT_LICENSE=\&quot;*\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="15">15. 时区<a class="headerlink" href="#15" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Asia/Shanghai&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/timezone
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>emerge<span class="w"> </span>--config<span class="w"> </span>sys-libs/timezone-data
+</span></code></pre></div></td></tr></table></div>
+<h2 id="16-locales">16. 配置 locales<a class="headerlink" href="#16-locales" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;en_US.UTF-8 UTF-8&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/locale.gen
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;zh_CN.UTF-8 UTF-8&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/locale.gen
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a>locale-gen
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a>eeselect<span class="w"> </span>locale<span class="w"> </span>list
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a>eeselect<span class="w"> </span>locale<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a>env-update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>/etc/profile
+</span></code></pre></div></td></tr></table></div>
+<h2 id="17">17. 安装内核源码<a class="headerlink" href="#17" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a>emerge<span class="w"> </span>sys-kernel/gentoo-sources
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a>eeselect<span class="w"> </span>kernel<span class="w"> </span>list
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a>eeselect<span class="w"> </span>kernel<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a>ls<span class="w"> </span>-l<span class="w"> </span>/usr/src/linux
+</span></code></pre></div></td></tr></table></div>
+<h2 id="18">18. 内核配置和编译<a class="headerlink" href="#18" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span>
+<span class="normal"><a href="#__codelineno-19-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a>emerge<span class="w"> </span>sys-kernel/genkernel
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda1 /boot   vfat    defaults    0 2&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a>genkernel<span class="w"> </span>all
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a>ls<span class="w"> </span>/boot/vmlinu*<span class="w"> </span>/boot/initramfs*
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda2 swap    swap    defaults    0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda3 /   ext4    defaults    0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span></code></pre></div></td></tr></table></div>
+<h2 id="19">19. 主机和域名信息<a class="headerlink" href="#19" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span>
+<span class="normal"><a href="#__codelineno-20-5">5</a></span>
+<span class="normal"><a href="#__codelineno-20-6">6</a></span>
+<span class="normal"><a href="#__codelineno-20-7">7</a></span>
+<span class="normal"><a href="#__codelineno-20-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hostname=\&quot;hxp-server\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/hostname
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;dns_domain_lo=\&quot;homenetwork\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;nis_domain_lo=\&quot;my-nisdomain\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4"></a>emerge<span class="w"> </span>--noreplace<span class="w"> </span>net-misc/netifrc
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;config_enp3s0=\&quot;dhcp\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="nb">cd</span><span class="w"> </span>/etc/init.d
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7"></a>ln<span class="w"> </span>-s<span class="w"> </span>net.lo<span class="w"> </span>net.enp3s0
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8"></a>rc-update<span class="w"> </span>add<span class="w"> </span>net.enp3s0<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="20-root">20. 设置 root 密码<a class="headerlink" href="#20-root" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^password/# password/&#39;</span><span class="w"> </span>/etc/pam.d/system-auth
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;password  required    pam_unix.so nullok sha512 shadow&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/pam.d/system-auth
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/root:x:/root::/&#39;</span><span class="w"> </span>/etc/passwd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="21">21. 系统日志<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a>emerge<span class="w"> </span>app-admin/sysklogd
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2"></a>rc-update<span class="w"> </span>add<span class="w"> </span>sysklogd<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="22-cron">22. Cron 守护进程<a class="headerlink" href="#22-cron" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a>emerge<span class="w"> </span>sys-process/cronie
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2"></a>rc-update<span class="w"> </span>add<span class="w"> </span>cronie<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="23">23. 文件索引<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a>emerge<span class="w"> </span>sys-apps/mlocate
+</span></code></pre></div></td></tr></table></div>
+<h2 id="24">24. 远程访问<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a>rc-update<span class="w"> </span>add<span class="w"> </span>sshd<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="25">25. 文件系统工具<a class="headerlink" href="#25" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a>emerge<span class="w"> </span>sys-fs/e2fsprogs<span class="w"> </span>sys-fs/xfsprogs<span class="w"> </span>sys-fs/dosfstools
+</span></code></pre></div></td></tr></table></div>
+<h2 id="26-dhcp">26. 安装 DHCP 客户端<a class="headerlink" href="#26-dhcp" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a>emerge<span class="w"> </span>net-misc/dhcpcd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="27-grub2">27. 安装 GRUB2 引导加载器<a class="headerlink" href="#27-grub2" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span>
+<span class="normal"><a href="#__codelineno-28-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;GRUB_PLATFORMS=&quot;efi-64&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/portage/make.conf
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a>emerge<span class="w"> </span>sys-boot/grub:2
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a>grub-install<span class="w"> </span>--target<span class="o">=</span>x86_64-efi<span class="w"> </span>--efi-directory<span class="o">=</span>/boot
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a>grub-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub/grub.cfg
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a>mkdir<span class="w"> </span>/boot/EFI/boot
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6"></a>cp<span class="w"> </span>/boot/EFI/gentoo/grubx64.efi<span class="w"> </span>/boot/EFI/boot/bootx64.efi
+</span></code></pre></div></td></tr></table></div>
+<h2 id="28">28. 添加日常使用用户<a class="headerlink" href="#28" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
+<span class="normal"><a href="#__codelineno-29-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1"></a>useradd<span class="w"> </span>-m<span class="w"> </span>-G<span class="w"> </span>users,wheel,audio<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>hxp
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/hxp:x:/hxp::/&#39;</span><span class="w"> </span>/etc/passwd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="29">29. 重启系统<a class="headerlink" href="#29" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span>
+<span class="normal"><a href="#__codelineno-30-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="nb">exit</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="nb">cd</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a>umount<span class="w"> </span>-l<span class="w"> </span>/mnt/gentoo/dev<span class="o">{</span>/shm,/pts,<span class="o">}</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a>umount<span class="w"> </span>-R<span class="w"> </span>/mnt/gentoo
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5"></a>reboot
+</span></code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="30-english">30. 原文（English）<a class="headerlink" href="#30-english" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-31-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-31-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-31-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-31-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-31-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-31-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-31-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-31-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-31-10">10</a></span>
+<span class="normal"><a href="#__codelineno-31-11">11</a></span>
+<span class="normal"><a href="#__codelineno-31-12">12</a></span>
+<span class="normal"><a href="#__codelineno-31-13">13</a></span>
+<span class="normal"><a href="#__codelineno-31-14">14</a></span>
+<span class="normal"><a href="#__codelineno-31-15">15</a></span>
+<span class="normal"><a href="#__codelineno-31-16">16</a></span>
+<span class="normal"><a href="#__codelineno-31-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a>---
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2"></a>tags:
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a>  - Gentoo
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4"></a>  - Linux
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5"></a>---
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6"></a>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7"></a># Install Gentoo Linux CLI
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8"></a>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9"></a>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10"></a>!!! warning &quot;文档时效性说明&quot;
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11"></a>    本文为早期笔记，可能存在版本过时、命令失效、链接失效、最佳实践变化等问题。请以官方最新文档为准。
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12"></a>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13"></a>## Partitioning disk
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14"></a>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15"></a>```bash
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16"></a>printf &quot;g\nn\n1\n\n+256M\nt\nuefi\nn\n2\n\n+4G\nt\n2\nswap\nn\n3\n\n\nt\n3\nlinux\np\nw\n&quot; | fdisk /dev/sda
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17"></a>sync
+</span></code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span>
+<span class="normal"><a href="#__codelineno-32-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a>mkfs.vfat<span class="w"> </span>-F<span class="w"> </span><span class="m">32</span><span class="w"> </span>/dev/sda1
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2"></a>mkswap<span class="w"> </span>/dev/sda2
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3"></a>mkfs.ext4<span class="w"> </span>-F<span class="w"> </span>/dev/sda3
+</span></code></pre></div></td></tr></table></div>
+<h2 id="mount-filesystem">Mount filesystem<a class="headerlink" href="#mount-filesystem" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span>
+<span class="normal"><a href="#__codelineno-33-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1"></a>swapon<span class="w"> </span>/dev/sda2
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/gentoo
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3"></a>mount<span class="w"> </span>/dev/sda3<span class="w"> </span>/mnt/gentoo/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="download-and-unpack-tarball">Download and unpack tarball<a class="headerlink" href="#download-and-unpack-tarball" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1"></a>ntpd<span class="w"> </span>-q<span class="w"> </span>-g
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2"></a><span class="nb">cd</span><span class="w"> </span>/mnt/gentoo
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3"></a>wget<span class="w"> </span>https://mirrors.tuna.tsinghua.edu.cn/gentoo/releases/amd64/autobuilds/20211010T170540Z/stage3-amd64-openrc-20211010T170540Z.tar.xz
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4"></a>tar<span class="w"> </span>xpvf<span class="w"> </span>stage3-*.tar.xz<span class="w"> </span>--xattrs-include<span class="o">=</span><span class="s1">&#39;*.*&#39;</span><span class="w"> </span>--numeric-owner
+</span></code></pre></div></td></tr></table></div>
+<h2 id="configuring-compile-options">Configuring compile options<a class="headerlink" href="#configuring-compile-options" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span>
+<span class="normal"><a href="#__codelineno-35-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/COMMON_FLAGS=&quot;-O2 -pipe&quot;/COMMON_FLAGS=&quot;-march=x86-64 -O2 -pipe&quot;/&#39;</span><span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">MAKEOPTS</span><span class="o">=</span><span class="s2">&quot;\&quot;-j</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="set-gentoo-mirror">Set Gentoo mirror<a class="headerlink" href="#set-gentoo-mirror" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;GENTOO_MIRRORS=&quot;https://mirrors.tuna.tsinghua.edu.cn/gentoo&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/mnt/gentoo/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="configure-ebuild-repository">Configure eBuild repository<a class="headerlink" href="#configure-ebuild-repository" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span>
+<span class="normal"><a href="#__codelineno-37-2">2</a></span>
+<span class="normal"><a href="#__codelineno-37-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1"></a>mkdir<span class="w"> </span>--parents<span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2"></a>cp<span class="w"> </span>/mnt/gentoo/usr/share/portage/config/repos.conf<span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/sync-uri = rsync:\/\/rsync.gentoo.org\/gentoo-portage/sync-uri = rsync:\/\/mirrors.tuna.tsinghua.edu.cn\/gentoo-portage/&#39;</span><span class="w"> </span>/mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="copy-dns-info">Copy DNS info<a class="headerlink" href="#copy-dns-info" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1"></a>cp<span class="w"> </span>--dereference<span class="w"> </span>/etc/resolv.conf<span class="w"> </span>/mnt/gentoo/etc/
+</span></code></pre></div></td></tr></table></div>
+<h2 id="mount-necessary-filesystems">Mount necessary filesystems<a class="headerlink" href="#mount-necessary-filesystems" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span>
+<span class="normal"><a href="#__codelineno-39-2">2</a></span>
+<span class="normal"><a href="#__codelineno-39-3">3</a></span>
+<span class="normal"><a href="#__codelineno-39-4">4</a></span>
+<span class="normal"><a href="#__codelineno-39-5">5</a></span>
+<span class="normal"><a href="#__codelineno-39-6">6</a></span>
+<span class="normal"><a href="#__codelineno-39-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1"></a>mount<span class="w"> </span>--types<span class="w"> </span>proc<span class="w"> </span>/proc<span class="w"> </span>/mnt/gentoo/proc
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2"></a>mount<span class="w"> </span>--rbind<span class="w"> </span>/sys<span class="w"> </span>/mnt/gentoo/sys
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3"></a>mount<span class="w"> </span>--make-rslave<span class="w"> </span>/mnt/gentoo/sys
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4"></a>mount<span class="w"> </span>--rbind<span class="w"> </span>/dev<span class="w"> </span>/mnt/gentoo/dev
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5"></a>mount<span class="w"> </span>--make-rslave<span class="w"> </span>/mnt/gentoo/dev
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6"></a>mount<span class="w"> </span>--bind<span class="w"> </span>/run<span class="w"> </span>/mnt/gentoo/run
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7"></a>mount<span class="w"> </span>--make-slave<span class="w"> </span>/mnt/gentoo/run
+</span></code></pre></div></td></tr></table></div>
+<h2 id="entering-the-new-environment">Entering the new environment<a class="headerlink" href="#entering-the-new-environment" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1"></a>chroot<span class="w"> </span>/mnt/gentoo<span class="w"> </span>/bin/bash
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1"></a>source /etc/profile
+</span></code></pre></div></td></tr></table></div>
+<h2 id="mounting-the-boot-partition">Mounting the boot partition<a class="headerlink" href="#mounting-the-boot-partition" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1"></a>mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/boot
+</span></code></pre></div></td></tr></table></div>
+<h2 id="installing-a-gentoo-ebuild-repository-snapshot-from-the-web">Installing a Gentoo ebuild repository snapshot from the web<a class="headerlink" href="#installing-a-gentoo-ebuild-repository-snapshot-from-the-web" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1">1</a></span>
+<span class="normal"><a href="#__codelineno-43-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1"></a>emerge-webrsync
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2"></a>emerge<span class="w"> </span>--sync
+</span></code></pre></div></td></tr></table></div>
+<h2 id="choosing-the-right-profile">Choosing the right profile<a class="headerlink" href="#choosing-the-right-profile" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1">1</a></span>
+<span class="normal"><a href="#__codelineno-44-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1"></a>eeselect<span class="w"> </span>profile<span class="w"> </span>list
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2"></a>eeselect<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">1</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="updating-the-world-set">Updating the @world set<a class="headerlink" href="#updating-the-world-set" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1"></a>emerge<span class="w"> </span>--verbose<span class="w"> </span>--update<span class="w"> </span>--deep<span class="w"> </span>--newuse<span class="w"> </span>@world
+</span></code></pre></div></td></tr></table></div>
+<h2 id="accept-all-license">Accept all license<a class="headerlink" href="#accept-all-license" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ACCEPT_LICENSE=\&quot;*\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/portage/make.conf
+</span></code></pre></div></td></tr></table></div>
+<h2 id="timezone">Timezone<a class="headerlink" href="#timezone" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span>
+<span class="normal"><a href="#__codelineno-47-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Asia/Shanghai&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/timezone
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2"></a>emerge<span class="w"> </span>--config<span class="w"> </span>sys-libs/timezone-data
+</span></code></pre></div></td></tr></table></div>
+<h2 id="configure-locales">Configure locales<a class="headerlink" href="#configure-locales" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span>
+<span class="normal"><a href="#__codelineno-48-2">2</a></span>
+<span class="normal"><a href="#__codelineno-48-3">3</a></span>
+<span class="normal"><a href="#__codelineno-48-4">4</a></span>
+<span class="normal"><a href="#__codelineno-48-5">5</a></span>
+<span class="normal"><a href="#__codelineno-48-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;en_US.UTF-8 UTF-8&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/locale.gen
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;zh_CN.UTF-8 UTF-8&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/locale.gen
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3"></a>locale-gen
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4"></a>eeselect<span class="w"> </span>locale<span class="w"> </span>list
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5"></a>eeselect<span class="w"> </span>locale<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">5</span>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6"></a>env-update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>/etc/profile
+</span></code></pre></div></td></tr></table></div>
+<h2 id="installing-the-sources">Installing the sources<a class="headerlink" href="#installing-the-sources" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span>
+<span class="normal"><a href="#__codelineno-49-2">2</a></span>
+<span class="normal"><a href="#__codelineno-49-3">3</a></span>
+<span class="normal"><a href="#__codelineno-49-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1"></a>emerge<span class="w"> </span>sys-kernel/gentoo-sources
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2"></a>eeselect<span class="w"> </span>kernel<span class="w"> </span>list
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3"></a>eeselect<span class="w"> </span>kernel<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4"></a>ls<span class="w"> </span>-l<span class="w"> </span>/usr/src/linux
+</span></code></pre></div></td></tr></table></div>
+<h2 id="kernel-configuration-and-compilation">Kernel configuration and compilation<a class="headerlink" href="#kernel-configuration-and-compilation" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span>
+<span class="normal"><a href="#__codelineno-50-2">2</a></span>
+<span class="normal"><a href="#__codelineno-50-3">3</a></span>
+<span class="normal"><a href="#__codelineno-50-4">4</a></span>
+<span class="normal"><a href="#__codelineno-50-5">5</a></span>
+<span class="normal"><a href="#__codelineno-50-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1"></a>emerge<span class="w"> </span>sys-kernel/genkernel
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda1 /boot   vfat    defaults    0 2&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3"></a>genkernel<span class="w"> </span>all
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4"></a>ls<span class="w"> </span>/boot/vmlinu*<span class="w"> </span>/boot/initramfs*
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda2 swap    swap    defaults    0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/dev/sda3 /   ext4    defaults    0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</span></code></pre></div></td></tr></table></div>
+<h2 id="host-and-domain-information">Host and domain information<a class="headerlink" href="#host-and-domain-information" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span>
+<span class="normal"><a href="#__codelineno-51-2">2</a></span>
+<span class="normal"><a href="#__codelineno-51-3">3</a></span>
+<span class="normal"><a href="#__codelineno-51-4">4</a></span>
+<span class="normal"><a href="#__codelineno-51-5">5</a></span>
+<span class="normal"><a href="#__codelineno-51-6">6</a></span>
+<span class="normal"><a href="#__codelineno-51-7">7</a></span>
+<span class="normal"><a href="#__codelineno-51-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hostname=\&quot;hxp-server\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/hostname
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;dns_domain_lo=\&quot;homenetwork\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;nis_domain_lo=\&quot;my-nisdomain\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4"></a>emerge<span class="w"> </span>--noreplace<span class="w"> </span>net-misc/netifrc
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;config_enp3s0=\&quot;dhcp\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/conf.d/net
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6"></a><span class="nb">cd</span><span class="w"> </span>/etc/init.d
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7"></a>ln<span class="w"> </span>-s<span class="w"> </span>net.lo<span class="w"> </span>net.enp3s0
+</span><span id="__span-51-8"><a id="__codelineno-51-8" name="__codelineno-51-8"></a>rc-update<span class="w"> </span>add<span class="w"> </span>net.enp3s0<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="set-root-password">Set root password<a class="headerlink" href="#set-root-password" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1">1</a></span>
+<span class="normal"><a href="#__codelineno-52-2">2</a></span>
+<span class="normal"><a href="#__codelineno-52-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^password/# password/&#39;</span><span class="w"> </span>/etc/pam.d/system-auth
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;password  required    pam_unix.so nullok sha512 shadow&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/pam.d/system-auth
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/root:x:/root::/&#39;</span><span class="w"> </span>/etc/passwd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="system-logger">System logger<a class="headerlink" href="#system-logger" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span>
+<span class="normal"><a href="#__codelineno-53-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1"></a>emerge<span class="w"> </span>app-admin/sysklogd
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2"></a>rc-update<span class="w"> </span>add<span class="w"> </span>sysklogd<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="cron-daemon">Cron daemon<a class="headerlink" href="#cron-daemon" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span>
+<span class="normal"><a href="#__codelineno-54-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1"></a>emerge<span class="w"> </span>sys-process/cronie
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2"></a>rc-update<span class="w"> </span>add<span class="w"> </span>cronie<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="file-indexing">File indexing<a class="headerlink" href="#file-indexing" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1"></a>emerge<span class="w"> </span>sys-apps/mlocate
+</span></code></pre></div></td></tr></table></div>
+<h2 id="remote-access">Remote access<a class="headerlink" href="#remote-access" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1"></a>rc-update<span class="w"> </span>add<span class="w"> </span>sshd<span class="w"> </span>default
+</span></code></pre></div></td></tr></table></div>
+<h2 id="filesystem-tools">Filesystem tools<a class="headerlink" href="#filesystem-tools" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1"></a>emerge<span class="w"> </span>sys-fs/e2fsprogs<span class="w"> </span>sys-fs/xfsprogs<span class="w"> </span>sys-fs/dosfstools
+</span></code></pre></div></td></tr></table></div>
+<h2 id="installing-a-dhcp-client">Installing a DHCP client<a class="headerlink" href="#installing-a-dhcp-client" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1"></a>emerge<span class="w"> </span>net-misc/dhcpcd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="install-grub2-boot-loader">Install GRUB2 boot loader<a class="headerlink" href="#install-grub2-boot-loader" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span>
+<span class="normal"><a href="#__codelineno-59-2">2</a></span>
+<span class="normal"><a href="#__codelineno-59-3">3</a></span>
+<span class="normal"><a href="#__codelineno-59-4">4</a></span>
+<span class="normal"><a href="#__codelineno-59-5">5</a></span>
+<span class="normal"><a href="#__codelineno-59-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;GRUB_PLATFORMS=&quot;efi-64&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/portage/make.conf
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2"></a>emerge<span class="w"> </span>sys-boot/grub:2
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3"></a>grub-install<span class="w"> </span>--target<span class="o">=</span>x86_64-efi<span class="w"> </span>--efi-directory<span class="o">=</span>/boot
+</span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4"></a>grub-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub/grub.cfg
+</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5"></a>mkdir<span class="w"> </span>/boot/EFI/boot
+</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6"></a>cp<span class="w"> </span>/boot/EFI/gentoo/grubx64.efi<span class="w"> </span>/boot/EFI/boot/bootx64.efi
+</span></code></pre></div></td></tr></table></div>
+<h2 id="adding-a-user-for-daily-use">Adding a user for daily use<a class="headerlink" href="#adding-a-user-for-daily-use" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-60-1">1</a></span>
+<span class="normal"><a href="#__codelineno-60-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1"></a>useradd<span class="w"> </span>-m<span class="w"> </span>-G<span class="w"> </span>users,wheel,audio<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>hxp
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/hxp:x:/hxp::/&#39;</span><span class="w"> </span>/etc/passwd
+</span></code></pre></div></td></tr></table></div>
+<h2 id="rebooting-the-system">Rebooting the system<a class="headerlink" href="#rebooting-the-system" title="Permanent link">&para;</a></h2>
+<p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-61-1">1</a></span>
+<span class="normal"><a href="#__codelineno-61-2">2</a></span>
+<span class="normal"><a href="#__codelineno-61-3">3</a></span>
+<span class="normal"><a href="#__codelineno-61-4">4</a></span>
+<span class="normal"><a href="#__codelineno-61-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1"></a><span class="nb">exit</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2"></a><span class="nb">cd</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3"></a>umount<span class="w"> </span>-l<span class="w"> </span>/mnt/gentoo/dev<span class="o">{</span>/shm,/pts,<span class="o">}</span>
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4"></a>umount<span class="w"> </span>-R<span class="w"> </span>/mnt/gentoo
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5"></a>reboot
+</span></code></pre></div></td></tr></table></div>
+```</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年6月30日 07:15:37 UTC">2026年6月30日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="Install%20Chinese%20Support%20based%20on%20KDE.html" class="md-footer__link md-footer__link--prev" aria-label="上一页: 基于 KDE 安装中文支持">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                基于 KDE 安装中文支持
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="Install%20Gentoo%20Linux%20KDE.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 基于 CLI 安装 Gentoo Linux KDE">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                基于 CLI 安装 Gentoo Linux KDE
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.top", "navigation.footer", "navigation.prune", "search.suggest", "search.highlight", "search.share", "header.autohide", "toc.follow", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../js/print-site.js"></script>
+      
+        <script src="../../../js/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>
